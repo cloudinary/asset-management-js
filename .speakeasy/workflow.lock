@@ -1,0 +1,43 @@
+speakeasyVersion: 1.552.0
+sources:
+    Assets API:
+        sourceNamespace: assets-api
+        sourceRevisionDigest: sha256:7b8621843fdd1bb62810fe28a66da9bf9755384ddfa67b8f908582769a34a4ab
+        sourceBlobDigest: sha256:bf85a4fc05f0c0bea89615bf87930cd6cb5e949a8114752c96b47e0e58b67636
+        tags:
+            - latest
+            - speakeasy-sdk-regen-1748476230
+            - 0.1.0
+targets:
+    assets-js:
+        source: Assets API
+        sourceNamespace: assets-api
+        sourceRevisionDigest: sha256:7b8621843fdd1bb62810fe28a66da9bf9755384ddfa67b8f908582769a34a4ab
+        sourceBlobDigest: sha256:bf85a4fc05f0c0bea89615bf87930cd6cb5e949a8114752c96b47e0e58b67636
+        codeSamplesNamespace: assets-api-typescript-code-samples
+        codeSamplesRevisionDigest: sha256:e11fd14ec3fa093d2223b4ce261b195e89d041038e279e050ac3d83581b4456c
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        Assets API:
+            inputs:
+                - location: https://cloudinary.github.io/api-schemas/assets/schema.yml
+            overlays:
+                - location: https://cloudinary.github.io/api-schemas/overlays/security-scheme-cloud-overlay.yaml
+                - location: https://cloudinary.github.io/api-schemas/overlays/cloud-name-overlay.yml
+            registry:
+                location: registry.speakeasyapi.dev/cloudinary/cloudinary/assets-api
+    targets:
+        assets-js:
+            target: typescript
+            source: Assets API
+            publish:
+                npm:
+                    token: $npm_token
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/cloudinary/cloudinary/assets-api-typescript-code-samples
+                labelOverride:
+                    fixedValue: Typescript (SDK)
+                blocking: false

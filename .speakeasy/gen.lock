@@ -1,0 +1,1395 @@
+lockVersion: 2.0.0
+id: 92b56ec8-e19a-476d-afba-926cd2d071b4
+management:
+  docChecksum: 01822f10ddb0f7074add466b8aee24ef
+  docVersion: 0.1.0
+  speakeasyVersion: 1.552.0
+  generationVersion: 2.610.0
+  releaseVersion: 0.1.0
+  configChecksum: 64ef901e24da7ecb8bb682d6023e42dd
+  repoURL: https://github.com/cloudinary/assets-js.git
+  installationURL: https://github.com/cloudinary/assets-js
+  published: true
+features:
+  typescript:
+    acceptHeaders: 2.81.2
+    additionalDependencies: 0.1.0
+    constsAndDefaults: 0.1.11
+    core: 3.21.9
+    customSecuritySchemes: 0.1.1
+    defaultEnabledRetries: 0.1.0
+    deprecations: 2.81.1
+    devContainers: 2.90.0
+    downloadStreams: 0.1.1
+    enumUnions: 0.1.0
+    envVarSecurityUsage: 0.1.2
+    globalSecurity: 2.82.13
+    globalSecurityCallbacks: 0.1.0
+    globalServerURLs: 2.82.5
+    globals: 2.82.2
+    hiddenGlobals: 0.1.0
+    mcpServer: 0.9.2
+    nullables: 0.1.1
+    responseFormat: 0.2.3
+    retries: 2.83.0
+    sdkHooks: 0.2.0
+    unions: 2.85.8
+    uploadStreams: 0.1.0
+generatedFiles:
+  - .devcontainer/README.md
+  - .devcontainer/devcontainer.json
+  - .devcontainer/setup.sh
+  - .gitattributes
+  - .npmignore
+  - FUNCTIONS.md
+  - RUNTIMES.md
+  - USAGE.md
+  - docs/lib/utils/retryconfig.md
+  - docs/models/components/accessibilityanalysis.md
+  - docs/models/components/aggregate.md
+  - docs/models/components/aggregateenum.md
+  - docs/models/components/aggregateunion.md
+  - docs/models/components/aggregations.md
+  - docs/models/components/apierrorerror.md
+  - docs/models/components/assetrelationinfo.md
+  - docs/models/components/assetrelationsdeleteresponse.md
+  - docs/models/components/assetrelationsresponse.md
+  - docs/models/components/asyncuploadresponse.md
+  - docs/models/components/asyncuploadresponseresourcetype.md
+  - docs/models/components/asyncuploadresponsestatus.md
+  - docs/models/components/asyncuploadresponsetype.md
+  - docs/models/components/bandwidth.md
+  - docs/models/components/binaryuploadrequest.md
+  - docs/models/components/binaryuploadrequestaccessmode.md
+  - docs/models/components/binaryuploadrequestbackgroundremoval.md
+  - docs/models/components/binaryuploadrequestcategorization.md
+  - docs/models/components/binaryuploadrequestmoderation.md
+  - docs/models/components/binaryuploadrequestocr.md
+  - docs/models/components/binaryuploadrequestresponsivebreakpoint.md
+  - docs/models/components/binaryuploadrequesttype.md
+  - docs/models/components/code.md
+  - docs/models/components/createdby.md
+  - docs/models/components/deleted.md
+  - docs/models/components/deleteresourcebypublicidsrequest1.md
+  - docs/models/components/deleteresourcebypublicidsrequest2.md
+  - docs/models/components/deleteresourcebypublicidsrequest3.md
+  - docs/models/components/deleteresourcebypublicidsrequestresourcetype1.md
+  - docs/models/components/deleteresourcebypublicidsrequestresourcetype2.md
+  - docs/models/components/deleteresourcebypublicidsrequestresourcetype3.md
+  - docs/models/components/deleteresourcebypublicidsrequestunion.md
+  - docs/models/components/deriveddestroyrequest.md
+  - docs/models/components/deriveddestroyresponse.md
+  - docs/models/components/destroyrequest.md
+  - docs/models/components/destroyresponse.md
+  - docs/models/components/direction.md
+  - docs/models/components/eager.md
+  - docs/models/components/errorenum.md
+  - docs/models/components/fieldsspec.md
+  - docs/models/components/filet.md
+  - docs/models/components/folder.md
+  - docs/models/components/folderslistresponse.md
+  - docs/models/components/folderssearchresponse.md
+  - docs/models/components/imageanalysis.md
+  - docs/models/components/impressions.md
+  - docs/models/components/info.md
+  - docs/models/components/infoaccesscontrol.md
+  - docs/models/components/infocontext.md
+  - docs/models/components/infomoderation.md
+  - docs/models/components/invalidation.md
+  - docs/models/components/kind.md
+  - docs/models/components/listresponse.md
+  - docs/models/components/medialimits.md
+  - docs/models/components/metadata.md
+  - docs/models/components/moderationstatus.md
+  - docs/models/components/nonfinalchunkuploadresponse.md
+  - docs/models/components/objects.md
+  - docs/models/components/qualityanalysis.md
+  - docs/models/components/rawconvert.md
+  - docs/models/components/resource.md
+  - docs/models/components/resourcetypeparameter.md
+  - docs/models/components/resourceupdaterequest.md
+  - docs/models/components/resourceupdaterequestbackgroundremoval.md
+  - docs/models/components/resourceupdaterequestcategorization.md
+  - docs/models/components/resourceupdaterequestocr.md
+  - docs/models/components/restoreresponse.md
+  - docs/models/components/restoreresponseunion.md
+  - docs/models/components/result.md
+  - docs/models/components/searchparameters.md
+  - docs/models/components/searchparametersrange.md
+  - docs/models/components/searchparameterstype.md
+  - docs/models/components/searchresponse.md
+  - docs/models/components/searchresponseaccesscontrol.md
+  - docs/models/components/searchresponseaccessmode.md
+  - docs/models/components/searchresponsecontext.md
+  - docs/models/components/searchresponseimagemetadata.md
+  - docs/models/components/searchresponserange.md
+  - docs/models/components/searchresponseresourcetype.md
+  - docs/models/components/searchresponsestatus.md
+  - docs/models/components/searchresponsetype.md
+  - docs/models/components/secondsdelivered.md
+  - docs/models/components/security.md
+  - docs/models/components/storage.md
+  - docs/models/components/transformations.md
+  - docs/models/components/uploadedby.md
+  - docs/models/components/uploadrequest.md
+  - docs/models/components/uploadrequestaccessmode.md
+  - docs/models/components/uploadrequestbackgroundremoval.md
+  - docs/models/components/uploadrequestcategorization.md
+  - docs/models/components/uploadrequestmoderation.md
+  - docs/models/components/uploadrequestocr.md
+  - docs/models/components/uploadrequestresponsivebreakpoint.md
+  - docs/models/components/uploadrequesttype.md
+  - docs/models/components/uploadresponse.md
+  - docs/models/components/uploadresponseimagemetadata.md
+  - docs/models/components/usageresponse.md
+  - docs/models/components/value.md
+  - docs/models/components/visualsearchparameters1.md
+  - docs/models/components/visualsearchparameters2.md
+  - docs/models/components/visualsearchparameters3.md
+  - docs/models/components/visualsearchparametersunion.md
+  - docs/models/components/withfield.md
+  - docs/models/errors/apierror.md
+  - docs/models/errors/badrequesterror.md
+  - docs/models/errors/downloadbackupassetunauthorizederror.md
+  - docs/models/errors/listresourcetypesunauthorizederror.md
+  - docs/models/errors/notfounderror.md
+  - docs/models/operations/accesscontrol.md
+  - docs/models/operations/badrequesterror.md
+  - docs/models/operations/createassetrelationsbyassetidglobals.md
+  - docs/models/operations/createassetrelationsbyassetidrequest.md
+  - docs/models/operations/createassetrelationsbyassetidrequestbody.md
+  - docs/models/operations/createassetrelationsbypublicidglobals.md
+  - docs/models/operations/createassetrelationsbypublicidrequest.md
+  - docs/models/operations/createassetrelationsbypublicidrequestbody.md
+  - docs/models/operations/createassetrelationsbypublicidtype.md
+  - docs/models/operations/createfolderglobals.md
+  - docs/models/operations/createfolderrequest.md
+  - docs/models/operations/createfolderresponse.md
+  - docs/models/operations/data.md
+  - docs/models/operations/deleteassetrelationsbyassetidglobals.md
+  - docs/models/operations/deleteassetrelationsbyassetidrequest.md
+  - docs/models/operations/deleteassetrelationsbyassetidrequestbody.md
+  - docs/models/operations/deleteassetrelationsbypublicidglobals.md
+  - docs/models/operations/deleteassetrelationsbypublicidrequest.md
+  - docs/models/operations/deleteassetrelationsbypublicidrequestbody.md
+  - docs/models/operations/deleteassetrelationsbypublicidtype.md
+  - docs/models/operations/deletebackupversionsglobals.md
+  - docs/models/operations/deletebackupversionsrequest.md
+  - docs/models/operations/deletebackupversionsrequestbody.md
+  - docs/models/operations/deletebackupversionsresponse.md
+  - docs/models/operations/deletebackupversionsresponsebody1.md
+  - docs/models/operations/deletebackupversionsresponsebody2.md
+  - docs/models/operations/deleteresourcesbypublicidglobals.md
+  - docs/models/operations/deleteresourcesbypublicidrequest.md
+  - docs/models/operations/deleteresourcesbypublicidresponse.md
+  - docs/models/operations/deleteresourcesbypublicidtype.md
+  - docs/models/operations/deriveddestroyglobals.md
+  - docs/models/operations/destroyassetglobals.md
+  - docs/models/operations/destroyassetrequest.md
+  - docs/models/operations/destroyassetresourcetype.md
+  - docs/models/operations/destroyassetresponse.md
+  - docs/models/operations/destroybyassetidglobals.md
+  - docs/models/operations/destroyfolderglobals.md
+  - docs/models/operations/destroyfolderrequest.md
+  - docs/models/operations/destroyfolderresponse.md
+  - docs/models/operations/downloadassetglobals.md
+  - docs/models/operations/downloadassetrequest.md
+  - docs/models/operations/downloadassetresponse.md
+  - docs/models/operations/downloadassettype.md
+  - docs/models/operations/downloadbackupassetglobals.md
+  - docs/models/operations/downloadbackupassetrequest.md
+  - docs/models/operations/downloadbackupassetresponse.md
+  - docs/models/operations/downloadbackupassetunauthorizederror.md
+  - docs/models/operations/explicitassetglobals.md
+  - docs/models/operations/explicitassetmoderation.md
+  - docs/models/operations/explicitassetrequest.md
+  - docs/models/operations/explicitassetrequestbody.md
+  - docs/models/operations/explicitassetresourcetype.md
+  - docs/models/operations/explicitassettype.md
+  - docs/models/operations/exploderesourceglobals.md
+  - docs/models/operations/exploderesourcerequest.md
+  - docs/models/operations/exploderesourcerequestbody.md
+  - docs/models/operations/exploderesourceresourcetype.md
+  - docs/models/operations/exploderesourceresponse.md
+  - docs/models/operations/exploderesourcetype.md
+  - docs/models/operations/expression.md
+  - docs/models/operations/expressionunion.md
+  - docs/models/operations/failure.md
+  - docs/models/operations/fields.md
+  - docs/models/operations/fontstyle.md
+  - docs/models/operations/fontweight.md
+  - docs/models/operations/from.md
+  - docs/models/operations/generatearchiveglobals.md
+  - docs/models/operations/generatearchiverequest.md
+  - docs/models/operations/generatearchiverequestbody.md
+  - docs/models/operations/generatearchiveresourcetype.md
+  - docs/models/operations/generatearchiveresponse.md
+  - docs/models/operations/generatearchiveresponsebody.md
+  - docs/models/operations/generatearchivetype.md
+  - docs/models/operations/getresourcebyassetidglobals.md
+  - docs/models/operations/getresourcebyassetidrequest.md
+  - docs/models/operations/getresourcebypublicidglobals.md
+  - docs/models/operations/getresourcebypublicidrequest.md
+  - docs/models/operations/getresourcebypublicidtype.md
+  - docs/models/operations/getusageglobals.md
+  - docs/models/operations/getusagerequest.md
+  - docs/models/operations/getvideoviewsglobals.md
+  - docs/models/operations/getvideoviewsrequest.md
+  - docs/models/operations/getvideoviewsresponse.md
+  - docs/models/operations/info.md
+  - docs/models/operations/listimagesglobals.md
+  - docs/models/operations/listimagesrequest.md
+  - docs/models/operations/listimagestype.md
+  - docs/models/operations/listrawfilesglobals.md
+  - docs/models/operations/listrawfilesrequest.md
+  - docs/models/operations/listrawfilestype.md
+  - docs/models/operations/listresourcesbyassetfolderglobals.md
+  - docs/models/operations/listresourcesbyassetfolderrequest.md
+  - docs/models/operations/listresourcesbyassetfolderresourcetype.md
+  - docs/models/operations/listresourcesbyassetidsglobals.md
+  - docs/models/operations/listresourcesbyassetidsrequest.md
+  - docs/models/operations/listresourcesbyassetidsresourcetype.md
+  - docs/models/operations/listresourcesbycontextglobals.md
+  - docs/models/operations/listresourcesbycontextrequest.md
+  - docs/models/operations/listresourcesbyexternalidsglobals.md
+  - docs/models/operations/listresourcesbyexternalidsrequest.md
+  - docs/models/operations/listresourcesbyexternalidsresourcetype.md
+  - docs/models/operations/listresourcesbymoderationkindandstatusglobals.md
+  - docs/models/operations/listresourcesbymoderationkindandstatusrequest.md
+  - docs/models/operations/listresourcetagsglobals.md
+  - docs/models/operations/listresourcetagsrequest.md
+  - docs/models/operations/listresourcetagsresponse.md
+  - docs/models/operations/listresourcetypeserror.md
+  - docs/models/operations/listresourcetypesglobals.md
+  - docs/models/operations/listresourcetypesrequest.md
+  - docs/models/operations/listresourcetypesresourcetype.md
+  - docs/models/operations/listresourcetypesresponse.md
+  - docs/models/operations/listrootfoldersglobals.md
+  - docs/models/operations/listrootfoldersrequest.md
+  - docs/models/operations/listvideosglobals.md
+  - docs/models/operations/listvideosrequest.md
+  - docs/models/operations/listvideostype.md
+  - docs/models/operations/mode.md
+  - docs/models/operations/moderationkind.md
+  - docs/models/operations/moderationstatus.md
+  - docs/models/operations/notfounderror.md
+  - docs/models/operations/qualityoverride.md
+  - docs/models/operations/region.md
+  - docs/models/operations/renameassetglobals.md
+  - docs/models/operations/renameassetrequest.md
+  - docs/models/operations/renameassetrequestbody.md
+  - docs/models/operations/renameassetresourcetype.md
+  - docs/models/operations/renameassettype.md
+  - docs/models/operations/responsivebreakpoint.md
+  - docs/models/operations/restoreresourcesbyassetidsglobals.md
+  - docs/models/operations/restoreresourcesbyassetidsrequest.md
+  - docs/models/operations/result.md
+  - docs/models/operations/searchfoldersglobals.md
+  - docs/models/operations/searchfolderspostglobals.md
+  - docs/models/operations/searchfolderspostrequest.md
+  - docs/models/operations/searchfoldersrequest.md
+  - docs/models/operations/searchresourcespostglobals.md
+  - docs/models/operations/showfolderglobals.md
+  - docs/models/operations/showfolderrequest.md
+  - docs/models/operations/sortby.md
+  - docs/models/operations/status.md
+  - docs/models/operations/targetformat.md
+  - docs/models/operations/textalign.md
+  - docs/models/operations/textdecoration.md
+  - docs/models/operations/textglobals.md
+  - docs/models/operations/textmoderation.md
+  - docs/models/operations/textrequest.md
+  - docs/models/operations/textrequestbody.md
+  - docs/models/operations/textresourcetype.md
+  - docs/models/operations/textresponse.md
+  - docs/models/operations/to.md
+  - docs/models/operations/totype.md
+  - docs/models/operations/updatefolderglobals.md
+  - docs/models/operations/updatefolderrequest.md
+  - docs/models/operations/updatefolderrequestbody.md
+  - docs/models/operations/updatefolderresponse.md
+  - docs/models/operations/updateresourcebyassetidglobals.md
+  - docs/models/operations/updateresourcebyassetidrequest.md
+  - docs/models/operations/updateresourcebypublicidglobals.md
+  - docs/models/operations/updateresourcebypublicidrequest.md
+  - docs/models/operations/updateresourcebypublicidtype.md
+  - docs/models/operations/uploadchunkedglobals.md
+  - docs/models/operations/uploadchunkedmultipartglobals.md
+  - docs/models/operations/uploadchunkedmultipartrequest.md
+  - docs/models/operations/uploadchunkedmultipartresourcetype.md
+  - docs/models/operations/uploadchunkedmultipartresponse.md
+  - docs/models/operations/uploadchunkedmultipartresponsebody.md
+  - docs/models/operations/uploadchunkedrequest.md
+  - docs/models/operations/uploadchunkedresourcetype.md
+  - docs/models/operations/uploadchunkedresponse.md
+  - docs/models/operations/uploadchunkedresponsebody.md
+  - docs/models/operations/uploadglobals.md
+  - docs/models/operations/uploadmultipartglobals.md
+  - docs/models/operations/uploadmultipartrequest.md
+  - docs/models/operations/uploadmultipartresourcetype.md
+  - docs/models/operations/uploadmultipartresponse.md
+  - docs/models/operations/uploadmultipartresponsebody.md
+  - docs/models/operations/uploadnoresourcetypeglobals.md
+  - docs/models/operations/uploadnoresourcetypemultipartglobals.md
+  - docs/models/operations/uploadnoresourcetypemultipartresponse.md
+  - docs/models/operations/uploadnoresourcetypemultipartresponsebody.md
+  - docs/models/operations/uploadnoresourcetyperesponse.md
+  - docs/models/operations/uploadnoresourcetyperesponsebody.md
+  - docs/models/operations/uploadrequest.md
+  - docs/models/operations/uploadresourcetype.md
+  - docs/models/operations/uploadresponse.md
+  - docs/models/operations/uploadresponsebody.md
+  - docs/models/operations/visualsearchresourcesglobals.md
+  - docs/sdks/assetrelations/README.md
+  - docs/sdks/assets/README.md
+  - docs/sdks/backups/README.md
+  - docs/sdks/cloudinaryassets/README.md
+  - docs/sdks/explode/README.md
+  - docs/sdks/folders/README.md
+  - docs/sdks/moderations/README.md
+  - docs/sdks/search/README.md
+  - docs/sdks/tags/README.md
+  - docs/sdks/upload/README.md
+  - docs/sdks/usage/README.md
+  - docs/sdks/videoanalytics/README.md
+  - docs/types/rfcdate.md
+  - eslint.config.mjs
+  - jsr.json
+  - package.json
+  - src/core.ts
+  - src/funcs/assetRelationsCreateAssetRelationsByAssetId.ts
+  - src/funcs/assetRelationsCreateAssetRelationsByPublicId.ts
+  - src/funcs/assetRelationsDeleteAssetRelationsByAssetId.ts
+  - src/funcs/assetRelationsDeleteAssetRelationsByPublicId.ts
+  - src/funcs/assetsDeleteBackupVersions.ts
+  - src/funcs/assetsDeleteResourcesByPublicId.ts
+  - src/funcs/assetsDerivedDestroy.ts
+  - src/funcs/assetsDestroyByAssetId.ts
+  - src/funcs/assetsDownloadAsset.ts
+  - src/funcs/assetsDownloadBackupAsset.ts
+  - src/funcs/assetsExplicitAsset.ts
+  - src/funcs/assetsGenerateArchive.ts
+  - src/funcs/assetsGetResourceByAssetId.ts
+  - src/funcs/assetsGetResourceByPublicId.ts
+  - src/funcs/assetsListImages.ts
+  - src/funcs/assetsListRawFiles.ts
+  - src/funcs/assetsListResourceTags.ts
+  - src/funcs/assetsListResourceTypes.ts
+  - src/funcs/assetsListResourcesByAssetFolder.ts
+  - src/funcs/assetsListResourcesByAssetIDs.ts
+  - src/funcs/assetsListResourcesByContext.ts
+  - src/funcs/assetsListResourcesByExternalIDs.ts
+  - src/funcs/assetsListResourcesByModerationKindAndStatus.ts
+  - src/funcs/assetsListVideos.ts
+  - src/funcs/assetsRenameAsset.ts
+  - src/funcs/assetsRestoreResourcesByAssetIDs.ts
+  - src/funcs/assetsUpdateResourceByAssetId.ts
+  - src/funcs/assetsUpdateResourceByPublicId.ts
+  - src/funcs/backupsDeleteBackupVersions.ts
+  - src/funcs/explodeExplodeResource.ts
+  - src/funcs/foldersCreateFolder.ts
+  - src/funcs/foldersDestroyFolder.ts
+  - src/funcs/foldersListRootFolders.ts
+  - src/funcs/foldersSearchFolders.ts
+  - src/funcs/foldersSearchFoldersPost.ts
+  - src/funcs/foldersShowFolder.ts
+  - src/funcs/foldersUpdateFolder.ts
+  - src/funcs/moderationsListResourcesByModerationKindAndStatus.ts
+  - src/funcs/searchSearchResourcesPost.ts
+  - src/funcs/searchVisualSearchResources.ts
+  - src/funcs/tagsListResourceTags.ts
+  - src/funcs/uploadDestroyAsset.ts
+  - src/funcs/uploadText.ts
+  - src/funcs/uploadUpload.ts
+  - src/funcs/uploadUploadChunked.ts
+  - src/funcs/uploadUploadChunkedMultipart.ts
+  - src/funcs/uploadUploadMultipart.ts
+  - src/funcs/uploadUploadNoResourceType.ts
+  - src/funcs/uploadUploadNoResourceTypeMultipart.ts
+  - src/funcs/usageGetUsage.ts
+  - src/funcs/videoAnalyticsGetVideoViews.ts
+  - src/hooks/hooks.ts
+  - src/hooks/index.ts
+  - src/hooks/types.ts
+  - src/index.ts
+  - src/lib/base64.ts
+  - src/lib/config.ts
+  - src/lib/dlv.ts
+  - src/lib/encodings.ts
+  - src/lib/env.ts
+  - src/lib/files.ts
+  - src/lib/http.ts
+  - src/lib/is-plain-object.ts
+  - src/lib/logger.ts
+  - src/lib/matchers.ts
+  - src/lib/primitives.ts
+  - src/lib/retries.ts
+  - src/lib/schemas.ts
+  - src/lib/sdks.ts
+  - src/lib/security.ts
+  - src/lib/url.ts
+  - src/mcp-server/build.mts
+  - src/mcp-server/cli.ts
+  - src/mcp-server/cli/start/command.ts
+  - src/mcp-server/cli/start/impl.ts
+  - src/mcp-server/console-logger.ts
+  - src/mcp-server/extensions.ts
+  - src/mcp-server/mcp-server.ts
+  - src/mcp-server/prompts.ts
+  - src/mcp-server/resources.ts
+  - src/mcp-server/scopes.ts
+  - src/mcp-server/server.ts
+  - src/mcp-server/shared.ts
+  - src/mcp-server/tools.ts
+  - src/mcp-server/tools/assetRelationsCreateAssetRelationsByAssetId.ts
+  - src/mcp-server/tools/assetRelationsCreateAssetRelationsByPublicId.ts
+  - src/mcp-server/tools/assetRelationsDeleteAssetRelationsByAssetId.ts
+  - src/mcp-server/tools/assetRelationsDeleteAssetRelationsByPublicId.ts
+  - src/mcp-server/tools/assetsDeleteBackupVersions.ts
+  - src/mcp-server/tools/assetsDeleteResourcesByPublicId.ts
+  - src/mcp-server/tools/assetsDerivedDestroy.ts
+  - src/mcp-server/tools/assetsDestroyByAssetId.ts
+  - src/mcp-server/tools/assetsDownloadAsset.ts
+  - src/mcp-server/tools/assetsDownloadBackupAsset.ts
+  - src/mcp-server/tools/assetsExplicitAsset.ts
+  - src/mcp-server/tools/assetsGenerateArchive.ts
+  - src/mcp-server/tools/assetsGetResourceByAssetId.ts
+  - src/mcp-server/tools/assetsGetResourceByPublicId.ts
+  - src/mcp-server/tools/assetsListImages.ts
+  - src/mcp-server/tools/assetsListRawFiles.ts
+  - src/mcp-server/tools/assetsListResourceTags.ts
+  - src/mcp-server/tools/assetsListResourceTypes.ts
+  - src/mcp-server/tools/assetsListResourcesByAssetFolder.ts
+  - src/mcp-server/tools/assetsListResourcesByAssetIDs.ts
+  - src/mcp-server/tools/assetsListResourcesByContext.ts
+  - src/mcp-server/tools/assetsListResourcesByExternalIDs.ts
+  - src/mcp-server/tools/assetsListResourcesByModerationKindAndStatus.ts
+  - src/mcp-server/tools/assetsListVideos.ts
+  - src/mcp-server/tools/assetsRenameAsset.ts
+  - src/mcp-server/tools/assetsRestoreResourcesByAssetIDs.ts
+  - src/mcp-server/tools/assetsUpdateResourceByAssetId.ts
+  - src/mcp-server/tools/assetsUpdateResourceByPublicId.ts
+  - src/mcp-server/tools/backupsDeleteBackupVersions.ts
+  - src/mcp-server/tools/explodeExplodeResource.ts
+  - src/mcp-server/tools/foldersCreateFolder.ts
+  - src/mcp-server/tools/foldersDestroyFolder.ts
+  - src/mcp-server/tools/foldersListRootFolders.ts
+  - src/mcp-server/tools/foldersSearchFolders.ts
+  - src/mcp-server/tools/foldersSearchFoldersPost.ts
+  - src/mcp-server/tools/foldersShowFolder.ts
+  - src/mcp-server/tools/foldersUpdateFolder.ts
+  - src/mcp-server/tools/moderationsListResourcesByModerationKindAndStatus.ts
+  - src/mcp-server/tools/searchSearchResourcesPost.ts
+  - src/mcp-server/tools/searchVisualSearchResources.ts
+  - src/mcp-server/tools/tagsListResourceTags.ts
+  - src/mcp-server/tools/uploadDestroyAsset.ts
+  - src/mcp-server/tools/uploadText.ts
+  - src/mcp-server/tools/uploadUpload.ts
+  - src/mcp-server/tools/uploadUploadChunked.ts
+  - src/mcp-server/tools/uploadUploadChunkedMultipart.ts
+  - src/mcp-server/tools/uploadUploadMultipart.ts
+  - src/mcp-server/tools/uploadUploadNoResourceType.ts
+  - src/mcp-server/tools/uploadUploadNoResourceTypeMultipart.ts
+  - src/mcp-server/tools/usageGetUsage.ts
+  - src/mcp-server/tools/videoAnalyticsGetVideoViews.ts
+  - src/models/components/apierror.ts
+  - src/models/components/assetrelationinfo.ts
+  - src/models/components/assetrelationsdeleteresponse.ts
+  - src/models/components/assetrelationsresponse.ts
+  - src/models/components/asyncuploadresponse.ts
+  - src/models/components/binaryuploadrequest.ts
+  - src/models/components/deleteresourcebypublicidsrequestunion.ts
+  - src/models/components/deriveddestroyrequest.ts
+  - src/models/components/deriveddestroyresponse.ts
+  - src/models/components/destroyrequest.ts
+  - src/models/components/destroyresponse.ts
+  - src/models/components/direction.ts
+  - src/models/components/fieldsspec.ts
+  - src/models/components/folder.ts
+  - src/models/components/folderslistresponse.ts
+  - src/models/components/folderssearchresponse.ts
+  - src/models/components/index.ts
+  - src/models/components/info.ts
+  - src/models/components/listresponse.ts
+  - src/models/components/nonfinalchunkuploadresponse.ts
+  - src/models/components/resourcetypeparameter.ts
+  - src/models/components/resourceupdaterequest.ts
+  - src/models/components/restoreresponseunion.ts
+  - src/models/components/searchparameters.ts
+  - src/models/components/searchresponse.ts
+  - src/models/components/security.ts
+  - src/models/components/uploadrequest.ts
+  - src/models/components/uploadresponse.ts
+  - src/models/components/usageresponse.ts
+  - src/models/components/visualsearchparametersunion.ts
+  - src/models/errors/apierror.ts
+  - src/models/errors/downloadbackupasset.ts
+  - src/models/errors/httpclienterrors.ts
+  - src/models/errors/index.ts
+  - src/models/errors/listresourcetypes.ts
+  - src/models/errors/sdkerror.ts
+  - src/models/errors/sdkvalidationerror.ts
+  - src/models/operations/createassetrelationsbyassetid.ts
+  - src/models/operations/createassetrelationsbypublicid.ts
+  - src/models/operations/createfolder.ts
+  - src/models/operations/deleteassetrelationsbyassetid.ts
+  - src/models/operations/deleteassetrelationsbypublicid.ts
+  - src/models/operations/deletebackupversions.ts
+  - src/models/operations/deleteresourcesbypublicid.ts
+  - src/models/operations/deriveddestroy.ts
+  - src/models/operations/destroyasset.ts
+  - src/models/operations/destroybyassetid.ts
+  - src/models/operations/destroyfolder.ts
+  - src/models/operations/downloadasset.ts
+  - src/models/operations/downloadbackupasset.ts
+  - src/models/operations/explicitasset.ts
+  - src/models/operations/exploderesource.ts
+  - src/models/operations/generatearchive.ts
+  - src/models/operations/getresourcebyassetid.ts
+  - src/models/operations/getresourcebypublicid.ts
+  - src/models/operations/getusage.ts
+  - src/models/operations/getvideoviews.ts
+  - src/models/operations/index.ts
+  - src/models/operations/listimages.ts
+  - src/models/operations/listrawfiles.ts
+  - src/models/operations/listresourcesbyassetfolder.ts
+  - src/models/operations/listresourcesbyassetids.ts
+  - src/models/operations/listresourcesbycontext.ts
+  - src/models/operations/listresourcesbyexternalids.ts
+  - src/models/operations/listresourcesbymoderationkindandstatus.ts
+  - src/models/operations/listresourcetags.ts
+  - src/models/operations/listresourcetypes.ts
+  - src/models/operations/listrootfolders.ts
+  - src/models/operations/listvideos.ts
+  - src/models/operations/renameasset.ts
+  - src/models/operations/restoreresourcesbyassetids.ts
+  - src/models/operations/searchfolders.ts
+  - src/models/operations/searchfolderspost.ts
+  - src/models/operations/searchresourcespost.ts
+  - src/models/operations/showfolder.ts
+  - src/models/operations/text.ts
+  - src/models/operations/updatefolder.ts
+  - src/models/operations/updateresourcebyassetid.ts
+  - src/models/operations/updateresourcebypublicid.ts
+  - src/models/operations/upload.ts
+  - src/models/operations/uploadchunked.ts
+  - src/models/operations/uploadchunkedmultipart.ts
+  - src/models/operations/uploadmultipart.ts
+  - src/models/operations/uploadnoresourcetype.ts
+  - src/models/operations/uploadnoresourcetypemultipart.ts
+  - src/models/operations/visualsearchresources.ts
+  - src/sdk/assetrelations.ts
+  - src/sdk/assets.ts
+  - src/sdk/backups.ts
+  - src/sdk/explode.ts
+  - src/sdk/folders.ts
+  - src/sdk/index.ts
+  - src/sdk/moderations.ts
+  - src/sdk/sdk.ts
+  - src/sdk/search.ts
+  - src/sdk/tags.ts
+  - src/sdk/upload.ts
+  - src/sdk/usage.ts
+  - src/sdk/videoanalytics.ts
+  - src/types/async.ts
+  - src/types/blobs.ts
+  - src/types/constdatetime.ts
+  - src/types/enums.ts
+  - src/types/fp.ts
+  - src/types/index.ts
+  - src/types/operations.ts
+  - src/types/rfcdate.ts
+  - src/types/streams.ts
+  - tsconfig.json
+examples:
+  upload:
+    speakeasy-default-upload-multipart:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          resource_type: "video"
+      requestBody:
+        multipart/form-data: {"colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "google_video_moderation", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "detection": "coco_v2", "file": {"": "x-file: example.file"}}
+      responses:
+        "200":
+          application/json: {"status": "pending", "resource_type": "image", "type": "upload", "public_id": "sample_image", "batch_id": "9c2f5a46b3a6c4d9e8f7g0h1i2j3k4l5"}
+        "302":
+          text/html: "<value>"
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+    speakeasy-default-upload:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          resource_type: "video"
+      requestBody:
+        application/json: {"colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "google_video_moderation", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "detection": "coco_v2", "file": "<value>"}
+      responses:
+        "200":
+          application/json: {"status": "pending", "resource_type": "image", "type": "upload", "public_id": "sample_image", "batch_id": "9c2f5a46b3a6c4d9e8f7g0h1i2j3k4l5"}
+        "302":
+          text/html: "<value>"
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  uploadNoResourceType:
+    speakeasy-default-upload-no-resource-type-multipart:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        multipart/form-data: {"colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "aws_rek_video", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "detection": "coco_v2", "file": {"": "x-file: example.file"}}
+      responses:
+        "200":
+          application/json: {"status": "pending", "resource_type": "image", "type": "upload", "public_id": "sample_image", "batch_id": "9c2f5a46b3a6c4d9e8f7g0h1i2j3k4l5"}
+        "302":
+          text/html: "<value>"
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+    speakeasy-default-upload-no-resource-type:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "aws_rek_video", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "detection": "coco_v2", "file": "<value>"}
+      responses:
+        "200":
+          application/json: {"status": "pending", "resource_type": "image", "type": "upload", "public_id": "sample_image", "batch_id": "9c2f5a46b3a6c4d9e8f7g0h1i2j3k4l5"}
+        "302":
+          text/html: "<value>"
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  uploadChunked:
+    speakeasy-default-upload-chunked-multipart:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          resource_type: "video"
+        header:
+          Content-Range: "bytes 0-999999/3000000"
+          X-Unique-Upload-Id: "2fd4e1c67a2d28fce"
+      requestBody:
+        multipart/form-data: {"colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "duplicate", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "detection": "coco_v2", "file": {"": "x-file: example.file"}}
+      responses:
+        "200":
+          application/json: {"done": false, "bytes": 1000000, "kind": "upload", "resource_type": "image", "public_id": "sample_image"}
+        "302":
+          text/html: "<value>"
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+    speakeasy-default-upload-chunked:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          resource_type: "video"
+        header:
+          Content-Range: "bytes 0-999999/3000000"
+          X-Unique-Upload-Id: "2fd4e1c67a2d28fce"
+      requestBody:
+        application/json: {"colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "duplicate", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "detection": "coco_v2", "file": "<value>"}
+      responses:
+        "200":
+          application/json: {"done": false, "bytes": 1000000, "kind": "upload", "resource_type": "image", "public_id": "sample_image"}
+        "302":
+          text/html: "<value>"
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  destroyAsset:
+    speakeasy-default-destroy-asset:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          resource_type: "raw"
+        query:
+          public_id: "<id>"
+          invalidate: false
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  text:
+    speakeasy-default-text:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          resource_type: "image"
+      requestBody:
+        application/json: {"text": "<value>", "font_size": 12, "font_color": "black", "font_weight": "normal", "font_style": "normal", "background": "transparent", "opacity": 100, "text_decoration": "none"}
+      responses:
+        "200":
+          application/json: {"asset_id": "<id>", "public_id": "<id>", "version": 706047, "version_id": "<id>", "signature": "<value>", "width": 951489, "height": 435701, "format": "<value>", "resource_type": "<value>", "created_at": "2024-02-17T17:19:59.850Z", "bytes": 284062, "type": "<value>", "url": "https://true-hose.com", "secure_url": "https://possible-taro.name"}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  renameAsset:
+    speakeasy-default-rename-asset:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          resource_type: "video"
+      requestBody:
+        application/json: {"from_public_id": "<id>", "to_public_id": "<id>"}
+      responses:
+        "200":
+          application/json: {"url": "http://res.cloudinary.com/cld-docs/image/upload/v1719307544/gotjephlnz2jgiu20zni.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/v1719307544/gotjephlnz2jgiu20zni.jpg", "public_id": "gotjephlnz2jgiu20zni", "version": 1719307544, "version_id": "7d2cc533bee9ff39f7da7414b61fce7e", "signature": "d0b1009e3271a942836c25756ce3e04d205bf754", "width": 1920, "height": 1441, "asset_id": "3515c6000a548515f1134043f9785c2f", "format": "jpg", "resource_type": "image", "created_at": "2024-06-25T09:25:44Z", "tags": [], "pages": 1, "bytes": 896838, "type": "upload", "etag": "2a2df1d2d2c3b675521e866599273083", "placeholder": false, "original_filename": "sample", "image_metadata": {}, "illustration_score": 0, "semi_transparent": false, "grayscale": false, "eager": [{"transformation": "c_pad,h_300,w_400", "width": 400, "height": 300, "bytes": 26775, "format": "jpg", "url": "http://res.cloudinary.com/cld-docs/image/upload/c_pad,h_300,w_400/v1719307544/gotjephlnz2jgiu20zni.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/c_pad,h_300,w_400/v1719307544/gotjephlnz2jgiu20zni.jpg"}], "api_key": "614335564976464"}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  downloadAsset:
+    speakeasy-default-download-asset:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          resource_type: "image"
+        query:
+          public_id: "<id>"
+          type: "upload"
+          attachment: false
+          api_key: "<value>"
+          signature: "<value>"
+          timestamp: 444233
+      responses:
+        "200":
+          application/octet-stream: "x-file: example.file"
+          image/*: "x-file: example.file"
+          video/*: "x-file: example.file"
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  explicitAsset:
+    speakeasy-default-explicit-asset:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          resource_type: "image"
+      requestBody:
+        application/json: {"colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "aws_rek_video", "public_id": "<id>"}
+      responses:
+        "200":
+          application/json: {"url": "http://res.cloudinary.com/cld-docs/image/upload/v1719307544/gotjephlnz2jgiu20zni.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/v1719307544/gotjephlnz2jgiu20zni.jpg", "public_id": "gotjephlnz2jgiu20zni", "version": 1719307544, "version_id": "7d2cc533bee9ff39f7da7414b61fce7e", "signature": "d0b1009e3271a942836c25756ce3e04d205bf754", "width": 1920, "height": 1441, "asset_id": "3515c6000a548515f1134043f9785c2f", "format": "jpg", "resource_type": "image", "created_at": "2024-06-25T09:25:44Z", "tags": [], "pages": 1, "bytes": 896838, "type": "upload", "etag": "2a2df1d2d2c3b675521e866599273083", "placeholder": false, "original_filename": "sample", "image_metadata": {}, "illustration_score": 0, "semi_transparent": false, "grayscale": false, "eager": [{"transformation": "c_pad,h_300,w_400", "width": 400, "height": 300, "bytes": 26775, "format": "jpg", "url": "http://res.cloudinary.com/cld-docs/image/upload/c_pad,h_300,w_400/v1719307544/gotjephlnz2jgiu20zni.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/c_pad,h_300,w_400/v1719307544/gotjephlnz2jgiu20zni.jpg"}], "api_key": "614335564976464"}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  generateArchive:
+    speakeasy-default-generate-archive:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          resource_type: "image"
+      requestBody:
+        application/json: {"mode": "create", "target_format": "zip", "flatten_folders": false, "flatten_transformations": false, "skip_transformation_name": false, "allow_missing": false, "use_original_filename": false, "async": false, "target_tags": ["animal", "dog"], "keep_derived": false}
+      responses:
+        "200":
+          application/octet-stream: "x-file: example.file"
+          application/json: {"asset_id": "3cd9f196fe3ee1882c0f66223bc568f9", "public_id": "atufggsrkjjefdsy90nr.zip", "version": 1747234673, "version_id": "42f240f70d86aab6e9249fe5b664c237", "resource_type": "raw", "created_at": "2025-05-14T14:57:53Z", "tags": [], "bytes": 3574651, "type": "upload", "url": "http://res.cloudinary.com/customerafdb058c4adc/raw/upload/v1747234673/atufggsrkjjefdsy90nr.zip", "secure_url": "https://res.cloudinary.com/customerafdb058c4adc/raw/upload/v1747234673/atufggsrkjjefdsy90nr.zip", "resource_count": 6, "file_count": 6, "asset_folder": "", "display_name": "koetjd3qrme0cfcfnjet.zip"}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  downloadBackupAsset:
+    illegal_id:
+      parameters:
+        path:
+          cloud_name: "<value>"
+        query:
+          asset_id: "f4e6579cf84dd9cf5683b21f5b30c7d9"
+          version_id: "a3978316b0045e5eaf198f4d6885ca35"
+          api_key: "<value>"
+          signature: "<value>"
+          timestamp: 723931
+      responses:
+        "400":
+          application/json: {"error": {"message": "Illegal id", "http_code": 400}}
+    missing_version_id:
+      parameters:
+        path:
+          cloud_name: "<value>"
+        query:
+          asset_id: "f4e6579cf84dd9cf5683b21f5b30c7d9"
+          version_id: "a3978316b0045e5eaf198f4d6885ca35"
+          api_key: "<value>"
+          signature: "<value>"
+          timestamp: 853694
+      responses:
+        "400":
+          application/json: {"error": {"message": "Missing required parameter - version_id", "http_code": 400}}
+    missing_asset_id:
+      parameters:
+        path:
+          cloud_name: "<value>"
+        query:
+          asset_id: "f4e6579cf84dd9cf5683b21f5b30c7d9"
+          version_id: "a3978316b0045e5eaf198f4d6885ca35"
+          api_key: "<value>"
+          signature: "<value>"
+          timestamp: 149438
+      responses:
+        "400":
+          application/json: {"error": {"message": "Missing required parameter - asset_id", "http_code": 400}}
+    stale_request:
+      parameters:
+        path:
+          cloud_name: "<value>"
+        query:
+          asset_id: "f4e6579cf84dd9cf5683b21f5b30c7d9"
+          version_id: "a3978316b0045e5eaf198f4d6885ca35"
+          api_key: "<value>"
+          signature: "<value>"
+          timestamp: 202143
+      responses:
+        "400":
+          application/json: {"error": {"message": "Stale request - reported time is {timestamp} which is more than 1 hour ago", "http_code": 400}}
+    invalid_signature:
+      parameters:
+        path:
+          cloud_name: "<value>"
+        query:
+          asset_id: "f4e6579cf84dd9cf5683b21f5b30c7d9"
+          version_id: "a3978316b0045e5eaf198f4d6885ca35"
+          api_key: "<value>"
+          signature: "<value>"
+          timestamp: 559693
+      responses:
+        "401":
+          application/json: {"error": {"message": "Invalid Signature {signature}. String to sign - '{parameters}'.", "http_code": 401}}
+    expired_timestamp:
+      parameters:
+        path:
+          cloud_name: "<value>"
+        query:
+          asset_id: "f4e6579cf84dd9cf5683b21f5b30c7d9"
+          version_id: "a3978316b0045e5eaf198f4d6885ca35"
+          api_key: "<value>"
+          signature: "<value>"
+          timestamp: 762008
+      responses:
+        "401":
+          application/json: {"error": {"message": "Request timestamp expired", "http_code": 401}}
+  destroyByAssetId:
+    speakeasy-default-destroy-by-asset-id:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"asset_id": "<id>", "timestamp": 281941, "api_key": "<value>", "signature": "<value>"}
+      responses:
+        "200":
+          application/json: {"result": "ok"}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  listResourceTypes:
+    speakeasy-default-list-resource-types:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      responses:
+        "200":
+          application/json: {"resource_types": ["image", "raw", "video"]}
+        "401":
+          application/json: {"error": {"message": "Invalid credentials"}}
+  listImages:
+    speakeasy-default-list-images:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      responses:
+        "200":
+          application/json: {"resources": [{"moderation_kind": "manual", "moderation_status": "pending"}]}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  listVideos:
+    speakeasy-default-list-videos:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      responses:
+        "200":
+          application/json: {"resources": [{"moderation_kind": "manual", "moderation_status": "pending"}, {"moderation_kind": "manual", "moderation_status": "pending"}]}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  listRawFiles:
+    speakeasy-default-list-raw-files:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      responses:
+        "200":
+          application/json: {"resources": [{"moderation_kind": "manual", "moderation_status": "pending"}, {"moderation_kind": "manual", "moderation_status": "pending"}]}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  listResourcesByAssetFolder:
+    speakeasy-default-list-resources-by-asset-folder:
+      parameters:
+        path:
+          cloud_name: "<value>"
+        query:
+          asset_folder: "<value>"
+      responses:
+        "200":
+          application/json: {"resources": [{"moderation_kind": "manual", "moderation_status": "pending"}, {"moderation_kind": "manual", "moderation_status": "pending"}, {"moderation_kind": "manual", "moderation_status": "pending"}]}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  listResourcesByAssetIDs:
+    speakeasy-default-list-resources-by-asset-I-ds:
+      parameters:
+        path:
+          cloud_name: "<value>"
+        query:
+          asset_ids: []
+      responses:
+        "200":
+          application/json: {"resources": [{"moderation_kind": "manual", "moderation_status": "pending"}]}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  listResourcesByContext:
+    speakeasy-default-list-resources-by-context:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          resource_type: "raw"
+        query:
+          key: "<key>"
+      responses:
+        "200":
+          application/json: {"resources": [{"moderation_kind": "manual", "moderation_status": "pending"}]}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  listResourcesByModerationKindAndStatus:
+    speakeasy-default-list-resources-by-moderation-kind-and-status:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          resource_type: "raw"
+          moderation_kind: "aws_rek"
+          moderation_status: "aborted"
+      responses:
+        "200":
+          application/json: {"resources": [{"moderation_kind": "manual", "moderation_status": "pending"}]}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  restoreResourcesByAssetIDs:
+    basic_restore:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"]}
+      responses:
+        "200":
+          application/json: {"key": {}, "key1": {"moderation_kind": "manual", "moderation_status": "pending"}, "key2": {"moderation_kind": "manual", "moderation_status": "pending"}}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+    restore_specific_versions:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"]}
+      responses:
+        "200":
+          application/json: {"key": {"moderation_kind": "manual", "moderation_status": "pending"}, "key1": {"moderation_kind": "manual", "moderation_status": "pending"}}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+    restore_with_notification:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730"], "notification_url": "https://example.com/webhook"}
+      responses:
+        "200":
+          application/json: {"key": {}, "key1": {}, "key2": {"moderation_kind": "manual", "moderation_status": "pending"}}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+    successful_restore:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook"}
+      responses:
+        "200":
+          application/json: {"2262b0b5eb88f1fd7724e29b0e57d730": {"asset_id": "2262b0b5eb88f1fd7724e29b0e57d730", "public_id": "sample", "format": "jpg", "version": 1312461204, "resource_type": "image", "type": "upload", "created_at": "2017-08-04T12:33:24Z", "bytes": 120253, "width": 864, "height": 576, "url": "http://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg"}, "d23c0526e6feca2c343e40c2fce5231a": {"asset_id": "d23c0526e6feca2c343e40c2fce5231a", "public_id": "coffee", "format": "jpg", "version": 1312461205, "resource_type": "image", "type": "upload", "created_at": "2017-08-04T12:35:25Z", "bytes": 85641, "width": 640, "height": 480, "url": "http://res.cloudinary.com/demo/image/upload/v1312461205/coffee.jpg", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1312461205/coffee.jpg"}}
+    mixed_restore_results:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook"}
+      responses:
+        "200":
+          application/json: {"2262b0b5eb88f1fd7724e29b0e57d730": {"asset_id": "2262b0b5eb88f1fd7724e29b0e57d730", "public_id": "sample", "format": "jpg", "version": 1312461204, "resource_type": "image", "type": "upload", "created_at": "2017-08-04T12:33:24Z", "bytes": 120253, "width": 864, "height": 576, "url": "http://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg"}, "d23c0526e6feca2c343e40c2fce5231a": {"error": "no_backup"}, "invalid_asset_id": {"error": "failed"}}
+    all_failed_restore:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook"}
+      responses:
+        "200":
+          application/json: {"d23c0526e6feca2c343e40c2fce5231a": {"error": "no_backup"}, "f45e7890abc123def456": {"error": "unauthorized"}}
+    invalid_asset_id:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook"}
+      responses:
+        "400":
+          application/json: {"error": {"message": "Invalid asset_id: abc123"}}
+    missing_parameter:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook"}
+      responses:
+        "400":
+          application/json: {"error": {"message": "asset_ids parameter is required"}}
+    version_count_mismatch:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook"}
+      responses:
+        "400":
+          application/json: {"error": {"message": "versions count must match ids count"}}
+  listResourcesByExternalIDs:
+    getResourceResponseExample:
+      parameters:
+        path:
+          cloud_name: "<value>"
+        query:
+          external_ids: []
+          tags: false
+          context: false
+          metadata: false
+          moderations: false
+      responses:
+        "200":
+          application/json: {"next_cursor": "041a39fc10971b9eabd4993470f6bfaf"}
+  deleteResourcesByPublicId:
+    deleteResourceResponseExample:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          resource_type: "raw"
+          type: "authenticated"
+      requestBody:
+        application/json: {"all": false, "resource_type": "image", "keep_original": false, "invalidate": false}
+      responses:
+        "200":
+          application/json: {}
+  getResourceByPublicId:
+    getResourceResponseExample:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          resource_type: "raw"
+          type: "list"
+          public_id: "<id>"
+        query:
+          colors: false
+          media_metadata: false
+          faces: false
+          quality_analysis: false
+          accessibility_analysis: false
+          pages: false
+          phash: false
+          coordinates: false
+          versions: false
+          max_results: 10
+      responses:
+        "200":
+          application/json: {"asset_id": "03a5b92135161439031d3834c04bc31b", "public_id": "sample", "asset_folder": "", "display_name": "sample", "format": "jpg", "version": 1719304854, "resource_type": "image", "type": "upload", "created_at": "2021-06-25T08:40:54Z", "bytes": 120253, "width": 864, "height": 576, "tags": ["flower", "plant", "nature"], "context": {"custom": {"alt": "sample flower", "caption": "beautiful flower"}}, "metadata": {"approval_status_0": "status_new", "categories_0": ["cat_mens_clothes", "cat_shirts", "qzaihnfnasrzba0qrdpr"], "owner_0": "Adam Adams", "product_id_0": 12345, "publish_date_0": "2022-02-17"}, "url": "http://res.cloudinary.com/cld-docs/image/upload/v1719304854/sample.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/v1719304854/sample.jpg", "etag": "619dfd2901577eb4259f91a2c0e43dac"}
+  updateResourceByPublicId:
+    updateResourceResponseExample:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          resource_type: "image"
+          type: "dailymotion"
+          public_id: "<id>"
+      requestBody:
+        application/json: {"display_name": "My Product Image", "unique_display_name": false, "asset_folder": "products/summer", "tags": "product,summer,sale", "context": "alt=My product image|caption=Summer collection", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130|213,345,82,61", "regions": "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}", "quality_override": "80:420", "detection": "captioning", "access_control": "[{\"access_type\":\"token\"}]"}
+      responses:
+        "200":
+          application/json: {"asset_id": "bc71d3cedb739ed931be3706e94c413a", "public_id": "qdi8r768kj5tticu8keh", "asset_folder": "", "display_name": "qdi8r768kj5tticu8keh", "format": "jpg", "version": 1747134921, "resource_type": "image", "type": "upload", "created_at": "2025-05-13T11:15:21Z", "bytes": 206960, "width": 400, "height": 300, "moderation_kind": "manual", "moderation_status": "approved", "moderation": [{"kind": "manual", "status": "approved", "updated_at": "2025-05-13T11:15:22Z"}], "url": "http://res.cloudinary.com/cloud-name/image/upload/v1747134921/qdi8r768kj5tticu8keh.jpg", "secure_url": "https://res.cloudinary.com/cloud-name/image/upload/v1747134921/qdi8r768kj5tticu8keh.jpg"}
+  getResourceByAssetId:
+    "":
+      parameters:
+        path:
+          cloud_name: "<value>"
+          asset_id: "e9b44a374f66ad53a64a74c7398f7"
+        query:
+          colors: false
+          media_metadata: false
+          faces: false
+          quality_analysis: false
+          accessibility_analysis: false
+          pages: false
+          phash: false
+          coordinates: false
+          versions: false
+          max_results: 10
+      responses:
+        "200":
+          application/json: {"moderation_kind": "manual", "moderation_status": "pending"}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+    getResourceResponseExample:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          asset_id: "e9b44a374f66ad53a64a74c7398f7"
+        query:
+          colors: false
+          media_metadata: false
+          faces: false
+          quality_analysis: false
+          accessibility_analysis: false
+          pages: false
+          phash: false
+          coordinates: false
+          versions: false
+          max_results: 10
+      responses:
+        "200":
+          application/json: {"asset_id": "03a5b92135161439031d3834c04bc31b", "public_id": "sample", "asset_folder": "", "display_name": "sample", "format": "jpg", "version": 1719304854, "resource_type": "image", "type": "upload", "created_at": "2021-06-25T08:40:54Z", "bytes": 120253, "width": 864, "height": 576, "tags": ["flower", "plant", "nature"], "context": {"custom": {"alt": "sample flower", "caption": "beautiful flower"}}, "metadata": {"approval_status_0": "status_new", "categories_0": ["cat_mens_clothes", "cat_shirts", "qzaihnfnasrzba0qrdpr"], "owner_0": "Adam Adams", "product_id_0": 12345, "publish_date_0": "2022-02-17"}, "url": "http://res.cloudinary.com/cld-docs/image/upload/v1719304854/sample.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/v1719304854/sample.jpg", "etag": "619dfd2901577eb4259f91a2c0e43dac"}
+  updateResourceByAssetId:
+    updateResourceResponseExample:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          asset_id: "<id>"
+      requestBody:
+        application/json: {"display_name": "My Product Image", "unique_display_name": false, "asset_folder": "products/summer", "tags": "product,summer,sale", "context": "alt=My product image|caption=Summer collection", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130|213,345,82,61", "regions": "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}", "quality_override": "80:420", "detection": "captioning", "access_control": "[{\"access_type\":\"token\"}]"}
+      responses:
+        "200":
+          application/json: {"asset_id": "bc71d3cedb739ed931be3706e94c413a", "public_id": "qdi8r768kj5tticu8keh", "asset_folder": "", "display_name": "qdi8r768kj5tticu8keh", "format": "jpg", "version": 1747134921, "resource_type": "image", "type": "upload", "created_at": "2025-05-13T11:15:21Z", "bytes": 206960, "width": 400, "height": 300, "moderation_kind": "manual", "moderation_status": "approved", "moderation": [{"kind": "manual", "status": "approved", "updated_at": "2025-05-13T11:15:22Z"}], "url": "http://res.cloudinary.com/cloud-name/image/upload/v1747134921/qdi8r768kj5tticu8keh.jpg", "secure_url": "https://res.cloudinary.com/cloud-name/image/upload/v1747134921/qdi8r768kj5tticu8keh.jpg"}
+  listResourceTags:
+    speakeasy-default-list-resource-tags:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          resource_type: "raw"
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  deleteBackupVersions:
+    "":
+      parameters:
+        path:
+          cloud_name: "<value>"
+          asset_id: "e9b44a374f66ad53a64a74c7398f7"
+      requestBody:
+        application/json: {"version_ids": ["5552aa57e67445552a3cdc1110a0115", "383e22a57167445552a3cdc16f0a0c85"]}
+      responses:
+        "200":
+          application/json: {"asset_id": "<id>", "deleted_version_ids": []}
+        "207":
+          application/json: {"asset_id": "<id>", "deleted_version_ids": []}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  derivedDestroy:
+    speakeasy-default-derived-destroy:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"derived_resource_ids": ["1234567890abcdef", "fedcba0987654321"], "invalidate": true}
+      responses:
+        "200":
+          application/json: {"deleted": {"1234567890abcdef": "deleted", "fedcba0987654321": "not_found"}, "invalidation": {"took": 25, "urls": ["/image/upload/w_100/sample", "/image/upload/w_200/sample"]}}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  explodeResource:
+    speakeasy-default-explode-resource:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          resource_type: "image"
+      requestBody:
+        application/json: {"public_id": "<id>", "transformation": "<value>", "signature": "<value>"}
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  getUsage:
+    speakeasy-default-get-usage:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      responses:
+        "200":
+          application/json: {}
+        "401":
+          application/json: {"error": {"message": "<value>"}}
+  getVideoViews:
+    "":
+      parameters:
+        path:
+          cloud_name: "<value>"
+        query:
+          max_results: 10
+          sort_by: "-view_ended_at"
+      responses:
+        "200":
+          application/json: {"request_id": "1d39ccc69109b1cefac697957bda7952", "next_cursor": "2a54714067686dc630b44e3b863163dc", "data": [{"video_public_id": "dog", "video_duration": 100, "video_transformation": "w_100,h_100", "video_extension": "mp4", "viewer_application_name": "Chrome", "viewer_location_country_code": "US", "viewer_os_identifier": "Linux", "view_watch_time": 313, "view_ended_at": "2025-05-13T09:59:21.000Z"}]}
+  createAssetRelationsByAssetId:
+    speakeasy-default-create-asset-relations-by-asset-id:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          asset_id: "<id>"
+      requestBody:
+        application/json: {"assets_to_relate": ["f12345a5c789c", "bbb0efc00c0f12"]}
+      responses:
+        "200":
+          application/json: {"failed": [], "success": [{"message": "success", "code": "success_ids", "asset": "f12345a5c789c", "status": 200}, {"message": "success", "code": "success_ids", "asset": "bbb0efc00c0f12", "status": 200}]}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  deleteAssetRelationsByAssetId:
+    speakeasy-default-delete-asset-relations-by-asset-id:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          asset_id: "<id>"
+      requestBody:
+        application/json: {"assets_to_unrelate": ["f12345a5c789c", "bbb0efc00c0f12"]}
+      responses:
+        "200":
+          application/json: {"failed": [], "success": [{"message": "success"}, {"message": "success"}]}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  createAssetRelationsByPublicId:
+    speakeasy-default-create-asset-relations-by-public-id:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          resource_type: "raw"
+          type: "upload"
+          public_id: "<id>"
+      requestBody:
+        application/json: {"assets_to_relate": ["raw/upload/dog_subtitles.srt", "image/authenticated/dog_license"]}
+      responses:
+        "200":
+          application/json: {"failed": [], "success": [{"message": "success", "code": "success_ids", "asset": "f12345a5c789c", "status": 200}, {"message": "success", "code": "success_ids", "asset": "bbb0efc00c0f12", "status": 200}]}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  deleteAssetRelationsByPublicId:
+    speakeasy-default-delete-asset-relations-by-public-id:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          resource_type: "raw"
+          type: "upload"
+          public_id: "<id>"
+      requestBody:
+        application/json: {"assets_to_unrelate": ["raw/upload/dog_subtitles.srt", "image/authenticated/dog_license"]}
+      responses:
+        "200":
+          application/json: {"failed": [], "success": [{"message": "success"}, {"message": "success"}]}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  showFolder:
+    speakeasy-default-show-folder:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          folder: "product/test"
+      responses:
+        "200":
+          application/json: {"folders": [{"name": "a", "path": "folder/a", "external_id": "abcdefg1234567890"}, {"name": "b", "path": "folder/b", "external_id": "hijklmn0987654321"}], "next_cursor": null, "total_count": 2}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  updateFolder:
+    speakeasy-default-update-folder:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          folder: "product/test"
+      requestBody:
+        application/json: {"to_folder": "product1/test1"}
+      responses:
+        "200":
+          application/json: {"from": {"name": "test", "path": "product/test"}, "to": {"name": "test1", "path": "product1/test1"}}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  createFolder:
+    speakeasy-default-create-folder:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          folder: "samples/food"
+      responses:
+        "200":
+          application/json: {"success": true, "path": "samples/food", "name": "food"}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  destroyFolder:
+    speakeasy-default-destroy-folder:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          folder: "product/test"
+      responses:
+        "200":
+          application/json: {"deleted": ["product/test"]}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  listRootFolders:
+    speakeasy-default-list-root-folders:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      responses:
+        "200":
+          application/json: {"folders": [{"name": "a", "path": "folder/a", "external_id": "abcdefg1234567890"}, {"name": "b", "path": "folder/b", "external_id": "hijklmn0987654321"}], "next_cursor": null, "total_count": 2}
+        "401":
+          application/json: {"error": {"message": "<value>"}}
+  searchFolders:
+    "":
+      parameters:
+        path:
+          cloud_name: "<value>"
+        query:
+          sort_by: ["name:asc"]
+          max_results: 50
+      responses:
+        "200":
+          application/json: {"total_count": 14, "time": 1136, "next_cursor": "0a37f8c9f65e79c1cbe782d47987ed108d9f9e0dad4b0666adbf4eac9a634191996204a0ef84ce7b3e0e", "folders": [{"name": "1_folder_param", "path": "my_parent/1_folder_param", "external_id": "c7c08f8ecf093353d669d2ea3123967c7", "created_at": "2024-12-16T11:31:00:00"}, {"name": "a_folder_param", "path": "my_parent/a_folder_param", "external_id": "c7c08b736592482c1125ba5d689ab8779", "created_at": "2024-12-16T11:08:32:00"}]}
+  searchFoldersPost:
+    "":
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"expression": "name:folder AND path:my_parent AND created_at=>4w", "sort_by": ["name:asc"], "max_results": 10}
+      responses:
+        "200":
+          application/json: {"total_count": 14, "time": 1136, "next_cursor": "0a37f8c9f65e79c1cbe782d47987ed108d9f9e0dad4b0666adbf4eac9a634191996204a0ef84ce7b3e0e", "folders": [{"name": "1_folder_param", "path": "my_parent/1_folder_param", "external_id": "c7c08f8ecf093353d669d2ea3123967c7", "created_at": "2024-12-16T11:31:00:00"}, {"name": "a_folder_param", "path": "my_parent/a_folder_param", "external_id": "c7c08b736592482c1125ba5d689ab8779", "created_at": "2024-12-16T11:08:32:00"}]}
+  searchResourcesPost:
+    speakeasy-default-search-resources-post:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"expression": "resource_type:image AND tags:kitten", "sort_by": ["created_at", "public_id desc"], "max_results": 30, "aggregate": ["format", "resource_type"], "fields": "tags,context,metadata"}
+      responses:
+        "200":
+          application/json: {"total_count": 42, "time": 42, "resources": [{"asset_id": "09169cf604b03521789d1b3b8cca53d1", "public_id": "blue_sweater", "asset_folder": "Clothing Sale", "filename": "blue_sweater", "display_name": "blue_sweater", "format": "jpg", "version": 1719316754, "resource_type": "image", "type": "upload", "created_at": "2024-06-25T11:59:14+00:00", "uploaded_at": "2024-06-25T11:59:14+00:00", "bytes": 71063, "backup_bytes": 71063, "width": 4800, "height": 6400, "aspect_ratio": 0.75, "pixels": 307200, "url": "http://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "status": "active", "access_mode": "public", "access_control": null, "etag": "7242da7b353e7da2c3eb8c006165b385", "created_by": {"access_key": "614335564976464"}, "uploaded_by": {"access_key": "614335564976464"}}, {"asset_id": "09169cf604b03521789d1b3b8cca53d1", "public_id": "blue_sweater", "asset_folder": "Clothing Sale", "filename": "blue_sweater", "display_name": "blue_sweater", "format": "jpg", "version": 1719316754, "resource_type": "image", "type": "upload", "created_at": "2024-06-25T11:59:14+00:00", "uploaded_at": "2024-06-25T11:59:14+00:00", "bytes": 71063, "backup_bytes": 71063, "width": 4800, "height": 6400, "aspect_ratio": 0.75, "pixels": 307200, "url": "http://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "status": "active", "access_mode": "public", "access_control": null, "etag": "7242da7b353e7da2c3eb8c006165b385", "created_by": {"access_key": "614335564976464"}, "uploaded_by": {"access_key": "614335564976464"}}, {"asset_id": "09169cf604b03521789d1b3b8cca53d1", "public_id": "blue_sweater", "asset_folder": "Clothing Sale", "filename": "blue_sweater", "display_name": "blue_sweater", "format": "jpg", "version": 1719316754, "resource_type": "image", "type": "upload", "created_at": "2024-06-25T11:59:14+00:00", "uploaded_at": "2024-06-25T11:59:14+00:00", "bytes": 71063, "backup_bytes": 71063, "width": 4800, "height": 6400, "aspect_ratio": 0.75, "pixels": 307200, "url": "http://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "status": "active", "access_mode": "public", "access_control": null, "etag": "7242da7b353e7da2c3eb8c006165b385", "created_by": {"access_key": "614335564976464"}, "uploaded_by": {"access_key": "614335564976464"}}], "next_cursor": "e4d03a236b27e306e56719f74d05cdef", "aggregations": {"values": [{"value": "jpg", "count": 42}, {"value": "jpg", "count": 42}, {"value": "jpg", "count": 42}], "ranges": [{"from": 0, "to": 1048576, "count": 17}, {"from": 0, "to": 1048576, "count": 17}]}}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  visualSearchResources:
+    speakeasy-default-visual-search-resources:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"image_url": "https://res.cloudinary.com/demo/image/upload/sample.jpg", "threshold": 0.8}
+      responses:
+        "200":
+          application/json: {"total_count": 42, "time": 42, "resources": [{"asset_id": "09169cf604b03521789d1b3b8cca53d1", "public_id": "blue_sweater", "asset_folder": "Clothing Sale", "filename": "blue_sweater", "display_name": "blue_sweater", "format": "jpg", "version": 1719316754, "resource_type": "image", "type": "upload", "created_at": "2024-06-25T11:59:14+00:00", "uploaded_at": "2024-06-25T11:59:14+00:00", "bytes": 71063, "backup_bytes": 71063, "width": 4800, "height": 6400, "aspect_ratio": 0.75, "pixels": 307200, "url": "http://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "status": "active", "access_mode": "public", "access_control": null, "etag": "7242da7b353e7da2c3eb8c006165b385", "created_by": {"access_key": "614335564976464"}, "uploaded_by": {"access_key": "614335564976464"}}, {"asset_id": "09169cf604b03521789d1b3b8cca53d1", "public_id": "blue_sweater", "asset_folder": "Clothing Sale", "filename": "blue_sweater", "display_name": "blue_sweater", "format": "jpg", "version": 1719316754, "resource_type": "image", "type": "upload", "created_at": "2024-06-25T11:59:14+00:00", "uploaded_at": "2024-06-25T11:59:14+00:00", "bytes": 71063, "backup_bytes": 71063, "width": 4800, "height": 6400, "aspect_ratio": 0.75, "pixels": 307200, "url": "http://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "status": "active", "access_mode": "public", "access_control": null, "etag": "7242da7b353e7da2c3eb8c006165b385", "created_by": {"access_key": "614335564976464"}, "uploaded_by": {"access_key": "614335564976464"}}], "next_cursor": "e4d03a236b27e306e56719f74d05cdef", "aggregations": {"values": [{"value": "jpg", "count": 42}], "ranges": [{"from": 0, "to": 1048576, "count": 17}, {"from": 0, "to": 1048576, "count": 17}, {"from": 0, "to": 1048576, "count": 17}]}}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+examplesVersion: 1.0.2
+generatedTests: {}

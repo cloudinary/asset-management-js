@@ -1,0 +1,18 @@
+# GetVideoViewsRequest
+
+## Example Usage
+
+```typescript
+import { GetVideoViewsRequest } from "@cloudinary/assets/models/operations";
+
+let value: GetVideoViewsRequest = {};
+```
+
+## Fields
+
+| Field                                                                                                                               | Type                                                                                                                                | Required                                                                                                                            | Description                                                                                                                         |
+| ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `expression`                                                                                                                        | *string*                                                                                                                            | :heavy_minus_sign:                                                                                                                  | A set of conditions used to limit the results to rows that match those conditions. For example: `?expression=video_public_id=skate` |
+| `maxResults`                                                                                                                        | *number*                                                                                                                            | :heavy_minus_sign:                                                                                                                  | Specifies the number of items to include in the response.                                                                           |
+| `sortBy`                                                                                                                            | [operations.SortBy](../../models/operations/sortby.md)                                                                              | :heavy_minus_sign:                                                                                                                  | Specifies the expression field by which to sort the results. Prepend values with a '-' to reverse the order.                        |
+| `nextCursor`                                                                                                                        | *string*                                                                                                                            | :heavy_minus_sign:                                                                                                                  | The value to be used to obtain the next batch of results.                                                                           |

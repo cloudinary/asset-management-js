@@ -1,0 +1,17 @@
+# ListRawFilesGlobals
+
+## Example Usage
+
+```typescript
+import { ListRawFilesGlobals } from "@cloudinary/assets/models/operations";
+
+let value: ListRawFilesGlobals = {
+  cloudName: "<value>",
+};
+```
+
+## Fields
+
+| Field                                       | Type                                        | Required                                    | Description                                 |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| `cloudName`                                 | *string*                                    | :heavy_minus_sign:                          | The cloud name of your product environment. |

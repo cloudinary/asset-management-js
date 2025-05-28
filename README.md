@@ -3,14 +3,6 @@
 <!-- Start Summary [summary] -->
 ## Summary
 
-The Cloudinary Assets API SDK provides a comprehensive JavaScript/TypeScript interface for managing media assets in Cloudinary's cloud platform. This SDK enables developers to:
-
-- **Upload and manage media files** - Upload images, videos, and raw files with support for various formats and transformations
-- **Perform asset operations** - Rename, delete, and organize assets within your Cloudinary account
-- **Apply transformations** - Generate responsive images, optimize file sizes, and apply real-time media transformations
-- **Manage metadata** - Add tags, context, and custom metadata to your assets
-- **Archive and download** - Create archives and securely download assets
-- **Model Context Protocol (MCP) support** - Use as an MCP server for AI applications
 
 <!-- End Summary [summary] -->
 
