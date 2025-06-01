@@ -1,6 +1,6 @@
 {
   "name": "@cloudinary/assets",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Cloudinary",
   "bin": {
     "mcp": "bin/mcp-server.js"

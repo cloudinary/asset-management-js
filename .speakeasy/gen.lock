@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 92b56ec8-e19a-476d-afba-926cd2d071b4
 management:
-  docChecksum: 01822f10ddb0f7074add466b8aee24ef
+  docChecksum: fff668a716e31c819a7da75501e7e564
   docVersion: 0.1.0
-  speakeasyVersion: 1.552.0
-  generationVersion: 2.610.0
-  releaseVersion: 0.1.0
-  configChecksum: 64ef901e24da7ecb8bb682d6023e42dd
+  speakeasyVersion: 1.554.1
+  generationVersion: 2.616.1
+  releaseVersion: 0.2.0
+  configChecksum: b23f989cd13b81ab197b22194f11e563
   repoURL: https://github.com/cloudinary/assets-js.git
   installationURL: https://github.com/cloudinary/assets-js
   published: true
@@ -32,7 +32,7 @@ features:
     nullables: 0.1.1
     responseFormat: 0.2.3
     retries: 2.83.0
-    sdkHooks: 0.2.0
+    sdkHooks: 0.3.0
     unions: 2.85.8
     uploadStreams: 0.1.0
 generatedFiles:
@@ -442,56 +442,20 @@ generatedFiles:
   - src/mcp-server/shared.ts
   - src/mcp-server/tools.ts
   - src/mcp-server/tools/assetRelationsCreateAssetRelationsByAssetId.ts
-  - src/mcp-server/tools/assetRelationsCreateAssetRelationsByPublicId.ts
   - src/mcp-server/tools/assetRelationsDeleteAssetRelationsByAssetId.ts
-  - src/mcp-server/tools/assetRelationsDeleteAssetRelationsByPublicId.ts
-  - src/mcp-server/tools/assetsDeleteBackupVersions.ts
-  - src/mcp-server/tools/assetsDeleteResourcesByPublicId.ts
   - src/mcp-server/tools/assetsDerivedDestroy.ts
   - src/mcp-server/tools/assetsDestroyByAssetId.ts
   - src/mcp-server/tools/assetsDownloadAsset.ts
   - src/mcp-server/tools/assetsDownloadBackupAsset.ts
-  - src/mcp-server/tools/assetsExplicitAsset.ts
   - src/mcp-server/tools/assetsGenerateArchive.ts
   - src/mcp-server/tools/assetsGetResourceByAssetId.ts
-  - src/mcp-server/tools/assetsGetResourceByPublicId.ts
   - src/mcp-server/tools/assetsListImages.ts
   - src/mcp-server/tools/assetsListRawFiles.ts
-  - src/mcp-server/tools/assetsListResourceTags.ts
-  - src/mcp-server/tools/assetsListResourceTypes.ts
-  - src/mcp-server/tools/assetsListResourcesByAssetFolder.ts
-  - src/mcp-server/tools/assetsListResourcesByAssetIDs.ts
-  - src/mcp-server/tools/assetsListResourcesByContext.ts
-  - src/mcp-server/tools/assetsListResourcesByExternalIDs.ts
-  - src/mcp-server/tools/assetsListResourcesByModerationKindAndStatus.ts
   - src/mcp-server/tools/assetsListVideos.ts
-  - src/mcp-server/tools/assetsRenameAsset.ts
-  - src/mcp-server/tools/assetsRestoreResourcesByAssetIDs.ts
-  - src/mcp-server/tools/assetsUpdateResourceByAssetId.ts
-  - src/mcp-server/tools/assetsUpdateResourceByPublicId.ts
-  - src/mcp-server/tools/backupsDeleteBackupVersions.ts
-  - src/mcp-server/tools/explodeExplodeResource.ts
   - src/mcp-server/tools/foldersCreateFolder.ts
   - src/mcp-server/tools/foldersDestroyFolder.ts
-  - src/mcp-server/tools/foldersListRootFolders.ts
-  - src/mcp-server/tools/foldersSearchFolders.ts
-  - src/mcp-server/tools/foldersSearchFoldersPost.ts
-  - src/mcp-server/tools/foldersShowFolder.ts
   - src/mcp-server/tools/foldersUpdateFolder.ts
-  - src/mcp-server/tools/moderationsListResourcesByModerationKindAndStatus.ts
-  - src/mcp-server/tools/searchSearchResourcesPost.ts
-  - src/mcp-server/tools/searchVisualSearchResources.ts
-  - src/mcp-server/tools/tagsListResourceTags.ts
-  - src/mcp-server/tools/uploadDestroyAsset.ts
-  - src/mcp-server/tools/uploadText.ts
-  - src/mcp-server/tools/uploadUpload.ts
-  - src/mcp-server/tools/uploadUploadChunked.ts
-  - src/mcp-server/tools/uploadUploadChunkedMultipart.ts
-  - src/mcp-server/tools/uploadUploadMultipart.ts
-  - src/mcp-server/tools/uploadUploadNoResourceType.ts
-  - src/mcp-server/tools/uploadUploadNoResourceTypeMultipart.ts
   - src/mcp-server/tools/usageGetUsage.ts
-  - src/mcp-server/tools/videoAnalyticsGetVideoViews.ts
   - src/models/components/apierror.ts
   - src/models/components/assetrelationinfo.ts
   - src/models/components/assetrelationsdeleteresponse.ts
