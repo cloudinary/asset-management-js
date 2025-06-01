@@ -14,56 +14,20 @@ import {
 import { MCPScope } from "./scopes.js";
 import { createRegisterTool } from "./tools.js";
 import { tool$assetRelationsCreateAssetRelationsByAssetId } from "./tools/assetRelationsCreateAssetRelationsByAssetId.js";
-import { tool$assetRelationsCreateAssetRelationsByPublicId } from "./tools/assetRelationsCreateAssetRelationsByPublicId.js";
 import { tool$assetRelationsDeleteAssetRelationsByAssetId } from "./tools/assetRelationsDeleteAssetRelationsByAssetId.js";
-import { tool$assetRelationsDeleteAssetRelationsByPublicId } from "./tools/assetRelationsDeleteAssetRelationsByPublicId.js";
-import { tool$assetsDeleteBackupVersions } from "./tools/assetsDeleteBackupVersions.js";
-import { tool$assetsDeleteResourcesByPublicId } from "./tools/assetsDeleteResourcesByPublicId.js";
 import { tool$assetsDerivedDestroy } from "./tools/assetsDerivedDestroy.js";
 import { tool$assetsDestroyByAssetId } from "./tools/assetsDestroyByAssetId.js";
 import { tool$assetsDownloadAsset } from "./tools/assetsDownloadAsset.js";
 import { tool$assetsDownloadBackupAsset } from "./tools/assetsDownloadBackupAsset.js";
-import { tool$assetsExplicitAsset } from "./tools/assetsExplicitAsset.js";
 import { tool$assetsGenerateArchive } from "./tools/assetsGenerateArchive.js";
 import { tool$assetsGetResourceByAssetId } from "./tools/assetsGetResourceByAssetId.js";
-import { tool$assetsGetResourceByPublicId } from "./tools/assetsGetResourceByPublicId.js";
 import { tool$assetsListImages } from "./tools/assetsListImages.js";
 import { tool$assetsListRawFiles } from "./tools/assetsListRawFiles.js";
-import { tool$assetsListResourcesByAssetFolder } from "./tools/assetsListResourcesByAssetFolder.js";
-import { tool$assetsListResourcesByAssetIDs } from "./tools/assetsListResourcesByAssetIDs.js";
-import { tool$assetsListResourcesByContext } from "./tools/assetsListResourcesByContext.js";
-import { tool$assetsListResourcesByExternalIDs } from "./tools/assetsListResourcesByExternalIDs.js";
-import { tool$assetsListResourcesByModerationKindAndStatus } from "./tools/assetsListResourcesByModerationKindAndStatus.js";
-import { tool$assetsListResourceTags } from "./tools/assetsListResourceTags.js";
-import { tool$assetsListResourceTypes } from "./tools/assetsListResourceTypes.js";
 import { tool$assetsListVideos } from "./tools/assetsListVideos.js";
-import { tool$assetsRenameAsset } from "./tools/assetsRenameAsset.js";
-import { tool$assetsRestoreResourcesByAssetIDs } from "./tools/assetsRestoreResourcesByAssetIDs.js";
-import { tool$assetsUpdateResourceByAssetId } from "./tools/assetsUpdateResourceByAssetId.js";
-import { tool$assetsUpdateResourceByPublicId } from "./tools/assetsUpdateResourceByPublicId.js";
-import { tool$backupsDeleteBackupVersions } from "./tools/backupsDeleteBackupVersions.js";
-import { tool$explodeExplodeResource } from "./tools/explodeExplodeResource.js";
 import { tool$foldersCreateFolder } from "./tools/foldersCreateFolder.js";
 import { tool$foldersDestroyFolder } from "./tools/foldersDestroyFolder.js";
-import { tool$foldersListRootFolders } from "./tools/foldersListRootFolders.js";
-import { tool$foldersSearchFolders } from "./tools/foldersSearchFolders.js";
-import { tool$foldersSearchFoldersPost } from "./tools/foldersSearchFoldersPost.js";
-import { tool$foldersShowFolder } from "./tools/foldersShowFolder.js";
 import { tool$foldersUpdateFolder } from "./tools/foldersUpdateFolder.js";
-import { tool$moderationsListResourcesByModerationKindAndStatus } from "./tools/moderationsListResourcesByModerationKindAndStatus.js";
-import { tool$searchSearchResourcesPost } from "./tools/searchSearchResourcesPost.js";
-import { tool$searchVisualSearchResources } from "./tools/searchVisualSearchResources.js";
-import { tool$tagsListResourceTags } from "./tools/tagsListResourceTags.js";
-import { tool$uploadDestroyAsset } from "./tools/uploadDestroyAsset.js";
-import { tool$uploadText } from "./tools/uploadText.js";
-import { tool$uploadUpload } from "./tools/uploadUpload.js";
-import { tool$uploadUploadChunked } from "./tools/uploadUploadChunked.js";
-import { tool$uploadUploadChunkedMultipart } from "./tools/uploadUploadChunkedMultipart.js";
-import { tool$uploadUploadMultipart } from "./tools/uploadUploadMultipart.js";
-import { tool$uploadUploadNoResourceType } from "./tools/uploadUploadNoResourceType.js";
-import { tool$uploadUploadNoResourceTypeMultipart } from "./tools/uploadUploadNoResourceTypeMultipart.js";
 import { tool$usageGetUsage } from "./tools/usageGetUsage.js";
-import { tool$videoAnalyticsGetVideoViews } from "./tools/videoAnalyticsGetVideoViews.js";
 
 export function createMCPServer(deps: {
   logger: ConsoleLogger;
@@ -77,7 +41,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "CloudinaryAssets",
-    version: "0.1.0",
+    version: "0.2.0",
   });
 
   const client = new CloudinaryAssetsCore({
@@ -109,57 +73,21 @@ export function createMCPServer(deps: {
   const register = { tool, resource, resourceTemplate, prompt };
   void register; // suppress unused warnings
 
-  tool(tool$uploadUploadMultipart);
-  tool(tool$uploadUpload);
-  tool(tool$uploadUploadNoResourceTypeMultipart);
-  tool(tool$uploadUploadNoResourceType);
-  tool(tool$uploadUploadChunkedMultipart);
-  tool(tool$uploadUploadChunked);
-  tool(tool$uploadDestroyAsset);
-  tool(tool$uploadText);
-  tool(tool$assetsRenameAsset);
   tool(tool$assetsDownloadAsset);
-  tool(tool$assetsExplicitAsset);
   tool(tool$assetsGenerateArchive);
   tool(tool$assetsDownloadBackupAsset);
   tool(tool$assetsDestroyByAssetId);
-  tool(tool$assetsListResourceTypes);
   tool(tool$assetsListImages);
   tool(tool$assetsListVideos);
   tool(tool$assetsListRawFiles);
-  tool(tool$assetsListResourcesByAssetFolder);
-  tool(tool$assetsListResourcesByAssetIDs);
-  tool(tool$assetsListResourcesByContext);
-  tool(tool$assetsListResourcesByModerationKindAndStatus);
-  tool(tool$assetsRestoreResourcesByAssetIDs);
-  tool(tool$assetsListResourcesByExternalIDs);
-  tool(tool$assetsDeleteResourcesByPublicId);
-  tool(tool$assetsGetResourceByPublicId);
-  tool(tool$assetsUpdateResourceByPublicId);
   tool(tool$assetsGetResourceByAssetId);
-  tool(tool$assetsUpdateResourceByAssetId);
-  tool(tool$assetsListResourceTags);
-  tool(tool$assetsDeleteBackupVersions);
   tool(tool$assetsDerivedDestroy);
-  tool(tool$explodeExplodeResource);
-  tool(tool$moderationsListResourcesByModerationKindAndStatus);
-  tool(tool$tagsListResourceTags);
-  tool(tool$backupsDeleteBackupVersions);
   tool(tool$usageGetUsage);
-  tool(tool$videoAnalyticsGetVideoViews);
   tool(tool$assetRelationsCreateAssetRelationsByAssetId);
   tool(tool$assetRelationsDeleteAssetRelationsByAssetId);
-  tool(tool$assetRelationsCreateAssetRelationsByPublicId);
-  tool(tool$assetRelationsDeleteAssetRelationsByPublicId);
-  tool(tool$foldersShowFolder);
   tool(tool$foldersUpdateFolder);
   tool(tool$foldersCreateFolder);
   tool(tool$foldersDestroyFolder);
-  tool(tool$foldersListRootFolders);
-  tool(tool$foldersSearchFolders);
-  tool(tool$foldersSearchFoldersPost);
-  tool(tool$searchSearchResourcesPost);
-  tool(tool$searchVisualSearchResources);
 
   return server;
 }
