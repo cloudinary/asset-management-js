@@ -1,4 +1,4 @@
-# Cloudinary Assets API
+# Cloudinary Assets JS SDK
 
 <!-- Start Summary [summary] -->
 ## Summary
@@ -9,7 +9,7 @@
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
-* [Cloudinary Assets API](#cloudinary-assets-api)
+* [Cloudinary Assets JS SDK](#cloudinary-assets-js-sdk)
   * [SDK Installation](#sdk-installation)
   * [Requirements](#requirements)
   * [SDK Example Usage](#sdk-example-usage)
