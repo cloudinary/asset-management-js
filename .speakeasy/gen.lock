@@ -3,10 +3,10 @@ id: 92b56ec8-e19a-476d-afba-926cd2d071b4
 management:
   docChecksum: fff668a716e31c819a7da75501e7e564
   docVersion: 0.1.0
-  speakeasyVersion: 1.554.1
-  generationVersion: 2.616.1
-  releaseVersion: 0.2.0
-  configChecksum: b23f989cd13b81ab197b22194f11e563
+  speakeasyVersion: 1.555.0
+  generationVersion: 2.618.0
+  releaseVersion: 0.2.1
+  configChecksum: 2bb6a4e1cd7896a81d670cbf431bbc02
   repoURL: https://github.com/cloudinary/assets-js.git
   installationURL: https://github.com/cloudinary/assets-js
   published: true
@@ -15,7 +15,7 @@ features:
     acceptHeaders: 2.81.2
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.11
-    core: 3.21.9
+    core: 3.21.10
     customSecuritySchemes: 0.1.1
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
