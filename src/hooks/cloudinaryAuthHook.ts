@@ -17,12 +17,24 @@ export class CloudinaryAuthHook
 
         // Optionally merge user-supplied security overrides
         const securityVal = hookCtx.securitySource ? hookCtx.securitySource : null;
-        if (securityVal && securityVal.cloudinaryAuth) {
-            if (securityVal.cloudinaryAuth.apiKey) {
-                apiKey = securityVal.cloudinaryAuth.apiKey;
+        if (securityVal) {
+            // Handle custom cloudinaryAuth format
+            if (securityVal.cloudinaryAuth) {
+                if (securityVal.cloudinaryAuth.apiKey) {
+                    apiKey = securityVal.cloudinaryAuth.apiKey;
+                }
+                if (securityVal.cloudinaryAuth.apiSecret) {
+                    apiSecret = securityVal.cloudinaryAuth.apiSecret;
+                }
             }
-            if (securityVal.cloudinaryAuth.apiSecret) {
-                apiSecret = securityVal.cloudinaryAuth.apiSecret;
+            // Handle standard SDK security format (used by MCP server)
+            else if (securityVal.apiKey || securityVal.apiSecret) {
+                if (securityVal.apiKey) {
+                    apiKey = securityVal.apiKey;
+                }
+                if (securityVal.apiSecret) {
+                    apiSecret = securityVal.apiSecret;
+                }
             }
         }
         if (!apiKey || !apiSecret) {
