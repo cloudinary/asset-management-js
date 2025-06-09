@@ -7,9 +7,7 @@ import { Aggregate } from "@cloudinary/assets/models/components";
 
 let value: Aggregate = {
   type: "video_pixels",
-  ranges: [
-    {},
-  ],
+  ranges: [],
 };
 ```
 

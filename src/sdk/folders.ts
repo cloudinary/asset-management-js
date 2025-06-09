@@ -22,63 +22,65 @@ export class Folders extends ClientSDK {
    * Returns a list of sub-folders under the specified folder path.
    */
   async showFolder(
-    request: operations.ShowFolderRequest,
+    folder: string,
     options?: RequestOptions,
   ): Promise<components.FoldersListResponse> {
     return unwrapAsync(foldersShowFolder(
       this,
-      request,
+      folder,
       options,
     ));
   }
 
   /**
-   * Update folder
+   * Renames or moves an entire folder (along with all assets it contains) to a
    *
    * @remarks
    * Updates a folder's properties.
    */
   async updateFolder(
-    request: operations.UpdateFolderRequest,
+    folder: string,
+    requestBody: operations.UpdateFolderRequestBody,
     options?: RequestOptions,
   ): Promise<operations.UpdateFolderResponse> {
     return unwrapAsync(foldersUpdateFolder(
       this,
-      request,
+      folder,
+      requestBody,
       options,
     ));
   }
 
   /**
-   * Create a new folder
+   * Creates a new empty folder in your Cloudinary media library
    *
    * @remarks
    * Creates a new folder at the specified path
    */
   async createFolder(
-    request: operations.CreateFolderRequest,
+    folder: string,
     options?: RequestOptions,
   ): Promise<operations.CreateFolderResponse> {
     return unwrapAsync(foldersCreateFolder(
       this,
-      request,
+      folder,
       options,
     ));
   }
 
   /**
-   * Delete folder
+   * Deletes an existing folder from your media library
    *
    * @remarks
    * Deletes a folder and all assets within it.
    */
   async destroyFolder(
-    request: operations.DestroyFolderRequest,
+    folder: string,
     options?: RequestOptions,
   ): Promise<operations.DestroyFolderResponse> {
     return unwrapAsync(foldersDestroyFolder(
       this,
-      request,
+      folder,
       options,
     ));
   }
@@ -101,18 +103,24 @@ export class Folders extends ClientSDK {
   }
 
   /**
-   * Searches for folders in your product environment
+   * Searches for folders whose attributes match a given expression
    *
    * @remarks
    * Lists the folders that match the specified search expression. Limited to 2000 results. If no parameters are passed, returns the 50 most recently created folders in descending order of creation time.
    */
   async searchFolders(
-    request: operations.SearchFoldersRequest,
+    expression?: operations.ExpressionUnion | undefined,
+    sortBy?: Array<string> | undefined,
+    maxResults?: number | undefined,
+    nextCursor?: string | undefined,
     options?: RequestOptions,
   ): Promise<components.FoldersSearchResponse> {
     return unwrapAsync(foldersSearchFolders(
       this,
-      request,
+      expression,
+      sortBy,
+      maxResults,
+      nextCursor,
       options,
     ));
   }

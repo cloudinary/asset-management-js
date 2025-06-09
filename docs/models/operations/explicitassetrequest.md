@@ -7,11 +7,6 @@ import { ExplicitAssetRequest } from "@cloudinary/assets/models/operations";
 
 let value: ExplicitAssetRequest = {
   resourceType: "raw",
-  requestBody: {
-    headers: "X-Robots-Tag: noindex",
-    moderation: "webpurify",
-    publicId: "<id>",
-  },
 };
 ```
 

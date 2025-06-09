@@ -5,6 +5,7 @@
 import { buildCommand } from "@stricli/core";
 import { numberParser } from "@stricli/core";
 import * as z from "zod";
+import { ServerRegion } from "../../../lib/config.js";
 import { consoleLoggerLevels } from "../../console-logger.js";
 import { mcpScopes } from "../../scopes.js";
 
@@ -86,9 +87,15 @@ export const startCommand = buildCommand({
         optional: true,
         parse: numberParser,
       },
-      "default-host": {
+      region: {
+        kind: "enum",
+        brief: "Sets the region variable for url substitution",
+        optional: true,
+        values: Object.values(ServerRegion) as Array<ServerRegion>,
+      },
+      "api-host": {
         kind: "parsed",
-        brief: "Sets the defaultHost variable for url substitution",
+        brief: "Sets the host variable for url substitution",
         optional: true,
         parse: (value) => value,
       },

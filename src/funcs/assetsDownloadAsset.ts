@@ -10,6 +10,8 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
+import * as components from "../models/components/index.js";
+import { CloudinaryAssetsError } from "../models/errors/cloudinaryassetserror.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -18,7 +20,7 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import * as errors from "../models/errors/index.js";
-import { SDKError } from "../models/errors/sdkerror.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
@@ -31,54 +33,100 @@ export enum DownloadAssetAcceptEnum {
 }
 
 /**
- * Downloads an asset
+ * Generates a download link for a specific asset (image)
  */
 export function assetsDownloadAsset(
   client: CloudinaryAssetsCore,
-  request: operations.DownloadAssetRequest,
+  resourceType: components.ResourceTypeParameter,
+  publicId: string,
+  apiKey: string,
+  signature: string,
+  timestamp: number,
+  format?: string | undefined,
+  type?: operations.DownloadAssetType | undefined,
+  expiresAt?: number | undefined,
+  attachment?: boolean | undefined,
+  targetFilename?: string | undefined,
+  transformation?: string | undefined,
   options?: RequestOptions & { acceptHeaderOverride?: DownloadAssetAcceptEnum },
 ): APIPromise<
   Result<
     operations.DownloadAssetResponse,
     | errors.ApiError
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | CloudinaryAssetsError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >
 > {
   return new APIPromise($do(
     client,
-    request,
+    resourceType,
+    publicId,
+    apiKey,
+    signature,
+    timestamp,
+    format,
+    type,
+    expiresAt,
+    attachment,
+    targetFilename,
+    transformation,
     options,
   ));
 }
 
 async function $do(
   client: CloudinaryAssetsCore,
-  request: operations.DownloadAssetRequest,
+  resourceType: components.ResourceTypeParameter,
+  publicId: string,
+  apiKey: string,
+  signature: string,
+  timestamp: number,
+  format?: string | undefined,
+  type?: operations.DownloadAssetType | undefined,
+  expiresAt?: number | undefined,
+  attachment?: boolean | undefined,
+  targetFilename?: string | undefined,
+  transformation?: string | undefined,
   options?: RequestOptions & { acceptHeaderOverride?: DownloadAssetAcceptEnum },
 ): Promise<
   [
     Result<
       operations.DownloadAssetResponse,
       | errors.ApiError
-      | SDKError
-      | SDKValidationError
-      | UnexpectedClientError
-      | InvalidRequestError
+      | CloudinaryAssetsError
+      | ResponseValidationError
+      | ConnectionError
       | RequestAbortedError
       | RequestTimeoutError
-      | ConnectionError
+      | InvalidRequestError
+      | UnexpectedClientError
+      | SDKValidationError
     >,
     APICall,
   ]
 > {
+  const input: operations.DownloadAssetRequest = {
+    resourceType: resourceType,
+    publicId: publicId,
+    apiKey: apiKey,
+    signature: signature,
+    timestamp: timestamp,
+    format: format,
+    type: type,
+    expiresAt: expiresAt,
+    attachment: attachment,
+    targetFilename: targetFilename,
+    transformation: transformation,
+  };
+
   const parsed = safeParse(
-    request,
+    input,
     (value) => operations.DownloadAssetRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
@@ -173,13 +221,14 @@ async function $do(
   const [result] = await M.match<
     operations.DownloadAssetResponse,
     | errors.ApiError
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | CloudinaryAssetsError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >(
     M.stream(200, operations.DownloadAssetResponse$inboundSchema),
     M.stream(200, operations.DownloadAssetResponse$inboundSchema, {
@@ -191,7 +240,7 @@ async function $do(
     M.jsonErr([400, 401, 403, 404], errors.ApiError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
-  )(response, { extraFields: responseFields });
+  )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return [result, { status: "complete", request: req, response }];
   }

@@ -7,12 +7,6 @@ import { GenerateArchiveRequest } from "@cloudinary/assets/models/operations";
 
 let value: GenerateArchiveRequest = {
   resourceType: "all",
-  requestBody: {
-    targetTags: [
-      "animal",
-      "dog",
-    ],
-  },
 };
 ```
 

@@ -10,6 +10,8 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
+import * as components from "../models/components/index.js";
+import { CloudinaryAssetsError } from "../models/errors/cloudinaryassetserror.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -18,7 +20,7 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import * as errors from "../models/errors/index.js";
-import { SDKError } from "../models/errors/sdkerror.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
@@ -30,54 +32,78 @@ export enum UploadAcceptEnum {
 }
 
 /**
- * Uploads a file to Cloudinary
+ * Uploads media assets (images, videos, raw files) to your Cloudinary product environment
+ *
+ * @remarks
+ * Uploads media assets (images, videos, raw files) to your Cloudinary product environment. The file is securely stored
+ * in the cloud with backup and revision history. Cloudinary automatically analyzes and saves important data about each
+ * asset, such as format, size, resolution, and prominent colors, which is indexed to enable searching on those attributes.
+ *
+ * Supports uploading from:
+ * - Local file paths (SDKs/MCP server only). For MCP server path MUST start with file://
+ * - Remote HTTP/HTTPS URLs
+ * - Base64 Data URIs (max ~60 MB)
+ * - Private storage buckets (S3 or Google Storage)
+ * - FTP addresses
+ *
+ * The uploaded asset is immediately available for transformation and delivery upon successful upload.
  */
 export function uploadUpload(
   client: CloudinaryAssetsCore,
-  request: operations.UploadRequest,
+  resourceType: components.UploadResourceType | undefined,
+  uploadRequest: components.UploadRequest,
   options?: RequestOptions & { acceptHeaderOverride?: UploadAcceptEnum },
 ): APIPromise<
   Result<
     operations.UploadResponse,
     | errors.ApiError
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | CloudinaryAssetsError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >
 > {
   return new APIPromise($do(
     client,
-    request,
+    resourceType,
+    uploadRequest,
     options,
   ));
 }
 
 async function $do(
   client: CloudinaryAssetsCore,
-  request: operations.UploadRequest,
+  resourceType: components.UploadResourceType | undefined,
+  uploadRequest: components.UploadRequest,
   options?: RequestOptions & { acceptHeaderOverride?: UploadAcceptEnum },
 ): Promise<
   [
     Result<
       operations.UploadResponse,
       | errors.ApiError
-      | SDKError
-      | SDKValidationError
-      | UnexpectedClientError
-      | InvalidRequestError
+      | CloudinaryAssetsError
+      | ResponseValidationError
+      | ConnectionError
       | RequestAbortedError
       | RequestTimeoutError
-      | ConnectionError
+      | InvalidRequestError
+      | UnexpectedClientError
+      | SDKValidationError
     >,
     APICall,
   ]
 > {
+  const input: operations.UploadRequest = {
+    resourceType: resourceType,
+    uploadRequest: uploadRequest,
+  };
+
   const parsed = safeParse(
-    request,
+    input,
     (value) => operations.UploadRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
@@ -159,13 +185,14 @@ async function $do(
   const [result] = await M.match<
     operations.UploadResponse,
     | errors.ApiError
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | CloudinaryAssetsError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >(
     M.json(200, operations.UploadResponse$inboundSchema),
     M.text(302, operations.UploadResponse$inboundSchema, {
@@ -174,7 +201,7 @@ async function $do(
     M.jsonErr([400, 401, 403, 404], errors.ApiError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
-  )(response, { extraFields: responseFields });
+  )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return [result, { status: "complete", request: req, response }];
   }

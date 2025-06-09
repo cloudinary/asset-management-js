@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -17,25 +16,17 @@ export type UploadGlobals = {
   cloudName?: string | undefined;
 };
 
-/**
- * The type of resource to upload. "image" for uploading strictly images, "video" for uploading strictly videos, "raw" for uploading non-media files, or "auto" for allowing Cloudinary to automatically detect the type of the uploaded file.
- */
-export const UploadResourceType = {
-  Image: "image",
-  Video: "video",
-  Raw: "raw",
-  Auto: "auto",
-} as const;
-/**
- * The type of resource to upload. "image" for uploading strictly images, "video" for uploading strictly videos, "raw" for uploading non-media files, or "auto" for allowing Cloudinary to automatically detect the type of the uploaded file.
- */
-export type UploadResourceType = ClosedEnum<typeof UploadResourceType>;
-
 export type UploadRequest = {
   /**
-   * The type of resource to upload. "image" for uploading strictly images, "video" for uploading strictly videos, "raw" for uploading non-media files, or "auto" for allowing Cloudinary to automatically detect the type of the uploaded file.
+   * The type of resource to upload:
+   *
+   * @remarks
+   * - "image" for uploading strictly images
+   * - "video" for uploading strictly videos
+   * - "raw" for uploading non-media files
+   * - "auto" for allowing Cloudinary to automatically detect the type of the uploaded file
    */
-  resourceType: UploadResourceType;
+  resourceType?: components.UploadResourceType | undefined;
   uploadRequest: components.UploadRequest;
 };
 
@@ -110,33 +101,12 @@ export function uploadGlobalsFromJSON(
 }
 
 /** @internal */
-export const UploadResourceType$inboundSchema: z.ZodNativeEnum<
-  typeof UploadResourceType
-> = z.nativeEnum(UploadResourceType);
-
-/** @internal */
-export const UploadResourceType$outboundSchema: z.ZodNativeEnum<
-  typeof UploadResourceType
-> = UploadResourceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UploadResourceType$ {
-  /** @deprecated use `UploadResourceType$inboundSchema` instead. */
-  export const inboundSchema = UploadResourceType$inboundSchema;
-  /** @deprecated use `UploadResourceType$outboundSchema` instead. */
-  export const outboundSchema = UploadResourceType$outboundSchema;
-}
-
-/** @internal */
 export const UploadRequest$inboundSchema: z.ZodType<
   UploadRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource_type: UploadResourceType$inboundSchema,
+  resource_type: components.UploadResourceType$inboundSchema.default("auto"),
   upload_request: components.UploadRequest$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
@@ -157,7 +127,7 @@ export const UploadRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UploadRequest
 > = z.object({
-  resourceType: UploadResourceType$outboundSchema,
+  resourceType: components.UploadResourceType$outboundSchema.default("auto"),
   uploadRequest: components.UploadRequest$outboundSchema,
 }).transform((v) => {
   return remap$(v, {

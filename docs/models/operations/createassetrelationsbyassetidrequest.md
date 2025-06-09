@@ -7,12 +7,6 @@ import { CreateAssetRelationsByAssetIdRequest } from "@cloudinary/assets/models/
 
 let value: CreateAssetRelationsByAssetIdRequest = {
   assetId: "<id>",
-  requestBody: {
-    assetsToRelate: [
-      "f12345a5c789c",
-      "bbb0efc00c0f12",
-    ],
-  },
 };
 ```
 

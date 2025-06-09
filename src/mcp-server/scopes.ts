@@ -4,6 +4,7 @@
 
 export const mcpScopes = [
   "admin",
+  "builder",
   "librarian",
 ] as const;
 

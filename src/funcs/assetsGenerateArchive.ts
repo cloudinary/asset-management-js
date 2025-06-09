@@ -10,6 +10,7 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
+import { CloudinaryAssetsError } from "../models/errors/cloudinaryassetserror.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -18,7 +19,7 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import * as errors from "../models/errors/index.js";
-import { SDKError } from "../models/errors/sdkerror.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
@@ -30,14 +31,15 @@ export enum GenerateArchiveAcceptEnum {
 }
 
 /**
- * Generate downloadable archive
+ * Creates an archive (ZIP or TGZ file) that contains a set of assets from
  *
  * @remarks
  * Creates a downloadable ZIP or other archive format containing the specified resources.
  */
 export function assetsGenerateArchive(
   client: CloudinaryAssetsCore,
-  request: operations.GenerateArchiveRequest,
+  resourceType: operations.GenerateArchiveResourceType,
+  requestBody: operations.GenerateArchiveRequestBody,
   options?: RequestOptions & {
     acceptHeaderOverride?: GenerateArchiveAcceptEnum;
   },
@@ -45,25 +47,28 @@ export function assetsGenerateArchive(
   Result<
     operations.GenerateArchiveResponse,
     | errors.ApiError
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | CloudinaryAssetsError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >
 > {
   return new APIPromise($do(
     client,
-    request,
+    resourceType,
+    requestBody,
     options,
   ));
 }
 
 async function $do(
   client: CloudinaryAssetsCore,
-  request: operations.GenerateArchiveRequest,
+  resourceType: operations.GenerateArchiveResourceType,
+  requestBody: operations.GenerateArchiveRequestBody,
   options?: RequestOptions & {
     acceptHeaderOverride?: GenerateArchiveAcceptEnum;
   },
@@ -72,19 +77,25 @@ async function $do(
     Result<
       operations.GenerateArchiveResponse,
       | errors.ApiError
-      | SDKError
-      | SDKValidationError
-      | UnexpectedClientError
-      | InvalidRequestError
+      | CloudinaryAssetsError
+      | ResponseValidationError
+      | ConnectionError
       | RequestAbortedError
       | RequestTimeoutError
-      | ConnectionError
+      | InvalidRequestError
+      | UnexpectedClientError
+      | SDKValidationError
     >,
     APICall,
   ]
 > {
+  const input: operations.GenerateArchiveRequest = {
+    resourceType: resourceType,
+    requestBody: requestBody,
+  };
+
   const parsed = safeParse(
-    request,
+    input,
     (value) => operations.GenerateArchiveRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
@@ -166,20 +177,21 @@ async function $do(
   const [result] = await M.match<
     operations.GenerateArchiveResponse,
     | errors.ApiError
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | CloudinaryAssetsError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >(
     M.stream(200, operations.GenerateArchiveResponse$inboundSchema),
     M.json(200, operations.GenerateArchiveResponse$inboundSchema),
     M.jsonErr([400, 401], errors.ApiError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
-  )(response, { extraFields: responseFields });
+  )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return [result, { status: "complete", request: req, response }];
   }

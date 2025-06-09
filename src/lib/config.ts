@@ -3,6 +3,7 @@
  */
 
 import * as components from "../models/components/index.js";
+import { ClosedEnum } from "../types/enums.js";
 import { HTTPClient } from "./http.js";
 import { Logger } from "./logger.js";
 import { RetryConfig } from "./retries.js";
@@ -12,8 +13,28 @@ import { Params, pathToFunc } from "./url.js";
  * Contains the list of servers available to the SDK
  */
 export const ServerList = [
-  "https://{defaultHost}",
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
 ] as const;
+
+/**
+ * Regional endpoint selection
+ */
+export const ServerRegion = {
+  Api: "api",
+  ApiEu: "api-eu",
+  ApiAp: "api-ap",
+} as const;
+/**
+ * Regional endpoint selection
+ */
+export type ServerRegion = ClosedEnum<typeof ServerRegion>;
 
 export type SDKOptions = {
   /**
@@ -35,9 +56,13 @@ export type SDKOptions = {
    */
   serverIdx?: number | undefined;
   /**
-   * Sets the defaultHost variable for url substitution
+   * Sets the region variable for url substitution
    */
-  defaultHost?: string | undefined;
+  region?: ServerRegion | undefined;
+  /**
+   * Sets the host variable for url substitution
+   */
+  host?: string | undefined;
   /**
    * Allows overriding the default server URL used by the SDK
    */
@@ -59,7 +84,10 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 
   const serverParams: Params[] = [
     {
-      "defaultHost": options.defaultHost ?? "api.cloudinary.com",
+      "region": options.region ?? "api",
+    },
+    {
+      "host": options.host ?? "api.cloudinary.com",
     },
   ];
   let params: Params = {};
@@ -79,8 +107,8 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 
 export const SDK_METADATA = {
   language: "typescript",
-  openapiDocVersion: "0.1.0",
-  sdkVersion: "0.2.1",
-  genVersion: "2.618.0",
-  userAgent: "speakeasy-sdk/typescript 0.2.1 2.618.0 0.1.0 @cloudinary/assets",
+  openapiDocVersion: "0.2.1",
+  sdkVersion: "0.3.0",
+  genVersion: "2.623.2",
+  userAgent: "speakeasy-sdk/typescript 0.3.0 2.623.2 0.2.1 @cloudinary/assets",
 } as const;

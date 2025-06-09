@@ -11,6 +11,8 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
+import * as components from "../models/components/index.js";
+import { CloudinaryAssetsError } from "../models/errors/cloudinaryassetserror.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -19,7 +21,7 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import * as errors from "../models/errors/index.js";
-import { SDKError } from "../models/errors/sdkerror.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
@@ -33,11 +35,26 @@ export enum UploadMultipartAcceptEnum {
 }
 
 /**
- * Uploads a file to Cloudinary
+ * Uploads media assets (images, videos, raw files) to your Cloudinary product environment
+ *
+ * @remarks
+ * Uploads media assets (images, videos, raw files) to your Cloudinary product environment. The file is securely stored
+ * in the cloud with backup and revision history. Cloudinary automatically analyzes and saves important data about each
+ * asset, such as format, size, resolution, and prominent colors, which is indexed to enable searching on those attributes.
+ *
+ * Supports uploading from:
+ * - Local file paths (SDKs/MCP server only). For MCP server path MUST start with file://
+ * - Remote HTTP/HTTPS URLs
+ * - Base64 Data URIs (max ~60 MB)
+ * - Private storage buckets (S3 or Google Storage)
+ * - FTP addresses
+ *
+ * The uploaded asset is immediately available for transformation and delivery upon successful upload.
  */
 export function uploadUploadMultipart(
   client: CloudinaryAssetsCore,
-  request: operations.UploadMultipartRequest,
+  resourceType: components.UploadResourceType | undefined,
+  binaryUploadRequest: components.BinaryUploadRequest,
   options?: RequestOptions & {
     acceptHeaderOverride?: UploadMultipartAcceptEnum;
   },
@@ -45,25 +62,28 @@ export function uploadUploadMultipart(
   Result<
     operations.UploadMultipartResponse,
     | errors.ApiError
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | CloudinaryAssetsError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >
 > {
   return new APIPromise($do(
     client,
-    request,
+    resourceType,
+    binaryUploadRequest,
     options,
   ));
 }
 
 async function $do(
   client: CloudinaryAssetsCore,
-  request: operations.UploadMultipartRequest,
+  resourceType: components.UploadResourceType | undefined,
+  binaryUploadRequest: components.BinaryUploadRequest,
   options?: RequestOptions & {
     acceptHeaderOverride?: UploadMultipartAcceptEnum;
   },
@@ -72,19 +92,25 @@ async function $do(
     Result<
       operations.UploadMultipartResponse,
       | errors.ApiError
-      | SDKError
-      | SDKValidationError
-      | UnexpectedClientError
-      | InvalidRequestError
+      | CloudinaryAssetsError
+      | ResponseValidationError
+      | ConnectionError
       | RequestAbortedError
       | RequestTimeoutError
-      | ConnectionError
+      | InvalidRequestError
+      | UnexpectedClientError
+      | SDKValidationError
     >,
     APICall,
   ]
 > {
+  const input: operations.UploadMultipartRequest = {
+    resourceType: resourceType,
+    binaryUploadRequest: binaryUploadRequest,
+  };
+
   const parsed = safeParse(
-    request,
+    input,
     (value) => operations.UploadMultipartRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
@@ -493,13 +519,14 @@ async function $do(
   const [result] = await M.match<
     operations.UploadMultipartResponse,
     | errors.ApiError
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | CloudinaryAssetsError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >(
     M.json(200, operations.UploadMultipartResponse$inboundSchema),
     M.text(302, operations.UploadMultipartResponse$inboundSchema, {
@@ -508,7 +535,7 @@ async function $do(
     M.jsonErr([400, 401, 403, 404], errors.ApiError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
-  )(response, { extraFields: responseFields });
+  )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return [result, { status: "complete", request: req, response }];
   }

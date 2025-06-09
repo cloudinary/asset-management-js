@@ -147,6 +147,7 @@ import { CloudinaryAssets } from "@cloudinary/assets";
 import { openAsBlob } from "node:fs";
 
 const cloudinaryAssets = new CloudinaryAssets({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -154,22 +155,18 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.uploadMultipart({
-    resourceType: "video",
-    binaryUploadRequest: {
-      headers: "X-Robots-Tag: noindex",
-      moderation: "google_video_moderation",
-      rawConvert: "google_speech:vtt:en-US",
-      backgroundRemoval: "pixelz",
-      format: "jpg",
-      allowedFormats: "mp4,ogv,jpg,png,pdf",
-      autoTagging: 0.5,
-      detection: "coco_v2",
-      file: await openAsBlob("example.file"),
-    },
+  const result = await cloudinaryAssets.upload.uploadMultipart("auto", {
+    headers: "X-Robots-Tag: noindex",
+    moderation: "google_video_moderation",
+    rawConvert: "google_speech:vtt:en-US",
+    backgroundRemoval: "pixelz",
+    format: "jpg",
+    allowedFormats: "mp4,ogv,jpg,png,pdf",
+    autoTagging: 0.5,
+    detection: "coco_v2",
+    file: await openAsBlob("example.file"),
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -202,6 +199,7 @@ import { CloudinaryAssets } from "@cloudinary/assets";
 import { openAsBlob } from "node:fs";
 
 const cloudinaryAssets = new CloudinaryAssets({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -209,22 +207,18 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.uploadMultipart({
-    resourceType: "video",
-    binaryUploadRequest: {
-      headers: "X-Robots-Tag: noindex",
-      moderation: "google_video_moderation",
-      rawConvert: "google_speech:vtt:en-US",
-      backgroundRemoval: "pixelz",
-      format: "jpg",
-      allowedFormats: "mp4,ogv,jpg,png,pdf",
-      autoTagging: 0.5,
-      detection: "coco_v2",
-      file: await openAsBlob("example.file"),
-    },
+  const result = await cloudinaryAssets.upload.uploadMultipart("auto", {
+    headers: "X-Robots-Tag: noindex",
+    moderation: "google_video_moderation",
+    rawConvert: "google_speech:vtt:en-US",
+    backgroundRemoval: "pixelz",
+    format: "jpg",
+    allowedFormats: "mp4,ogv,jpg,png,pdf",
+    autoTagging: 0.5,
+    detection: "coco_v2",
+    file: await openAsBlob("example.file"),
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -254,25 +248,22 @@ const cloudinaryAssets = new CloudinaryAssets({
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
   },
+  cloudName: "<value>",
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.uploadMultipart({
-    resourceType: "video",
-    binaryUploadRequest: {
-      headers: "X-Robots-Tag: noindex",
-      moderation: "google_video_moderation",
-      rawConvert: "google_speech:vtt:en-US",
-      backgroundRemoval: "pixelz",
-      format: "jpg",
-      allowedFormats: "mp4,ogv,jpg,png,pdf",
-      autoTagging: 0.5,
-      detection: "coco_v2",
-      file: await openAsBlob("example.file"),
-    },
+  const result = await cloudinaryAssets.upload.uploadMultipart("auto", {
+    headers: "X-Robots-Tag: noindex",
+    moderation: "google_video_moderation",
+    rawConvert: "google_speech:vtt:en-US",
+    backgroundRemoval: "pixelz",
+    format: "jpg",
+    allowedFormats: "mp4,ogv,jpg,png,pdf",
+    autoTagging: 0.5,
+    detection: "coco_v2",
+    file: await openAsBlob("example.file"),
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -296,12 +287,12 @@ run();
 
 ### [assets](docs/sdks/assets/README.md)
 
-* [renameAsset](docs/sdks/assets/README.md#renameasset) - Renames an asset
-* [downloadAsset](docs/sdks/assets/README.md#downloadasset) - Downloads an asset
+* [renameAsset](docs/sdks/assets/README.md#renameasset) - Updates an existing asset's identifier and optionally other metadata in your Cloudinary account
+* [downloadAsset](docs/sdks/assets/README.md#downloadasset) - Generates a download link for a specific asset (image)
 * [explicitAsset](docs/sdks/assets/README.md#explicitasset) - Apply operations on an existing asset
-* [generateArchive](docs/sdks/assets/README.md#generatearchive) - Generate downloadable archive
+* [generateArchive](docs/sdks/assets/README.md#generatearchive) - Creates an archive (ZIP or TGZ file) that contains a set of assets from
 * [downloadBackupAsset](docs/sdks/assets/README.md#downloadbackupasset) - Download a backup copy of an asset
-* [destroyByAssetId](docs/sdks/assets/README.md#destroybyassetid) - Delete asset by ID
+* [destroyByAssetId](docs/sdks/assets/README.md#destroybyassetid) - Delete asset by asset-id
 * [listResourceTypes](docs/sdks/assets/README.md#listresourcetypes) - Get resource types
 * [listImages](docs/sdks/assets/README.md#listimages) - Get image assets
 * [listVideos](docs/sdks/assets/README.md#listvideos) - Get video assets
@@ -311,13 +302,12 @@ run();
 * [listResourcesByContext](docs/sdks/assets/README.md#listresourcesbycontext) - Get resources by context
 * [listResourcesByModerationKindAndStatus](docs/sdks/assets/README.md#listresourcesbymoderationkindandstatus) - Get resources by moderation kind and status
 * [restoreResourcesByAssetIDs](docs/sdks/assets/README.md#restoreresourcesbyassetids) - Restore assets
-* [listResourcesByExternalIDs](docs/sdks/assets/README.md#listresourcesbyexternalids) - Get resources by external IDs
 * [deleteResourcesByPublicId](docs/sdks/assets/README.md#deleteresourcesbypublicid) - Delete resources by public ID
 * [getResourceByPublicId](docs/sdks/assets/README.md#getresourcebypublicid) - Get resource by public ID
 * [updateResourceByPublicId](docs/sdks/assets/README.md#updateresourcebypublicid) - Update asset by public ID
 * [getResourceByAssetId](docs/sdks/assets/README.md#getresourcebyassetid) - Get resource by asset ID
-* [updateResourceByAssetId](docs/sdks/assets/README.md#updateresourcebyassetid) - Update asset by asset ID
-* [listResourceTags](docs/sdks/assets/README.md#listresourcetags) - Get tags
+* [updateResourceByAssetId](docs/sdks/assets/README.md#updateresourcebyassetid) - Updates an existing asset's metadata, tags, and other attributes using its asset ID
+* [listResourceTags](docs/sdks/assets/README.md#listresourcetags) - Retrieves a list of tags currently applied to assets in your Cloudinary account
 * [deleteBackupVersions](docs/sdks/assets/README.md#deletebackupversions) - Delete backed up versions
 * [derivedDestroy](docs/sdks/assets/README.md#deriveddestroy) - Delete derived resources
 
@@ -333,11 +323,11 @@ run();
 ### [folders](docs/sdks/folders/README.md)
 
 * [showFolder](docs/sdks/folders/README.md#showfolder) - List sub-folders
-* [updateFolder](docs/sdks/folders/README.md#updatefolder) - Update folder
-* [createFolder](docs/sdks/folders/README.md#createfolder) - Create a new folder
-* [destroyFolder](docs/sdks/folders/README.md#destroyfolder) - Delete folder
+* [updateFolder](docs/sdks/folders/README.md#updatefolder) - Renames or moves an entire folder (along with all assets it contains) to a
+* [createFolder](docs/sdks/folders/README.md#createfolder) - Creates a new empty folder in your Cloudinary media library
+* [destroyFolder](docs/sdks/folders/README.md#destroyfolder) - Deletes an existing folder from your media library
 * [listRootFolders](docs/sdks/folders/README.md#listrootfolders) - Get root folders
-* [searchFolders](docs/sdks/folders/README.md#searchfolders) - Searches for folders in your product environment
+* [searchFolders](docs/sdks/folders/README.md#searchfolders) - Searches for folders whose attributes match a given expression
 * [searchFoldersPost](docs/sdks/folders/README.md#searchfolderspost) - Searches for folders in your product environment
 
 ### [moderations](docs/sdks/moderations/README.md)
@@ -346,27 +336,25 @@ run();
 
 ### [search](docs/sdks/search/README.md)
 
-* [searchResourcesPost](docs/sdks/search/README.md#searchresourcespost) - Get resources by search (POST method)
-* [visualSearchResources](docs/sdks/search/README.md#visualsearchresources) - Get resources by visual similarity
+* [searchAssets](docs/sdks/search/README.md#searchassets) - Provides a powerful query interface to filter and retrieve assets and their details
+* [visualSearchAssets](docs/sdks/search/README.md#visualsearchassets) - Finds images in your asset library based on visual similarity or content
 
 ### [tags](docs/sdks/tags/README.md)
 
-* [listResourceTags](docs/sdks/tags/README.md#listresourcetags) - Get tags
+* [listResourceTags](docs/sdks/tags/README.md#listresourcetags) - Retrieves a list of tags currently applied to assets in your Cloudinary account
 
 ### [upload](docs/sdks/upload/README.md)
 
-* [uploadMultipart](docs/sdks/upload/README.md#uploadmultipart) - Uploads a file to Cloudinary
-* [upload](docs/sdks/upload/README.md#upload) - Uploads a file to Cloudinary
-* [uploadNoResourceTypeMultipart](docs/sdks/upload/README.md#uploadnoresourcetypemultipart) - Upload with automatic file type detection
-* [uploadNoResourceType](docs/sdks/upload/README.md#uploadnoresourcetype) - Upload with automatic file type detection
-* [uploadChunkedMultipart](docs/sdks/upload/README.md#uploadchunkedmultipart) - Upload a large file in chunks
-* [uploadChunked](docs/sdks/upload/README.md#uploadchunked) - Upload a large file in chunks
+* [uploadMultipart](docs/sdks/upload/README.md#uploadmultipart) - Uploads media assets (images, videos, raw files) to your Cloudinary product environment
+* [upload](docs/sdks/upload/README.md#upload) - Uploads media assets (images, videos, raw files) to your Cloudinary product environment
+* [uploadChunkMultipart](docs/sdks/upload/README.md#uploadchunkmultipart) - Upload a single chunk of a large file
+* [uploadChunk](docs/sdks/upload/README.md#uploadchunk) - Upload a single chunk of a large file
 * [destroyAsset](docs/sdks/upload/README.md#destroyasset) - Destroys an asset/resource
 * [text](docs/sdks/upload/README.md#text) - Create image from text
 
 ### [usage](docs/sdks/usage/README.md)
 
-* [getUsage](docs/sdks/usage/README.md#getusage) - Get usage details
+* [getUsage](docs/sdks/usage/README.md#getusage) - Retrieves comprehensive usage metrics and account statistics
 
 ### [videoAnalytics](docs/sdks/videoanalytics/README.md)
 
@@ -395,13 +383,14 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`assetRelationsDeleteAssetRelationsByAssetId`](docs/sdks/assetrelations/README.md#deleteassetrelationsbyassetid) - Delete asset relations by asset ID
 - [`assetRelationsDeleteAssetRelationsByPublicId`](docs/sdks/assetrelations/README.md#deleteassetrelationsbypublicid) - Delete asset relations by public ID
 - [`assetsDeleteBackupVersions`](docs/sdks/assets/README.md#deletebackupversions) - Delete backed up versions
+- [`assetsDeleteBackupVersions`](docs/sdks/backups/README.md#deletebackupversions) - Delete backed up versions
 - [`assetsDeleteResourcesByPublicId`](docs/sdks/assets/README.md#deleteresourcesbypublicid) - Delete resources by public ID
 - [`assetsDerivedDestroy`](docs/sdks/assets/README.md#deriveddestroy) - Delete derived resources
-- [`assetsDestroyByAssetId`](docs/sdks/assets/README.md#destroybyassetid) - Delete asset by ID
-- [`assetsDownloadAsset`](docs/sdks/assets/README.md#downloadasset) - Downloads an asset
+- [`assetsDestroyByAssetId`](docs/sdks/assets/README.md#destroybyassetid) - Delete asset by asset-id
+- [`assetsDownloadAsset`](docs/sdks/assets/README.md#downloadasset) - Generates a download link for a specific asset (image)
 - [`assetsDownloadBackupAsset`](docs/sdks/assets/README.md#downloadbackupasset) - Download a backup copy of an asset
 - [`assetsExplicitAsset`](docs/sdks/assets/README.md#explicitasset) - Apply operations on an existing asset
-- [`assetsGenerateArchive`](docs/sdks/assets/README.md#generatearchive) - Generate downloadable archive
+- [`assetsGenerateArchive`](docs/sdks/assets/README.md#generatearchive) - Creates an archive (ZIP or TGZ file) that contains a set of assets from
 - [`assetsGetResourceByAssetId`](docs/sdks/assets/README.md#getresourcebyassetid) - Get resource by asset ID
 - [`assetsGetResourceByPublicId`](docs/sdks/assets/README.md#getresourcebypublicid) - Get resource by public ID
 - [`assetsListImages`](docs/sdks/assets/README.md#listimages) - Get image assets
@@ -409,37 +398,33 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`assetsListResourcesByAssetFolder`](docs/sdks/assets/README.md#listresourcesbyassetfolder) - Get resources by asset folder
 - [`assetsListResourcesByAssetIDs`](docs/sdks/assets/README.md#listresourcesbyassetids) - Get resources by asset IDs
 - [`assetsListResourcesByContext`](docs/sdks/assets/README.md#listresourcesbycontext) - Get resources by context
-- [`assetsListResourcesByExternalIDs`](docs/sdks/assets/README.md#listresourcesbyexternalids) - Get resources by external IDs
 - [`assetsListResourcesByModerationKindAndStatus`](docs/sdks/assets/README.md#listresourcesbymoderationkindandstatus) - Get resources by moderation kind and status
-- [`assetsListResourceTags`](docs/sdks/assets/README.md#listresourcetags) - Get tags
+- [`assetsListResourcesByModerationKindAndStatus`](docs/sdks/moderations/README.md#listresourcesbymoderationkindandstatus) - Get resources by moderation kind and status
+- [`assetsListResourceTags`](docs/sdks/assets/README.md#listresourcetags) - Retrieves a list of tags currently applied to assets in your Cloudinary account
+- [`assetsListResourceTags`](docs/sdks/tags/README.md#listresourcetags) - Retrieves a list of tags currently applied to assets in your Cloudinary account
 - [`assetsListResourceTypes`](docs/sdks/assets/README.md#listresourcetypes) - Get resource types
 - [`assetsListVideos`](docs/sdks/assets/README.md#listvideos) - Get video assets
-- [`assetsRenameAsset`](docs/sdks/assets/README.md#renameasset) - Renames an asset
+- [`assetsRenameAsset`](docs/sdks/assets/README.md#renameasset) - Updates an existing asset's identifier and optionally other metadata in your Cloudinary account
 - [`assetsRestoreResourcesByAssetIDs`](docs/sdks/assets/README.md#restoreresourcesbyassetids) - Restore assets
-- [`assetsUpdateResourceByAssetId`](docs/sdks/assets/README.md#updateresourcebyassetid) - Update asset by asset ID
+- [`assetsUpdateResourceByAssetId`](docs/sdks/assets/README.md#updateresourcebyassetid) - Updates an existing asset's metadata, tags, and other attributes using its asset ID
 - [`assetsUpdateResourceByPublicId`](docs/sdks/assets/README.md#updateresourcebypublicid) - Update asset by public ID
-- [`backupsDeleteBackupVersions`](docs/sdks/backups/README.md#deletebackupversions) - Delete backed up versions
 - [`explodeExplodeResource`](docs/sdks/explode/README.md#exploderesource) - Create derived images from multi-page file
-- [`foldersCreateFolder`](docs/sdks/folders/README.md#createfolder) - Create a new folder
-- [`foldersDestroyFolder`](docs/sdks/folders/README.md#destroyfolder) - Delete folder
+- [`foldersCreateFolder`](docs/sdks/folders/README.md#createfolder) - Creates a new empty folder in your Cloudinary media library
+- [`foldersDestroyFolder`](docs/sdks/folders/README.md#destroyfolder) - Deletes an existing folder from your media library
 - [`foldersListRootFolders`](docs/sdks/folders/README.md#listrootfolders) - Get root folders
-- [`foldersSearchFolders`](docs/sdks/folders/README.md#searchfolders) - Searches for folders in your product environment
+- [`foldersSearchFolders`](docs/sdks/folders/README.md#searchfolders) - Searches for folders whose attributes match a given expression
 - [`foldersSearchFoldersPost`](docs/sdks/folders/README.md#searchfolderspost) - Searches for folders in your product environment
 - [`foldersShowFolder`](docs/sdks/folders/README.md#showfolder) - List sub-folders
-- [`foldersUpdateFolder`](docs/sdks/folders/README.md#updatefolder) - Update folder
-- [`moderationsListResourcesByModerationKindAndStatus`](docs/sdks/moderations/README.md#listresourcesbymoderationkindandstatus) - Get resources by moderation kind and status
-- [`searchSearchResourcesPost`](docs/sdks/search/README.md#searchresourcespost) - Get resources by search (POST method)
-- [`searchVisualSearchResources`](docs/sdks/search/README.md#visualsearchresources) - Get resources by visual similarity
-- [`tagsListResourceTags`](docs/sdks/tags/README.md#listresourcetags) - Get tags
+- [`foldersUpdateFolder`](docs/sdks/folders/README.md#updatefolder) - Renames or moves an entire folder (along with all assets it contains) to a
+- [`searchSearchAssets`](docs/sdks/search/README.md#searchassets) - Provides a powerful query interface to filter and retrieve assets and their details
+- [`searchVisualSearchAssets`](docs/sdks/search/README.md#visualsearchassets) - Finds images in your asset library based on visual similarity or content
 - [`uploadDestroyAsset`](docs/sdks/upload/README.md#destroyasset) - Destroys an asset/resource
 - [`uploadText`](docs/sdks/upload/README.md#text) - Create image from text
-- [`uploadUpload`](docs/sdks/upload/README.md#upload) - Uploads a file to Cloudinary
-- [`uploadUploadChunked`](docs/sdks/upload/README.md#uploadchunked) - Upload a large file in chunks
-- [`uploadUploadChunkedMultipart`](docs/sdks/upload/README.md#uploadchunkedmultipart) - Upload a large file in chunks
-- [`uploadUploadMultipart`](docs/sdks/upload/README.md#uploadmultipart) - Uploads a file to Cloudinary
-- [`uploadUploadNoResourceType`](docs/sdks/upload/README.md#uploadnoresourcetype) - Upload with automatic file type detection
-- [`uploadUploadNoResourceTypeMultipart`](docs/sdks/upload/README.md#uploadnoresourcetypemultipart) - Upload with automatic file type detection
-- [`usageGetUsage`](docs/sdks/usage/README.md#getusage) - Get usage details
+- [`uploadUpload`](docs/sdks/upload/README.md#upload) - Uploads media assets (images, videos, raw files) to your Cloudinary product environment
+- [`uploadUploadChunk`](docs/sdks/upload/README.md#uploadchunk) - Upload a single chunk of a large file
+- [`uploadUploadChunkMultipart`](docs/sdks/upload/README.md#uploadchunkmultipart) - Upload a single chunk of a large file
+- [`uploadUploadMultipart`](docs/sdks/upload/README.md#uploadmultipart) - Uploads media assets (images, videos, raw files) to your Cloudinary product environment
+- [`usageGetUsage`](docs/sdks/usage/README.md#getusage) - Retrieves comprehensive usage metrics and account statistics
 - [`videoAnalyticsGetVideoViews`](docs/sdks/videoanalytics/README.md#getvideoviews) - Get video views
 
 </details>
@@ -464,6 +449,7 @@ import { CloudinaryAssets } from "@cloudinary/assets";
 import { openAsBlob } from "node:fs";
 
 const cloudinaryAssets = new CloudinaryAssets({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -471,22 +457,18 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.uploadMultipart({
-    resourceType: "video",
-    binaryUploadRequest: {
-      headers: "X-Robots-Tag: noindex",
-      moderation: "google_video_moderation",
-      rawConvert: "google_speech:vtt:en-US",
-      backgroundRemoval: "pixelz",
-      format: "jpg",
-      allowedFormats: "mp4,ogv,jpg,png,pdf",
-      autoTagging: 0.5,
-      detection: "coco_v2",
-      file: await openAsBlob("example.file"),
-    },
+  const result = await cloudinaryAssets.upload.uploadMultipart("auto", {
+    headers: "X-Robots-Tag: noindex",
+    moderation: "google_video_moderation",
+    rawConvert: "google_speech:vtt:en-US",
+    backgroundRemoval: "pixelz",
+    format: "jpg",
+    allowedFormats: "mp4,ogv,jpg,png,pdf",
+    autoTagging: 0.5,
+    detection: "coco_v2",
+    file: await openAsBlob("example.file"),
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -506,6 +488,7 @@ import { CloudinaryAssets } from "@cloudinary/assets";
 import { openAsBlob } from "node:fs";
 
 const cloudinaryAssets = new CloudinaryAssets({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -513,19 +496,16 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.uploadMultipart({
-    resourceType: "video",
-    binaryUploadRequest: {
-      headers: "X-Robots-Tag: noindex",
-      moderation: "google_video_moderation",
-      rawConvert: "google_speech:vtt:en-US",
-      backgroundRemoval: "pixelz",
-      format: "jpg",
-      allowedFormats: "mp4,ogv,jpg,png,pdf",
-      autoTagging: 0.5,
-      detection: "coco_v2",
-      file: await openAsBlob("example.file"),
-    },
+  const result = await cloudinaryAssets.upload.uploadMultipart("auto", {
+    headers: "X-Robots-Tag: noindex",
+    moderation: "google_video_moderation",
+    rawConvert: "google_speech:vtt:en-US",
+    backgroundRemoval: "pixelz",
+    format: "jpg",
+    allowedFormats: "mp4,ogv,jpg,png,pdf",
+    autoTagging: 0.5,
+    detection: "coco_v2",
+    file: await openAsBlob("example.file"),
   }, {
     retries: {
       strategy: "backoff",
@@ -539,7 +519,6 @@ async function run() {
     },
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -563,6 +542,7 @@ const cloudinaryAssets = new CloudinaryAssets({
     },
     retryConnectionErrors: false,
   },
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -570,22 +550,18 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.uploadMultipart({
-    resourceType: "video",
-    binaryUploadRequest: {
-      headers: "X-Robots-Tag: noindex",
-      moderation: "google_video_moderation",
-      rawConvert: "google_speech:vtt:en-US",
-      backgroundRemoval: "pixelz",
-      format: "jpg",
-      allowedFormats: "mp4,ogv,jpg,png,pdf",
-      autoTagging: 0.5,
-      detection: "coco_v2",
-      file: await openAsBlob("example.file"),
-    },
+  const result = await cloudinaryAssets.upload.uploadMultipart("auto", {
+    headers: "X-Robots-Tag: noindex",
+    moderation: "google_video_moderation",
+    rawConvert: "google_speech:vtt:en-US",
+    backgroundRemoval: "pixelz",
+    format: "jpg",
+    allowedFormats: "mp4,ogv,jpg,png,pdf",
+    autoTagging: 0.5,
+    detection: "coco_v2",
+    file: await openAsBlob("example.file"),
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -597,21 +573,25 @@ run();
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-Some methods specify known errors which can be thrown. All the known errors are enumerated in the `models/errors/errors.ts` module. The known errors for a method are documented under the *Errors* tables in SDK docs. For example, the `uploadMultipart` method may throw the following errors:
+[`CloudinaryAssetsError`](./src/models/errors/cloudinaryassetserror.ts) is the base class for all HTTP error responses. It has the following properties:
 
-| Error Type      | Status Code        | Content Type     |
-| --------------- | ------------------ | ---------------- |
-| errors.ApiError | 400, 401, 403, 404 | application/json |
-| errors.SDKError | 4XX, 5XX           | \*/\*            |
+| Property            | Type       | Description                                                                             |
+| ------------------- | ---------- | --------------------------------------------------------------------------------------- |
+| `error.message`     | `string`   | Error message                                                                           |
+| `error.statusCode`  | `number`   | HTTP response status code eg `404`                                                      |
+| `error.headers`     | `Headers`  | HTTP response headers                                                                   |
+| `error.body`        | `string`   | HTTP body. Can be empty string if no body is returned.                                  |
+| `error.rawResponse` | `Response` | Raw HTTP response                                                                       |
+| `error.data$`       |            | Optional. Some errors may contain structured data. [See Error Classes](#error-classes). |
 
-If the method throws an error and it is not captured by the known errors, it will default to throwing a `SDKError`.
-
+### Example
 ```typescript
 import { CloudinaryAssets } from "@cloudinary/assets";
-import { ApiError, SDKValidationError } from "@cloudinary/assets/models/errors";
+import * as errors from "@cloudinary/assets/models/errors";
 import { openAsBlob } from "node:fs";
 
 const cloudinaryAssets = new CloudinaryAssets({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -619,43 +599,31 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  let result;
   try {
-    result = await cloudinaryAssets.upload.uploadMultipart({
-      resourceType: "video",
-      binaryUploadRequest: {
-        headers: "X-Robots-Tag: noindex",
-        moderation: "google_video_moderation",
-        rawConvert: "google_speech:vtt:en-US",
-        backgroundRemoval: "pixelz",
-        format: "jpg",
-        allowedFormats: "mp4,ogv,jpg,png,pdf",
-        autoTagging: 0.5,
-        detection: "coco_v2",
-        file: await openAsBlob("example.file"),
-      },
+    const result = await cloudinaryAssets.upload.uploadMultipart("auto", {
+      headers: "X-Robots-Tag: noindex",
+      moderation: "google_video_moderation",
+      rawConvert: "google_speech:vtt:en-US",
+      backgroundRemoval: "pixelz",
+      format: "jpg",
+      allowedFormats: "mp4,ogv,jpg,png,pdf",
+      autoTagging: 0.5,
+      detection: "coco_v2",
+      file: await openAsBlob("example.file"),
     });
 
-    // Handle the result
     console.log(result);
-  } catch (err) {
-    switch (true) {
-      // The server response does not match the expected SDK schema
-      case (err instanceof SDKValidationError): {
-        // Pretty-print will provide a human-readable multi-line error message
-        console.error(err.pretty());
-        // Raw value may also be inspected
-        console.error(err.rawValue);
-        return;
-      }
-      case (err instanceof ApiError): {
-        // Handle err.data$: ApiErrorData
-        console.error(err);
-        return;
-      }
-      default: {
-        // Other errors such as network errors, see HTTPClientErrors for more details
-        throw err;
+  } catch (error) {
+    // The base class for HTTP error responses
+    if (error instanceof errors.CloudinaryAssetsError) {
+      console.log(error.message);
+      console.log(error.statusCode);
+      console.log(error.body);
+      console.log(error.headers);
+
+      // Depending on the method different errors may be thrown
+      if (error instanceof errors.ApiError) {
+        console.log(error.data$.error); // components.ApiErrorError
       }
     }
   }
@@ -665,29 +633,53 @@ run();
 
 ```
 
-Validation errors can also occur when either method arguments or data returned from the server do not match the expected format. The `SDKValidationError` that is thrown as a result will capture the raw value that failed validation in an attribute called `rawValue`. Additionally, a `pretty()` method is available on this error that can be used to log a nicely formatted multi-line string since validation errors can list many issues and the plain error string may be difficult read when debugging.
+### Error Classes
+**Primary errors:**
+* [`CloudinaryAssetsError`](./src/models/errors/cloudinaryassetserror.ts): The base class for HTTP error responses.
+  * [`ApiError`](docs/models/errors/apierror.md): *
 
-In some rare cases, the SDK can fail to get a response from the server or even make the request due to unexpected circumstances such as network conditions. These types of errors are captured in the `models/errors/httpclienterrors.ts` module:
+<details><summary>Less common errors (10)</summary>
 
-| HTTP Client Error                                    | Description                                          |
-| ---------------------------------------------------- | ---------------------------------------------------- |
-| RequestAbortedError                                  | HTTP request was aborted by the client               |
-| RequestTimeoutError                                  | HTTP request timed out due to an AbortSignal signal  |
-| ConnectionError                                      | HTTP client was unable to make a request to a server |
-| InvalidRequestError                                  | Any input used to create a request is invalid        |
-| UnexpectedClientError                                | Unrecognised or unexpected error                     |
+<br />
+
+**Network errors:**
+* [`ConnectionError`](./src/models/errors/httpclienterrors.ts): HTTP client was unable to make a request to a server.
+* [`RequestTimeoutError`](./src/models/errors/httpclienterrors.ts): HTTP request timed out due to an AbortSignal signal.
+* [`RequestAbortedError`](./src/models/errors/httpclienterrors.ts): HTTP request was aborted by the client.
+* [`InvalidRequestError`](./src/models/errors/httpclienterrors.ts): Any input used to create a request is invalid.
+* [`UnexpectedClientError`](./src/models/errors/httpclienterrors.ts): Unrecognised or unexpected error.
+
+
+**Inherit from [`CloudinaryAssetsError`](./src/models/errors/cloudinaryassetserror.ts)**:
+* [`BadRequestError`](docs/models/errors/badrequesterror.md): Bad request. Status code `400`. Applicable to 1 of 48 methods.*
+* [`DownloadBackupAssetUnauthorizedError`](docs/models/errors/downloadbackupassetunauthorizederror.md): Authentication failed. Status code `401`. Applicable to 1 of 48 methods.*
+* [`ListResourceTypesUnauthorizedError`](docs/models/errors/listresourcetypesunauthorizederror.md): Authentication failed. Status code `401`. Applicable to 1 of 48 methods.*
+* [`NotFoundError`](docs/models/errors/notfounderror.md): Version not found. Status code `404`. Applicable to 1 of 48 methods.*
+* [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
+
+</details>
+
+\* Check [the method documentation](#available-resources-and-operations) to see if the error is applicable.
 <!-- End Error Handling [errors] -->
 
 <!-- Start Server Selection [server] -->
 ## Server Selection
 
-### Server Variables
+### Select Server by Index
 
-The default server `https://{defaultHost}` contains variables and is set to `https://api.cloudinary.com` by default. To override default values, the following parameters are available when initializing the SDK client instance:
+You can override the default server globally by passing a server index to the `serverIdx: number` optional parameter when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the indexes associated with the available servers:
 
-| Variable      | Parameter             | Default                | Description                         |
-| ------------- | --------------------- | ---------------------- | ----------------------------------- |
-| `defaultHost` | `defaultHost: string` | `"api.cloudinary.com"` | The host name for the API endpoint. |
+| #   | Server                            | Variables | Description                                     |
+| --- | --------------------------------- | --------- | ----------------------------------------------- |
+| 0   | `https://{region}.cloudinary.com` | `region`  | Regional API endpoints for optimal performance. |
+| 1   | `https://{host}`                  | `host`    | Custom domains for enterprise deployments.      |
+
+If the selected server has variables, you may override its default values through the additional parameters made available in the SDK constructor:
+
+| Variable | Parameter                     | Supported Values                            | Default                | Description                 |
+| -------- | ----------------------------- | ------------------------------------------- | ---------------------- | --------------------------- |
+| `region` | `region: models.ServerRegion` | - `"api"`<br/>- `"api-eu"`<br/>- `"api-ap"` | `"api"`                | Regional endpoint selection |
+| `host`   | `host: string`                | string                                      | `"api.cloudinary.com"` | API host domain.            |
 
 #### Example
 
@@ -696,7 +688,9 @@ import { CloudinaryAssets } from "@cloudinary/assets";
 import { openAsBlob } from "node:fs";
 
 const cloudinaryAssets = new CloudinaryAssets({
-  defaultHost: "<value>",
+  serverIdx: 1,
+  host: "nutritious-fisherman.net",
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -704,22 +698,18 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.uploadMultipart({
-    resourceType: "video",
-    binaryUploadRequest: {
-      headers: "X-Robots-Tag: noindex",
-      moderation: "google_video_moderation",
-      rawConvert: "google_speech:vtt:en-US",
-      backgroundRemoval: "pixelz",
-      format: "jpg",
-      allowedFormats: "mp4,ogv,jpg,png,pdf",
-      autoTagging: 0.5,
-      detection: "coco_v2",
-      file: await openAsBlob("example.file"),
-    },
+  const result = await cloudinaryAssets.upload.uploadMultipart("auto", {
+    headers: "X-Robots-Tag: noindex",
+    moderation: "google_video_moderation",
+    rawConvert: "google_speech:vtt:en-US",
+    backgroundRemoval: "pixelz",
+    format: "jpg",
+    allowedFormats: "mp4,ogv,jpg,png,pdf",
+    autoTagging: 0.5,
+    detection: "coco_v2",
+    file: await openAsBlob("example.file"),
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -729,13 +719,14 @@ run();
 
 ### Override Server URL Per-Client
 
-The default server can be overridden globally by passing a URL to the `serverURL: string` optional parameter when initializing the SDK client instance. For example:
+The default server can also be overridden globally by passing a URL to the `serverURL: string` optional parameter when initializing the SDK client instance. For example:
 ```typescript
 import { CloudinaryAssets } from "@cloudinary/assets";
 import { openAsBlob } from "node:fs";
 
 const cloudinaryAssets = new CloudinaryAssets({
   serverURL: "https://api.cloudinary.com",
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -743,22 +734,18 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.uploadMultipart({
-    resourceType: "video",
-    binaryUploadRequest: {
-      headers: "X-Robots-Tag: noindex",
-      moderation: "google_video_moderation",
-      rawConvert: "google_speech:vtt:en-US",
-      backgroundRemoval: "pixelz",
-      format: "jpg",
-      allowedFormats: "mp4,ogv,jpg,png,pdf",
-      autoTagging: 0.5,
-      detection: "coco_v2",
-      file: await openAsBlob("example.file"),
-    },
+  const result = await cloudinaryAssets.upload.uploadMultipart("auto", {
+    headers: "X-Robots-Tag: noindex",
+    moderation: "google_video_moderation",
+    rawConvert: "google_speech:vtt:en-US",
+    backgroundRemoval: "pixelz",
+    format: "jpg",
+    allowedFormats: "mp4,ogv,jpg,png,pdf",
+    autoTagging: 0.5,
+    detection: "coco_v2",
+    file: await openAsBlob("example.file"),
   });
 
-  // Handle the result
   console.log(result);
 }
 

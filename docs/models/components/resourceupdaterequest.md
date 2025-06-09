@@ -14,8 +14,8 @@ let value: ResourceUpdateRequest = {
   faceCoordinates: "10,20,150,130|213,345,82,61",
   customCoordinates: "10,20,150,130|213,345,82,61",
   regions: "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}",
-  qualityOverride: "auto:best",
-  detection: "watermark-detection",
+  qualityOverride: "80:420",
+  detection: "captioning",
   accessControl: "[{\"access_type\":\"token\"}]",
 };
 ```

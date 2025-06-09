@@ -10,7 +10,9 @@ import { DeleteBackupVersionsResponseBody2 } from "@cloudinary/assets/models/ope
 let value: DeleteBackupVersionsResponseBody2 = {
   assetId: "<id>",
   deletedVersionIds: [
-    "<value>",
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
 };
 ```

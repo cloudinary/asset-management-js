@@ -22,6 +22,7 @@ Relates an asset to other assets by their asset IDs, an immutable identifier, re
 import { CloudinaryAssets } from "@cloudinary/assets";
 
 const cloudinaryAssets = new CloudinaryAssets({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -29,17 +30,13 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assetRelations.createAssetRelationsByAssetId({
-    assetId: "<id>",
-    requestBody: {
-      assetsToRelate: [
-        "f12345a5c789c",
-        "bbb0efc00c0f12",
-      ],
-    },
+  const result = await cloudinaryAssets.assetRelations.createAssetRelationsByAssetId("<id>", {
+    assetsToRelate: [
+      "f12345a5c789c",
+      "bbb0efc00c0f12",
+    ],
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -57,6 +54,7 @@ import { assetRelationsCreateAssetRelationsByAssetId } from "@cloudinary/assets/
 // Use `CloudinaryAssetsCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssets = new CloudinaryAssetsCore({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -64,24 +62,18 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetRelationsCreateAssetRelationsByAssetId(cloudinaryAssets, {
-    assetId: "<id>",
-    requestBody: {
-      assetsToRelate: [
-        "f12345a5c789c",
-        "bbb0efc00c0f12",
-      ],
-    },
+  const res = await assetRelationsCreateAssetRelationsByAssetId(cloudinaryAssets, "<id>", {
+    assetsToRelate: [
+      "f12345a5c789c",
+      "bbb0efc00c0f12",
+    ],
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("assetRelationsCreateAssetRelationsByAssetId failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -91,7 +83,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.CreateAssetRelationsByAssetIdRequest](../../models/operations/createassetrelationsbyassetidrequest.md)                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `assetId`                                                                                                                                                                      | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The asset ID of the asset to update.                                                                                                                                           |
+| `requestBody`                                                                                                                                                                  | [operations.CreateAssetRelationsByAssetIdRequestBody](../../models/operations/createassetrelationsbyassetidrequestbody.md)                                                     | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -117,6 +110,7 @@ Unrelates the asset from other assets, specified by their asset IDs, an immutabl
 import { CloudinaryAssets } from "@cloudinary/assets";
 
 const cloudinaryAssets = new CloudinaryAssets({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -124,17 +118,13 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assetRelations.deleteAssetRelationsByAssetId({
-    assetId: "<id>",
-    requestBody: {
-      assetsToUnrelate: [
-        "f12345a5c789c",
-        "bbb0efc00c0f12",
-      ],
-    },
+  const result = await cloudinaryAssets.assetRelations.deleteAssetRelationsByAssetId("<id>", {
+    assetsToUnrelate: [
+      "f12345a5c789c",
+      "bbb0efc00c0f12",
+    ],
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -152,6 +142,7 @@ import { assetRelationsDeleteAssetRelationsByAssetId } from "@cloudinary/assets/
 // Use `CloudinaryAssetsCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssets = new CloudinaryAssetsCore({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -159,24 +150,18 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetRelationsDeleteAssetRelationsByAssetId(cloudinaryAssets, {
-    assetId: "<id>",
-    requestBody: {
-      assetsToUnrelate: [
-        "f12345a5c789c",
-        "bbb0efc00c0f12",
-      ],
-    },
+  const res = await assetRelationsDeleteAssetRelationsByAssetId(cloudinaryAssets, "<id>", {
+    assetsToUnrelate: [
+      "f12345a5c789c",
+      "bbb0efc00c0f12",
+    ],
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("assetRelationsDeleteAssetRelationsByAssetId failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -186,7 +171,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.DeleteAssetRelationsByAssetIdRequest](../../models/operations/deleteassetrelationsbyassetidrequest.md)                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `assetId`                                                                                                                                                                      | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The asset ID of the asset to update.                                                                                                                                           |
+| `requestBody`                                                                                                                                                                  | [operations.DeleteAssetRelationsByAssetIdRequestBody](../../models/operations/deleteassetrelationsbyassetidrequestbody.md)                                                     | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -212,6 +198,7 @@ Relates an asset to other assets by public IDs. This allows you to indicate that
 import { CloudinaryAssets } from "@cloudinary/assets";
 
 const cloudinaryAssets = new CloudinaryAssets({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -219,19 +206,13 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assetRelations.createAssetRelationsByPublicId({
-    resourceType: "raw",
-    type: "upload",
-    publicId: "<id>",
-    requestBody: {
-      assetsToRelate: [
-        "raw/upload/dog_subtitles.srt",
-        "image/authenticated/dog_license",
-      ],
-    },
+  const result = await cloudinaryAssets.assetRelations.createAssetRelationsByPublicId("raw", "upload", "<id>", {
+    assetsToRelate: [
+      "raw/upload/dog_subtitles.srt",
+      "image/authenticated/dog_license",
+    ],
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -249,6 +230,7 @@ import { assetRelationsCreateAssetRelationsByPublicId } from "@cloudinary/assets
 // Use `CloudinaryAssetsCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssets = new CloudinaryAssetsCore({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -256,26 +238,18 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetRelationsCreateAssetRelationsByPublicId(cloudinaryAssets, {
-    resourceType: "raw",
-    type: "upload",
-    publicId: "<id>",
-    requestBody: {
-      assetsToRelate: [
-        "raw/upload/dog_subtitles.srt",
-        "image/authenticated/dog_license",
-      ],
-    },
+  const res = await assetRelationsCreateAssetRelationsByPublicId(cloudinaryAssets, "raw", "upload", "<id>", {
+    assetsToRelate: [
+      "raw/upload/dog_subtitles.srt",
+      "image/authenticated/dog_license",
+    ],
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("assetRelationsCreateAssetRelationsByPublicId failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -285,7 +259,10 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.CreateAssetRelationsByPublicIdRequest](../../models/operations/createassetrelationsbypublicidrequest.md)                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `resourceType`                                                                                                                                                                 | [components.ResourceTypeParameter](../../models/components/resourcetypeparameter.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The type the of asset.                                                                                                                                                         |
+| `type`                                                                                                                                                                         | [operations.CreateAssetRelationsByPublicIdType](../../models/operations/createassetrelationsbypublicidtype.md)                                                                 | :heavy_check_mark:                                                                                                                                                             | The delivery type of the asset.                                                                                                                                                |
+| `publicId`                                                                                                                                                                     | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The public ID of the asset.                                                                                                                                                    |
+| `requestBody`                                                                                                                                                                  | [operations.CreateAssetRelationsByPublicIdRequestBody](../../models/operations/createassetrelationsbypublicidrequestbody.md)                                                   | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -311,6 +288,7 @@ Unrelates the asset from other assets, specified by public IDs. This is a bidire
 import { CloudinaryAssets } from "@cloudinary/assets";
 
 const cloudinaryAssets = new CloudinaryAssets({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -318,19 +296,13 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assetRelations.deleteAssetRelationsByPublicId({
-    resourceType: "raw",
-    type: "upload",
-    publicId: "<id>",
-    requestBody: {
-      assetsToUnrelate: [
-        "raw/upload/dog_subtitles.srt",
-        "image/authenticated/dog_license",
-      ],
-    },
+  const result = await cloudinaryAssets.assetRelations.deleteAssetRelationsByPublicId("raw", "upload", "<id>", {
+    assetsToUnrelate: [
+      "raw/upload/dog_subtitles.srt",
+      "image/authenticated/dog_license",
+    ],
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -348,6 +320,7 @@ import { assetRelationsDeleteAssetRelationsByPublicId } from "@cloudinary/assets
 // Use `CloudinaryAssetsCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssets = new CloudinaryAssetsCore({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -355,26 +328,18 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetRelationsDeleteAssetRelationsByPublicId(cloudinaryAssets, {
-    resourceType: "raw",
-    type: "upload",
-    publicId: "<id>",
-    requestBody: {
-      assetsToUnrelate: [
-        "raw/upload/dog_subtitles.srt",
-        "image/authenticated/dog_license",
-      ],
-    },
+  const res = await assetRelationsDeleteAssetRelationsByPublicId(cloudinaryAssets, "raw", "upload", "<id>", {
+    assetsToUnrelate: [
+      "raw/upload/dog_subtitles.srt",
+      "image/authenticated/dog_license",
+    ],
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("assetRelationsDeleteAssetRelationsByPublicId failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -384,7 +349,10 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.DeleteAssetRelationsByPublicIdRequest](../../models/operations/deleteassetrelationsbypublicidrequest.md)                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `resourceType`                                                                                                                                                                 | [components.ResourceTypeParameter](../../models/components/resourcetypeparameter.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The type the of asset.                                                                                                                                                         |
+| `type`                                                                                                                                                                         | [operations.DeleteAssetRelationsByPublicIdType](../../models/operations/deleteassetrelationsbypublicidtype.md)                                                                 | :heavy_check_mark:                                                                                                                                                             | The delivery type of the asset.                                                                                                                                                |
+| `publicId`                                                                                                                                                                     | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The public ID of the asset.                                                                                                                                                    |
+| `requestBody`                                                                                                                                                                  | [operations.DeleteAssetRelationsByPublicIdRequestBody](../../models/operations/deleteassetrelationsbypublicidrequestbody.md)                                                   | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |

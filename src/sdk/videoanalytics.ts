@@ -16,12 +16,18 @@ export class VideoAnalytics extends ClientSDK {
    * such as video public ID, view duration, viewer information, and more.
    */
   async getVideoViews(
-    request: operations.GetVideoViewsRequest,
+    expression?: string | undefined,
+    maxResults?: number | undefined,
+    sortBy?: operations.SortBy | undefined,
+    nextCursor?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.GetVideoViewsResponse> {
     return unwrapAsync(videoAnalyticsGetVideoViews(
       this,
-      request,
+      expression,
+      maxResults,
+      sortBy,
+      nextCursor,
       options,
     ));
   }

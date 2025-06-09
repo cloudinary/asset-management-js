@@ -5,23 +5,23 @@
 import { usageGetUsage } from "../funcs/usageGetUsage.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as components from "../models/components/index.js";
-import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { RFCDate } from "../types/rfcdate.js";
 
 export class Usage extends ClientSDK {
   /**
-   * Get usage details
+   * Retrieves comprehensive usage metrics and account statistics
    *
    * @remarks
    * A report on the status of product environment usage, including storage, credits, bandwidth, requests, number of resources, and add-on usage.
    */
   async getUsage(
-    request: operations.GetUsageRequest,
+    date?: RFCDate | undefined,
     options?: RequestOptions,
   ): Promise<components.UsageResponse> {
     return unwrapAsync(usageGetUsage(
       this,
-      request,
+      date,
       options,
     ));
   }

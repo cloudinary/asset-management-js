@@ -19,12 +19,14 @@ export class AssetRelations extends ClientSDK {
    * Relates an asset to other assets by their asset IDs, an immutable identifier, regardless of public ID, display name, asset folder, resource type or deliver type. This is a bidirectional process, meaning that the asset will also be added as a related_asset to all the other assets specified. The relation is also a one to many relationship, where the asset is related to all the assets specified, but those assets aren't also related to each other.
    */
   async createAssetRelationsByAssetId(
-    request: operations.CreateAssetRelationsByAssetIdRequest,
+    assetId: string,
+    requestBody: operations.CreateAssetRelationsByAssetIdRequestBody,
     options?: RequestOptions,
   ): Promise<components.AssetRelationsResponse> {
     return unwrapAsync(assetRelationsCreateAssetRelationsByAssetId(
       this,
-      request,
+      assetId,
+      requestBody,
       options,
     ));
   }
@@ -36,12 +38,14 @@ export class AssetRelations extends ClientSDK {
    * Unrelates the asset from other assets, specified by their asset IDs, an immutable identifier, regardless of public ID, display name, asset folder, resource type or deliver type. This is a bidirectional process, meaning that the asset will also be removed as a related_asset from all the other assets specified.
    */
   async deleteAssetRelationsByAssetId(
-    request: operations.DeleteAssetRelationsByAssetIdRequest,
+    assetId: string,
+    requestBody: operations.DeleteAssetRelationsByAssetIdRequestBody,
     options?: RequestOptions,
   ): Promise<components.AssetRelationsDeleteResponse> {
     return unwrapAsync(assetRelationsDeleteAssetRelationsByAssetId(
       this,
-      request,
+      assetId,
+      requestBody,
       options,
     ));
   }
@@ -53,12 +57,18 @@ export class AssetRelations extends ClientSDK {
    * Relates an asset to other assets by public IDs. This allows you to indicate that the asset is logically related to other assets in some way (e.g., similar content, or a peripheral asset like video/transcript, etc). This is a bidirectional process, meaning that the asset is also added as a related_asset to all the other assets specified. The relation is also a one to many relationship, where the asset is related to all the assets specified, but those assets aren't also related to each other.
    */
   async createAssetRelationsByPublicId(
-    request: operations.CreateAssetRelationsByPublicIdRequest,
+    resourceType: components.ResourceTypeParameter,
+    type: operations.CreateAssetRelationsByPublicIdType | undefined,
+    publicId: string,
+    requestBody: operations.CreateAssetRelationsByPublicIdRequestBody,
     options?: RequestOptions,
   ): Promise<components.AssetRelationsResponse> {
     return unwrapAsync(assetRelationsCreateAssetRelationsByPublicId(
       this,
-      request,
+      resourceType,
+      type,
+      publicId,
+      requestBody,
       options,
     ));
   }
@@ -70,12 +80,18 @@ export class AssetRelations extends ClientSDK {
    * Unrelates the asset from other assets, specified by public IDs. This is a bidirectional process, meaning that the asset will also be removed as a related_asset from all the other assets specified.
    */
   async deleteAssetRelationsByPublicId(
-    request: operations.DeleteAssetRelationsByPublicIdRequest,
+    resourceType: components.ResourceTypeParameter,
+    type: operations.DeleteAssetRelationsByPublicIdType | undefined,
+    publicId: string,
+    requestBody: operations.DeleteAssetRelationsByPublicIdRequestBody,
     options?: RequestOptions,
   ): Promise<components.AssetRelationsDeleteResponse> {
     return unwrapAsync(assetRelationsDeleteAssetRelationsByPublicId(
       this,
-      request,
+      resourceType,
+      type,
+      publicId,
+      requestBody,
       options,
     ));
   }

@@ -24,7 +24,8 @@ interface StartCommandFlags {
   readonly "cloud-name"?: SDKOptions["cloudName"] | undefined;
   readonly "server-url"?: string;
   readonly "server-index"?: SDKOptions["serverIdx"];
-  readonly "default-host"?: SDKOptions["defaultHost"];
+  readonly region?: SDKOptions["region"];
+  readonly "api-host"?: SDKOptions["host"];
   readonly "log-level": ConsoleLoggerLevel;
   readonly env?: [string, string][];
 }
@@ -60,7 +61,8 @@ async function startStdio(flags: StartCommandFlags) {
     cloudName: flags["cloud-name"],
     serverURL: flags["server-url"],
     serverIdx: flags["server-index"],
-    defaultHost: flags["default-host"],
+    region: flags.region,
+    host: flags["api-host"],
   });
   await server.connect(transport);
 
@@ -86,7 +88,8 @@ async function startSSE(flags: StartCommandFlags) {
     cloudName: flags["cloud-name"],
     serverURL: flags["server-url"],
     serverIdx: flags["server-index"],
-    defaultHost: flags["default-host"],
+    region: flags.region,
+    host: flags["api-host"],
   });
   let transport: SSEServerTransport | undefined;
   const controller = new AbortController();

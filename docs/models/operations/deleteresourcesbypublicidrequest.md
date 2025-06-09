@@ -8,12 +8,6 @@ import { DeleteResourcesByPublicIdRequest } from "@cloudinary/assets/models/oper
 let value: DeleteResourcesByPublicIdRequest = {
   resourceType: "raw",
   type: "twitter",
-  deleteResourceByPublicIdsRequest: {
-    prefix: "<value>",
-    resourceType: "image",
-    keepOriginal: false,
-    invalidate: false,
-  },
 };
 ```
 

@@ -7,7 +7,9 @@ import { ListResourcesByAssetIDsRequest } from "@cloudinary/assets/models/operat
 
 let value: ListResourcesByAssetIDsRequest = {
   assetIds: [
-    "<value>",
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
 };
 ```

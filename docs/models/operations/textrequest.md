@@ -7,9 +7,6 @@ import { TextRequest } from "@cloudinary/assets/models/operations";
 
 let value: TextRequest = {
   resourceType: "image",
-  requestBody: {
-    text: "<value>",
-  },
 };
 ```
 
