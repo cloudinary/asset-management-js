@@ -59,7 +59,8 @@ export class CloudinaryAuthHook
 
         // if content-type is application/json, parse the body as json and add the signature, timestamp and apiKey to the body
         if (request.headers.get("Content-Type") === "application/json") {
-            return this.signJsonRequest(request, apiKey, apiSecret, queryParams);
+            const preprocessedBody = await this.preprocessJsonRequest(request);
+            return this.signJsonRequest(request, apiKey, apiSecret, queryParams, preprocessedBody);
         }
 
         // if content-type is multipart/form-data, parse the body as form data and add the signature, timestamp and apiKey to the body
@@ -137,11 +138,23 @@ export class CloudinaryAuthHook
         return params;
     }
 
-    async signJsonRequest(request: Request, apiKey: string, apiSecret: string, queryParams: string[] = []) {
+    async preprocessJsonRequest(request: Request): Promise<any> {
         const body = await request.json();
+        
+        // Handle file:// URLs by converting to base64 data URIs
+        if (body.file && typeof body.file === 'string' && body.file.startsWith('file://')) {
+            body.file = await this.convertFileToDataUri(body.file);
+        }
+        
+        return body;
+    }
+
+    async signJsonRequest(request: Request, apiKey: string, apiSecret: string, queryParams: string[] = [], preprocessedBody?: any) {
+        const body = preprocessedBody || await request.json();
         if (body.signature) {
             return request;
         }
+
         const bodyParams = this.paramsToSignJson(body);
         const allParams = [...bodyParams, ...queryParams];
         const { signature, timestamp } = await this.computeSignature(allParams, apiSecret);
@@ -149,6 +162,33 @@ export class CloudinaryAuthHook
         body.timestamp = timestamp;
         body.api_key = apiKey;
         return new Request(request, { body: JSON.stringify(body) });
+    }
+
+    private async convertFileToDataUri(fileUrl: string): Promise<string> {
+        // Remove 'file://' prefix to get the actual file path
+        const filePath = fileUrl.replace(/^file:\/\//, '');
+        
+        try {
+            // Import required Node.js modules
+            const { readFile } = await import('node:fs/promises');
+            
+            // Read the file as a buffer
+            const fileBuffer = await readFile(filePath);
+            
+            // Convert to base64
+            const base64Data = fileBuffer.toString('base64');
+            
+            // Use generic MIME type for all files
+            const mimeType = 'application/octet-stream';
+            
+            // Return as data URI
+            return `data:${mimeType};base64,${base64Data}`;
+            
+        } catch (error) {
+            // If file reading fails, log error and return original URL
+            console.error(`Failed to read file: ${filePath}`, error);
+            throw new Error(`Failed to read file: ${filePath}. ${error instanceof Error ? error.message : String(error)}`);
+        }
     }
 
     async signFormDataRequest(request: Request, apiKey: string, apiSecret: string, queryParams: string[] = []) {

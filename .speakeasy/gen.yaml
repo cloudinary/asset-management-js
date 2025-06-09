@@ -31,6 +31,7 @@ typescript:
   authors:
     - Cloudinary
     - Speakeasy
+  baseErrorName: CloudinaryAssetsError
   clientServerStatusCodesAsErrors: true
   defaultErrorName: SDKError
   enableCustomCodeRegions: false
@@ -50,7 +51,7 @@ typescript:
       webhooks: models/webhooks
   inputModelSuffix: input
   jsonpath: legacy
-  maxMethodParams: 0
+  maxMethodParams: 50
   methodArguments: require-security-and-request
   moduleFormat: commonjs
   outputModelSuffix: output
