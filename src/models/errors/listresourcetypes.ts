@@ -4,6 +4,7 @@
 
 import * as z from "zod";
 import * as operations from "../operations/index.js";
+import { CloudinaryAssetsError } from "./cloudinaryassetserror.js";
 
 /**
  * Authentication failed.
@@ -15,19 +16,21 @@ export type ListResourceTypesUnauthorizedErrorData = {
 /**
  * Authentication failed.
  */
-export class ListResourceTypesUnauthorizedError extends Error {
+export class ListResourceTypesUnauthorizedError extends CloudinaryAssetsError {
   error: operations.ListResourceTypesError;
 
   /** The original data that was passed to this error instance. */
   data$: ListResourceTypesUnauthorizedErrorData;
 
-  constructor(err: ListResourceTypesUnauthorizedErrorData) {
+  constructor(
+    err: ListResourceTypesUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
     const message = "message" in err && typeof err.message === "string"
       ? err.message
       : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+    super(message, httpMeta);
     this.data$ = err;
-
     this.error = err.error;
 
     this.name = "ListResourceTypesUnauthorizedError";
@@ -41,9 +44,16 @@ export const ListResourceTypesUnauthorizedError$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   error: z.lazy(() => operations.ListResourceTypesError$inboundSchema),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new ListResourceTypesUnauthorizedError(v);
+    return new ListResourceTypesUnauthorizedError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */

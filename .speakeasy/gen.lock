@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 92b56ec8-e19a-476d-afba-926cd2d071b4
 management:
-  docChecksum: fff668a716e31c819a7da75501e7e564
-  docVersion: 0.1.0
-  speakeasyVersion: 1.555.0
-  generationVersion: 2.618.0
-  releaseVersion: 0.2.1
-  configChecksum: 2bb6a4e1cd7896a81d670cbf431bbc02
+  docChecksum: 96cfdd39ef7351f36380265bc2ff2223
+  docVersion: 0.2.1
+  speakeasyVersion: 1.557.1
+  generationVersion: 2.623.2
+  releaseVersion: 0.3.0
+  configChecksum: 85432bcfebdfefea550181264834b43a
   repoURL: https://github.com/cloudinary/assets-js.git
   installationURL: https://github.com/cloudinary/assets-js
   published: true
@@ -23,11 +23,13 @@ features:
     downloadStreams: 0.1.1
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.1.2
+    flattening: 2.82.1
     globalSecurity: 2.82.13
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.5
     globals: 2.82.2
     hiddenGlobals: 0.1.0
+    ignores: 2.81.1
     mcpServer: 0.9.2
     nullables: 0.1.1
     responseFormat: 0.2.3
@@ -139,6 +141,7 @@ generatedFiles:
   - docs/models/components/uploadrequestocr.md
   - docs/models/components/uploadrequestresponsivebreakpoint.md
   - docs/models/components/uploadrequesttype.md
+  - docs/models/components/uploadresourcetype.md
   - docs/models/components/uploadresponse.md
   - docs/models/components/uploadresponseimagemetadata.md
   - docs/models/components/usageresponse.md
@@ -215,7 +218,6 @@ generatedFiles:
   - docs/models/operations/expression.md
   - docs/models/operations/expressionunion.md
   - docs/models/operations/failure.md
-  - docs/models/operations/fields.md
   - docs/models/operations/fontstyle.md
   - docs/models/operations/fontweight.md
   - docs/models/operations/from.md
@@ -251,9 +253,6 @@ generatedFiles:
   - docs/models/operations/listresourcesbyassetidsresourcetype.md
   - docs/models/operations/listresourcesbycontextglobals.md
   - docs/models/operations/listresourcesbycontextrequest.md
-  - docs/models/operations/listresourcesbyexternalidsglobals.md
-  - docs/models/operations/listresourcesbyexternalidsrequest.md
-  - docs/models/operations/listresourcesbyexternalidsresourcetype.md
   - docs/models/operations/listresourcesbymoderationkindandstatusglobals.md
   - docs/models/operations/listresourcesbymoderationkindandstatusrequest.md
   - docs/models/operations/listresourcetagsglobals.md
@@ -284,11 +283,11 @@ generatedFiles:
   - docs/models/operations/restoreresourcesbyassetidsglobals.md
   - docs/models/operations/restoreresourcesbyassetidsrequest.md
   - docs/models/operations/result.md
+  - docs/models/operations/searchassetsglobals.md
   - docs/models/operations/searchfoldersglobals.md
   - docs/models/operations/searchfolderspostglobals.md
   - docs/models/operations/searchfolderspostrequest.md
   - docs/models/operations/searchfoldersrequest.md
-  - docs/models/operations/searchresourcespostglobals.md
   - docs/models/operations/showfolderglobals.md
   - docs/models/operations/showfolderrequest.md
   - docs/models/operations/sortby.md
@@ -313,33 +312,23 @@ generatedFiles:
   - docs/models/operations/updateresourcebypublicidglobals.md
   - docs/models/operations/updateresourcebypublicidrequest.md
   - docs/models/operations/updateresourcebypublicidtype.md
-  - docs/models/operations/uploadchunkedglobals.md
-  - docs/models/operations/uploadchunkedmultipartglobals.md
-  - docs/models/operations/uploadchunkedmultipartrequest.md
-  - docs/models/operations/uploadchunkedmultipartresourcetype.md
-  - docs/models/operations/uploadchunkedmultipartresponse.md
-  - docs/models/operations/uploadchunkedmultipartresponsebody.md
-  - docs/models/operations/uploadchunkedrequest.md
-  - docs/models/operations/uploadchunkedresourcetype.md
-  - docs/models/operations/uploadchunkedresponse.md
-  - docs/models/operations/uploadchunkedresponsebody.md
+  - docs/models/operations/uploadchunkglobals.md
+  - docs/models/operations/uploadchunkmultipartglobals.md
+  - docs/models/operations/uploadchunkmultipartrequest.md
+  - docs/models/operations/uploadchunkmultipartresponse.md
+  - docs/models/operations/uploadchunkmultipartresponsebody.md
+  - docs/models/operations/uploadchunkrequest.md
+  - docs/models/operations/uploadchunkresponse.md
+  - docs/models/operations/uploadchunkresponsebody.md
   - docs/models/operations/uploadglobals.md
   - docs/models/operations/uploadmultipartglobals.md
   - docs/models/operations/uploadmultipartrequest.md
-  - docs/models/operations/uploadmultipartresourcetype.md
   - docs/models/operations/uploadmultipartresponse.md
   - docs/models/operations/uploadmultipartresponsebody.md
-  - docs/models/operations/uploadnoresourcetypeglobals.md
-  - docs/models/operations/uploadnoresourcetypemultipartglobals.md
-  - docs/models/operations/uploadnoresourcetypemultipartresponse.md
-  - docs/models/operations/uploadnoresourcetypemultipartresponsebody.md
-  - docs/models/operations/uploadnoresourcetyperesponse.md
-  - docs/models/operations/uploadnoresourcetyperesponsebody.md
   - docs/models/operations/uploadrequest.md
-  - docs/models/operations/uploadresourcetype.md
   - docs/models/operations/uploadresponse.md
   - docs/models/operations/uploadresponsebody.md
-  - docs/models/operations/visualsearchresourcesglobals.md
+  - docs/models/operations/visualsearchassetsglobals.md
   - docs/sdks/assetrelations/README.md
   - docs/sdks/assets/README.md
   - docs/sdks/backups/README.md
@@ -378,14 +367,12 @@ generatedFiles:
   - src/funcs/assetsListResourcesByAssetFolder.ts
   - src/funcs/assetsListResourcesByAssetIDs.ts
   - src/funcs/assetsListResourcesByContext.ts
-  - src/funcs/assetsListResourcesByExternalIDs.ts
   - src/funcs/assetsListResourcesByModerationKindAndStatus.ts
   - src/funcs/assetsListVideos.ts
   - src/funcs/assetsRenameAsset.ts
   - src/funcs/assetsRestoreResourcesByAssetIDs.ts
   - src/funcs/assetsUpdateResourceByAssetId.ts
   - src/funcs/assetsUpdateResourceByPublicId.ts
-  - src/funcs/backupsDeleteBackupVersions.ts
   - src/funcs/explodeExplodeResource.ts
   - src/funcs/foldersCreateFolder.ts
   - src/funcs/foldersDestroyFolder.ts
@@ -394,18 +381,14 @@ generatedFiles:
   - src/funcs/foldersSearchFoldersPost.ts
   - src/funcs/foldersShowFolder.ts
   - src/funcs/foldersUpdateFolder.ts
-  - src/funcs/moderationsListResourcesByModerationKindAndStatus.ts
-  - src/funcs/searchSearchResourcesPost.ts
-  - src/funcs/searchVisualSearchResources.ts
-  - src/funcs/tagsListResourceTags.ts
+  - src/funcs/searchSearchAssets.ts
+  - src/funcs/searchVisualSearchAssets.ts
   - src/funcs/uploadDestroyAsset.ts
   - src/funcs/uploadText.ts
   - src/funcs/uploadUpload.ts
-  - src/funcs/uploadUploadChunked.ts
-  - src/funcs/uploadUploadChunkedMultipart.ts
+  - src/funcs/uploadUploadChunk.ts
+  - src/funcs/uploadUploadChunkMultipart.ts
   - src/funcs/uploadUploadMultipart.ts
-  - src/funcs/uploadUploadNoResourceType.ts
-  - src/funcs/uploadUploadNoResourceTypeMultipart.ts
   - src/funcs/usageGetUsage.ts
   - src/funcs/videoAnalyticsGetVideoViews.ts
   - src/hooks/hooks.ts
@@ -451,10 +434,20 @@ generatedFiles:
   - src/mcp-server/tools/assetsGetResourceByAssetId.ts
   - src/mcp-server/tools/assetsListImages.ts
   - src/mcp-server/tools/assetsListRawFiles.ts
+  - src/mcp-server/tools/assetsListResourceTags.ts
   - src/mcp-server/tools/assetsListVideos.ts
+  - src/mcp-server/tools/assetsRenameAsset.ts
+  - src/mcp-server/tools/assetsUpdateResourceByAssetId.ts
   - src/mcp-server/tools/foldersCreateFolder.ts
   - src/mcp-server/tools/foldersDestroyFolder.ts
+  - src/mcp-server/tools/foldersSearchFolders.ts
   - src/mcp-server/tools/foldersUpdateFolder.ts
+  - src/mcp-server/tools/searchSearchAssets.ts
+  - src/mcp-server/tools/searchVisualSearchAssets.ts
+  - src/mcp-server/tools/uploadUpload.ts
+  - src/mcp-server/tools/uploadUploadChunk.ts
+  - src/mcp-server/tools/uploadUploadChunkMultipart.ts
+  - src/mcp-server/tools/uploadUploadMultipart.ts
   - src/mcp-server/tools/usageGetUsage.ts
   - src/models/components/apierror.ts
   - src/models/components/assetrelationinfo.ts
@@ -483,14 +476,17 @@ generatedFiles:
   - src/models/components/searchresponse.ts
   - src/models/components/security.ts
   - src/models/components/uploadrequest.ts
+  - src/models/components/uploadresourcetype.ts
   - src/models/components/uploadresponse.ts
   - src/models/components/usageresponse.ts
   - src/models/components/visualsearchparametersunion.ts
   - src/models/errors/apierror.ts
+  - src/models/errors/cloudinaryassetserror.ts
   - src/models/errors/downloadbackupasset.ts
   - src/models/errors/httpclienterrors.ts
   - src/models/errors/index.ts
   - src/models/errors/listresourcetypes.ts
+  - src/models/errors/responsevalidationerror.ts
   - src/models/errors/sdkerror.ts
   - src/models/errors/sdkvalidationerror.ts
   - src/models/operations/createassetrelationsbyassetid.ts
@@ -519,7 +515,6 @@ generatedFiles:
   - src/models/operations/listresourcesbyassetfolder.ts
   - src/models/operations/listresourcesbyassetids.ts
   - src/models/operations/listresourcesbycontext.ts
-  - src/models/operations/listresourcesbyexternalids.ts
   - src/models/operations/listresourcesbymoderationkindandstatus.ts
   - src/models/operations/listresourcetags.ts
   - src/models/operations/listresourcetypes.ts
@@ -527,21 +522,19 @@ generatedFiles:
   - src/models/operations/listvideos.ts
   - src/models/operations/renameasset.ts
   - src/models/operations/restoreresourcesbyassetids.ts
+  - src/models/operations/searchassets.ts
   - src/models/operations/searchfolders.ts
   - src/models/operations/searchfolderspost.ts
-  - src/models/operations/searchresourcespost.ts
   - src/models/operations/showfolder.ts
   - src/models/operations/text.ts
   - src/models/operations/updatefolder.ts
   - src/models/operations/updateresourcebyassetid.ts
   - src/models/operations/updateresourcebypublicid.ts
   - src/models/operations/upload.ts
-  - src/models/operations/uploadchunked.ts
-  - src/models/operations/uploadchunkedmultipart.ts
+  - src/models/operations/uploadchunk.ts
+  - src/models/operations/uploadchunkmultipart.ts
   - src/models/operations/uploadmultipart.ts
-  - src/models/operations/uploadnoresourcetype.ts
-  - src/models/operations/uploadnoresourcetypemultipart.ts
-  - src/models/operations/visualsearchresources.ts
+  - src/models/operations/visualsearchassets.ts
   - src/sdk/assetrelations.ts
   - src/sdk/assets.ts
   - src/sdk/backups.ts
@@ -571,9 +564,9 @@ examples:
       parameters:
         path:
           cloud_name: "<value>"
-          resource_type: "video"
+          resource_type: "auto"
       requestBody:
-        multipart/form-data: {"colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "google_video_moderation", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "detection": "coco_v2", "file": {"": "x-file: example.file"}}
+        multipart/form-data: {"colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "google_video_moderation", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "detection": "coco_v2", "file": "x-file: example.file"}
       responses:
         "200":
           application/json: {"status": "pending", "resource_type": "image", "type": "upload", "public_id": "sample_image", "batch_id": "9c2f5a46b3a6c4d9e8f7g0h1i2j3k4l5"}
@@ -585,7 +578,7 @@ examples:
       parameters:
         path:
           cloud_name: "<value>"
-          resource_type: "video"
+          resource_type: "auto"
       requestBody:
         application/json: {"colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "google_video_moderation", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "detection": "coco_v2", "file": "<value>"}
       responses:
@@ -1353,6 +1346,65 @@ examples:
       responses:
         "200":
           application/json: {"total_count": 42, "time": 42, "resources": [{"asset_id": "09169cf604b03521789d1b3b8cca53d1", "public_id": "blue_sweater", "asset_folder": "Clothing Sale", "filename": "blue_sweater", "display_name": "blue_sweater", "format": "jpg", "version": 1719316754, "resource_type": "image", "type": "upload", "created_at": "2024-06-25T11:59:14+00:00", "uploaded_at": "2024-06-25T11:59:14+00:00", "bytes": 71063, "backup_bytes": 71063, "width": 4800, "height": 6400, "aspect_ratio": 0.75, "pixels": 307200, "url": "http://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "status": "active", "access_mode": "public", "access_control": null, "etag": "7242da7b353e7da2c3eb8c006165b385", "created_by": {"access_key": "614335564976464"}, "uploaded_by": {"access_key": "614335564976464"}}, {"asset_id": "09169cf604b03521789d1b3b8cca53d1", "public_id": "blue_sweater", "asset_folder": "Clothing Sale", "filename": "blue_sweater", "display_name": "blue_sweater", "format": "jpg", "version": 1719316754, "resource_type": "image", "type": "upload", "created_at": "2024-06-25T11:59:14+00:00", "uploaded_at": "2024-06-25T11:59:14+00:00", "bytes": 71063, "backup_bytes": 71063, "width": 4800, "height": 6400, "aspect_ratio": 0.75, "pixels": 307200, "url": "http://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "status": "active", "access_mode": "public", "access_control": null, "etag": "7242da7b353e7da2c3eb8c006165b385", "created_by": {"access_key": "614335564976464"}, "uploaded_by": {"access_key": "614335564976464"}}], "next_cursor": "e4d03a236b27e306e56719f74d05cdef", "aggregations": {"values": [{"value": "jpg", "count": 42}], "ranges": [{"from": 0, "to": 1048576, "count": 17}, {"from": 0, "to": 1048576, "count": 17}, {"from": 0, "to": 1048576, "count": 17}]}}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  uploadChunk:
+    speakeasy-default-upload-chunk-multipart:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          resource_type: "auto"
+        header:
+          Content-Range: "bytes 0-999999/3000000"
+          X-Unique-Upload-Id: "2fd4e1c67a2d28fce"
+      requestBody:
+        multipart/form-data: {"colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "duplicate", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "detection": "coco_v2", "file": "x-file: example.file"}
+      responses:
+        "200":
+          application/json: {"done": false, "bytes": 1000000, "kind": "upload", "resource_type": "image", "public_id": "sample_image"}
+        "302":
+          text/html: "<value>"
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+    speakeasy-default-upload-chunk:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          resource_type: "auto"
+        header:
+          Content-Range: "bytes 0-999999/3000000"
+          X-Unique-Upload-Id: "2fd4e1c67a2d28fce"
+      requestBody:
+        application/json: {"colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "duplicate", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "detection": "coco_v2", "file": "<value>"}
+      responses:
+        "200":
+          application/json: {"done": false, "bytes": 1000000, "kind": "upload", "resource_type": "image", "public_id": "sample_image"}
+        "302":
+          text/html: "<value>"
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  searchAssets:
+    speakeasy-default-search-assets:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"expression": "resource_type:image AND tags:kitten", "sort_by": ["created_at", "public_id desc"], "max_results": 30, "aggregate": ["format", "resource_type"], "fields": "tags,context,metadata"}
+      responses:
+        "200":
+          application/json: {"total_count": 42, "time": 42, "resources": [{"asset_id": "09169cf604b03521789d1b3b8cca53d1", "public_id": "blue_sweater", "asset_folder": "Clothing Sale", "filename": "blue_sweater", "display_name": "blue_sweater", "format": "jpg", "version": 1719316754, "resource_type": "image", "type": "upload", "created_at": "2024-06-25T11:59:14+00:00", "uploaded_at": "2024-06-25T11:59:14+00:00", "bytes": 71063, "backup_bytes": 71063, "width": 4800, "height": 6400, "aspect_ratio": 0.75, "pixels": 307200, "url": "http://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "status": "active", "access_mode": "public", "access_control": null, "etag": "7242da7b353e7da2c3eb8c006165b385", "created_by": {"access_key": "614335564976464"}, "uploaded_by": {"access_key": "614335564976464"}}], "next_cursor": "e4d03a236b27e306e56719f74d05cdef", "aggregations": {"values": [{"value": "jpg", "count": 42}], "ranges": [{"from": 0, "to": 1048576, "count": 17}]}}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  visualSearchAssets:
+    speakeasy-default-visual-search-assets:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"text": "shirts", "threshold": 0.8}
+      responses:
+        "200":
+          application/json: {"total_count": 42, "time": 42, "resources": [{"asset_id": "09169cf604b03521789d1b3b8cca53d1", "public_id": "blue_sweater", "asset_folder": "Clothing Sale", "filename": "blue_sweater", "display_name": "blue_sweater", "format": "jpg", "version": 1719316754, "resource_type": "image", "type": "upload", "created_at": "2024-06-25T11:59:14+00:00", "uploaded_at": "2024-06-25T11:59:14+00:00", "bytes": 71063, "backup_bytes": 71063, "width": 4800, "height": 6400, "aspect_ratio": 0.75, "pixels": 307200, "url": "http://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "status": "active", "access_mode": "public", "access_control": null, "etag": "7242da7b353e7da2c3eb8c006165b385", "created_by": {"access_key": "614335564976464"}, "uploaded_by": {"access_key": "614335564976464"}}], "next_cursor": "e4d03a236b27e306e56719f74d05cdef", "aggregations": {"values": [{"value": "jpg", "count": 42}], "ranges": [{"from": 0, "to": 1048576, "count": 17}]}}
         "400":
           application/json: {"error": {"message": "<value>"}}
 examplesVersion: 1.0.2

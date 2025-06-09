@@ -7,7 +7,7 @@ Enables you to manage the tags used in your product environment.
 
 ### Available Operations
 
-* [listResourceTags](#listresourcetags) - Get tags
+* [listResourceTags](#listresourcetags) - Retrieves a list of tags currently applied to assets in your Cloudinary account
 
 ## listResourceTags
 
@@ -22,6 +22,7 @@ Retrieves a comprehensive list of all tags that exist in your product environmen
 import { CloudinaryAssets } from "@cloudinary/assets";
 
 const cloudinaryAssets = new CloudinaryAssets({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -29,11 +30,8 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.tags.listResourceTags({
-    resourceType: "raw",
-  });
+  const result = await cloudinaryAssets.tags.listResourceTags("raw");
 
-  // Handle the result
   console.log(result);
 }
 
@@ -46,11 +44,12 @@ The standalone function version of this method:
 
 ```typescript
 import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { tagsListResourceTags } from "@cloudinary/assets/funcs/tagsListResourceTags.js";
+import { assetsListResourceTags } from "@cloudinary/assets/funcs/assetsListResourceTags.js";
 
 // Use `CloudinaryAssetsCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssets = new CloudinaryAssetsCore({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -58,18 +57,13 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await tagsListResourceTags(cloudinaryAssets, {
-    resourceType: "raw",
-  });
-
-  if (!res.ok) {
-    throw res.error;
+  const res = await assetsListResourceTags(cloudinaryAssets, "raw");
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("assetsListResourceTags failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -79,7 +73,10 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.ListResourceTagsRequest](../../models/operations/listresourcetagsrequest.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `resourceType`                                                                                                                                                                 | [components.ResourceTypeParameter](../../models/components/resourcetypeparameter.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The type the of asset.                                                                                                                                                         |
+| `prefix`                                                                                                                                                                       | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The prefix to use if you want to limit the returned tags to those that start with the specified prefix.                                                                        |
+| `nextCursor`                                                                                                                                                                   | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Cursor for pagination.                                                                                                                                                         |
+| `maxResults`                                                                                                                                                                   | *number*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Maximum number of results to return (1-500).                                                                                                                                   |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |

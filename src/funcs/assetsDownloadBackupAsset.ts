@@ -10,6 +10,7 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
+import { CloudinaryAssetsError } from "../models/errors/cloudinaryassetserror.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -18,7 +19,7 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import * as errors from "../models/errors/index.js";
-import { SDKError } from "../models/errors/sdkerror.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
@@ -36,7 +37,11 @@ export enum DownloadBackupAssetAcceptEnum {
  */
 export function assetsDownloadBackupAsset(
   client: CloudinaryAssetsCore,
-  request: operations.DownloadBackupAssetRequest,
+  assetId: string,
+  versionId: string,
+  apiKey: string,
+  signature: string,
+  timestamp: number,
   options?: RequestOptions & {
     acceptHeaderOverride?: DownloadBackupAssetAcceptEnum;
   },
@@ -46,25 +51,34 @@ export function assetsDownloadBackupAsset(
     | errors.BadRequestError
     | errors.DownloadBackupAssetUnauthorizedError
     | errors.NotFoundError
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | CloudinaryAssetsError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >
 > {
   return new APIPromise($do(
     client,
-    request,
+    assetId,
+    versionId,
+    apiKey,
+    signature,
+    timestamp,
     options,
   ));
 }
 
 async function $do(
   client: CloudinaryAssetsCore,
-  request: operations.DownloadBackupAssetRequest,
+  assetId: string,
+  versionId: string,
+  apiKey: string,
+  signature: string,
+  timestamp: number,
   options?: RequestOptions & {
     acceptHeaderOverride?: DownloadBackupAssetAcceptEnum;
   },
@@ -75,19 +89,28 @@ async function $do(
       | errors.BadRequestError
       | errors.DownloadBackupAssetUnauthorizedError
       | errors.NotFoundError
-      | SDKError
-      | SDKValidationError
-      | UnexpectedClientError
-      | InvalidRequestError
+      | CloudinaryAssetsError
+      | ResponseValidationError
+      | ConnectionError
       | RequestAbortedError
       | RequestTimeoutError
-      | ConnectionError
+      | InvalidRequestError
+      | UnexpectedClientError
+      | SDKValidationError
     >,
     APICall,
   ]
 > {
+  const input: operations.DownloadBackupAssetRequest = {
+    assetId: assetId,
+    versionId: versionId,
+    apiKey: apiKey,
+    signature: signature,
+    timestamp: timestamp,
+  };
+
   const parsed = safeParse(
-    request,
+    input,
     (value) =>
       operations.DownloadBackupAssetRequest$outboundSchema.parse(value),
     "Input validation failed",
@@ -174,13 +197,14 @@ async function $do(
     | errors.BadRequestError
     | errors.DownloadBackupAssetUnauthorizedError
     | errors.NotFoundError
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | CloudinaryAssetsError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >(
     M.stream(200, operations.DownloadBackupAssetResponse$inboundSchema),
     M.stream(200, operations.DownloadBackupAssetResponse$inboundSchema, {
@@ -197,7 +221,7 @@ async function $do(
     M.jsonErr(404, errors.NotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
-  )(response, { extraFields: responseFields });
+  )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return [result, { status: "complete", request: req, response }];
   }

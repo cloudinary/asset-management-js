@@ -21,6 +21,7 @@ such as video public ID, view duration, viewer information, and more.
 import { CloudinaryAssets } from "@cloudinary/assets";
 
 const cloudinaryAssets = new CloudinaryAssets({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -28,9 +29,8 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.videoAnalytics.getVideoViews({});
+  const result = await cloudinaryAssets.videoAnalytics.getVideoViews();
 
-  // Handle the result
   console.log(result);
 }
 
@@ -48,6 +48,7 @@ import { videoAnalyticsGetVideoViews } from "@cloudinary/assets/funcs/videoAnaly
 // Use `CloudinaryAssetsCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssets = new CloudinaryAssetsCore({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -55,16 +56,13 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await videoAnalyticsGetVideoViews(cloudinaryAssets, {});
-
-  if (!res.ok) {
-    throw res.error;
+  const res = await videoAnalyticsGetVideoViews(cloudinaryAssets);
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("videoAnalyticsGetVideoViews failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -74,7 +72,10 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetVideoViewsRequest](../../models/operations/getvideoviewsrequest.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `expression`                                                                                                                                                                   | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | A set of conditions used to limit the results to rows that match those conditions. For example: `?expression=video_public_id=skate`                                            |
+| `maxResults`                                                                                                                                                                   | *number*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Specifies the number of items to include in the response.                                                                                                                      |
+| `sortBy`                                                                                                                                                                       | [operations.SortBy](../../models/operations/sortby.md)                                                                                                                         | :heavy_minus_sign:                                                                                                                                                             | Specifies the expression field by which to sort the results. Prepend values with a '-' to reverse the order.                                                                   |
+| `nextCursor`                                                                                                                                                                   | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The value to be used to obtain the next batch of results.                                                                                                                      |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |

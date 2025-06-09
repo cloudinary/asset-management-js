@@ -7,9 +7,7 @@
 
 ```typescript
 const value: components.DeleteResourceByPublicIdsRequest1 = {
-  publicIds: [
-    "<value>",
-  ],
+  publicIds: [],
 };
 ```
 
@@ -25,7 +23,7 @@ const value: components.DeleteResourceByPublicIdsRequest2 = {
 
 ```typescript
 const value: components.DeleteResourceByPublicIdsRequest3 = {
-  all: false,
+  all: true,
 };
 ```
 

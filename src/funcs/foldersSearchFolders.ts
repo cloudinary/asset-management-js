@@ -11,6 +11,7 @@ import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import * as components from "../models/components/index.js";
+import { CloudinaryAssetsError } from "../models/errors/cloudinaryassetserror.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -19,64 +20,82 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import * as errors from "../models/errors/index.js";
-import { SDKError } from "../models/errors/sdkerror.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Searches for folders in your product environment
+ * Searches for folders whose attributes match a given expression
  *
  * @remarks
  * Lists the folders that match the specified search expression. Limited to 2000 results. If no parameters are passed, returns the 50 most recently created folders in descending order of creation time.
  */
 export function foldersSearchFolders(
   client: CloudinaryAssetsCore,
-  request: operations.SearchFoldersRequest,
+  expression?: operations.ExpressionUnion | undefined,
+  sortBy?: Array<string> | undefined,
+  maxResults?: number | undefined,
+  nextCursor?: string | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
     components.FoldersSearchResponse,
     | errors.ApiError
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | CloudinaryAssetsError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >
 > {
   return new APIPromise($do(
     client,
-    request,
+    expression,
+    sortBy,
+    maxResults,
+    nextCursor,
     options,
   ));
 }
 
 async function $do(
   client: CloudinaryAssetsCore,
-  request: operations.SearchFoldersRequest,
+  expression?: operations.ExpressionUnion | undefined,
+  sortBy?: Array<string> | undefined,
+  maxResults?: number | undefined,
+  nextCursor?: string | undefined,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
       components.FoldersSearchResponse,
       | errors.ApiError
-      | SDKError
-      | SDKValidationError
-      | UnexpectedClientError
-      | InvalidRequestError
+      | CloudinaryAssetsError
+      | ResponseValidationError
+      | ConnectionError
       | RequestAbortedError
       | RequestTimeoutError
-      | ConnectionError
+      | InvalidRequestError
+      | UnexpectedClientError
+      | SDKValidationError
     >,
     APICall,
   ]
 > {
+  const input: operations.SearchFoldersRequest = {
+    expression: expression,
+    sortBy: sortBy,
+    maxResults: maxResults,
+    nextCursor: nextCursor,
+  };
+
   const parsed = safeParse(
-    request,
+    input,
     (value) => operations.SearchFoldersRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
@@ -158,19 +177,20 @@ async function $do(
   const [result] = await M.match<
     components.FoldersSearchResponse,
     | errors.ApiError
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | CloudinaryAssetsError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >(
     M.json(200, components.FoldersSearchResponse$inboundSchema),
     M.jsonErr([400, 401], errors.ApiError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
-  )(response, { extraFields: responseFields });
+  )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return [result, { status: "complete", request: req, response }];
   }

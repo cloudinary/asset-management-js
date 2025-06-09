@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -17,27 +16,17 @@ export type UploadMultipartGlobals = {
   cloudName?: string | undefined;
 };
 
-/**
- * The type of resource to upload. "image" for uploading strictly images, "video" for uploading strictly videos, "raw" for uploading non-media files, or "auto" for allowing Cloudinary to automatically detect the type of the uploaded file.
- */
-export const UploadMultipartResourceType = {
-  Image: "image",
-  Video: "video",
-  Raw: "raw",
-  Auto: "auto",
-} as const;
-/**
- * The type of resource to upload. "image" for uploading strictly images, "video" for uploading strictly videos, "raw" for uploading non-media files, or "auto" for allowing Cloudinary to automatically detect the type of the uploaded file.
- */
-export type UploadMultipartResourceType = ClosedEnum<
-  typeof UploadMultipartResourceType
->;
-
 export type UploadMultipartRequest = {
   /**
-   * The type of resource to upload. "image" for uploading strictly images, "video" for uploading strictly videos, "raw" for uploading non-media files, or "auto" for allowing Cloudinary to automatically detect the type of the uploaded file.
+   * The type of resource to upload:
+   *
+   * @remarks
+   * - "image" for uploading strictly images
+   * - "video" for uploading strictly videos
+   * - "raw" for uploading non-media files
+   * - "auto" for allowing Cloudinary to automatically detect the type of the uploaded file
    */
-  resourceType: UploadMultipartResourceType;
+  resourceType?: components.UploadResourceType | undefined;
   binaryUploadRequest: components.BinaryUploadRequest;
 };
 
@@ -116,33 +105,12 @@ export function uploadMultipartGlobalsFromJSON(
 }
 
 /** @internal */
-export const UploadMultipartResourceType$inboundSchema: z.ZodNativeEnum<
-  typeof UploadMultipartResourceType
-> = z.nativeEnum(UploadMultipartResourceType);
-
-/** @internal */
-export const UploadMultipartResourceType$outboundSchema: z.ZodNativeEnum<
-  typeof UploadMultipartResourceType
-> = UploadMultipartResourceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UploadMultipartResourceType$ {
-  /** @deprecated use `UploadMultipartResourceType$inboundSchema` instead. */
-  export const inboundSchema = UploadMultipartResourceType$inboundSchema;
-  /** @deprecated use `UploadMultipartResourceType$outboundSchema` instead. */
-  export const outboundSchema = UploadMultipartResourceType$outboundSchema;
-}
-
-/** @internal */
 export const UploadMultipartRequest$inboundSchema: z.ZodType<
   UploadMultipartRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource_type: UploadMultipartResourceType$inboundSchema,
+  resource_type: components.UploadResourceType$inboundSchema.default("auto"),
   binary_upload_request: components.BinaryUploadRequest$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
@@ -163,7 +131,7 @@ export const UploadMultipartRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UploadMultipartRequest
 > = z.object({
-  resourceType: UploadMultipartResourceType$outboundSchema,
+  resourceType: components.UploadResourceType$outboundSchema.default("auto"),
   binaryUploadRequest: components.BinaryUploadRequest$outboundSchema,
 }).transform((v) => {
   return remap$(v, {

@@ -15,12 +15,14 @@ export class Explode extends ClientSDK {
    * Generates derived images for each of the individual pages/frames in a multi-page/frame file (such as a PDF or animated image).
    */
   async explodeResource(
-    request: operations.ExplodeResourceRequest,
+    resourceType: operations.ExplodeResourceResourceType,
+    requestBody: operations.ExplodeResourceRequestBody,
     options?: RequestOptions,
   ): Promise<operations.ExplodeResourceResponse> {
     return unwrapAsync(explodeExplodeResource(
       this,
-      request,
+      resourceType,
+      requestBody,
       options,
     ));
   }

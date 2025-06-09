@@ -4,6 +4,7 @@
 
 import * as z from "zod";
 import * as operations from "../operations/index.js";
+import { CloudinaryAssetsError } from "./cloudinaryassetserror.js";
 
 /**
  * Version not found
@@ -15,19 +16,21 @@ export type NotFoundErrorData = {
 /**
  * Version not found
  */
-export class NotFoundError extends Error {
+export class NotFoundError extends CloudinaryAssetsError {
   error?: operations.NotFoundError | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: NotFoundErrorData;
 
-  constructor(err: NotFoundErrorData) {
+  constructor(
+    err: NotFoundErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
     const message = "message" in err && typeof err.message === "string"
       ? err.message
       : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+    super(message, httpMeta);
     this.data$ = err;
-
     if (err.error != null) this.error = err.error;
 
     this.name = "NotFoundError";
@@ -44,19 +47,23 @@ export type DownloadBackupAssetUnauthorizedErrorData = {
 /**
  * Authentication failed
  */
-export class DownloadBackupAssetUnauthorizedError extends Error {
+export class DownloadBackupAssetUnauthorizedError
+  extends CloudinaryAssetsError
+{
   error?: operations.DownloadBackupAssetUnauthorizedError | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: DownloadBackupAssetUnauthorizedErrorData;
 
-  constructor(err: DownloadBackupAssetUnauthorizedErrorData) {
+  constructor(
+    err: DownloadBackupAssetUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
     const message = "message" in err && typeof err.message === "string"
       ? err.message
       : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+    super(message, httpMeta);
     this.data$ = err;
-
     if (err.error != null) this.error = err.error;
 
     this.name = "DownloadBackupAssetUnauthorizedError";
@@ -73,19 +80,21 @@ export type BadRequestErrorData = {
 /**
  * Bad request
  */
-export class BadRequestError extends Error {
+export class BadRequestError extends CloudinaryAssetsError {
   error?: operations.BadRequestError | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: BadRequestErrorData;
 
-  constructor(err: BadRequestErrorData) {
+  constructor(
+    err: BadRequestErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
     const message = "message" in err && typeof err.message === "string"
       ? err.message
       : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+    super(message, httpMeta);
     this.data$ = err;
-
     if (err.error != null) this.error = err.error;
 
     this.name = "BadRequestError";
@@ -99,9 +108,16 @@ export const NotFoundError$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   error: z.lazy(() => operations.NotFoundError$inboundSchema).optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new NotFoundError(v);
+    return new NotFoundError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */
@@ -142,9 +158,16 @@ export const DownloadBackupAssetUnauthorizedError$inboundSchema: z.ZodType<
   error: z.lazy(() =>
     operations.DownloadBackupAssetUnauthorizedError$inboundSchema
   ).optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new DownloadBackupAssetUnauthorizedError(v);
+    return new DownloadBackupAssetUnauthorizedError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */
@@ -187,9 +210,16 @@ export const BadRequestError$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   error: z.lazy(() => operations.BadRequestError$inboundSchema).optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new BadRequestError(v);
+    return new BadRequestError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */

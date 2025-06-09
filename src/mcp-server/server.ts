@@ -23,10 +23,20 @@ import { tool$assetsGenerateArchive } from "./tools/assetsGenerateArchive.js";
 import { tool$assetsGetResourceByAssetId } from "./tools/assetsGetResourceByAssetId.js";
 import { tool$assetsListImages } from "./tools/assetsListImages.js";
 import { tool$assetsListRawFiles } from "./tools/assetsListRawFiles.js";
+import { tool$assetsListResourceTags } from "./tools/assetsListResourceTags.js";
 import { tool$assetsListVideos } from "./tools/assetsListVideos.js";
+import { tool$assetsRenameAsset } from "./tools/assetsRenameAsset.js";
+import { tool$assetsUpdateResourceByAssetId } from "./tools/assetsUpdateResourceByAssetId.js";
 import { tool$foldersCreateFolder } from "./tools/foldersCreateFolder.js";
 import { tool$foldersDestroyFolder } from "./tools/foldersDestroyFolder.js";
+import { tool$foldersSearchFolders } from "./tools/foldersSearchFolders.js";
 import { tool$foldersUpdateFolder } from "./tools/foldersUpdateFolder.js";
+import { tool$searchSearchAssets } from "./tools/searchSearchAssets.js";
+import { tool$searchVisualSearchAssets } from "./tools/searchVisualSearchAssets.js";
+import { tool$uploadUpload } from "./tools/uploadUpload.js";
+import { tool$uploadUploadChunk } from "./tools/uploadUploadChunk.js";
+import { tool$uploadUploadChunkMultipart } from "./tools/uploadUploadChunkMultipart.js";
+import { tool$uploadUploadMultipart } from "./tools/uploadUploadMultipart.js";
 import { tool$usageGetUsage } from "./tools/usageGetUsage.js";
 
 export function createMCPServer(deps: {
@@ -37,11 +47,12 @@ export function createMCPServer(deps: {
   security?: SDKOptions["security"] | undefined;
   cloudName?: SDKOptions["cloudName"] | undefined;
   serverIdx?: SDKOptions["serverIdx"] | undefined;
-  defaultHost?: SDKOptions["defaultHost"] | undefined;
+  region?: SDKOptions["region"] | undefined;
+  host?: SDKOptions["host"] | undefined;
 }) {
   const server = new McpServer({
     name: "CloudinaryAssets",
-    version: "0.2.1",
+    version: "0.3.0",
   });
 
   const client = new CloudinaryAssetsCore({
@@ -49,7 +60,8 @@ export function createMCPServer(deps: {
     cloudName: deps.cloudName,
     serverURL: deps.serverURL,
     serverIdx: deps.serverIdx,
-    defaultHost: deps.defaultHost,
+    region: deps.region,
+    host: deps.host,
   });
 
   const scopes = new Set(deps.scopes);
@@ -73,6 +85,11 @@ export function createMCPServer(deps: {
   const register = { tool, resource, resourceTemplate, prompt };
   void register; // suppress unused warnings
 
+  tool(tool$uploadUploadMultipart);
+  tool(tool$uploadUpload);
+  tool(tool$uploadUploadChunkMultipart);
+  tool(tool$uploadUploadChunk);
+  tool(tool$assetsRenameAsset);
   tool(tool$assetsDownloadAsset);
   tool(tool$assetsGenerateArchive);
   tool(tool$assetsDownloadBackupAsset);
@@ -81,6 +98,8 @@ export function createMCPServer(deps: {
   tool(tool$assetsListVideos);
   tool(tool$assetsListRawFiles);
   tool(tool$assetsGetResourceByAssetId);
+  tool(tool$assetsUpdateResourceByAssetId);
+  tool(tool$assetsListResourceTags);
   tool(tool$assetsDerivedDestroy);
   tool(tool$usageGetUsage);
   tool(tool$assetRelationsCreateAssetRelationsByAssetId);
@@ -88,6 +107,9 @@ export function createMCPServer(deps: {
   tool(tool$foldersUpdateFolder);
   tool(tool$foldersCreateFolder);
   tool(tool$foldersDestroyFolder);
+  tool(tool$foldersSearchFolders);
+  tool(tool$searchSearchAssets);
+  tool(tool$searchVisualSearchAssets);
 
   return server;
 }

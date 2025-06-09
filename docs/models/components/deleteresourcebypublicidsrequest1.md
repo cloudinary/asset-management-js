@@ -6,9 +6,7 @@
 import { DeleteResourceByPublicIdsRequest1 } from "@cloudinary/assets/models/components";
 
 let value: DeleteResourceByPublicIdsRequest1 = {
-  publicIds: [
-    "<value>",
-  ],
+  publicIds: [],
 };
 ```
 

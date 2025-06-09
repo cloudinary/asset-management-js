@@ -11,6 +11,7 @@ import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import * as components from "../models/components/index.js";
+import { CloudinaryAssetsError } from "../models/errors/cloudinaryassetserror.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -19,64 +20,74 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import * as errors from "../models/errors/index.js";
-import { SDKError } from "../models/errors/sdkerror.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Update asset by asset ID
+ * Updates an existing asset's metadata, tags, and other attributes using its asset ID
  *
  * @remarks
  * Updates one or more attributes of a specified resource (asset) by its asset ID. This enables you to update details of an asset by its unique and immutable identifier, regardless of public ID, display name, asset folder, resource type or deliver type. Note that you can also update many attributes of an existing asset using the explicit method, which is not rate-limited.
  */
 export function assetsUpdateResourceByAssetId(
   client: CloudinaryAssetsCore,
-  request: operations.UpdateResourceByAssetIdRequest,
+  assetId: string,
+  resourceUpdateRequest: components.ResourceUpdateRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
     components.Info,
     | errors.ApiError
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | CloudinaryAssetsError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >
 > {
   return new APIPromise($do(
     client,
-    request,
+    assetId,
+    resourceUpdateRequest,
     options,
   ));
 }
 
 async function $do(
   client: CloudinaryAssetsCore,
-  request: operations.UpdateResourceByAssetIdRequest,
+  assetId: string,
+  resourceUpdateRequest: components.ResourceUpdateRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
       components.Info,
       | errors.ApiError
-      | SDKError
-      | SDKValidationError
-      | UnexpectedClientError
-      | InvalidRequestError
+      | CloudinaryAssetsError
+      | ResponseValidationError
+      | ConnectionError
       | RequestAbortedError
       | RequestTimeoutError
-      | ConnectionError
+      | InvalidRequestError
+      | UnexpectedClientError
+      | SDKValidationError
     >,
     APICall,
   ]
 > {
+  const input: operations.UpdateResourceByAssetIdRequest = {
+    assetId: assetId,
+    resourceUpdateRequest: resourceUpdateRequest,
+  };
+
   const parsed = safeParse(
-    request,
+    input,
     (value) =>
       operations.UpdateResourceByAssetIdRequest$outboundSchema.parse(value),
     "Input validation failed",
@@ -160,19 +171,20 @@ async function $do(
   const [result] = await M.match<
     components.Info,
     | errors.ApiError
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | CloudinaryAssetsError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >(
     M.json(200, components.Info$inboundSchema),
     M.jsonErr([400, 401, 404], errors.ApiError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
-  )(response, { extraFields: responseFields });
+  )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return [result, { status: "complete", request: req, response }];
   }

@@ -28,6 +28,7 @@ export * from "./searchparameters.js";
 export * from "./searchresponse.js";
 export * from "./security.js";
 export * from "./uploadrequest.js";
+export * from "./uploadresourcetype.js";
 export * from "./uploadresponse.js";
 export * from "./usageresponse.js";
 export * from "./visualsearchparametersunion.js";

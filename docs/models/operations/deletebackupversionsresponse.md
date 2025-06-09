@@ -8,9 +8,7 @@
 ```typescript
 const value: operations.DeleteBackupVersionsResponseBody1 = {
   assetId: "<id>",
-  deletedVersionIds: [
-    "<value>",
-  ],
+  deletedVersionIds: [],
 };
 ```
 
@@ -20,7 +18,9 @@ const value: operations.DeleteBackupVersionsResponseBody1 = {
 const value: operations.DeleteBackupVersionsResponseBody2 = {
   assetId: "<id>",
   deletedVersionIds: [
-    "<value>",
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
 };
 ```

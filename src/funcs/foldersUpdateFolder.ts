@@ -10,6 +10,7 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
+import { CloudinaryAssetsError } from "../models/errors/cloudinaryassetserror.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -18,64 +19,74 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import * as errors from "../models/errors/index.js";
-import { SDKError } from "../models/errors/sdkerror.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Update folder
+ * Renames or moves an entire folder (along with all assets it contains) to a
  *
  * @remarks
  * Updates a folder's properties.
  */
 export function foldersUpdateFolder(
   client: CloudinaryAssetsCore,
-  request: operations.UpdateFolderRequest,
+  folder: string,
+  requestBody: operations.UpdateFolderRequestBody,
   options?: RequestOptions,
 ): APIPromise<
   Result<
     operations.UpdateFolderResponse,
     | errors.ApiError
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | CloudinaryAssetsError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >
 > {
   return new APIPromise($do(
     client,
-    request,
+    folder,
+    requestBody,
     options,
   ));
 }
 
 async function $do(
   client: CloudinaryAssetsCore,
-  request: operations.UpdateFolderRequest,
+  folder: string,
+  requestBody: operations.UpdateFolderRequestBody,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
       operations.UpdateFolderResponse,
       | errors.ApiError
-      | SDKError
-      | SDKValidationError
-      | UnexpectedClientError
-      | InvalidRequestError
+      | CloudinaryAssetsError
+      | ResponseValidationError
+      | ConnectionError
       | RequestAbortedError
       | RequestTimeoutError
-      | ConnectionError
+      | InvalidRequestError
+      | UnexpectedClientError
+      | SDKValidationError
     >,
     APICall,
   ]
 > {
+  const input: operations.UpdateFolderRequest = {
+    folder: folder,
+    requestBody: requestBody,
+  };
+
   const parsed = safeParse(
-    request,
+    input,
     (value) => operations.UpdateFolderRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
@@ -154,19 +165,20 @@ async function $do(
   const [result] = await M.match<
     operations.UpdateFolderResponse,
     | errors.ApiError
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | CloudinaryAssetsError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >(
     M.json(200, operations.UpdateFolderResponse$inboundSchema),
     M.jsonErr([400, 401], errors.ApiError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
-  )(response, { extraFields: responseFields });
+  )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return [result, { status: "complete", request: req, response }];
   }

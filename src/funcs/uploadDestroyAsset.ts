@@ -10,6 +10,7 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
+import { CloudinaryAssetsError } from "../models/errors/cloudinaryassetserror.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -18,7 +19,7 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import * as errors from "../models/errors/index.js";
-import { SDKError } from "../models/errors/sdkerror.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
@@ -29,50 +30,64 @@ import { Result } from "../types/fp.js";
  */
 export function uploadDestroyAsset(
   client: CloudinaryAssetsCore,
-  request: operations.DestroyAssetRequest,
+  resourceType: operations.DestroyAssetResourceType,
+  publicId: string,
+  invalidate?: boolean | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
     operations.DestroyAssetResponse,
     | errors.ApiError
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | CloudinaryAssetsError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >
 > {
   return new APIPromise($do(
     client,
-    request,
+    resourceType,
+    publicId,
+    invalidate,
     options,
   ));
 }
 
 async function $do(
   client: CloudinaryAssetsCore,
-  request: operations.DestroyAssetRequest,
+  resourceType: operations.DestroyAssetResourceType,
+  publicId: string,
+  invalidate?: boolean | undefined,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
       operations.DestroyAssetResponse,
       | errors.ApiError
-      | SDKError
-      | SDKValidationError
-      | UnexpectedClientError
-      | InvalidRequestError
+      | CloudinaryAssetsError
+      | ResponseValidationError
+      | ConnectionError
       | RequestAbortedError
       | RequestTimeoutError
-      | ConnectionError
+      | InvalidRequestError
+      | UnexpectedClientError
+      | SDKValidationError
     >,
     APICall,
   ]
 > {
+  const input: operations.DestroyAssetRequest = {
+    resourceType: resourceType,
+    publicId: publicId,
+    invalidate: invalidate,
+  };
+
   const parsed = safeParse(
-    request,
+    input,
     (value) => operations.DestroyAssetRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
@@ -158,19 +173,20 @@ async function $do(
   const [result] = await M.match<
     operations.DestroyAssetResponse,
     | errors.ApiError
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | CloudinaryAssetsError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >(
     M.json(200, operations.DestroyAssetResponse$inboundSchema),
     M.jsonErr([400, 401, 403, 404], errors.ApiError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
-  )(response, { extraFields: responseFields });
+  )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return [result, { status: "complete", request: req, response }];
   }

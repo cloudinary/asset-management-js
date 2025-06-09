@@ -7,7 +7,7 @@ The access control settings for the asset.
 ```typescript
 import { SearchResponseAccessControl } from "@cloudinary/assets/models/components";
 
-let value: SearchResponseAccessControl = null;
+let value: SearchResponseAccessControl = {};
 ```
 
 ## Fields

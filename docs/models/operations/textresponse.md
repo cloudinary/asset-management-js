@@ -10,7 +10,7 @@ import { TextResponse } from "@cloudinary/assets/models/operations";
 let value: TextResponse = {
   assetId: "<id>",
   publicId: "<id>",
-  version: 9,
+  version: 877434,
   versionId: "<id>",
   signature: "<value>",
   width: 499655,

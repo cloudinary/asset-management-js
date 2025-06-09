@@ -7,10 +7,10 @@ APIs for searching resources using text and visual search capabilities
 
 ### Available Operations
 
-* [searchResourcesPost](#searchresourcespost) - Get resources by search (POST method)
-* [visualSearchResources](#visualsearchresources) - Get resources by visual similarity
+* [searchAssets](#searchassets) - Provides a powerful query interface to filter and retrieve assets and their details
+* [visualSearchAssets](#visualsearchassets) - Finds images in your asset library based on visual similarity or content
 
-## searchResourcesPost
+## searchAssets
 
 Returns a list of resources matching the specified search criteria. The API supports a variety of search parameters and returns a JSON response with the matching resources and their details.
 
@@ -20,6 +20,7 @@ Returns a list of resources matching the specified search criteria. The API supp
 import { CloudinaryAssets } from "@cloudinary/assets";
 
 const cloudinaryAssets = new CloudinaryAssets({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -27,7 +28,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.search.searchResourcesPost({
+  const result = await cloudinaryAssets.search.searchAssets({
     expression: "resource_type:image AND tags:kitten",
     sortBy: [
       "created_at",
@@ -41,7 +42,6 @@ async function run() {
     fields: "tags,context,metadata",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -54,11 +54,12 @@ The standalone function version of this method:
 
 ```typescript
 import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { searchSearchResourcesPost } from "@cloudinary/assets/funcs/searchSearchResourcesPost.js";
+import { searchSearchAssets } from "@cloudinary/assets/funcs/searchSearchAssets.js";
 
 // Use `CloudinaryAssetsCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssets = new CloudinaryAssetsCore({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -66,7 +67,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await searchSearchResourcesPost(cloudinaryAssets, {
+  const res = await searchSearchAssets(cloudinaryAssets, {
     expression: "resource_type:image AND tags:kitten",
     sortBy: [
       "created_at",
@@ -79,15 +80,12 @@ async function run() {
     ],
     fields: "tags,context,metadata",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("searchSearchAssets failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -95,12 +93,18 @@ run();
 
 ### Parameters
 
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [components.SearchParameters](../../models/components/searchparameters.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+| Parameter                                                                                                                                                                                                                                                                                                                                                                                                       | Type                                                                                                                                                                                                                                                                                                                                                                                                            | Required                                                                                                                                                                                                                                                                                                                                                                                                        | Description                                                                                                                                                                                                                                                                                                                                                                                                     | Example                                                                                                                                                                                                                                                                                                                                                                                                         |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression`                                                                                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | The search expression. Supports exact match, wildcard match, presence, greater/less than, and range. For details on building expressions, see the Search API documentation.                                                                                                                                                                                                                                     | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `sortBy`                                                                                                                                                                                                                                                                                                                                                                                                        | *string*[]                                                                                                                                                                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | The fields to sort results by. You can specify multiple fields with optional directions (asc/desc). Default direction is desc.                                                                                                                                                                                                                                                                                  | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `maxResults`                                                                                                                                                                                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | The maximum number of results to return. Default - 50. Maximum - 500.                                                                                                                                                                                                                                                                                                                                           | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `nextCursor`                                                                                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | The cursor value to get the next page of results. Available when a previous search returned more results than max_results.                                                                                                                                                                                                                                                                                      |                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `aggregate`                                                                                                                                                                                                                                                                                                                                                                                                     | *components.AggregateUnion*                                                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | N/A                                                                                                                                                                                                                                                                                                                                                                                                             |                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `withField`                                                                                                                                                                                                                                                                                                                                                                                                     | [components.WithField](../../models/components/withfield.md)[]                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | The additional fields to include in the response. Note that the fields parameter takes precedence over this parameter.                                                                                                                                                                                                                                                                                          |                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `fields`                                                                                                                                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | A comma-separated list of fields to include in the response.<br/>Notes:<br/>- This parameter takes precedence over the with_field parameter, so if you want any additional asset attributes returned, make sure to also include them in this list (e.g., tags or context).<br/>- The following fields are always included in the response: public_id, asset_id, asset_folder, created_at, status, type, and resource_type.<br/> | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `options`                                                                                                                                                                                                                                                                                                                                                                                                       | RequestOptions                                                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | Used to set various options for making HTTP requests.                                                                                                                                                                                                                                                                                                                                                           |                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `options.fetchOptions`                                                                                                                                                                                                                                                                                                                                                                                          | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.                                                                                                                                                                                                                                  |                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `options.retries`                                                                                                                                                                                                                                                                                                                                                                                               | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | Enables retrying HTTP requests under certain failure conditions.                                                                                                                                                                                                                                                                                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                 |
 
 ### Response
 
@@ -113,7 +117,7 @@ run();
 | errors.ApiError  | 400, 401         | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |
 
-## visualSearchResources
+## visualSearchAssets
 
 Returns a list of resources that are visually similar to a specified image. You can provide the source image for comparison in one of three ways:
 - Provide a URL of an image
@@ -127,6 +131,7 @@ Returns a list of resources that are visually similar to a specified image. You 
 import { CloudinaryAssets } from "@cloudinary/assets";
 
 const cloudinaryAssets = new CloudinaryAssets({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -134,12 +139,11 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.search.visualSearchResources({
-    imageUrl: "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+  const result = await cloudinaryAssets.search.visualSearchAssets({
+    text: "shirts",
     threshold: 0.8,
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -152,11 +156,12 @@ The standalone function version of this method:
 
 ```typescript
 import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { searchVisualSearchResources } from "@cloudinary/assets/funcs/searchVisualSearchResources.js";
+import { searchVisualSearchAssets } from "@cloudinary/assets/funcs/searchVisualSearchAssets.js";
 
 // Use `CloudinaryAssetsCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssets = new CloudinaryAssetsCore({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -164,19 +169,16 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await searchVisualSearchResources(cloudinaryAssets, {
-    imageUrl: "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+  const res = await searchVisualSearchAssets(cloudinaryAssets, {
+    text: "shirts",
     threshold: 0.8,
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("searchVisualSearchAssets failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();

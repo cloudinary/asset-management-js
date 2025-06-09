@@ -7,7 +7,7 @@ Gets usage details
 
 ### Available Operations
 
-* [getUsage](#getusage) - Get usage details
+* [getUsage](#getusage) - Retrieves comprehensive usage metrics and account statistics
 
 ## getUsage
 
@@ -19,6 +19,7 @@ A report on the status of product environment usage, including storage, credits,
 import { CloudinaryAssets } from "@cloudinary/assets";
 
 const cloudinaryAssets = new CloudinaryAssets({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -26,9 +27,8 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.usage.getUsage({});
+  const result = await cloudinaryAssets.usage.getUsage();
 
-  // Handle the result
   console.log(result);
 }
 
@@ -46,6 +46,7 @@ import { usageGetUsage } from "@cloudinary/assets/funcs/usageGetUsage.js";
 // Use `CloudinaryAssetsCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssets = new CloudinaryAssetsCore({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -53,16 +54,13 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await usageGetUsage(cloudinaryAssets, {});
-
-  if (!res.ok) {
-    throw res.error;
+  const res = await usageGetUsage(cloudinaryAssets);
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("usageGetUsage failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -72,7 +70,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetUsageRequest](../../models/operations/getusagerequest.md)                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `date`                                                                                                                                                                         | [RFCDate](../../types/rfcdate.md)                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                             | N/A                                                                                                                                                                            |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |

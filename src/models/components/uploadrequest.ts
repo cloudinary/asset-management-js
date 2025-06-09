@@ -511,6 +511,7 @@ export type UploadRequest = {
    * - The remote HTTP or HTTPS URL address of an existing file.
    * - The Data URI (Base64 encoded), max ~60 MB (62,910,000 chars).
    * - The FTP address of an existing file.
+   * - Local file path starting with file://.
    */
   file: string;
 };

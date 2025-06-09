@@ -7,18 +7,28 @@ Uploads files to the active product environment.
 
 ### Available Operations
 
-* [uploadMultipart](#uploadmultipart) - Uploads a file to Cloudinary
-* [upload](#upload) - Uploads a file to Cloudinary
-* [uploadNoResourceTypeMultipart](#uploadnoresourcetypemultipart) - Upload with automatic file type detection
-* [uploadNoResourceType](#uploadnoresourcetype) - Upload with automatic file type detection
-* [uploadChunkedMultipart](#uploadchunkedmultipart) - Upload a large file in chunks
-* [uploadChunked](#uploadchunked) - Upload a large file in chunks
+* [uploadMultipart](#uploadmultipart) - Uploads media assets (images, videos, raw files) to your Cloudinary product environment
+* [upload](#upload) - Uploads media assets (images, videos, raw files) to your Cloudinary product environment
+* [uploadChunkMultipart](#uploadchunkmultipart) - Upload a single chunk of a large file
+* [uploadChunk](#uploadchunk) - Upload a single chunk of a large file
 * [destroyAsset](#destroyasset) - Destroys an asset/resource
 * [text](#text) - Create image from text
 
 ## uploadMultipart
 
-Uploads a file to Cloudinary
+Uploads media assets (images, videos, raw files) to your Cloudinary product environment. The file is securely stored 
+in the cloud with backup and revision history. Cloudinary automatically analyzes and saves important data about each 
+asset, such as format, size, resolution, and prominent colors, which is indexed to enable searching on those attributes.
+
+Supports uploading from:
+- Local file paths (SDKs/MCP server only). For MCP server path MUST start with file://
+- Remote HTTP/HTTPS URLs
+- Base64 Data URIs (max ~60 MB)
+- Private storage buckets (S3 or Google Storage)
+- FTP addresses
+
+The uploaded asset is immediately available for transformation and delivery upon successful upload.
+
 
 ### Example Usage
 
@@ -27,6 +37,7 @@ import { CloudinaryAssets } from "@cloudinary/assets";
 import { openAsBlob } from "node:fs";
 
 const cloudinaryAssets = new CloudinaryAssets({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -34,22 +45,18 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.uploadMultipart({
-    resourceType: "video",
-    binaryUploadRequest: {
-      headers: "X-Robots-Tag: noindex",
-      moderation: "google_video_moderation",
-      rawConvert: "google_speech:vtt:en-US",
-      backgroundRemoval: "pixelz",
-      format: "jpg",
-      allowedFormats: "mp4,ogv,jpg,png,pdf",
-      autoTagging: 0.5,
-      detection: "coco_v2",
-      file: await openAsBlob("example.file"),
-    },
+  const result = await cloudinaryAssets.upload.uploadMultipart("auto", {
+    headers: "X-Robots-Tag: noindex",
+    moderation: "google_video_moderation",
+    rawConvert: "google_speech:vtt:en-US",
+    backgroundRemoval: "pixelz",
+    format: "jpg",
+    allowedFormats: "mp4,ogv,jpg,png,pdf",
+    autoTagging: 0.5,
+    detection: "coco_v2",
+    file: await openAsBlob("example.file"),
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -68,6 +75,7 @@ import { openAsBlob } from "node:fs";
 // Use `CloudinaryAssetsCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssets = new CloudinaryAssetsCore({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -75,29 +83,23 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await uploadUploadMultipart(cloudinaryAssets, {
-    resourceType: "video",
-    binaryUploadRequest: {
-      headers: "X-Robots-Tag: noindex",
-      moderation: "google_video_moderation",
-      rawConvert: "google_speech:vtt:en-US",
-      backgroundRemoval: "pixelz",
-      format: "jpg",
-      allowedFormats: "mp4,ogv,jpg,png,pdf",
-      autoTagging: 0.5,
-      detection: "coco_v2",
-      file: await openAsBlob("example.file"),
-    },
+  const res = await uploadUploadMultipart(cloudinaryAssets, "auto", {
+    headers: "X-Robots-Tag: noindex",
+    moderation: "google_video_moderation",
+    rawConvert: "google_speech:vtt:en-US",
+    backgroundRemoval: "pixelz",
+    format: "jpg",
+    allowedFormats: "mp4,ogv,jpg,png,pdf",
+    autoTagging: 0.5,
+    detection: "coco_v2",
+    file: await openAsBlob("example.file"),
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("uploadUploadMultipart failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -105,12 +107,13 @@ run();
 
 ### Parameters
 
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.UploadMultipartRequest](../../models/operations/uploadmultipartrequest.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+| Parameter                                                                                                                                                                                                                                       | Type                                                                                                                                                                                                                                            | Required                                                                                                                                                                                                                                        | Description                                                                                                                                                                                                                                     |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `resourceType`                                                                                                                                                                                                                                  | [components.UploadResourceType](../../models/components/uploadresourcetype.md)                                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                                                                                              | The type of resource to upload:<br/>- "image" for uploading strictly images<br/>- "video" for uploading strictly videos  <br/>- "raw" for uploading non-media files<br/>- "auto" for allowing Cloudinary to automatically detect the type of the uploaded file<br/> |
+| `binaryUploadRequest`                                                                                                                                                                                                                           | [components.BinaryUploadRequest](../../models/components/binaryuploadrequest.md)                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                                                              | N/A                                                                                                                                                                                                                                             |
+| `options`                                                                                                                                                                                                                                       | RequestOptions                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                              | Used to set various options for making HTTP requests.                                                                                                                                                                                           |
+| `options.fetchOptions`                                                                                                                                                                                                                          | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                              | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.                                                                  |
+| `options.retries`                                                                                                                                                                                                                               | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                              | Enables retrying HTTP requests under certain failure conditions.                                                                                                                                                                                |
 
 ### Response
 
@@ -125,7 +128,19 @@ run();
 
 ## upload
 
-Uploads a file to Cloudinary
+Uploads media assets (images, videos, raw files) to your Cloudinary product environment. The file is securely stored 
+in the cloud with backup and revision history. Cloudinary automatically analyzes and saves important data about each 
+asset, such as format, size, resolution, and prominent colors, which is indexed to enable searching on those attributes.
+
+Supports uploading from:
+- Local file paths (SDKs/MCP server only). For MCP server path MUST start with file://
+- Remote HTTP/HTTPS URLs
+- Base64 Data URIs (max ~60 MB)
+- Private storage buckets (S3 or Google Storage)
+- FTP addresses
+
+The uploaded asset is immediately available for transformation and delivery upon successful upload.
+
 
 ### Example Usage
 
@@ -133,6 +148,7 @@ Uploads a file to Cloudinary
 import { CloudinaryAssets } from "@cloudinary/assets";
 
 const cloudinaryAssets = new CloudinaryAssets({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -140,22 +156,18 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.upload({
-    resourceType: "video",
-    uploadRequest: {
-      headers: "X-Robots-Tag: noindex",
-      moderation: "google_video_moderation",
-      rawConvert: "google_speech:vtt:en-US",
-      backgroundRemoval: "pixelz",
-      format: "jpg",
-      allowedFormats: "mp4,ogv,jpg,png,pdf",
-      autoTagging: 0.5,
-      detection: "coco_v2",
-      file: "{\"\":\"x-file: example.file\"}",
-    },
+  const result = await cloudinaryAssets.upload.upload("auto", {
+    headers: "X-Robots-Tag: noindex",
+    moderation: "google_video_moderation",
+    rawConvert: "google_speech:vtt:en-US",
+    backgroundRemoval: "pixelz",
+    format: "jpg",
+    allowedFormats: "mp4,ogv,jpg,png,pdf",
+    autoTagging: 0.5,
+    detection: "coco_v2",
+    file: "undefined",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -173,6 +185,7 @@ import { uploadUpload } from "@cloudinary/assets/funcs/uploadUpload.js";
 // Use `CloudinaryAssetsCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssets = new CloudinaryAssetsCore({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -180,29 +193,23 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await uploadUpload(cloudinaryAssets, {
-    resourceType: "video",
-    uploadRequest: {
-      headers: "X-Robots-Tag: noindex",
-      moderation: "google_video_moderation",
-      rawConvert: "google_speech:vtt:en-US",
-      backgroundRemoval: "pixelz",
-      format: "jpg",
-      allowedFormats: "mp4,ogv,jpg,png,pdf",
-      autoTagging: 0.5,
-      detection: "coco_v2",
-      file: "{\"\":\"x-file: example.file\"}",
-    },
+  const res = await uploadUpload(cloudinaryAssets, "auto", {
+    headers: "X-Robots-Tag: noindex",
+    moderation: "google_video_moderation",
+    rawConvert: "google_speech:vtt:en-US",
+    backgroundRemoval: "pixelz",
+    format: "jpg",
+    allowedFormats: "mp4,ogv,jpg,png,pdf",
+    autoTagging: 0.5,
+    detection: "coco_v2",
+    file: "undefined",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("uploadUpload failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -210,12 +217,13 @@ run();
 
 ### Parameters
 
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.UploadRequest](../../models/operations/uploadrequest.md)                                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+| Parameter                                                                                                                                                                                                                                       | Type                                                                                                                                                                                                                                            | Required                                                                                                                                                                                                                                        | Description                                                                                                                                                                                                                                     |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `resourceType`                                                                                                                                                                                                                                  | [components.UploadResourceType](../../models/components/uploadresourcetype.md)                                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                                                                                              | The type of resource to upload:<br/>- "image" for uploading strictly images<br/>- "video" for uploading strictly videos  <br/>- "raw" for uploading non-media files<br/>- "auto" for allowing Cloudinary to automatically detect the type of the uploaded file<br/> |
+| `uploadRequest`                                                                                                                                                                                                                                 | [components.UploadRequest](../../models/components/uploadrequest.md)                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                              | N/A                                                                                                                                                                                                                                             |
+| `options`                                                                                                                                                                                                                                       | RequestOptions                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                              | Used to set various options for making HTTP requests.                                                                                                                                                                                           |
+| `options.fetchOptions`                                                                                                                                                                                                                          | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                              | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.                                                                  |
+| `options.retries`                                                                                                                                                                                                                               | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                              | Enables retrying HTTP requests under certain failure conditions.                                                                                                                                                                                |
 
 ### Response
 
@@ -228,9 +236,13 @@ run();
 | errors.ApiError    | 400, 401, 403, 404 | application/json   |
 | errors.SDKError    | 4XX, 5XX           | \*/\*              |
 
-## uploadNoResourceTypeMultipart
+## uploadChunkMultipart
 
-Uploads a file to Cloudinary. The file type is automatically detected based on its content, so you don't need to specify the type manually.
+Uploads a single chunk of a large file as part of a chunked upload process. This enables efficient upload of 
+large files with the ability to resume interrupted uploads. Each request uploads one chunk of the file.
+It is required for any files that are larger than 100 MB. This is often relevant for video files, as they 
+tend to have larger file sizes. Minimum chunk size is 5 MB.
+
 
 ### Example Usage
 
@@ -239,6 +251,7 @@ import { CloudinaryAssets } from "@cloudinary/assets";
 import { openAsBlob } from "node:fs";
 
 const cloudinaryAssets = new CloudinaryAssets({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -246,9 +259,9 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.uploadNoResourceTypeMultipart({
+  const result = await cloudinaryAssets.upload.uploadChunkMultipart("auto", "bytes 0-999999/3000000", "2fd4e1c67a2d28fce", {
     headers: "X-Robots-Tag: noindex",
-    moderation: "aws_rek_video",
+    moderation: "duplicate",
     rawConvert: "google_speech:vtt:en-US",
     backgroundRemoval: "pixelz",
     format: "jpg",
@@ -258,7 +271,6 @@ async function run() {
     file: await openAsBlob("example.file"),
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -271,12 +283,13 @@ The standalone function version of this method:
 
 ```typescript
 import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { uploadUploadNoResourceTypeMultipart } from "@cloudinary/assets/funcs/uploadUploadNoResourceTypeMultipart.js";
+import { uploadUploadChunkMultipart } from "@cloudinary/assets/funcs/uploadUploadChunkMultipart.js";
 import { openAsBlob } from "node:fs";
 
 // Use `CloudinaryAssetsCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssets = new CloudinaryAssetsCore({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -284,9 +297,9 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await uploadUploadNoResourceTypeMultipart(cloudinaryAssets, {
+  const res = await uploadUploadChunkMultipart(cloudinaryAssets, "auto", "bytes 0-999999/3000000", "2fd4e1c67a2d28fce", {
     headers: "X-Robots-Tag: noindex",
-    moderation: "aws_rek_video",
+    moderation: "duplicate",
     rawConvert: "google_speech:vtt:en-US",
     backgroundRemoval: "pixelz",
     format: "jpg",
@@ -295,15 +308,12 @@ async function run() {
     detection: "coco_v2",
     file: await openAsBlob("example.file"),
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("uploadUploadChunkMultipart failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -311,229 +321,19 @@ run();
 
 ### Parameters
 
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [components.BinaryUploadRequest](../../models/components/binaryuploadrequest.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+| Parameter                                                                                                                                                                                                                                       | Type                                                                                                                                                                                                                                            | Required                                                                                                                                                                                                                                        | Description                                                                                                                                                                                                                                     | Example                                                                                                                                                                                                                                         |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `resourceType`                                                                                                                                                                                                                                  | [components.UploadResourceType](../../models/components/uploadresourcetype.md)                                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                                                                                              | The type of resource to upload:<br/>- "image" for uploading strictly images<br/>- "video" for uploading strictly videos  <br/>- "raw" for uploading non-media files<br/>- "auto" for allowing Cloudinary to automatically detect the type of the uploaded file<br/> |                                                                                                                                                                                                                                                 |
+| `contentRange`                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                                                                                              | The range of bytes being uploaded in the current chunk, in the format "bytes start-end/total". For example, "bytes 0-999999/3000000" indicates the first 1MB chunk of a 3MB file.                                                               | [object Object]                                                                                                                                                                                                                                 |
+| `xUniqueUploadId`                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                                                                                              | A unique identifier for the upload. Must be the same for all chunks of the same file.                                                                                                                                                           | [object Object]                                                                                                                                                                                                                                 |
+| `binaryUploadRequest`                                                                                                                                                                                                                           | [components.BinaryUploadRequest](../../models/components/binaryuploadrequest.md)                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                                                              | N/A                                                                                                                                                                                                                                             |                                                                                                                                                                                                                                                 |
+| `options`                                                                                                                                                                                                                                       | RequestOptions                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                              | Used to set various options for making HTTP requests.                                                                                                                                                                                           |                                                                                                                                                                                                                                                 |
+| `options.fetchOptions`                                                                                                                                                                                                                          | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                              | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.                                                                  |                                                                                                                                                                                                                                                 |
+| `options.retries`                                                                                                                                                                                                                               | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                              | Enables retrying HTTP requests under certain failure conditions.                                                                                                                                                                                |                                                                                                                                                                                                                                                 |
 
 ### Response
 
-**Promise\<[operations.UploadNoResourceTypeMultipartResponse](../../models/operations/uploadnoresourcetypemultipartresponse.md)\>**
-
-### Errors
-
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| errors.ApiError    | 400, 401, 403, 404 | application/json   |
-| errors.SDKError    | 4XX, 5XX           | \*/\*              |
-
-## uploadNoResourceType
-
-Uploads a file to Cloudinary. The file type is automatically detected based on its content, so you don't need to specify the type manually.
-
-### Example Usage
-
-```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
-
-const cloudinaryAssets = new CloudinaryAssets({
-  security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
-  },
-});
-
-async function run() {
-  const result = await cloudinaryAssets.upload.uploadNoResourceType({
-    headers: "X-Robots-Tag: noindex",
-    moderation: "aws_rek_video",
-    rawConvert: "google_speech:vtt:en-US",
-    backgroundRemoval: "pixelz",
-    format: "jpg",
-    allowedFormats: "mp4,ogv,jpg,png,pdf",
-    autoTagging: 0.5,
-    detection: "coco_v2",
-    file: "{\"\":\"x-file: example.file\"}",
-  });
-
-  // Handle the result
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { uploadUploadNoResourceType } from "@cloudinary/assets/funcs/uploadUploadNoResourceType.js";
-
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
-  security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
-  },
-});
-
-async function run() {
-  const res = await uploadUploadNoResourceType(cloudinaryAssets, {
-    headers: "X-Robots-Tag: noindex",
-    moderation: "aws_rek_video",
-    rawConvert: "google_speech:vtt:en-US",
-    backgroundRemoval: "pixelz",
-    format: "jpg",
-    allowedFormats: "mp4,ogv,jpg,png,pdf",
-    autoTagging: 0.5,
-    detection: "coco_v2",
-    file: "{\"\":\"x-file: example.file\"}",
-  });
-
-  if (!res.ok) {
-    throw res.error;
-  }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [components.UploadRequest](../../models/components/uploadrequest.md)                                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.UploadNoResourceTypeResponse](../../models/operations/uploadnoresourcetyperesponse.md)\>**
-
-### Errors
-
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| errors.ApiError    | 400, 401, 403, 404 | application/json   |
-| errors.SDKError    | 4XX, 5XX           | \*/\*              |
-
-## uploadChunkedMultipart
-
-Uploads a large file in chunks, enabling efficient upload of large files with the ability to resume interrupted uploads.
-It is required for any files that are larger than 100 MB. This is often relevant for video files, as they tend to have larger files sizes.
-Minimum chunk size is 5 MB.
-
-
-### Example Usage
-
-```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
-import { openAsBlob } from "node:fs";
-
-const cloudinaryAssets = new CloudinaryAssets({
-  security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
-  },
-});
-
-async function run() {
-  const result = await cloudinaryAssets.upload.uploadChunkedMultipart({
-    resourceType: "video",
-    contentRange: "bytes 0-999999/3000000",
-    xUniqueUploadId: "2fd4e1c67a2d28fce",
-    binaryUploadRequest: {
-      headers: "X-Robots-Tag: noindex",
-      moderation: "duplicate",
-      rawConvert: "google_speech:vtt:en-US",
-      backgroundRemoval: "pixelz",
-      format: "jpg",
-      allowedFormats: "mp4,ogv,jpg,png,pdf",
-      autoTagging: 0.5,
-      detection: "coco_v2",
-      file: await openAsBlob("example.file"),
-    },
-  });
-
-  // Handle the result
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { uploadUploadChunkedMultipart } from "@cloudinary/assets/funcs/uploadUploadChunkedMultipart.js";
-import { openAsBlob } from "node:fs";
-
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
-  security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
-  },
-});
-
-async function run() {
-  const res = await uploadUploadChunkedMultipart(cloudinaryAssets, {
-    resourceType: "video",
-    contentRange: "bytes 0-999999/3000000",
-    xUniqueUploadId: "2fd4e1c67a2d28fce",
-    binaryUploadRequest: {
-      headers: "X-Robots-Tag: noindex",
-      moderation: "duplicate",
-      rawConvert: "google_speech:vtt:en-US",
-      backgroundRemoval: "pixelz",
-      format: "jpg",
-      allowedFormats: "mp4,ogv,jpg,png,pdf",
-      autoTagging: 0.5,
-      detection: "coco_v2",
-      file: await openAsBlob("example.file"),
-    },
-  });
-
-  if (!res.ok) {
-    throw res.error;
-  }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.UploadChunkedMultipartRequest](../../models/operations/uploadchunkedmultipartrequest.md)                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.UploadChunkedMultipartResponse](../../models/operations/uploadchunkedmultipartresponse.md)\>**
+**Promise\<[operations.UploadChunkMultipartResponse](../../models/operations/uploadchunkmultipartresponse.md)\>**
 
 ### Errors
 
@@ -542,11 +342,12 @@ run();
 | errors.ApiError  | 400, 401, 403    | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |
 
-## uploadChunked
+## uploadChunk
 
-Uploads a large file in chunks, enabling efficient upload of large files with the ability to resume interrupted uploads.
-It is required for any files that are larger than 100 MB. This is often relevant for video files, as they tend to have larger files sizes.
-Minimum chunk size is 5 MB.
+Uploads a single chunk of a large file as part of a chunked upload process. This enables efficient upload of 
+large files with the ability to resume interrupted uploads. Each request uploads one chunk of the file.
+It is required for any files that are larger than 100 MB. This is often relevant for video files, as they 
+tend to have larger file sizes. Minimum chunk size is 5 MB.
 
 
 ### Example Usage
@@ -555,6 +356,7 @@ Minimum chunk size is 5 MB.
 import { CloudinaryAssets } from "@cloudinary/assets";
 
 const cloudinaryAssets = new CloudinaryAssets({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -562,24 +364,18 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.uploadChunked({
-    resourceType: "video",
-    contentRange: "bytes 0-999999/3000000",
-    xUniqueUploadId: "2fd4e1c67a2d28fce",
-    uploadRequest: {
-      headers: "X-Robots-Tag: noindex",
-      moderation: "duplicate",
-      rawConvert: "google_speech:vtt:en-US",
-      backgroundRemoval: "pixelz",
-      format: "jpg",
-      allowedFormats: "mp4,ogv,jpg,png,pdf",
-      autoTagging: 0.5,
-      detection: "coco_v2",
-      file: "{\"\":\"x-file: example.file\"}",
-    },
+  const result = await cloudinaryAssets.upload.uploadChunk("auto", "bytes 0-999999/3000000", "2fd4e1c67a2d28fce", {
+    headers: "X-Robots-Tag: noindex",
+    moderation: "duplicate",
+    rawConvert: "google_speech:vtt:en-US",
+    backgroundRemoval: "pixelz",
+    format: "jpg",
+    allowedFormats: "mp4,ogv,jpg,png,pdf",
+    autoTagging: 0.5,
+    detection: "coco_v2",
+    file: "undefined",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -592,11 +388,12 @@ The standalone function version of this method:
 
 ```typescript
 import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { uploadUploadChunked } from "@cloudinary/assets/funcs/uploadUploadChunked.js";
+import { uploadUploadChunk } from "@cloudinary/assets/funcs/uploadUploadChunk.js";
 
 // Use `CloudinaryAssetsCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssets = new CloudinaryAssetsCore({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -604,31 +401,23 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await uploadUploadChunked(cloudinaryAssets, {
-    resourceType: "video",
-    contentRange: "bytes 0-999999/3000000",
-    xUniqueUploadId: "2fd4e1c67a2d28fce",
-    uploadRequest: {
-      headers: "X-Robots-Tag: noindex",
-      moderation: "duplicate",
-      rawConvert: "google_speech:vtt:en-US",
-      backgroundRemoval: "pixelz",
-      format: "jpg",
-      allowedFormats: "mp4,ogv,jpg,png,pdf",
-      autoTagging: 0.5,
-      detection: "coco_v2",
-      file: "{\"\":\"x-file: example.file\"}",
-    },
+  const res = await uploadUploadChunk(cloudinaryAssets, "auto", "bytes 0-999999/3000000", "2fd4e1c67a2d28fce", {
+    headers: "X-Robots-Tag: noindex",
+    moderation: "duplicate",
+    rawConvert: "google_speech:vtt:en-US",
+    backgroundRemoval: "pixelz",
+    format: "jpg",
+    allowedFormats: "mp4,ogv,jpg,png,pdf",
+    autoTagging: 0.5,
+    detection: "coco_v2",
+    file: "undefined",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("uploadUploadChunk failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -636,16 +425,19 @@ run();
 
 ### Parameters
 
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.UploadChunkedRequest](../../models/operations/uploadchunkedrequest.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+| Parameter                                                                                                                                                                                                                                       | Type                                                                                                                                                                                                                                            | Required                                                                                                                                                                                                                                        | Description                                                                                                                                                                                                                                     | Example                                                                                                                                                                                                                                         |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `resourceType`                                                                                                                                                                                                                                  | [components.UploadResourceType](../../models/components/uploadresourcetype.md)                                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                                                                                              | The type of resource to upload:<br/>- "image" for uploading strictly images<br/>- "video" for uploading strictly videos  <br/>- "raw" for uploading non-media files<br/>- "auto" for allowing Cloudinary to automatically detect the type of the uploaded file<br/> |                                                                                                                                                                                                                                                 |
+| `contentRange`                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                                                                                              | The range of bytes being uploaded in the current chunk, in the format "bytes start-end/total". For example, "bytes 0-999999/3000000" indicates the first 1MB chunk of a 3MB file.                                                               | [object Object]                                                                                                                                                                                                                                 |
+| `xUniqueUploadId`                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                                                                                              | A unique identifier for the upload. Must be the same for all chunks of the same file.                                                                                                                                                           | [object Object]                                                                                                                                                                                                                                 |
+| `uploadRequest`                                                                                                                                                                                                                                 | [components.UploadRequest](../../models/components/uploadrequest.md)                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                              | N/A                                                                                                                                                                                                                                             |                                                                                                                                                                                                                                                 |
+| `options`                                                                                                                                                                                                                                       | RequestOptions                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                              | Used to set various options for making HTTP requests.                                                                                                                                                                                           |                                                                                                                                                                                                                                                 |
+| `options.fetchOptions`                                                                                                                                                                                                                          | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                              | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.                                                                  |                                                                                                                                                                                                                                                 |
+| `options.retries`                                                                                                                                                                                                                               | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                              | Enables retrying HTTP requests under certain failure conditions.                                                                                                                                                                                |                                                                                                                                                                                                                                                 |
 
 ### Response
 
-**Promise\<[operations.UploadChunkedResponse](../../models/operations/uploadchunkedresponse.md)\>**
+**Promise\<[operations.UploadChunkResponse](../../models/operations/uploadchunkresponse.md)\>**
 
 ### Errors
 
@@ -664,6 +456,7 @@ Destroys an asset/resource
 import { CloudinaryAssets } from "@cloudinary/assets";
 
 const cloudinaryAssets = new CloudinaryAssets({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -671,12 +464,8 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.destroyAsset({
-    resourceType: "raw",
-    publicId: "<id>",
-  });
+  const result = await cloudinaryAssets.upload.destroyAsset("raw", "<id>");
 
-  // Handle the result
   console.log(result);
 }
 
@@ -694,6 +483,7 @@ import { uploadDestroyAsset } from "@cloudinary/assets/funcs/uploadDestroyAsset.
 // Use `CloudinaryAssetsCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssets = new CloudinaryAssetsCore({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -701,19 +491,13 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await uploadDestroyAsset(cloudinaryAssets, {
-    resourceType: "raw",
-    publicId: "<id>",
-  });
-
-  if (!res.ok) {
-    throw res.error;
+  const res = await uploadDestroyAsset(cloudinaryAssets, "raw", "<id>");
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("uploadDestroyAsset failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -723,7 +507,9 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.DestroyAssetRequest](../../models/operations/destroyassetrequest.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `resourceType`                                                                                                                                                                 | [operations.DestroyAssetResourceType](../../models/operations/destroyassetresourcetype.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The type of asset/resource to destroy                                                                                                                                          |
+| `publicId`                                                                                                                                                                     | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The public ID of the asset/resource to destroy                                                                                                                                 |
+| `invalidate`                                                                                                                                                                   | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to invalidate CDN cached copies of the asset                                                                                                                           |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -749,6 +535,7 @@ Dynamically generates an image from a specified text string.
 import { CloudinaryAssets } from "@cloudinary/assets";
 
 const cloudinaryAssets = new CloudinaryAssets({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -756,14 +543,10 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.text({
-    resourceType: "image",
-    requestBody: {
-      text: "<value>",
-    },
+  const result = await cloudinaryAssets.upload.text("image", {
+    text: "<value>",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -781,6 +564,7 @@ import { uploadText } from "@cloudinary/assets/funcs/uploadText.js";
 // Use `CloudinaryAssetsCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssets = new CloudinaryAssetsCore({
+  cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -788,21 +572,15 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await uploadText(cloudinaryAssets, {
-    resourceType: "image",
-    requestBody: {
-      text: "<value>",
-    },
+  const res = await uploadText(cloudinaryAssets, "image", {
+    text: "<value>",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("uploadText failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -812,7 +590,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.TextRequest](../../models/operations/textrequest.md)                                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `resourceType`                                                                                                                                                                 | [operations.TextResourceType](../../models/operations/textresourcetype.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The type of resource to create. Must be "image" for text generation.                                                                                                           |
+| `requestBody`                                                                                                                                                                  | [operations.TextRequestBody](../../models/operations/textrequestbody.md)                                                                                                       | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
