@@ -23,14 +23,9 @@ const args = {
 
 export const tool$assetsListImages: ToolDefinition<typeof args> = {
   name: "list-images",
-  description:
-    `Purpose: Retrieves a paginated list of image assets from your Cloudinary account with comprehensive filtering and sorting options. This endpoint provides detailed information about your image inventory including metadata, transformations, and delivery URLs.
-Usage: Use this to browse your image library, implement asset management interfaces, search for specific images, or audit your image collection. Essential for building media galleries, asset browsers, and content management systems.
-Example request: GET /resources/image?prefix=products&tags=true&max_results=50&fields=asset_folder,tags,context
-Parameters: type(storage type for filtering - upload/private/authenticated/fetch/list), prefix(filter by public ID prefix), public_ids(specific image identifiers to retrieve), tags(include tag information), next_cursor(pagination token), max_results(limit response size 1-500), direction(sort direction asc/desc), start_at(filter by upload timestamp), fields(specify response fields)
-When Not to Use: Don't use for single asset retrieval (use get-asset-details instead), real-time asset status checks, or when you need video/raw assets (use list-videos or list-files respectively).
-Output: Returns paginated list of image assets: resources(array of image objects), next_cursor(pagination token), rate_limit_allowed(API rate limit), rate_limit_remaining(remaining calls), rate_limit_reset_at(reset timestamp). Each image object contains: asset_id, public_id, format, version, width, height, bytes, url, secure_url, created_at, asset_folder, tags, context
-Example output: {"resources":[{"asset_id":"abc123","public_id":"sample","format":"jpg","version":1234567890,"width":1000,"height":800,"bytes":245032,"url":"http://res.cloudinary.com/demo/image/upload/v1234567890/sample.jpg","secure_url":"https://res.cloudinary.com/demo/image/upload/v1234567890/sample.jpg","created_at":"2023-01-15T10:30:00Z","asset_folder":"products","tags":["featured","new"]}],"next_cursor":"xyz789"}
+  description: `Get image assets
+
+Retrieves a list of image assets. Results can be filtered by various criteria like tags, moderation status, prefix, or specific public IDs.
 `,
   scopes: ["librarian"],
   args,

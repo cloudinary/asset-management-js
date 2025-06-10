@@ -14,14 +14,9 @@ const args = {
 export const tool$assetsGenerateArchive: ToolDefinition<typeof args> = {
   name: "generate-archive",
   description:
-    `Purpose: Creates an archive (ZIP or TGZ file) that contains a set of assets from your Cloudinary product environment, either for download or storage as a new asset.
-Usage: Use this to bundle multiple assets for download, backup, content packages, or distribution. Supports selecting assets by public IDs, tags, or prefixes, with optional transformations applied before archiving.
-Example request: {"public_ids": ["sample1", "sample2"], "target_format": "zip", "mode": "create_and_download", "transformations": "w_300,h_300", "target_public_id": "my_package", "timestamp": 1234567890, "signature": "abc123", "api_key": "your_key"}
-Parameters: public_ids(array of asset IDs), tags(select by tags), prefixes(select by prefix), type(upload/private/authenticated), transformations(apply before archiving), mode(download/create/create_and_download), target_format(zip/tgz), target_public_id(archive name), flatten_folders(flatten structure), allow_missing(ignore missing assets), expires_at(download expiration), use_original_filename(use original names), async(background processing), notification_url(completion webhook), target_tags(archive tags), keep_derived(preserve transformations), timestamp(signature timestamp), signature(authentication), api_key(account key)
-When Not to Use: Don't use for single asset downloads (use direct URLs). Avoid for extremely large collections that create oversized archives. Not suitable for real-time operations requiring immediate response.
-Output: Returns archive details (create mode) or binary archive data (download mode). Includes asset_id, secure_url, bytes, resource_count, file_count for created archives.
-Example output: {"asset_id":"abc123","public_id":"my_package.zip","version":1234567890,"secure_url":"https://res.cloudinary.com/demo/raw/upload/v1234567890/my_package.zip","bytes":1024000,"resource_count":2,"file_count":2}
-`,
+    `Creates an archive (ZIP or TGZ file) that contains a set of assets from
+
+Creates a downloadable ZIP or other archive format containing the specified resources.`,
   scopes: ["librarian"],
   args,
   tool: async (client, args, ctx) => {

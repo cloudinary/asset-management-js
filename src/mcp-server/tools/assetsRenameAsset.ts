@@ -14,14 +14,7 @@ const args = {
 export const tool$assetsRenameAsset: ToolDefinition<typeof args> = {
   name: "asset-public_id-rename",
   description:
-    `Purpose: Changes an existing asset's public ID (identifier) and optionally moves it to a different storage type, effectively renaming or moving the asset while preserving its content and metadata.
-Usage: Use this to rename assets for better organization, move assets between storage types (upload/private/authenticated), or reorganize your media library structure. Essential for maintaining clean naming conventions and evolving organizational systems.
-Example request: {"from_public_id": "old_image", "to_public_id": "products/new_image", "type": "upload", "to_type": "private", "overwrite": false}
-Parameters: from_public_id(current asset identifier), to_public_id(new asset identifier), type(current storage type), to_type(new storage type), overwrite(replace existing asset), invalidate(clear CDN cache), context(update context metadata), metadata(update structured metadata), notification_url(callback URL)
-When Not to Use: Don't use if the asset is actively referenced in applications without updating those references. Avoid renaming during high-traffic periods if the asset is frequently accessed. Don't use for copying assets (this moves, not copies).
-Output: Returns updated asset information: public_id(new identifier), version(version number), signature(validation signature), resource_type(asset type), created_at(creation timestamp), bytes(file size), type(storage type), etag(entity tag)
-Example output: {"public_id":"products/new_image","version":1234567890,"signature":"abc123def456","resource_type":"image","created_at":"2023-01-15T10:00:00Z","bytes":45231,"type":"private","etag":"def789ghi012"}
-`,
+    `Updates an existing asset's identifier and optionally other metadata in your Cloudinary account`,
   scopes: ["librarian"],
   args,
   tool: async (client, args, ctx) => {

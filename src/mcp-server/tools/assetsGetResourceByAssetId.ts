@@ -23,15 +23,9 @@ const args = {
 
 export const tool$assetsGetResourceByAssetId: ToolDefinition<typeof args> = {
   name: "get-asset-details",
-  description:
-    `Purpose: Retrieves comprehensive details about a specific asset using its unique asset ID, providing complete metadata, transformation information, derived resources, and analysis results for the requested asset.
-Usage: Use this to get detailed information about a single asset including metadata, dimensions, file properties, color analysis, face detection results, and associated transformations. Essential for asset inspection, debugging, and detailed content analysis workflows.
-Example request: GET /resources/by_asset_id/e9b44a374f66ad53a64a74c7398f7?colors=true&faces=true&media_metadata=true
-Parameters: asset_id(unique asset identifier), colors(include color analysis), media_metadata(include IPTC/XMP/EXIF data), faces(include face detection), quality_analysis(include quality scores), accessibility_analysis(include accessibility scores), pages(include page count for documents), phash(include perceptual hash), coordinates(include custom coordinates), versions(include backup versions), max_results(limit derived resources returned), derived_next_cursor(pagination for derived resources)
-When Not to Use: Don't use for bulk asset retrieval (use list-images/list-videos/list-files instead), asset discovery workflows, or when you only need basic asset information without detailed analysis.
-Output: Returns comprehensive asset information: asset_id, public_id, format, version, width, height, bytes, url, secure_url, created_at, asset_folder, tags, context, metadata, colors(color analysis), faces(detected faces), quality_analysis(quality scores), accessibility_analysis(accessibility scores), derived(array of derived resources), versions(backup versions if requested)
-Example output: {"asset_id":"e9b44a374f66ad53a64a74c7398f7","public_id":"sample","format":"jpg","version":1234567890,"width":1000,"height":800,"bytes":245032,"url":"https://res.cloudinary.com/demo/image/upload/v1234567890/sample.jpg","created_at":"2023-01-15T10:30:00Z","asset_folder":"products","tags":["featured"],"colors":{"predominant":[["#F3285C",18.0]]}}
-`,
+  description: `Get resource by asset ID
+
+Returns the details of a single resource specified by its asset ID.`,
   scopes: ["librarian"],
   args,
   tool: async (client, args, ctx) => {

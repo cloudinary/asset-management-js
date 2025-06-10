@@ -23,14 +23,9 @@ const args = {
 
 export const tool$assetsListVideos: ToolDefinition<typeof args> = {
   name: "list-videos",
-  description:
-    `Purpose: Retrieves a paginated list of video assets from your Cloudinary account with comprehensive filtering and sorting capabilities. This endpoint provides detailed video metadata including duration, bitrate, codecs, and delivery URLs for streaming and download.
-Usage: Use this to browse your video library, build video management interfaces, search for specific videos, or analyze your video collection. Essential for creating video galleries, media management dashboards, and video content organization systems.
-Example request: GET /resources/video?prefix=marketing&tags=true&max_results=25&fields=asset_folder,duration,bitrate
-Parameters: type(delivery type for filtering - upload/private/authenticated/fetch/list), prefix(filter by public ID prefix), public_ids(specific video identifiers to retrieve), tags(include tag information), next_cursor(pagination token), max_results(limit response size 1-500), direction(sort direction asc/desc), start_at(filter by upload timestamp), fields(specify response fields)
-When Not to Use: Don't use for single video retrieval (use get-asset-details instead), real-time transcoding status checks, or when you need image/raw assets (use list-images or list-files respectively).
-Output: Returns paginated list of video assets: resources(array of video objects), next_cursor(pagination token), rate_limit_allowed(API rate limit), rate_limit_remaining(remaining calls), rate_limit_reset_at(reset timestamp). Each video object contains: asset_id, public_id, format, version, width, height, duration, bitrate, bytes, url, secure_url, created_at, asset_folder, tags, context
-Example output: {"resources":[{"asset_id":"def456","public_id":"promo_video","format":"mp4","version":1234567890,"width":1920,"height":1080,"duration":120.5,"bitrate":2500000,"bytes":38400000,"url":"http://res.cloudinary.com/demo/video/upload/v1234567890/promo_video.mp4","secure_url":"https://res.cloudinary.com/demo/video/upload/v1234567890/promo_video.mp4","created_at":"2023-01-15T14:20:00Z","asset_folder":"marketing","tags":["featured","2023"]}],"next_cursor":"abc456"}
+  description: `Get video assets
+
+Retrieves a list of video assets. Results can be filtered by various criteria like tags, moderation status, prefix, or specific public IDs.
 `,
   scopes: ["librarian"],
   args,

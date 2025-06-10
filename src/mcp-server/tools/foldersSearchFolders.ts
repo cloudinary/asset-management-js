@@ -16,16 +16,9 @@ const args = {
 
 export const tool$foldersSearchFolders: ToolDefinition<typeof args> = {
   name: "search-folders",
-  description:
-    `Purpose: Searches for folders whose attributes match a given expression, or returns all folders when no expression is provided. This lets you filter and find specific folders by criteria such as folder name or path using Lucene-like syntax, or get a complete folder inventory equivalent to GET /folders.
-Usage: Use when you need to locate specific folders or get a complete folder listing. Essential for folder management in dynamic environments where you need to find folders by patterns (e.g., all test folders, marketing-related folders, folders from specific time periods). Supports boolean logic for complex queries combining multiple criteria.
-Example request: GET /folders/search?expression=name:test OR path:marketing&max_results=10&sort_by=[{"field":"created_at","direction":"desc"}]
-Note: Wildcards () are not supported in expressions. Only works in dynamic folder mode environments, not legacy fixed-folder mode. Newly created folders may take moments to appear in search results.
-Parameters - examples of parameters that can be used: expression(search query using Lucene syntax - empty string returns all folders), max_results(limit results 1-2000, default 50), sort_by(array of sort criteria with field and direction), next_cursor(pagination cursor for additional results), with_count(include total count in response)
-Expression examples: empty string (list all folders), name:test (folders containing "test"), path:marketing (folders under marketing path), name:project AND path:2024 (boolean combination), name:test OR name:staging (multiple criteria)
-When Not to Use: Don't use for simple folder structures where you know exact paths - direct folder endpoints are simpler. Avoid for finding individual assets (use asset search instead). Not suitable for legacy fixed-folder mode accounts or when you need wildcard pattern matching.
-Output: Returns folders matching search criteria with total_count(number of matches), time(query execution milliseconds), folders(array of matching folder objects), next_cursor(pagination token if more results available). Each folder includes name, path, created_at timestamp, and external_id.
-Example output: {"total_count":2,"time":45,"folders":[{"name":"test","path":"test","created_at":"2025-02-03T09:05:44+00:00","external_id":"ca65877d72894ae12539a0185d7ca4eff3"},{"name":"test-marketing","path":"marketing/test-marketing","created_at":"2024-12-15T10:30:22+00:00","external_id":"cb1234567890abcdef"}]}
+  description: `Searches for folders whose attributes match a given expression
+
+Lists the folders that match the specified search expression. Limited to 2000 results. If no parameters are passed, returns the 50 most recently created folders in descending order of creation time.
 `,
   scopes: ["librarian"],
   args,

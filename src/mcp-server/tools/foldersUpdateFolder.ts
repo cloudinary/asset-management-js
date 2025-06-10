@@ -15,14 +15,9 @@ const args = {
 export const tool$foldersUpdateFolder: ToolDefinition<typeof args> = {
   name: "move-folder",
   description:
-    `Purpose: Renames or moves an entire folder (along with all assets it contains) to a new location within your Cloudinary media library, updating all asset paths accordingly.
-Usage: Use this to reorganize folder structures, rename folders for better organization, or move content between different organizational hierarchies. Essential for maintaining organized media libraries and adapting to changing content structures.
-Example request: PUT /folders/old/path with body {"to_folder": "new/path"}
-Parameters: folder(current folder path), to_folder(new folder path - can include renaming and/or moving to different location)
-When Not to Use: Don't use for deleting folders (use delete-folder instead). Avoid moving folders that are actively being used in production workflows during the operation. Don't use for individual asset moves (assets maintain their public IDs within the new folder path).
-Output: Returns details of the move operation showing both source and destination paths.
-Example output: {"from":{"name":"path","path":"old/path"},"to":{"name":"path","path":"new/path"}}
-`,
+    `Renames or moves an entire folder (along with all assets it contains) to a
+
+Updates a folder's properties.`,
   scopes: ["librarian"],
   args,
   tool: async (client, args, ctx) => {

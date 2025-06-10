@@ -1,21 +1,21 @@
-speakeasyVersion: 1.557.1
+speakeasyVersion: 1.559.0
 sources:
     Assets API:
         sourceNamespace: assets-api
-        sourceRevisionDigest: sha256:fa32688cf33fb290be861bbb2a002a6c2ff023d414f476d4fe2715d051d8ea8a
-        sourceBlobDigest: sha256:4da647885484918866e87b08432ec495434c5cded639d9ffc5fc2fbaf4695f5e
+        sourceRevisionDigest: sha256:788cd9b345e9fdc58ec9cee2f17deaf4cff1006d5d8c2c1eb29b983eb8d729ae
+        sourceBlobDigest: sha256:f011e4e35378f57a8637dda99a3cefad589322f4badf658eaccc779c3b58cc19
         tags:
             - latest
-            - speakeasy-sdk-regen-1749481216
+            - speakeasy-sdk-regen-1749556064
             - 0.2.1
 targets:
     assets-js:
         source: Assets API
         sourceNamespace: assets-api
-        sourceRevisionDigest: sha256:fa32688cf33fb290be861bbb2a002a6c2ff023d414f476d4fe2715d051d8ea8a
-        sourceBlobDigest: sha256:4da647885484918866e87b08432ec495434c5cded639d9ffc5fc2fbaf4695f5e
+        sourceRevisionDigest: sha256:788cd9b345e9fdc58ec9cee2f17deaf4cff1006d5d8c2c1eb29b983eb8d729ae
+        sourceBlobDigest: sha256:f011e4e35378f57a8637dda99a3cefad589322f4badf658eaccc779c3b58cc19
         codeSamplesNamespace: assets-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:a9265ef263dfe3cfcbdd9fd838f4ac2b78cb60bc7b509259196e82362fd0408f
+        codeSamplesRevisionDigest: sha256:1a15fa2b40893f22f69ef481bc472ecdfea70b779b645f67e1151549b6c84a78
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -27,6 +27,7 @@ workflow:
                 - location: https://cloudinary.github.io/api-schemas/overlays/security-scheme-cloud-overlay.yaml
                 - location: https://cloudinary.github.io/api-schemas/overlays/cloud-name-overlay.yml
                 - location: https://cloudinary.github.io/api-schemas/overlays/mcp-disabled.yml
+                - location: https://cloudinary.github.io/api-schemas/overlays/remove-mcp-description.yml
             registry:
                 location: registry.speakeasyapi.dev/cloudinary/cloudinary/assets-api
     targets:

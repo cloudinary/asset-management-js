@@ -23,14 +23,9 @@ const args = {
 
 export const tool$assetsListRawFiles: ToolDefinition<typeof args> = {
   name: "list-files",
-  description:
-    `Purpose: Retrieves a paginated list of raw (non-media) assets from your Cloudinary account including documents, archives, data files, and other non-image/video content. This endpoint provides comprehensive metadata about your file inventory and delivery URLs.
-Usage: Use this to browse your document library, manage file assets, search for specific documents, or audit your raw file collection. Essential for building document management systems, file browsers, and content organization tools.
-Example request: GET /resources/raw?prefix=documents&tags=true&max_results=100&fields=asset_folder,format,bytes
-Parameters: type(delivery type for filtering - upload/private/authenticated/list), prefix(filter by public ID prefix), public_ids(specific file identifiers to retrieve), tags(include tag information), next_cursor(pagination token), max_results(limit response size 1-500), direction(sort direction asc/desc), start_at(filter by upload timestamp), fields(specify response fields)
-When Not to Use: Don't use for single file retrieval (use get-asset-details instead), real-time file processing status, or when you need image/video assets (use list-images or list-videos respectively).
-Output: Returns paginated list of raw file assets: resources(array of file objects), next_cursor(pagination token), rate_limit_allowed(API rate limit), rate_limit_remaining(remaining calls), rate_limit_reset_at(reset timestamp). Each file object contains: asset_id, public_id, format, version, bytes, url, secure_url, created_at, asset_folder, tags, context
-Example output: {"resources":[{"asset_id":"ghi789","public_id":"user_manual","format":"pdf","version":1234567890,"bytes":2048576,"url":"http://res.cloudinary.com/demo/raw/upload/v1234567890/user_manual.pdf","secure_url":"https://res.cloudinary.com/demo/raw/upload/v1234567890/user_manual.pdf","created_at":"2023-01-15T16:45:00Z","asset_folder":"documents","tags":["manual","v2.0"]}],"next_cursor":"def789"}
+  description: `Get raw assets
+
+Retrieves a list of raw assets. Results can be filtered by various criteria like tags, moderation status, prefix, or specific public IDs.
 `,
   scopes: ["librarian"],
   args,
