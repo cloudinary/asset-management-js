@@ -12,15 +12,9 @@ const args = {
 
 export const tool$foldersCreateFolder: ToolDefinition<typeof args> = {
   name: "create-folder",
-  description:
-    `Purpose: Creates an empty folder structure in your Cloudinary media library to organize your assets hierarchically. The folder will be available immediately for asset uploads and folder operations.
-Usage: Use this to establish folder structures before uploading assets, organize content by categories or projects, or create nested folder hierarchies for complex media organization. Essential for maintaining clean asset organization and supporting structured content workflows.
-Example request: POST /folders/marketing/campaigns/2024
-Parameters: folder(full folder path to create - required, supports nested paths like "marketing/campaigns/2024")
-When Not to Use: Don't use to move existing folders (use move-folder instead). Avoid creating deeply nested structures that may complicate asset management. Not needed if uploading assets directly creates the folder structure automatically.
-Output: Returns confirmation of folder creation with path details and success status.
-Example output: {"success":true,"path":"marketing/campaigns/2024","name":"2024"}
-`,
+  description: `Creates a new empty folder in your Cloudinary media library
+
+Creates a new folder at the specified path`,
   scopes: ["librarian"],
   args,
   tool: async (client, args, ctx) => {

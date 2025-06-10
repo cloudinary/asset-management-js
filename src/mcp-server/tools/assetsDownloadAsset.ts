@@ -24,15 +24,7 @@ const args = {
 
 export const tool$assetsDownloadAsset: ToolDefinition<typeof args> = {
   name: "download-asset",
-  description:
-    `Purpose: Downloads an asset (with optional transformation) through Cloudinary's secure download API, often used for authenticated access or to apply transformations during download.
-Usage: Use this when you need to programmatically download assets with authentication, apply transformations during download, or track download activities. Particularly useful for private/authenticated assets or when you need to transform before download.
-Example request: GET /image/download?public_id=sample&format=jpg&transformation=w_300,h_200,c_crop&api_key=your_key&signature=abc123&timestamp=1234567890
-Parameters: public_id(asset identifier), resource_type(image/video/raw), format(convert to specific format), transformation(apply transformation), type(upload/private/authenticated), attachment(force download), expires_at(expiration timestamp), target_filename(custom filename), api_key(authentication), signature(security signature), timestamp(for signature)
-When Not to Use: Don't use for regular asset delivery (use direct CDN URLs instead). Avoid for high-volume traffic as this bypasses CDN caching. Not needed for public assets unless transformation is required.
-Output: Returns the binary asset data directly as the response body with appropriate Content-Type headers and optional Content-Disposition for attachments.
-Example output: Binary asset data with headers like Content-Type: image/jpeg, Content-Length: 45231, Content-Disposition: attachment; filename="sample.jpg"
-`,
+  description: `Generates a download link for a specific asset (image)`,
   scopes: ["admin"],
   args,
   tool: async (client, args, ctx) => {

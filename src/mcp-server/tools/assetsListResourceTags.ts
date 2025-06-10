@@ -17,13 +17,11 @@ const args = {
 export const tool$assetsListResourceTags: ToolDefinition<typeof args> = {
   name: "list-tags",
   description:
-    `Purpose: Retrieves a comprehensive list of all tags currently assigned to assets in your Cloudinary account, providing an overview of your tagging taxonomy and helping you understand what organizational labels are in use.
-Usage: Use this to audit existing tags, discover available tags for asset organization, or build tag suggestion systems in your applications. Essential for content management workflows and maintaining consistent tagging practices.
-Example request: GET /resources/image/tags?prefix=product&max_results=100 (no request body required)
-Parameters: resource_type(filter by image/video/raw), prefix(filter tags starting with specific text), max_results(limit response size 1-500), next_cursor(pagination token for additional results)
-When Not to Use: Don't use for retrieving tags for specific assets (use get-resource-details instead). Avoid frequent polling as tag lists change infrequently.
-Output: Returns tag list with pagination: tags(array of tag strings), next_cursor(pagination token if more results available)
-Example output: {"tags":["product","electronics","mobile","smartphone","featured","sale"],"next_cursor":"8edbc61040178db60b0973ca9494bf3a"}
+    `Retrieves a list of tags currently applied to assets in your Cloudinary account
+
+Retrieves a comprehensive list of all tags that exist in your product environment for assets of the specified type.
+
+[Cloudinary Admin API documentation](https://cloudinary.com/documentation/admin_api)
 `,
   scopes: ["librarian"],
   args,

@@ -12,15 +12,9 @@ const args = {
 
 export const tool$assetsDerivedDestroy: ToolDefinition<typeof args> = {
   name: "delete-derived-assets",
-  description:
-    `Purpose: Permanently deletes specific derived resources (transformed versions) from your Cloudinary account using their unique derived resource IDs. Derived resources are generated versions of your original assets created through transformations like resizing, cropping, or format conversion.
-Usage: Use this to clean up specific derived assets that are no longer needed, manage storage quotas, or remove outdated transformed versions while preserving the original asset. Essential for storage optimization and managing transformation caches.
-Example request: {"derived_resource_ids": ["1234567890abcdef", "fedcba0987654321"], "invalidate": true}
-Parameters: derived_resource_ids(array of derived resource identifiers to delete), invalidate(whether to invalidate CDN cache for deleted resources)
-When Not to Use: Don't use for deleting original assets (use delete-asset instead) or for bulk deletion of all derived assets (those have separate endpoints). Avoid invalidating CDN cache unnecessarily as it impacts delivery performance.
-Output: Returns deletion results with status for each derived resource: deleted(object mapping derived resource IDs to deletion status - "deleted" or "not_found"), unauthorized(array of IDs that couldn't be deleted due to permissions), invalidation(CDN invalidation details including processing time and affected URLs)
-Example output: {"deleted": {"1234567890abcdef": "deleted", "fedcba0987654321": "not_found"}, "unauthorized": [], "invalidation": {"took": 25.0, "urls": ["/image/upload/w_100/sample", "/image/upload/w_200/sample"]}}
-`,
+  description: `Delete derived resources
+
+Deletes derived resources by derived resource ID`,
   scopes: ["librarian"],
   args,
   tool: async (client, args, ctx) => {

@@ -12,15 +12,9 @@ const args = {
 
 export const tool$foldersDestroyFolder: ToolDefinition<typeof args> = {
   name: "delete-folder",
-  description:
-    `Purpose: Permanently deletes a folder and all assets contained within it from your Cloudinary media library. This is a destructive operation that removes both the folder structure and any assets it contains.
-Usage: Use this to clean up unused folders and their contents, remove deprecated organizational structures, or permanently delete entire content categories. Essential for media library maintenance and storage cleanup operations.
-Example request: DELETE /folders/archived/old-campaign
-Parameters: folder(full folder path to delete - required)
-When Not to Use: Don't use if you only want to move or rename the folder (use move-folder instead). Avoid using this for folders containing assets you might need later, as deletion is permanent. Don't use for individual asset deletion (use delete-asset instead).
-Output: Returns confirmation listing all deleted folder paths.
-Example output: {"deleted":["archived/old-campaign"]}
-`,
+  description: `Deletes an existing folder from your media library
+
+Deletes a folder and all assets within it.`,
   scopes: ["librarian"],
   args,
   tool: async (client, args, ctx) => {
