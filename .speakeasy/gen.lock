@@ -3,10 +3,10 @@ id: 92b56ec8-e19a-476d-afba-926cd2d071b4
 management:
   docChecksum: f81b59acb0f14f57ae4ce711b9c309ca
   docVersion: 0.2.1
-  speakeasyVersion: 1.559.0
-  generationVersion: 2.624.0
-  releaseVersion: 0.3.1
-  configChecksum: cbda1414a7c7538e1d91ba8f37545da6
+  speakeasyVersion: 1.561.0
+  generationVersion: 2.628.0
+  releaseVersion: 0.3.2
+  configChecksum: 5d21030ae45721ac1024b81d669d0d1d
   repoURL: https://github.com/cloudinary/assets-js.git
   installationURL: https://github.com/cloudinary/assets-js
   published: true
@@ -15,7 +15,7 @@ features:
     acceptHeaders: 2.81.2
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.11
-    core: 3.21.10
+    core: 3.21.11
     customSecuritySchemes: 0.1.1
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
@@ -1108,6 +1108,27 @@ examples:
       responses:
         "200":
           application/json: {"asset_id": "03a5b92135161439031d3834c04bc31b", "public_id": "sample", "asset_folder": "", "display_name": "sample", "format": "jpg", "version": 1719304854, "resource_type": "image", "type": "upload", "created_at": "2021-06-25T08:40:54Z", "bytes": 120253, "width": 864, "height": 576, "tags": ["flower", "plant", "nature"], "context": {"custom": {"alt": "sample flower", "caption": "beautiful flower"}}, "metadata": {"approval_status_0": "status_new", "categories_0": ["cat_mens_clothes", "cat_shirts", "qzaihnfnasrzba0qrdpr"], "owner_0": "Adam Adams", "product_id_0": 12345, "publish_date_0": "2022-02-17"}, "url": "http://res.cloudinary.com/cld-docs/image/upload/v1719304854/sample.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/v1719304854/sample.jpg", "etag": "619dfd2901577eb4259f91a2c0e43dac"}
+    speakeasy-default-get-resource-by-asset-id:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          asset_id: "e9b44a374f66ad53a64a74c7398f7"
+        query:
+          colors: false
+          media_metadata: false
+          faces: false
+          quality_analysis: false
+          accessibility_analysis: false
+          pages: false
+          phash: false
+          coordinates: false
+          versions: false
+          max_results: 10
+      responses:
+        "200":
+          application/json: {"moderation_kind": "manual", "moderation_status": "pending"}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
   updateResourceByAssetId:
     updateResourceResponseExample:
       parameters:
@@ -1132,6 +1153,20 @@ examples:
           application/json: {"error": {"message": "<value>"}}
   deleteBackupVersions:
     "":
+      parameters:
+        path:
+          cloud_name: "<value>"
+          asset_id: "e9b44a374f66ad53a64a74c7398f7"
+      requestBody:
+        application/json: {"version_ids": ["5552aa57e67445552a3cdc1110a0115", "383e22a57167445552a3cdc16f0a0c85"]}
+      responses:
+        "200":
+          application/json: {"asset_id": "<id>", "deleted_version_ids": []}
+        "207":
+          application/json: {"asset_id": "<id>", "deleted_version_ids": []}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+    speakeasy-default-delete-backup-versions:
       parameters:
         path:
           cloud_name: "<value>"
@@ -1191,6 +1226,18 @@ examples:
       responses:
         "200":
           application/json: {"request_id": "1d39ccc69109b1cefac697957bda7952", "next_cursor": "2a54714067686dc630b44e3b863163dc", "data": [{"video_public_id": "dog", "video_duration": 100, "video_transformation": "w_100,h_100", "video_extension": "mp4", "viewer_application_name": "Chrome", "viewer_location_country_code": "US", "viewer_os_identifier": "Linux", "view_watch_time": 313, "view_ended_at": "2025-05-13T09:59:21.000Z"}]}
+    speakeasy-default-get-video-views:
+      parameters:
+        path:
+          cloud_name: "<value>"
+        query:
+          max_results: 10
+          sort_by: "-view_ended_at"
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
   createAssetRelationsByAssetId:
     speakeasy-default-create-asset-relations-by-asset-id:
       parameters:
@@ -1314,6 +1361,18 @@ examples:
       responses:
         "200":
           application/json: {"total_count": 14, "time": 1136, "next_cursor": "0a37f8c9f65e79c1cbe782d47987ed108d9f9e0dad4b0666adbf4eac9a634191996204a0ef84ce7b3e0e", "folders": [{"name": "1_folder_param", "path": "my_parent/1_folder_param", "external_id": "c7c08f8ecf093353d669d2ea3123967c7", "created_at": "2024-12-16T11:31:00:00"}, {"name": "a_folder_param", "path": "my_parent/a_folder_param", "external_id": "c7c08b736592482c1125ba5d689ab8779", "created_at": "2024-12-16T11:08:32:00"}]}
+    speakeasy-default-search-folders:
+      parameters:
+        path:
+          cloud_name: "<value>"
+        query:
+          sort_by: ["name:asc"]
+          max_results: 50
+      responses:
+        "200":
+          application/json: {"total_count": 14, "time": 1136, "next_cursor": "0a37f8c9f65e79c1cbe782d47987ed108d9f9e0dad4b0666adbf4eac9a634191996204a0ef84ce7b3e0e", "folders": [{"name": "1_folder_param", "path": "my_parent/1_folder_param", "external_id": "c7c08f8ecf093353d669d2ea3123967c7"}, {"name": "a_folder_param", "path": "my_parent/a_folder_param", "external_id": "c7c08b736592482c1125ba5d689ab8779"}]}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
   searchFoldersPost:
     "":
       parameters:
@@ -1324,6 +1383,17 @@ examples:
       responses:
         "200":
           application/json: {"total_count": 14, "time": 1136, "next_cursor": "0a37f8c9f65e79c1cbe782d47987ed108d9f9e0dad4b0666adbf4eac9a634191996204a0ef84ce7b3e0e", "folders": [{"name": "1_folder_param", "path": "my_parent/1_folder_param", "external_id": "c7c08f8ecf093353d669d2ea3123967c7", "created_at": "2024-12-16T11:31:00:00"}, {"name": "a_folder_param", "path": "my_parent/a_folder_param", "external_id": "c7c08b736592482c1125ba5d689ab8779", "created_at": "2024-12-16T11:08:32:00"}]}
+    speakeasy-default-search-folders-post:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"sort_by": ["name:asc"], "max_results": 50}
+      responses:
+        "200":
+          application/json: {"total_count": 14, "time": 1136, "next_cursor": "0a37f8c9f65e79c1cbe782d47987ed108d9f9e0dad4b0666adbf4eac9a634191996204a0ef84ce7b3e0e", "folders": [{"name": "1_folder_param", "path": "my_parent/1_folder_param", "external_id": "c7c08f8ecf093353d669d2ea3123967c7"}, {"name": "a_folder_param", "path": "my_parent/a_folder_param", "external_id": "c7c08b736592482c1125ba5d689ab8779"}]}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
   searchResourcesPost:
     speakeasy-default-search-resources-post:
       parameters:

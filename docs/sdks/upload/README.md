@@ -165,7 +165,7 @@ async function run() {
     allowedFormats: "mp4,ogv,jpg,png,pdf",
     autoTagging: 0.5,
     detection: "coco_v2",
-    file: "undefined",
+    file: "" // Populate with string from file, for example example.file,
   });
 
   console.log(result);
@@ -202,7 +202,7 @@ async function run() {
     allowedFormats: "mp4,ogv,jpg,png,pdf",
     autoTagging: 0.5,
     detection: "coco_v2",
-    file: "undefined",
+    file: "" // Populate with string from file, for example example.file,
   });
   if (res.ok) {
     const { value: result } = res;
@@ -373,7 +373,7 @@ async function run() {
     allowedFormats: "mp4,ogv,jpg,png,pdf",
     autoTagging: 0.5,
     detection: "coco_v2",
-    file: "undefined",
+    file: "" // Populate with string from file, for example example.file,
   });
 
   console.log(result);
@@ -410,7 +410,7 @@ async function run() {
     allowedFormats: "mp4,ogv,jpg,png,pdf",
     autoTagging: 0.5,
     detection: "coco_v2",
-    file: "undefined",
+    file: "" // Populate with string from file, for example example.file,
   });
   if (res.ok) {
     const { value: result } = res;
