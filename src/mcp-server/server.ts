@@ -34,9 +34,6 @@ import { tool$foldersUpdateFolder } from "./tools/foldersUpdateFolder.js";
 import { tool$searchSearchAssets } from "./tools/searchSearchAssets.js";
 import { tool$searchVisualSearchAssets } from "./tools/searchVisualSearchAssets.js";
 import { tool$uploadUpload } from "./tools/uploadUpload.js";
-import { tool$uploadUploadChunk } from "./tools/uploadUploadChunk.js";
-import { tool$uploadUploadChunkMultipart } from "./tools/uploadUploadChunkMultipart.js";
-import { tool$uploadUploadMultipart } from "./tools/uploadUploadMultipart.js";
 import { tool$usageGetUsage } from "./tools/usageGetUsage.js";
 
 export function createMCPServer(deps: {
@@ -52,7 +49,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "CloudinaryAssets",
-    version: "0.3.3",
+    version: "0.4.0",
   });
 
   const client = new CloudinaryAssetsCore({
@@ -85,10 +82,7 @@ export function createMCPServer(deps: {
   const register = { tool, resource, resourceTemplate, prompt };
   void register; // suppress unused warnings
 
-  tool(tool$uploadUploadMultipart);
   tool(tool$uploadUpload);
-  tool(tool$uploadUploadChunkMultipart);
-  tool(tool$uploadUploadChunk);
   tool(tool$assetsRenameAsset);
   tool(tool$assetsDownloadAsset);
   tool(tool$assetsGenerateArchive);

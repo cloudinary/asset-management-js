@@ -7,7 +7,6 @@ export * from "./assetrelationinfo.js";
 export * from "./assetrelationsdeleteresponse.js";
 export * from "./assetrelationsresponse.js";
 export * from "./asyncuploadresponse.js";
-export * from "./binaryuploadrequest.js";
 export * from "./deleteresourcebypublicidsrequestunion.js";
 export * from "./deriveddestroyrequest.js";
 export * from "./deriveddestroyresponse.js";

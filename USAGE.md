@@ -1,7 +1,6 @@
 <!-- Start SDK Example Usage [usage] -->
 ```typescript
 import { CloudinaryAssets } from "@cloudinary/assets";
-import { openAsBlob } from "node:fs";
 
 const cloudinaryAssets = new CloudinaryAssets({
   cloudName: "<value>",
@@ -12,7 +11,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.uploadMultipart("auto", {
+  const result = await cloudinaryAssets.upload.upload("auto", {
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -21,7 +20,7 @@ async function run() {
     allowedFormats: "mp4,ogv,jpg,png,pdf",
     autoTagging: 0.5,
     detection: "coco_v2",
-    file: await openAsBlob("example.file"),
+    file: "", // Populate with string from file, for example example.file,
   });
 
   console.log(result);

@@ -9,60 +9,16 @@ import {
   UploadChunkAcceptEnum,
   uploadUploadChunk,
 } from "../funcs/uploadUploadChunk.js";
-import {
-  UploadChunkMultipartAcceptEnum,
-  uploadUploadChunkMultipart,
-} from "../funcs/uploadUploadChunkMultipart.js";
-import {
-  UploadMultipartAcceptEnum,
-  uploadUploadMultipart,
-} from "../funcs/uploadUploadMultipart.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as components from "../models/components/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
-export { UploadMultipartAcceptEnum } from "../funcs/uploadUploadMultipart.js";
-
 export { UploadAcceptEnum } from "../funcs/uploadUpload.js";
-
-export { UploadChunkMultipartAcceptEnum } from "../funcs/uploadUploadChunkMultipart.js";
 
 export { UploadChunkAcceptEnum } from "../funcs/uploadUploadChunk.js";
 
 export class Upload extends ClientSDK {
-  /**
-   * Uploads media assets (images, videos, raw files) to your Cloudinary product environment
-   *
-   * @remarks
-   * Uploads media assets (images, videos, raw files) to your Cloudinary product environment. The file is securely stored
-   * in the cloud with backup and revision history. Cloudinary automatically analyzes and saves important data about each
-   * asset, such as format, size, resolution, and prominent colors, which is indexed to enable searching on those attributes.
-   *
-   * Supports uploading from:
-   * - Local file paths (SDKs/MCP server only). For MCP server path MUST start with file://
-   * - Remote HTTP/HTTPS URLs
-   * - Base64 Data URIs (max ~60 MB)
-   * - Private storage buckets (S3 or Google Storage)
-   * - FTP addresses
-   *
-   * The uploaded asset is immediately available for transformation and delivery upon successful upload.
-   */
-  async uploadMultipart(
-    resourceType: components.UploadResourceType | undefined,
-    binaryUploadRequest: components.BinaryUploadRequest,
-    options?: RequestOptions & {
-      acceptHeaderOverride?: UploadMultipartAcceptEnum;
-    },
-  ): Promise<operations.UploadMultipartResponse> {
-    return unwrapAsync(uploadUploadMultipart(
-      this,
-      resourceType,
-      binaryUploadRequest,
-      options,
-    ));
-  }
-
   /**
    * Uploads media assets (images, videos, raw files) to your Cloudinary product environment
    *
@@ -89,34 +45,6 @@ export class Upload extends ClientSDK {
       this,
       resourceType,
       uploadRequest,
-      options,
-    ));
-  }
-
-  /**
-   * Upload a single chunk of a large file
-   *
-   * @remarks
-   * Uploads a single chunk of a large file as part of a chunked upload process. This enables efficient upload of
-   * large files with the ability to resume interrupted uploads. Each request uploads one chunk of the file.
-   * It is required for any files that are larger than 100 MB. This is often relevant for video files, as they
-   * tend to have larger file sizes. Minimum chunk size is 5 MB.
-   */
-  async uploadChunkMultipart(
-    resourceType: components.UploadResourceType | undefined,
-    contentRange: string,
-    xUniqueUploadId: string,
-    binaryUploadRequest: components.BinaryUploadRequest,
-    options?: RequestOptions & {
-      acceptHeaderOverride?: UploadChunkMultipartAcceptEnum;
-    },
-  ): Promise<operations.UploadChunkMultipartResponse> {
-    return unwrapAsync(uploadUploadChunkMultipart(
-      this,
-      resourceType,
-      contentRange,
-      xUniqueUploadId,
-      binaryUploadRequest,
       options,
     ));
   }

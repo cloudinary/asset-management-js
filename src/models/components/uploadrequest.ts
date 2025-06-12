@@ -30,7 +30,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
  *
  * Note: Rejected assets are automatically invalidated on the CDN within approximately ten minutes.
  */
-export const UploadRequestModeration = {
+export const ModerationEnum = {
   Manual: "manual",
   Webpurify: "webpurify",
   Metascan: "metascan",
@@ -62,11 +62,9 @@ export const UploadRequestModeration = {
  *
  * Note: Rejected assets are automatically invalidated on the CDN within approximately ten minutes.
  */
-export type UploadRequestModeration = ClosedEnum<
-  typeof UploadRequestModeration
->;
+export type ModerationEnum = ClosedEnum<typeof ModerationEnum>;
 
-export type UploadRequestResponsiveBreakpoint = {
+export type ResponsiveBreakpoint = {
   createDerived?: boolean | undefined;
   maxWidth?: number | undefined;
   minWidth?: number | undefined;
@@ -292,7 +290,7 @@ export type UploadRequest = {
    *
    * Note: Rejected assets are automatically invalidated on the CDN within approximately ten minutes.
    */
-  moderation?: UploadRequestModeration | undefined;
+  moderation?: ModerationEnum | undefined;
   /**
    * A URL to notify when the asset is ready.
    */
@@ -314,7 +312,7 @@ export type UploadRequest = {
   /**
    * Settings to automatically generate breakpoints for responsive images.
    */
-  responsiveBreakpoints?: Array<UploadRequestResponsiveBreakpoint> | undefined;
+  responsiveBreakpoints?: Array<ResponsiveBreakpoint> | undefined;
   /**
    * A comma-separated list of tag names to assign to the asset.
    */
@@ -517,29 +515,29 @@ export type UploadRequest = {
 };
 
 /** @internal */
-export const UploadRequestModeration$inboundSchema: z.ZodNativeEnum<
-  typeof UploadRequestModeration
-> = z.nativeEnum(UploadRequestModeration);
+export const ModerationEnum$inboundSchema: z.ZodNativeEnum<
+  typeof ModerationEnum
+> = z.nativeEnum(ModerationEnum);
 
 /** @internal */
-export const UploadRequestModeration$outboundSchema: z.ZodNativeEnum<
-  typeof UploadRequestModeration
-> = UploadRequestModeration$inboundSchema;
+export const ModerationEnum$outboundSchema: z.ZodNativeEnum<
+  typeof ModerationEnum
+> = ModerationEnum$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace UploadRequestModeration$ {
-  /** @deprecated use `UploadRequestModeration$inboundSchema` instead. */
-  export const inboundSchema = UploadRequestModeration$inboundSchema;
-  /** @deprecated use `UploadRequestModeration$outboundSchema` instead. */
-  export const outboundSchema = UploadRequestModeration$outboundSchema;
+export namespace ModerationEnum$ {
+  /** @deprecated use `ModerationEnum$inboundSchema` instead. */
+  export const inboundSchema = ModerationEnum$inboundSchema;
+  /** @deprecated use `ModerationEnum$outboundSchema` instead. */
+  export const outboundSchema = ModerationEnum$outboundSchema;
 }
 
 /** @internal */
-export const UploadRequestResponsiveBreakpoint$inboundSchema: z.ZodType<
-  UploadRequestResponsiveBreakpoint,
+export const ResponsiveBreakpoint$inboundSchema: z.ZodType<
+  ResponsiveBreakpoint,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -560,7 +558,7 @@ export const UploadRequestResponsiveBreakpoint$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type UploadRequestResponsiveBreakpoint$Outbound = {
+export type ResponsiveBreakpoint$Outbound = {
   create_derived?: boolean | undefined;
   max_width?: number | undefined;
   min_width?: number | undefined;
@@ -570,10 +568,10 @@ export type UploadRequestResponsiveBreakpoint$Outbound = {
 };
 
 /** @internal */
-export const UploadRequestResponsiveBreakpoint$outboundSchema: z.ZodType<
-  UploadRequestResponsiveBreakpoint$Outbound,
+export const ResponsiveBreakpoint$outboundSchema: z.ZodType<
+  ResponsiveBreakpoint$Outbound,
   z.ZodTypeDef,
-  UploadRequestResponsiveBreakpoint
+  ResponsiveBreakpoint
 > = z.object({
   createDerived: z.boolean().optional(),
   maxWidth: z.number().int().optional(),
@@ -595,33 +593,30 @@ export const UploadRequestResponsiveBreakpoint$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace UploadRequestResponsiveBreakpoint$ {
-  /** @deprecated use `UploadRequestResponsiveBreakpoint$inboundSchema` instead. */
-  export const inboundSchema = UploadRequestResponsiveBreakpoint$inboundSchema;
-  /** @deprecated use `UploadRequestResponsiveBreakpoint$outboundSchema` instead. */
-  export const outboundSchema =
-    UploadRequestResponsiveBreakpoint$outboundSchema;
-  /** @deprecated use `UploadRequestResponsiveBreakpoint$Outbound` instead. */
-  export type Outbound = UploadRequestResponsiveBreakpoint$Outbound;
+export namespace ResponsiveBreakpoint$ {
+  /** @deprecated use `ResponsiveBreakpoint$inboundSchema` instead. */
+  export const inboundSchema = ResponsiveBreakpoint$inboundSchema;
+  /** @deprecated use `ResponsiveBreakpoint$outboundSchema` instead. */
+  export const outboundSchema = ResponsiveBreakpoint$outboundSchema;
+  /** @deprecated use `ResponsiveBreakpoint$Outbound` instead. */
+  export type Outbound = ResponsiveBreakpoint$Outbound;
 }
 
-export function uploadRequestResponsiveBreakpointToJSON(
-  uploadRequestResponsiveBreakpoint: UploadRequestResponsiveBreakpoint,
+export function responsiveBreakpointToJSON(
+  responsiveBreakpoint: ResponsiveBreakpoint,
 ): string {
   return JSON.stringify(
-    UploadRequestResponsiveBreakpoint$outboundSchema.parse(
-      uploadRequestResponsiveBreakpoint,
-    ),
+    ResponsiveBreakpoint$outboundSchema.parse(responsiveBreakpoint),
   );
 }
 
-export function uploadRequestResponsiveBreakpointFromJSON(
+export function responsiveBreakpointFromJSON(
   jsonString: string,
-): SafeParseResult<UploadRequestResponsiveBreakpoint, SDKValidationError> {
+): SafeParseResult<ResponsiveBreakpoint, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => UploadRequestResponsiveBreakpoint$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UploadRequestResponsiveBreakpoint' from JSON`,
+    (x) => ResponsiveBreakpoint$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ResponsiveBreakpoint' from JSON`,
   );
 }
 
@@ -758,13 +753,13 @@ export const UploadRequest$inboundSchema: z.ZodType<
   invalidate: z.boolean().optional(),
   media_metadata: z.boolean().optional(),
   metadata: z.string().optional(),
-  moderation: UploadRequestModeration$inboundSchema.optional(),
+  moderation: ModerationEnum$inboundSchema.optional(),
   notification_url: z.string().optional(),
   phash: z.boolean().optional(),
   quality_analysis: z.boolean().optional(),
   regions: z.string().optional(),
   responsive_breakpoints: z.array(
-    z.lazy(() => UploadRequestResponsiveBreakpoint$inboundSchema),
+    z.lazy(() => ResponsiveBreakpoint$inboundSchema),
   ).optional(),
   tags: z.string().optional(),
   callback: z.string().optional(),
@@ -867,9 +862,7 @@ export type UploadRequest$Outbound = {
   phash?: boolean | undefined;
   quality_analysis?: boolean | undefined;
   regions?: string | undefined;
-  responsive_breakpoints?:
-    | Array<UploadRequestResponsiveBreakpoint$Outbound>
-    | undefined;
+  responsive_breakpoints?: Array<ResponsiveBreakpoint$Outbound> | undefined;
   tags?: string | undefined;
   callback?: string | undefined;
   backup?: boolean | undefined;
@@ -933,13 +926,13 @@ export const UploadRequest$outboundSchema: z.ZodType<
   invalidate: z.boolean().optional(),
   mediaMetadata: z.boolean().optional(),
   metadata: z.string().optional(),
-  moderation: UploadRequestModeration$outboundSchema.optional(),
+  moderation: ModerationEnum$outboundSchema.optional(),
   notificationUrl: z.string().optional(),
   phash: z.boolean().optional(),
   qualityAnalysis: z.boolean().optional(),
   regions: z.string().optional(),
   responsiveBreakpoints: z.array(
-    z.lazy(() => UploadRequestResponsiveBreakpoint$outboundSchema),
+    z.lazy(() => ResponsiveBreakpoint$outboundSchema),
   ).optional(),
   tags: z.string().optional(),
   callback: z.string().optional(),

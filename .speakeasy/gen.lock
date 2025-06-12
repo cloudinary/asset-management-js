@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 92b56ec8-e19a-476d-afba-926cd2d071b4
 management:
-  docChecksum: f81b59acb0f14f57ae4ce711b9c309ca
-  docVersion: 0.2.1
+  docChecksum: 7406605356af40cf212c233e66a23ce1
+  docVersion: 0.2.4
   speakeasyVersion: 1.561.0
   generationVersion: 2.628.0
-  releaseVersion: 0.3.3
-  configChecksum: e2d34c2fdc6c199ab2c6e638403f4122
+  releaseVersion: 0.4.0
+  configChecksum: 38fa16c4e1645e1fd0724c48009f510e
   repoURL: https://github.com/cloudinary/assets-js.git
   installationURL: https://github.com/cloudinary/assets-js
   published: true
@@ -36,7 +36,6 @@ features:
     retries: 2.83.0
     sdkHooks: 0.3.0
     unions: 2.85.9
-    uploadStreams: 0.1.0
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
@@ -61,14 +60,6 @@ generatedFiles:
   - docs/models/components/asyncuploadresponsestatus.md
   - docs/models/components/asyncuploadresponsetype.md
   - docs/models/components/bandwidth.md
-  - docs/models/components/binaryuploadrequest.md
-  - docs/models/components/binaryuploadrequestaccessmode.md
-  - docs/models/components/binaryuploadrequestbackgroundremoval.md
-  - docs/models/components/binaryuploadrequestcategorization.md
-  - docs/models/components/binaryuploadrequestmoderation.md
-  - docs/models/components/binaryuploadrequestocr.md
-  - docs/models/components/binaryuploadrequestresponsivebreakpoint.md
-  - docs/models/components/binaryuploadrequesttype.md
   - docs/models/components/code.md
   - docs/models/components/createdby.md
   - docs/models/components/deleted.md
@@ -87,7 +78,6 @@ generatedFiles:
   - docs/models/components/eager.md
   - docs/models/components/errorenum.md
   - docs/models/components/fieldsspec.md
-  - docs/models/components/filet.md
   - docs/models/components/folder.md
   - docs/models/components/folderslistresponse.md
   - docs/models/components/folderssearchresponse.md
@@ -102,6 +92,7 @@ generatedFiles:
   - docs/models/components/listresponse.md
   - docs/models/components/medialimits.md
   - docs/models/components/metadata.md
+  - docs/models/components/moderationenum.md
   - docs/models/components/moderationstatus.md
   - docs/models/components/nonfinalchunkuploadresponse.md
   - docs/models/components/objects.md
@@ -113,6 +104,7 @@ generatedFiles:
   - docs/models/components/resourceupdaterequestbackgroundremoval.md
   - docs/models/components/resourceupdaterequestcategorization.md
   - docs/models/components/resourceupdaterequestocr.md
+  - docs/models/components/responsivebreakpoint.md
   - docs/models/components/restoreresponse.md
   - docs/models/components/restoreresponseunion.md
   - docs/models/components/result.md
@@ -137,9 +129,7 @@ generatedFiles:
   - docs/models/components/uploadrequestaccessmode.md
   - docs/models/components/uploadrequestbackgroundremoval.md
   - docs/models/components/uploadrequestcategorization.md
-  - docs/models/components/uploadrequestmoderation.md
   - docs/models/components/uploadrequestocr.md
-  - docs/models/components/uploadrequestresponsivebreakpoint.md
   - docs/models/components/uploadrequesttype.md
   - docs/models/components/uploadresourcetype.md
   - docs/models/components/uploadresponse.md
@@ -313,18 +303,10 @@ generatedFiles:
   - docs/models/operations/updateresourcebypublicidrequest.md
   - docs/models/operations/updateresourcebypublicidtype.md
   - docs/models/operations/uploadchunkglobals.md
-  - docs/models/operations/uploadchunkmultipartglobals.md
-  - docs/models/operations/uploadchunkmultipartrequest.md
-  - docs/models/operations/uploadchunkmultipartresponse.md
-  - docs/models/operations/uploadchunkmultipartresponsebody.md
   - docs/models/operations/uploadchunkrequest.md
   - docs/models/operations/uploadchunkresponse.md
   - docs/models/operations/uploadchunkresponsebody.md
   - docs/models/operations/uploadglobals.md
-  - docs/models/operations/uploadmultipartglobals.md
-  - docs/models/operations/uploadmultipartrequest.md
-  - docs/models/operations/uploadmultipartresponse.md
-  - docs/models/operations/uploadmultipartresponsebody.md
   - docs/models/operations/uploadrequest.md
   - docs/models/operations/uploadresponse.md
   - docs/models/operations/uploadresponsebody.md
@@ -387,8 +369,6 @@ generatedFiles:
   - src/funcs/uploadText.ts
   - src/funcs/uploadUpload.ts
   - src/funcs/uploadUploadChunk.ts
-  - src/funcs/uploadUploadChunkMultipart.ts
-  - src/funcs/uploadUploadMultipart.ts
   - src/funcs/usageGetUsage.ts
   - src/funcs/videoAnalyticsGetVideoViews.ts
   - src/hooks/hooks.ts
@@ -445,16 +425,12 @@ generatedFiles:
   - src/mcp-server/tools/searchSearchAssets.ts
   - src/mcp-server/tools/searchVisualSearchAssets.ts
   - src/mcp-server/tools/uploadUpload.ts
-  - src/mcp-server/tools/uploadUploadChunk.ts
-  - src/mcp-server/tools/uploadUploadChunkMultipart.ts
-  - src/mcp-server/tools/uploadUploadMultipart.ts
   - src/mcp-server/tools/usageGetUsage.ts
   - src/models/components/apierror.ts
   - src/models/components/assetrelationinfo.ts
   - src/models/components/assetrelationsdeleteresponse.ts
   - src/models/components/assetrelationsresponse.ts
   - src/models/components/asyncuploadresponse.ts
-  - src/models/components/binaryuploadrequest.ts
   - src/models/components/deleteresourcebypublicidsrequestunion.ts
   - src/models/components/deriveddestroyrequest.ts
   - src/models/components/deriveddestroyresponse.ts
@@ -532,8 +508,6 @@ generatedFiles:
   - src/models/operations/updateresourcebypublicid.ts
   - src/models/operations/upload.ts
   - src/models/operations/uploadchunk.ts
-  - src/models/operations/uploadchunkmultipart.ts
-  - src/models/operations/uploadmultipart.ts
   - src/models/operations/visualsearchassets.ts
   - src/sdk/assetrelations.ts
   - src/sdk/assets.ts
