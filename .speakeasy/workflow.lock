@@ -2,20 +2,20 @@ speakeasyVersion: 1.561.0
 sources:
     Assets API:
         sourceNamespace: assets-api
-        sourceRevisionDigest: sha256:d41a180874167fbbee99d69cf1bc7019e26d0e71111858854079fcf1050888e1
+        sourceRevisionDigest: sha256:228283e85e6177e3dffb064c0be9d93d8a038dc3c8f57189096dc8ae11a1cde1
         sourceBlobDigest: sha256:f011e4e35378f57a8637dda99a3cefad589322f4badf658eaccc779c3b58cc19
         tags:
             - latest
-            - speakeasy-sdk-regen-1749734333
+            - speakeasy-sdk-regen-1749743699
             - 0.2.1
 targets:
     assets-js:
         source: Assets API
         sourceNamespace: assets-api
-        sourceRevisionDigest: sha256:d41a180874167fbbee99d69cf1bc7019e26d0e71111858854079fcf1050888e1
+        sourceRevisionDigest: sha256:228283e85e6177e3dffb064c0be9d93d8a038dc3c8f57189096dc8ae11a1cde1
         sourceBlobDigest: sha256:f011e4e35378f57a8637dda99a3cefad589322f4badf658eaccc779c3b58cc19
         codeSamplesNamespace: assets-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:9041cdacf6526825c7a4d66bfbbe8a4f01f445a0309cb6b04b7def11e6f935b8
+        codeSamplesRevisionDigest: sha256:b08d20228d7eb88a0adf6a6e1b9a5750b597688af609d48687b205fe3f8cfa5b
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
