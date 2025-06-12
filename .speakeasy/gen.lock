@@ -5,8 +5,8 @@ management:
   docVersion: 0.2.1
   speakeasyVersion: 1.561.0
   generationVersion: 2.628.0
-  releaseVersion: 0.3.2
-  configChecksum: 5d21030ae45721ac1024b81d669d0d1d
+  releaseVersion: 0.3.3
+  configChecksum: e2d34c2fdc6c199ab2c6e638403f4122
   repoURL: https://github.com/cloudinary/assets-js.git
   installationURL: https://github.com/cloudinary/assets-js
   published: true
