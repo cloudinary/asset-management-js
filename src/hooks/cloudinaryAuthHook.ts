@@ -1,4 +1,4 @@
-import {CloudConfig} from "./cloudConfig";
+import {CloudConfig} from "./cloudConfig.js";
 import {BeforeRequestContext, BeforeRequestHook} from "./types.js";
 
 export class CloudinaryAuthHook

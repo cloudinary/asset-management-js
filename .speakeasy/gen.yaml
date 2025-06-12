@@ -53,7 +53,7 @@ typescript:
   jsonpath: legacy
   maxMethodParams: 50
   methodArguments: require-security-and-request
-  moduleFormat: commonjs
+  moduleFormat: dual
   outputModelSuffix: output
   packageName: '@cloudinary/assets'
   responseFormat: flat
