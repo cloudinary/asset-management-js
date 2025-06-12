@@ -12,7 +12,7 @@ const args = {
 };
 
 export const tool$uploadUpload: ToolDefinition<typeof args> = {
-  name: "upload-upload",
+  name: "upload-asset",
   description:
     `Uploads media assets (images, videos, raw files) to your Cloudinary product environment
 

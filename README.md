@@ -17,7 +17,6 @@
   * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
   * [Standalone functions](#standalone-functions)
-  * [File uploads](#file-uploads)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
@@ -144,7 +143,6 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 
 ```typescript
 import { CloudinaryAssets } from "@cloudinary/assets";
-import { openAsBlob } from "node:fs";
 
 const cloudinaryAssets = new CloudinaryAssets({
   cloudName: "<value>",
@@ -155,7 +153,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.uploadMultipart("auto", {
+  const result = await cloudinaryAssets.upload.upload("auto", {
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -164,7 +162,7 @@ async function run() {
     allowedFormats: "mp4,ogv,jpg,png,pdf",
     autoTagging: 0.5,
     detection: "coco_v2",
-    file: await openAsBlob("example.file"),
+    file: "", // Populate with string from file, for example example.file,
   });
 
   console.log(result);
@@ -180,7 +178,7 @@ run();
 
 A parameter is configured globally. This parameter may be set on the SDK client instance itself during initialization. When configured as an option during SDK initialization, This global value will be used as the default on the operations that use it. When such operations are called, there is a place in each to override the global value, if needed.
 
-For example, you can set `cloud_name` to `"<value>"` at SDK initialization and then you do not have to pass the same value on calls to operations like `uploadMultipart`. But if you want to do so you may, which will locally override the global setting. See the example code below for a demonstration.
+For example, you can set `cloud_name` to `"<value>"` at SDK initialization and then you do not have to pass the same value on calls to operations like `upload`. But if you want to do so you may, which will locally override the global setting. See the example code below for a demonstration.
 
 
 ### Available Globals
@@ -196,7 +194,6 @@ Global parameters can also be set via environment variable.
 
 ```typescript
 import { CloudinaryAssets } from "@cloudinary/assets";
-import { openAsBlob } from "node:fs";
 
 const cloudinaryAssets = new CloudinaryAssets({
   cloudName: "<value>",
@@ -207,7 +204,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.uploadMultipart("auto", {
+  const result = await cloudinaryAssets.upload.upload("auto", {
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -216,7 +213,7 @@ async function run() {
     allowedFormats: "mp4,ogv,jpg,png,pdf",
     autoTagging: 0.5,
     detection: "coco_v2",
-    file: await openAsBlob("example.file"),
+    file: "", // Populate with string from file, for example example.file,
   });
 
   console.log(result);
@@ -241,7 +238,6 @@ This SDK supports the following security scheme globally:
 You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. For example:
 ```typescript
 import { CloudinaryAssets } from "@cloudinary/assets";
-import { openAsBlob } from "node:fs";
 
 const cloudinaryAssets = new CloudinaryAssets({
   security: {
@@ -252,7 +248,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.uploadMultipart("auto", {
+  const result = await cloudinaryAssets.upload.upload("auto", {
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -261,7 +257,7 @@ async function run() {
     allowedFormats: "mp4,ogv,jpg,png,pdf",
     autoTagging: 0.5,
     detection: "coco_v2",
-    file: await openAsBlob("example.file"),
+    file: "", // Populate with string from file, for example example.file,
   });
 
   console.log(result);
@@ -345,9 +341,7 @@ run();
 
 ### [upload](docs/sdks/upload/README.md)
 
-* [uploadMultipart](docs/sdks/upload/README.md#uploadmultipart) - Uploads media assets (images, videos, raw files) to your Cloudinary product environment
 * [upload](docs/sdks/upload/README.md#upload) - Uploads media assets (images, videos, raw files) to your Cloudinary product environment
-* [uploadChunkMultipart](docs/sdks/upload/README.md#uploadchunkmultipart) - Upload a single chunk of a large file
 * [uploadChunk](docs/sdks/upload/README.md#uploadchunk) - Upload a single chunk of a large file
 * [destroyAsset](docs/sdks/upload/README.md#destroyasset) - Destroys an asset/resource
 * [text](docs/sdks/upload/README.md#text) - Create image from text
@@ -422,60 +416,11 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`uploadText`](docs/sdks/upload/README.md#text) - Create image from text
 - [`uploadUpload`](docs/sdks/upload/README.md#upload) - Uploads media assets (images, videos, raw files) to your Cloudinary product environment
 - [`uploadUploadChunk`](docs/sdks/upload/README.md#uploadchunk) - Upload a single chunk of a large file
-- [`uploadUploadChunkMultipart`](docs/sdks/upload/README.md#uploadchunkmultipart) - Upload a single chunk of a large file
-- [`uploadUploadMultipart`](docs/sdks/upload/README.md#uploadmultipart) - Uploads media assets (images, videos, raw files) to your Cloudinary product environment
 - [`usageGetUsage`](docs/sdks/usage/README.md#getusage) - Retrieves comprehensive usage metrics and account statistics
 - [`videoAnalyticsGetVideoViews`](docs/sdks/videoanalytics/README.md#getvideoviews) - Get video views
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
-
-<!-- Start File uploads [file-upload] -->
-## File uploads
-
-Certain SDK methods accept files as part of a multi-part request. It is possible and typically recommended to upload files as a stream rather than reading the entire contents into memory. This avoids excessive memory consumption and potentially crashing with out-of-memory errors when working with very large files. The following example demonstrates how to attach a file stream to a request.
-
-> [!TIP]
->
-> Depending on your JavaScript runtime, there are convenient utilities that return a handle to a file without reading the entire contents into memory:
->
-> - **Node.js v20+:** Since v20, Node.js comes with a native `openAsBlob` function in [`node:fs`](https://nodejs.org/docs/latest-v20.x/api/fs.html#fsopenasblobpath-options).
-> - **Bun:** The native [`Bun.file`](https://bun.sh/docs/api/file-io#reading-files-bun-file) function produces a file handle that can be used for streaming file uploads.
-> - **Browsers:** All supported browsers return an instance to a [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) when reading the value from an `<input type="file">` element.
-> - **Node.js v18:** A file stream can be created using the `fileFrom` helper from [`fetch-blob/from.js`](https://www.npmjs.com/package/fetch-blob).
-
-```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
-import { openAsBlob } from "node:fs";
-
-const cloudinaryAssets = new CloudinaryAssets({
-  cloudName: "<value>",
-  security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
-  },
-});
-
-async function run() {
-  const result = await cloudinaryAssets.upload.uploadMultipart("auto", {
-    headers: "X-Robots-Tag: noindex",
-    moderation: "google_video_moderation",
-    rawConvert: "google_speech:vtt:en-US",
-    backgroundRemoval: "pixelz",
-    format: "jpg",
-    allowedFormats: "mp4,ogv,jpg,png,pdf",
-    autoTagging: 0.5,
-    detection: "coco_v2",
-    file: await openAsBlob("example.file"),
-  });
-
-  console.log(result);
-}
-
-run();
-
-```
-<!-- End File uploads [file-upload] -->
 
 <!-- Start Retries [retries] -->
 ## Retries
@@ -485,7 +430,6 @@ Some of the endpoints in this SDK support retries.  If you use the SDK without a
 To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
 ```typescript
 import { CloudinaryAssets } from "@cloudinary/assets";
-import { openAsBlob } from "node:fs";
 
 const cloudinaryAssets = new CloudinaryAssets({
   cloudName: "<value>",
@@ -496,7 +440,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.uploadMultipart("auto", {
+  const result = await cloudinaryAssets.upload.upload("auto", {
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -505,7 +449,7 @@ async function run() {
     allowedFormats: "mp4,ogv,jpg,png,pdf",
     autoTagging: 0.5,
     detection: "coco_v2",
-    file: await openAsBlob("example.file"),
+    file: "", // Populate with string from file, for example example.file,
   }, {
     retries: {
       strategy: "backoff",
@@ -529,7 +473,6 @@ run();
 If you'd like to override the default retry strategy for all operations that support retries, you can provide a retryConfig at SDK initialization:
 ```typescript
 import { CloudinaryAssets } from "@cloudinary/assets";
-import { openAsBlob } from "node:fs";
 
 const cloudinaryAssets = new CloudinaryAssets({
   retryConfig: {
@@ -550,7 +493,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.uploadMultipart("auto", {
+  const result = await cloudinaryAssets.upload.upload("auto", {
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -559,7 +502,7 @@ async function run() {
     allowedFormats: "mp4,ogv,jpg,png,pdf",
     autoTagging: 0.5,
     detection: "coco_v2",
-    file: await openAsBlob("example.file"),
+    file: "", // Populate with string from file, for example example.file,
   });
 
   console.log(result);
@@ -588,7 +531,6 @@ run();
 ```typescript
 import { CloudinaryAssets } from "@cloudinary/assets";
 import * as errors from "@cloudinary/assets/models/errors";
-import { openAsBlob } from "node:fs";
 
 const cloudinaryAssets = new CloudinaryAssets({
   cloudName: "<value>",
@@ -600,7 +542,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 
 async function run() {
   try {
-    const result = await cloudinaryAssets.upload.uploadMultipart("auto", {
+    const result = await cloudinaryAssets.upload.upload("auto", {
       headers: "X-Robots-Tag: noindex",
       moderation: "google_video_moderation",
       rawConvert: "google_speech:vtt:en-US",
@@ -609,7 +551,7 @@ async function run() {
       allowedFormats: "mp4,ogv,jpg,png,pdf",
       autoTagging: 0.5,
       detection: "coco_v2",
-      file: await openAsBlob("example.file"),
+      file: "", // Populate with string from file, for example example.file,
     });
 
     console.log(result);
@@ -651,10 +593,10 @@ run();
 
 
 **Inherit from [`CloudinaryAssetsError`](./src/models/errors/cloudinaryassetserror.ts)**:
-* [`BadRequestError`](docs/models/errors/badrequesterror.md): Bad request. Status code `400`. Applicable to 1 of 48 methods.*
-* [`DownloadBackupAssetUnauthorizedError`](docs/models/errors/downloadbackupassetunauthorizederror.md): Authentication failed. Status code `401`. Applicable to 1 of 48 methods.*
-* [`ListResourceTypesUnauthorizedError`](docs/models/errors/listresourcetypesunauthorizederror.md): Authentication failed. Status code `401`. Applicable to 1 of 48 methods.*
-* [`NotFoundError`](docs/models/errors/notfounderror.md): Version not found. Status code `404`. Applicable to 1 of 48 methods.*
+* [`BadRequestError`](docs/models/errors/badrequesterror.md): Bad request. Status code `400`. Applicable to 1 of 46 methods.*
+* [`DownloadBackupAssetUnauthorizedError`](docs/models/errors/downloadbackupassetunauthorizederror.md): Authentication failed. Status code `401`. Applicable to 1 of 46 methods.*
+* [`ListResourceTypesUnauthorizedError`](docs/models/errors/listresourcetypesunauthorizederror.md): Authentication failed. Status code `401`. Applicable to 1 of 46 methods.*
+* [`NotFoundError`](docs/models/errors/notfounderror.md): Version not found. Status code `404`. Applicable to 1 of 46 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
@@ -685,7 +627,6 @@ If the selected server has variables, you may override its default values throug
 
 ```typescript
 import { CloudinaryAssets } from "@cloudinary/assets";
-import { openAsBlob } from "node:fs";
 
 const cloudinaryAssets = new CloudinaryAssets({
   serverIdx: 1,
@@ -698,7 +639,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.uploadMultipart("auto", {
+  const result = await cloudinaryAssets.upload.upload("auto", {
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -707,7 +648,7 @@ async function run() {
     allowedFormats: "mp4,ogv,jpg,png,pdf",
     autoTagging: 0.5,
     detection: "coco_v2",
-    file: await openAsBlob("example.file"),
+    file: "", // Populate with string from file, for example example.file,
   });
 
   console.log(result);
@@ -722,7 +663,6 @@ run();
 The default server can also be overridden globally by passing a URL to the `serverURL: string` optional parameter when initializing the SDK client instance. For example:
 ```typescript
 import { CloudinaryAssets } from "@cloudinary/assets";
-import { openAsBlob } from "node:fs";
 
 const cloudinaryAssets = new CloudinaryAssets({
   serverURL: "https://api.cloudinary.com",
@@ -734,7 +674,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.uploadMultipart("auto", {
+  const result = await cloudinaryAssets.upload.upload("auto", {
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -743,7 +683,7 @@ async function run() {
     allowedFormats: "mp4,ogv,jpg,png,pdf",
     autoTagging: 0.5,
     detection: "coco_v2",
-    file: await openAsBlob("example.file"),
+    file: "", // Populate with string from file, for example example.file,
   });
 
   console.log(result);

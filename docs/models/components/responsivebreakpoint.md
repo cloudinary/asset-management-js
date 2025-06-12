@@ -1,11 +1,11 @@
-# UploadRequestResponsiveBreakpoint
+# ResponsiveBreakpoint
 
 ## Example Usage
 
 ```typescript
-import { UploadRequestResponsiveBreakpoint } from "@cloudinary/assets/models/components";
+import { ResponsiveBreakpoint } from "@cloudinary/assets/models/components";
 
-let value: UploadRequestResponsiveBreakpoint = {};
+let value: ResponsiveBreakpoint = {};
 ```
 
 ## Fields

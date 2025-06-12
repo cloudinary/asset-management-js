@@ -1,4 +1,4 @@
-# UploadRequestModeration
+# ModerationEnum
 
 For all asset types, set to:
 - manual to add the uploaded asset to a list of pending assets that can be moderated using the Admin API or the Cloudinary Console.
@@ -22,9 +22,9 @@ Note: Rejected assets are automatically invalidated on the CDN within approximat
 ## Example Usage
 
 ```typescript
-import { UploadRequestModeration } from "@cloudinary/assets/models/components";
+import { ModerationEnum } from "@cloudinary/assets/models/components";
 
-let value: UploadRequestModeration = "cld";
+let value: ModerationEnum = "aws_rek_video";
 ```
 
 ## Values

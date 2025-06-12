@@ -20,8 +20,7 @@ specific category of applications.
 
 ```typescript
 import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { uploadUploadMultipart } from "@cloudinary/assets/funcs/uploadUploadMultipart.js";
-import { openAsBlob } from "node:fs";
+import { uploadUpload } from "@cloudinary/assets/funcs/uploadUpload.js";
 
 // Use `CloudinaryAssetsCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -34,7 +33,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await uploadUploadMultipart(cloudinaryAssets, "auto", {
+  const res = await uploadUpload(cloudinaryAssets, "auto", {
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -43,13 +42,13 @@ async function run() {
     allowedFormats: "mp4,ogv,jpg,png,pdf",
     autoTagging: 0.5,
     detection: "coco_v2",
-    file: await openAsBlob("example.file"),
+    file: "" // Populate with string from file, for example example.file,
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("uploadUploadMultipart failed:", res.error);
+    console.log("uploadUpload failed:", res.error);
   }
 }
 
