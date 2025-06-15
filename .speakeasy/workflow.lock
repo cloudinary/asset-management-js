@@ -1,46 +1,45 @@
-speakeasyVersion: 1.561.0
+speakeasyVersion: 1.563.1
 sources:
-    Assets API:
-        sourceNamespace: assets-api
-        sourceRevisionDigest: sha256:39785334b596840192efc6022da0cc46f09ea441fbe5df43f1ac7da25419dba5
-        sourceBlobDigest: sha256:9456280d0cb64a697c482723186a5aee0e4cd9bd53c4c63b024a2a00552872f6
+    Asset Management API:
+        sourceNamespace: asset-management-api
+        sourceRevisionDigest: sha256:9a9f6cc9bd40b0845bec804bc8d871e38498709c90fb56c95ae784b52f67424c
+        sourceBlobDigest: sha256:0c38c2cdc31d3bf27c6cf0f262ce5951986ad47f2b33eb4387d3f433968ce56f
         tags:
             - latest
-            - speakeasy-sdk-regen-1749747685
-            - 0.2.4
+            - 0.2.5
 targets:
-    assets-js:
-        source: Assets API
-        sourceNamespace: assets-api
-        sourceRevisionDigest: sha256:39785334b596840192efc6022da0cc46f09ea441fbe5df43f1ac7da25419dba5
-        sourceBlobDigest: sha256:9456280d0cb64a697c482723186a5aee0e4cd9bd53c4c63b024a2a00552872f6
-        codeSamplesNamespace: assets-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:087e6168cc3fccff5422668b752cf77cf587124c24f97c228d2b3add2db31723
+    asset-management-js:
+        source: Asset Management API
+        sourceNamespace: asset-management-api
+        sourceRevisionDigest: sha256:9a9f6cc9bd40b0845bec804bc8d871e38498709c90fb56c95ae784b52f67424c
+        sourceBlobDigest: sha256:0c38c2cdc31d3bf27c6cf0f262ce5951986ad47f2b33eb4387d3f433968ce56f
+        codeSamplesNamespace: asset-management-api-typescript-code-samples
+        codeSamplesRevisionDigest: sha256:78b92acf33e25eb5dac12d476433f3f2dbd9530f71f2e2f918cb502969e15cb2
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
     sources:
-        Assets API:
+        Asset Management API:
             inputs:
-                - location: https://cloudinary.github.io/api-schemas/assets/schema.yml
+                - location: https://cloudinary.github.io/api-schemas/asset-management/schema.yml
             overlays:
                 - location: https://cloudinary.github.io/api-schemas/overlays/security-scheme-cloud-overlay.yaml
                 - location: https://cloudinary.github.io/api-schemas/overlays/cloud-name-overlay.yml
                 - location: https://cloudinary.github.io/api-schemas/overlays/mcp-disabled.yml
                 - location: https://cloudinary.github.io/api-schemas/overlays/remove-mcp-description.yml
-                - location: https://cloudinary.github.io/api-schemas/assets/overlays/remove-multipart-overlay.yml
+                - location: https://cloudinary.github.io/api-schemas/asset-management/overlays/remove-multipart-overlay.yml
             registry:
-                location: registry.speakeasyapi.dev/cloudinary/cloudinary/assets-api
+                location: registry.speakeasyapi.dev/cloudinary/cloudinary/asset-management-api
     targets:
-        assets-js:
+        asset-management-js:
             target: typescript
-            source: Assets API
+            source: Asset Management API
             publish:
                 npm:
                     token: $npm_token
             codeSamples:
                 registry:
-                    location: registry.speakeasyapi.dev/cloudinary/cloudinary/assets-api-typescript-code-samples
+                    location: registry.speakeasyapi.dev/cloudinary/cloudinary/asset-management-api-typescript-code-samples
                 labelOverride:
                     fixedValue: Typescript (SDK)
                 blocking: false

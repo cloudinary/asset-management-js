@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ListResourcesByModerationKindAndStatusRequest } from "@cloudinary/assets/models/operations";
+import { ListResourcesByModerationKindAndStatusRequest } from "@cloudinary/asset-management/models/operations";
 
 let value: ListResourcesByModerationKindAndStatusRequest = {
   resourceType: "video",

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { UpdateResourceByPublicIdRequest } from "@cloudinary/assets/models/operations";
+import { UpdateResourceByPublicIdRequest } from "@cloudinary/asset-management/models/operations";
 
 let value: UpdateResourceByPublicIdRequest = {
   resourceType: "video",

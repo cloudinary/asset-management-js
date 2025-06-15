@@ -9,7 +9,7 @@ create_and_download - Creates, stores, and delivers the archive file
 ## Example Usage
 
 ```typescript
-import { Mode } from "@cloudinary/assets/models/operations";
+import { Mode } from "@cloudinary/asset-management/models/operations";
 
 let value: Mode = "create_and_download";
 ```

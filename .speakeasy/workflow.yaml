@@ -1,27 +1,27 @@
 workflowVersion: 1.0.0
 speakeasyVersion: latest
 sources:
-    Assets API:
+    Asset Management API:
         inputs:
-            - location: https://cloudinary.github.io/api-schemas/assets/schema.yml
+            - location: https://cloudinary.github.io/api-schemas/asset-management/schema.yml
         overlays:
             - location: https://cloudinary.github.io/api-schemas/overlays/security-scheme-cloud-overlay.yaml
             - location: https://cloudinary.github.io/api-schemas/overlays/cloud-name-overlay.yml
             - location: https://cloudinary.github.io/api-schemas/overlays/mcp-disabled.yml
             - location: https://cloudinary.github.io/api-schemas/overlays/remove-mcp-description.yml
-            - location: https://cloudinary.github.io/api-schemas/assets/overlays/remove-multipart-overlay.yml
+            - location: https://cloudinary.github.io/api-schemas/asset-management/overlays/remove-multipart-overlay.yml
         registry:
-            location: registry.speakeasyapi.dev/cloudinary/cloudinary/assets-api
+            location: registry.speakeasyapi.dev/cloudinary/cloudinary/asset-management-api
 targets:
-    assets-js:
+    asset-management-js:
         target: typescript
-        source: Assets API
+        source: Asset Management API
         publish:
             npm:
                 token: $npm_token
         codeSamples:
             registry:
-                location: registry.speakeasyapi.dev/cloudinary/cloudinary/assets-api-typescript-code-samples
+                location: registry.speakeasyapi.dev/cloudinary/cloudinary/asset-management-api-typescript-code-samples
             labelOverride:
                 fixedValue: Typescript (SDK)
             blocking: false

@@ -5,7 +5,7 @@ Archive successfully generated or downloaded
 ## Example Usage
 
 ```typescript
-import { GenerateArchiveResponseBody } from "@cloudinary/assets/models/operations";
+import { GenerateArchiveResponseBody } from "@cloudinary/asset-management/models/operations";
 
 let value: GenerateArchiveResponseBody = {
   assetId: "3cd9f196fe3ee1882c0f66223bc568f9",

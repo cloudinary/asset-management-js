@@ -5,7 +5,7 @@ A comma-separated list of the categorization add-ons to run on the asset. Set to
 ## Example Usage
 
 ```typescript
-import { UploadRequestCategorization } from "@cloudinary/assets/models/components";
+import { UploadRequestCategorization } from "@cloudinary/asset-management/models/components";
 
 let value: UploadRequestCategorization = "azure_video_indexer";
 ```

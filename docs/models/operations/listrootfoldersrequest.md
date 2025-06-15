@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ListRootFoldersRequest } from "@cloudinary/assets/models/operations";
+import { ListRootFoldersRequest } from "@cloudinary/asset-management/models/operations";
 
 let value: ListRootFoldersRequest = {};
 ```

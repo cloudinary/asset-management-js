@@ -1,14 +1,14 @@
 lockVersion: 2.0.0
 id: 92b56ec8-e19a-476d-afba-926cd2d071b4
 management:
-  docChecksum: 7406605356af40cf212c233e66a23ce1
-  docVersion: 0.2.4
-  speakeasyVersion: 1.561.0
-  generationVersion: 2.628.0
-  releaseVersion: 0.4.0
-  configChecksum: 38fa16c4e1645e1fd0724c48009f510e
-  repoURL: https://github.com/cloudinary/assets-js.git
-  installationURL: https://github.com/cloudinary/assets-js
+  docChecksum: b3567bbf0c6abb0cdf632a2603c3f278
+  docVersion: 0.2.5
+  speakeasyVersion: 1.563.1
+  generationVersion: 2.629.1
+  releaseVersion: 0.4.1
+  configChecksum: 9da7afd72035d12d749b9c92f6ba36e4
+  repoURL: https://github.com/cloudinary/asset-management-js.git
+  installationURL: https://github.com/cloudinary/asset-management-js
   published: true
 features:
   typescript:
@@ -314,7 +314,7 @@ generatedFiles:
   - docs/sdks/assetrelations/README.md
   - docs/sdks/assets/README.md
   - docs/sdks/backups/README.md
-  - docs/sdks/cloudinaryassets/README.md
+  - docs/sdks/cloudinaryassetmgmt/README.md
   - docs/sdks/explode/README.md
   - docs/sdks/folders/README.md
   - docs/sdks/moderations/README.md
@@ -457,7 +457,7 @@ generatedFiles:
   - src/models/components/usageresponse.ts
   - src/models/components/visualsearchparametersunion.ts
   - src/models/errors/apierror.ts
-  - src/models/errors/cloudinaryassetserror.ts
+  - src/models/errors/cloudinaryassetmgmterror.ts
   - src/models/errors/downloadbackupasset.ts
   - src/models/errors/httpclienterrors.ts
   - src/models/errors/index.ts

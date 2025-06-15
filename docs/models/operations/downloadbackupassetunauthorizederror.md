@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { DownloadBackupAssetUnauthorizedError } from "@cloudinary/assets/models/operations";
+import { DownloadBackupAssetUnauthorizedError } from "@cloudinary/asset-management/models/operations";
 
 let value: DownloadBackupAssetUnauthorizedError = {
   message:

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { FoldersListResponse } from "@cloudinary/assets/models/components";
+import { FoldersListResponse } from "@cloudinary/asset-management/models/components";
 
 let value: FoldersListResponse = {
   folders: [

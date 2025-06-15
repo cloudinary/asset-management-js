@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ExplodeResourceRequest } from "@cloudinary/assets/models/operations";
+import { ExplodeResourceRequest } from "@cloudinary/asset-management/models/operations";
 
 let value: ExplodeResourceRequest = {
   resourceType: "image",

@@ -5,7 +5,7 @@ Upload size and pixel limits
 ## Example Usage
 
 ```typescript
-import { MediaLimits } from "@cloudinary/assets/models/components";
+import { MediaLimits } from "@cloudinary/asset-management/models/components";
 
 let value: MediaLimits = {};
 ```

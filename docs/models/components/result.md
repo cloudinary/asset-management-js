@@ -5,7 +5,7 @@ The result of the deletion operation.
 ## Example Usage
 
 ```typescript
-import { Result } from "@cloudinary/assets/models/components";
+import { Result } from "@cloudinary/asset-management/models/components";
 
 let value: Result = "not found";
 ```

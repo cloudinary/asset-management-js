@@ -10,7 +10,7 @@ Relevant for images only.
 ## Example Usage
 
 ```typescript
-import { UploadRequestBackgroundRemoval } from "@cloudinary/assets/models/components";
+import { UploadRequestBackgroundRemoval } from "@cloudinary/asset-management/models/components";
 
 let value: UploadRequestBackgroundRemoval = "pixelz";
 ```

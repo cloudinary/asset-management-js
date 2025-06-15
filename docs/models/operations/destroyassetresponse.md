@@ -5,7 +5,7 @@ Asset/resource destroyed successfully
 ## Example Usage
 
 ```typescript
-import { DestroyAssetResponse } from "@cloudinary/assets/models/operations";
+import { DestroyAssetResponse } from "@cloudinary/asset-management/models/operations";
 
 let value: DestroyAssetResponse = {};
 ```

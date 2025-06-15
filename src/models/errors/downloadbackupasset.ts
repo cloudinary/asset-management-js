@@ -4,7 +4,7 @@
 
 import * as z from "zod";
 import * as operations from "../operations/index.js";
-import { CloudinaryAssetsError } from "./cloudinaryassetserror.js";
+import { CloudinaryAssetMgmtError } from "./cloudinaryassetmgmterror.js";
 
 /**
  * Version not found
@@ -16,7 +16,7 @@ export type NotFoundErrorData = {
 /**
  * Version not found
  */
-export class NotFoundError extends CloudinaryAssetsError {
+export class NotFoundError extends CloudinaryAssetMgmtError {
   error?: operations.NotFoundError | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -48,7 +48,7 @@ export type DownloadBackupAssetUnauthorizedErrorData = {
  * Authentication failed
  */
 export class DownloadBackupAssetUnauthorizedError
-  extends CloudinaryAssetsError
+  extends CloudinaryAssetMgmtError
 {
   error?: operations.DownloadBackupAssetUnauthorizedError | undefined;
 
@@ -80,7 +80,7 @@ export type BadRequestErrorData = {
 /**
  * Bad request
  */
-export class BadRequestError extends CloudinaryAssetsError {
+export class BadRequestError extends CloudinaryAssetMgmtError {
   error?: operations.BadRequestError | undefined;
 
   /** The original data that was passed to this error instance. */

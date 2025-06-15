@@ -3,7 +3,7 @@
  */
 
 /** The base class for all HTTP error responses */
-export class CloudinaryAssetsError extends Error {
+export class CloudinaryAssetMgmtError extends Error {
   /** HTTP status code */
   public readonly statusCode: number;
   /** HTTP body */
@@ -30,6 +30,6 @@ export class CloudinaryAssetsError extends Error {
     this.contentType = httpMeta.response.headers.get("content-type") || "";
     this.rawResponse = httpMeta.response;
 
-    this.name = "CloudinaryAssetsError";
+    this.name = "CloudinaryAssetMgmtError";
   }
 }

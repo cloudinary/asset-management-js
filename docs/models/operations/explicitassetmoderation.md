@@ -22,7 +22,7 @@ Note: Rejected assets are automatically invalidated on the CDN within approximat
 ## Example Usage
 
 ```typescript
-import { ExplicitAssetModeration } from "@cloudinary/assets/models/operations";
+import { ExplicitAssetModeration } from "@cloudinary/asset-management/models/operations";
 
 let value: ExplicitAssetModeration = "duplicate";
 ```

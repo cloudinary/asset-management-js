@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod";
-import { CloudinaryAssetsCore } from "../core.js";
+import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
@@ -12,7 +12,7 @@ import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import * as components from "../models/components/index.js";
-import { CloudinaryAssetsError } from "../models/errors/cloudinaryassetserror.js";
+import { CloudinaryAssetMgmtError } from "../models/errors/cloudinaryassetmgmterror.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -34,14 +34,14 @@ import { Result } from "../types/fp.js";
  * Restores one or more resources from backup using their asset IDs. Can optionally specify versions to restore.
  */
 export function assetsRestoreResourcesByAssetIDs(
-  client: CloudinaryAssetsCore,
+  client: CloudinaryAssetMgmtCore,
   request: operations.RestoreResourcesByAssetIDsRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
     { [k: string]: components.RestoreResponseUnion },
     | errors.ApiError
-    | CloudinaryAssetsError
+    | CloudinaryAssetMgmtError
     | ResponseValidationError
     | ConnectionError
     | RequestAbortedError
@@ -59,7 +59,7 @@ export function assetsRestoreResourcesByAssetIDs(
 }
 
 async function $do(
-  client: CloudinaryAssetsCore,
+  client: CloudinaryAssetMgmtCore,
   request: operations.RestoreResourcesByAssetIDsRequest,
   options?: RequestOptions,
 ): Promise<
@@ -67,7 +67,7 @@ async function $do(
     Result<
       { [k: string]: components.RestoreResponseUnion },
       | errors.ApiError
-      | CloudinaryAssetsError
+      | CloudinaryAssetMgmtError
       | ResponseValidationError
       | ConnectionError
       | RequestAbortedError
@@ -156,7 +156,7 @@ async function $do(
   const [result] = await M.match<
     { [k: string]: components.RestoreResponseUnion },
     | errors.ApiError
-    | CloudinaryAssetsError
+    | CloudinaryAssetMgmtError
     | ResponseValidationError
     | ConnectionError
     | RequestAbortedError

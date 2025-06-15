@@ -5,7 +5,7 @@ The type of resource being uploaded. This field may be omitted if resource_type 
 ## Example Usage
 
 ```typescript
-import { AsyncUploadResponseResourceType } from "@cloudinary/assets/models/components";
+import { AsyncUploadResponseResourceType } from "@cloudinary/asset-management/models/components";
 
 let value: AsyncUploadResponseResourceType = "image";
 ```

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ExplodeResourceRequestBody } from "@cloudinary/assets/models/operations";
+import { ExplodeResourceRequestBody } from "@cloudinary/asset-management/models/operations";
 
 let value: ExplodeResourceRequestBody = {
   publicId: "<id>",

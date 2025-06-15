@@ -3,7 +3,7 @@
  */
 
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { CloudinaryAssetsCore } from "../core.js";
+import { CloudinaryAssetMgmtCore } from "../core.js";
 import { SDKOptions } from "../lib/config.js";
 import type { ConsoleLogger } from "./console-logger.js";
 import { createRegisterPrompt } from "./prompts.js";
@@ -48,11 +48,11 @@ export function createMCPServer(deps: {
   host?: SDKOptions["host"] | undefined;
 }) {
   const server = new McpServer({
-    name: "CloudinaryAssets",
-    version: "0.4.0",
+    name: "CloudinaryAssetMgmt",
+    version: "0.4.1",
   });
 
-  const client = new CloudinaryAssetsCore({
+  const client = new CloudinaryAssetMgmtCore({
     security: deps.security,
     cloudName: deps.cloudName,
     serverURL: deps.serverURL,

@@ -5,7 +5,7 @@ The delivery type of the asset.
 ## Example Usage
 
 ```typescript
-import { GetResourceByPublicIdType } from "@cloudinary/assets/models/operations";
+import { GetResourceByPublicIdType } from "@cloudinary/asset-management/models/operations";
 
 let value: GetResourceByPublicIdType = "vimeo";
 ```

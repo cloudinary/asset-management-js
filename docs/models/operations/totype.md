@@ -5,7 +5,7 @@ The new storage type for the asset.
 ## Example Usage
 
 ```typescript
-import { ToType } from "@cloudinary/assets/models/operations";
+import { ToType } from "@cloudinary/asset-management/models/operations";
 
 let value: ToType = "upload";
 ```

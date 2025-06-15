@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { CreateAssetRelationsByAssetIdRequestBody } from "@cloudinary/assets/models/operations";
+import { CreateAssetRelationsByAssetIdRequestBody } from "@cloudinary/asset-management/models/operations";
 
 let value: CreateAssetRelationsByAssetIdRequestBody = {
   assetsToRelate: [

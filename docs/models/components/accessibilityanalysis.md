@@ -5,7 +5,7 @@ Results of accessibility analysis.
 ## Example Usage
 
 ```typescript
-import { AccessibilityAnalysis } from "@cloudinary/assets/models/components";
+import { AccessibilityAnalysis } from "@cloudinary/asset-management/models/components";
 
 let value: AccessibilityAnalysis = {};
 ```

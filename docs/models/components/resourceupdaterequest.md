@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ResourceUpdateRequest } from "@cloudinary/assets/models/components";
+import { ResourceUpdateRequest } from "@cloudinary/asset-management/models/components";
 
 let value: ResourceUpdateRequest = {
   displayName: "My Product Image",

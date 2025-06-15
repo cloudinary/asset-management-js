@@ -7,7 +7,7 @@ Note that fields that are not yet determined or not known at the time of the cal
 ## Example Usage
 
 ```typescript
-import { NonFinalChunkUploadResponse } from "@cloudinary/assets/models/components";
+import { NonFinalChunkUploadResponse } from "@cloudinary/asset-management/models/components";
 
 let value: NonFinalChunkUploadResponse = {
   done: false,

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { CreateAssetRelationsByPublicIdGlobals } from "@cloudinary/assets/models/operations";
+import { CreateAssetRelationsByPublicIdGlobals } from "@cloudinary/asset-management/models/operations";
 
 let value: CreateAssetRelationsByPublicIdGlobals = {
   cloudName: "<value>",

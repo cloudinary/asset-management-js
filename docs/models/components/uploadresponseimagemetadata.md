@@ -5,7 +5,7 @@ The image metadata of the uploaded file.
 ## Example Usage
 
 ```typescript
-import { UploadResponseImageMetadata } from "@cloudinary/assets/models/components";
+import { UploadResponseImageMetadata } from "@cloudinary/asset-management/models/components";
 
 let value: UploadResponseImageMetadata = {};
 ```

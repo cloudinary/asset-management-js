@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ResponsiveBreakpoint } from "@cloudinary/assets/models/components";
+import { ResponsiveBreakpoint } from "@cloudinary/asset-management/models/components";
 
 let value: ResponsiveBreakpoint = {};
 ```

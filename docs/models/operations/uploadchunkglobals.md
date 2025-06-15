@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { UploadChunkGlobals } from "@cloudinary/assets/models/operations";
+import { UploadChunkGlobals } from "@cloudinary/asset-management/models/operations";
 
 let value: UploadChunkGlobals = {
   cloudName: "<value>",

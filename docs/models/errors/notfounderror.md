@@ -5,7 +5,7 @@ Version not found
 ## Example Usage
 
 ```typescript
-import { NotFoundError } from "@cloudinary/assets/models/errors";
+import { NotFoundError } from "@cloudinary/asset-management/models/errors";
 
 // No examples available for this model
 ```

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GenerateArchiveRequest } from "@cloudinary/assets/models/operations";
+import { GenerateArchiveRequest } from "@cloudinary/asset-management/models/operations";
 
 let value: GenerateArchiveRequest = {
   resourceType: "all",

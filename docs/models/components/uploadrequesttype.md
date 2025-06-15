@@ -5,7 +5,7 @@ The delivery type that defines if and how the uploaded asset is available for pu
 ## Example Usage
 
 ```typescript
-import { UploadRequestType } from "@cloudinary/assets/models/components";
+import { UploadRequestType } from "@cloudinary/asset-management/models/components";
 
 let value: UploadRequestType = "upload";
 ```

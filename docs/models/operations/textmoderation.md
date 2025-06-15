@@ -5,7 +5,7 @@ Moderation information for the asset.
 ## Example Usage
 
 ```typescript
-import { TextModeration } from "@cloudinary/assets/models/operations";
+import { TextModeration } from "@cloudinary/asset-management/models/operations";
 
 let value: TextModeration = {};
 ```

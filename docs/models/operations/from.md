@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { From } from "@cloudinary/assets/models/operations";
+import { From } from "@cloudinary/asset-management/models/operations";
 
 let value: From = {
   name: "test",

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { SearchResponseRange } from "@cloudinary/assets/models/components";
+import { SearchResponseRange } from "@cloudinary/asset-management/models/components";
 
 let value: SearchResponseRange = {
   from: 0,

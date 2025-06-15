@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { TextRequestBody } from "@cloudinary/assets/models/operations";
+import { TextRequestBody } from "@cloudinary/asset-management/models/operations";
 
 let value: TextRequestBody = {
   text: "<value>",

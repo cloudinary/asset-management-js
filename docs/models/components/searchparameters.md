@@ -5,7 +5,7 @@ Common parameters for resource search operations.
 ## Example Usage
 
 ```typescript
-import { SearchParameters } from "@cloudinary/assets/models/components";
+import { SearchParameters } from "@cloudinary/asset-management/models/components";
 
 let value: SearchParameters = {
   expression: "resource_type:image AND tags:kitten",

@@ -6,7 +6,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { RequestHandlerExtra } from "@modelcontextprotocol/sdk/shared/protocol.js";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { objectOutputType, ZodRawShape, ZodTypeAny } from "zod";
-import { CloudinaryAssetsCore } from "../core.js";
+import { CloudinaryAssetMgmtCore } from "../core.js";
 import { ConsoleLogger } from "./console-logger.js";
 import { MCPScope } from "./scopes.js";
 import { isAsyncIterable, isBinaryData, valueToBase64 } from "./shared.js";
@@ -18,7 +18,7 @@ export type ToolDefinition<Args extends undefined | ZodRawShape = undefined> =
       scopes?: MCPScope[];
       args: Args;
       tool: (
-        client: CloudinaryAssetsCore,
+        client: CloudinaryAssetMgmtCore,
         args: objectOutputType<Args, ZodTypeAny>,
         extra: RequestHandlerExtra,
       ) => CallToolResult | Promise<CallToolResult>;
@@ -29,7 +29,7 @@ export type ToolDefinition<Args extends undefined | ZodRawShape = undefined> =
       scopes?: MCPScope[];
       args?: undefined;
       tool: (
-        client: CloudinaryAssetsCore,
+        client: CloudinaryAssetMgmtCore,
         extra: RequestHandlerExtra,
       ) => CallToolResult | Promise<CallToolResult>;
     };
@@ -93,7 +93,7 @@ async function consumeSSE(
 export function createRegisterTool(
   logger: ConsoleLogger,
   server: McpServer,
-  sdk: CloudinaryAssetsCore,
+  sdk: CloudinaryAssetMgmtCore,
   allowedScopes: Set<MCPScope>,
   allowedTools?: Set<string>,
 ): <A extends ZodRawShape | undefined>(tool: ToolDefinition<A>) => void {

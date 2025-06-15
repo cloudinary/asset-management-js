@@ -4,13 +4,13 @@
 
 import * as z from "zod";
 import * as components from "../components/index.js";
-import { CloudinaryAssetsError } from "./cloudinaryassetserror.js";
+import { CloudinaryAssetMgmtError } from "./cloudinaryassetmgmterror.js";
 
 export type ApiErrorData = {
   error: components.ApiErrorError;
 };
 
-export class ApiError extends CloudinaryAssetsError {
+export class ApiError extends CloudinaryAssetMgmtError {
   error: components.ApiErrorError;
 
   /** The original data that was passed to this error instance. */

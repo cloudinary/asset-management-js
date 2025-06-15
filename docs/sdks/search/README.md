@@ -17,9 +17,9 @@ Returns a list of resources matching the specified search criteria. The API supp
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -28,7 +28,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.search.searchAssets({
+  const result = await cloudinaryAssetMgmt.search.searchAssets({
     expression: "resource_type:image AND tags:kitten",
     sortBy: [
       "created_at",
@@ -53,12 +53,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { searchSearchAssets } from "@cloudinary/assets/funcs/searchSearchAssets.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { searchSearchAssets } from "@cloudinary/asset-management/funcs/searchSearchAssets.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -67,7 +67,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await searchSearchAssets(cloudinaryAssets, {
+  const res = await searchSearchAssets(cloudinaryAssetMgmt, {
     expression: "resource_type:image AND tags:kitten",
     sortBy: [
       "created_at",
@@ -128,9 +128,9 @@ Returns a list of resources that are visually similar to a specified image. You 
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -139,7 +139,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.search.visualSearchAssets({
+  const result = await cloudinaryAssetMgmt.search.visualSearchAssets({
     text: "shirts",
     threshold: 0.8,
   });
@@ -155,12 +155,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { searchVisualSearchAssets } from "@cloudinary/assets/funcs/searchVisualSearchAssets.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { searchVisualSearchAssets } from "@cloudinary/asset-management/funcs/searchVisualSearchAssets.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -169,7 +169,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await searchVisualSearchAssets(cloudinaryAssets, {
+  const res = await searchVisualSearchAssets(cloudinaryAssetMgmt, {
     text: "shirts",
     threshold: 0.8,
   });

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ListResourceTypesError } from "@cloudinary/assets/models/operations";
+import { ListResourceTypesError } from "@cloudinary/asset-management/models/operations";
 
 let value: ListResourceTypesError = {
   message: "<value>",

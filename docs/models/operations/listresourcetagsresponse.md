@@ -5,7 +5,7 @@ List of tags retrieved
 ## Example Usage
 
 ```typescript
-import { ListResourceTagsResponse } from "@cloudinary/assets/models/operations";
+import { ListResourceTagsResponse } from "@cloudinary/asset-management/models/operations";
 
 let value: ListResourceTagsResponse = {};
 ```

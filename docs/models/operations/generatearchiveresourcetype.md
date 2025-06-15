@@ -5,7 +5,7 @@ The type of resources to include in the archive. "image" for images, "video" for
 ## Example Usage
 
 ```typescript
-import { GenerateArchiveResourceType } from "@cloudinary/assets/models/operations";
+import { GenerateArchiveResourceType } from "@cloudinary/asset-management/models/operations";
 
 let value: GenerateArchiveResourceType = "all";
 ```

@@ -5,7 +5,7 @@ The response object returned by search operations.
 ## Example Usage
 
 ```typescript
-import { SearchResponse } from "@cloudinary/assets/models/components";
+import { SearchResponse } from "@cloudinary/asset-management/models/components";
 
 let value: SearchResponse = {
   totalCount: 42,

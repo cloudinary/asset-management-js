@@ -5,7 +5,7 @@ Results of image analysis.
 ## Example Usage
 
 ```typescript
-import { ImageAnalysis } from "@cloudinary/assets/models/components";
+import { ImageAnalysis } from "@cloudinary/asset-management/models/components";
 
 let value: ImageAnalysis = {};
 ```

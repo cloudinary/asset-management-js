@@ -18,9 +18,9 @@ This operation is irreversible and deleted versions cannot be recovered.
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -29,7 +29,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.backups.deleteBackupVersions("e9b44a374f66ad53a64a74c7398f7", {
+  const result = await cloudinaryAssetMgmt.backups.deleteBackupVersions("e9b44a374f66ad53a64a74c7398f7", {
     versionIds: [
       "5552aa57e67445552a3cdc1110a0115",
       "383e22a57167445552a3cdc16f0a0c85",
@@ -47,12 +47,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsDeleteBackupVersions } from "@cloudinary/assets/funcs/assetsDeleteBackupVersions.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsDeleteBackupVersions } from "@cloudinary/asset-management/funcs/assetsDeleteBackupVersions.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -61,7 +61,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsDeleteBackupVersions(cloudinaryAssets, "e9b44a374f66ad53a64a74c7398f7", {
+  const res = await assetsDeleteBackupVersions(cloudinaryAssetMgmt, "e9b44a374f66ad53a64a74c7398f7", {
     versionIds: [
       "5552aa57e67445552a3cdc1110a0115",
       "383e22a57167445552a3cdc16f0a0c85",

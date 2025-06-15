@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { CreateFolderRequest } from "@cloudinary/assets/models/operations";
+import { CreateFolderRequest } from "@cloudinary/asset-management/models/operations";
 
 let value: CreateFolderRequest = {
   folder: "samples/food",

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { Aggregate } from "@cloudinary/assets/models/components";
+import { Aggregate } from "@cloudinary/asset-management/models/components";
 
 let value: Aggregate = {
   type: "video_pixels",

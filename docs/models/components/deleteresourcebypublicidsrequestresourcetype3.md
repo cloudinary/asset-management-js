@@ -5,7 +5,7 @@ The type of asset. Relevant as a parameter only when using the SDKs (the resourc
 ## Example Usage
 
 ```typescript
-import { DeleteResourceByPublicIdsRequestResourceType3 } from "@cloudinary/assets/models/components";
+import { DeleteResourceByPublicIdsRequestResourceType3 } from "@cloudinary/asset-management/models/components";
 
 let value: DeleteResourceByPublicIdsRequestResourceType3 = "video";
 ```

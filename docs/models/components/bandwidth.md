@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { Bandwidth } from "@cloudinary/assets/models/components";
+import { Bandwidth } from "@cloudinary/asset-management/models/components";
 
 let value: Bandwidth = {};
 ```

@@ -5,7 +5,7 @@ The conversion to apply for raw files.
 ## Example Usage
 
 ```typescript
-import { RawConvert } from "@cloudinary/assets/models/components";
+import { RawConvert } from "@cloudinary/asset-management/models/components";
 
 let value: RawConvert = "aspose";
 ```

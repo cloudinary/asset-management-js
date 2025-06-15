@@ -5,7 +5,7 @@ Information about who uploaded the asset.
 ## Example Usage
 
 ```typescript
-import { UploadedBy } from "@cloudinary/assets/models/components";
+import { UploadedBy } from "@cloudinary/asset-management/models/components";
 
 let value: UploadedBy = {
   accessKey: "614335564976464",

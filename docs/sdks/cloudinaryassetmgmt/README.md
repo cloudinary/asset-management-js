@@ -1,4 +1,4 @@
-# CloudinaryAssets SDK
+# CloudinaryAssetMgmt SDK
 
 ## Overview
 

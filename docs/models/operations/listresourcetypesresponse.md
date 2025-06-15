@@ -5,7 +5,7 @@ The list of resource types.
 ## Example Usage
 
 ```typescript
-import { ListResourceTypesResponse } from "@cloudinary/assets/models/operations";
+import { ListResourceTypesResponse } from "@cloudinary/asset-management/models/operations";
 
 let value: ListResourceTypesResponse = {
   resourceTypes: [

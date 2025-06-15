@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { Invalidation } from "@cloudinary/assets/models/components";
+import { Invalidation } from "@cloudinary/asset-management/models/components";
 
 let value: Invalidation = {
   took: 25,

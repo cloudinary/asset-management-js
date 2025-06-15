@@ -14,9 +14,9 @@ Retrieves resources matching specific moderation kind and status.
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -25,7 +25,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.moderations.listResourcesByModerationKindAndStatus("raw", "aws_rek", "aborted");
+  const result = await cloudinaryAssetMgmt.moderations.listResourcesByModerationKindAndStatus("raw", "aws_rek", "aborted");
 
   console.log(result);
 }
@@ -38,12 +38,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsListResourcesByModerationKindAndStatus } from "@cloudinary/assets/funcs/assetsListResourcesByModerationKindAndStatus.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsListResourcesByModerationKindAndStatus } from "@cloudinary/asset-management/funcs/assetsListResourcesByModerationKindAndStatus.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -52,7 +52,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsListResourcesByModerationKindAndStatus(cloudinaryAssets, "raw", "aws_rek", "aborted");
+  const res = await assetsListResourcesByModerationKindAndStatus(cloudinaryAssetMgmt, "raw", "aws_rek", "aborted");
   if (res.ok) {
     const { value: result } = res;
     console.log(result);

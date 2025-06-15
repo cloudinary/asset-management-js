@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { BadRequestError } from "@cloudinary/assets/models/operations";
+import { BadRequestError } from "@cloudinary/asset-management/models/operations";
 
 let value: BadRequestError = {
   httpCode: 400,

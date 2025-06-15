@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { SearchFoldersRequest } from "@cloudinary/assets/models/operations";
+import { SearchFoldersRequest } from "@cloudinary/asset-management/models/operations";
 
 let value: SearchFoldersRequest = {
   sortBy: [

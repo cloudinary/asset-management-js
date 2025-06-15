@@ -15,7 +15,7 @@ import { Upload } from "./upload.js";
 import { Usage } from "./usage.js";
 import { VideoAnalytics } from "./videoanalytics.js";
 
-export class CloudinaryAssets extends ClientSDK {
+export class CloudinaryAssetMgmt extends ClientSDK {
   private _upload?: Upload;
   get upload(): Upload {
     return (this._upload ??= new Upload(this._options));

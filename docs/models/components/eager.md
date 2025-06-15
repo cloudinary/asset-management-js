@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { Eager } from "@cloudinary/assets/models/components";
+import { Eager } from "@cloudinary/asset-management/models/components";
 
 let value: Eager = {};
 ```

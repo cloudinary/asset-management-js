@@ -5,7 +5,7 @@ Custom context metadata associated with the asset.
 ## Example Usage
 
 ```typescript
-import { SearchResponseContext } from "@cloudinary/assets/models/components";
+import { SearchResponseContext } from "@cloudinary/asset-management/models/components";
 
 let value: SearchResponseContext = {};
 ```

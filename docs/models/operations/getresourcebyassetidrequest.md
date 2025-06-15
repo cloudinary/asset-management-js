@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GetResourceByAssetIdRequest } from "@cloudinary/assets/models/operations";
+import { GetResourceByAssetIdRequest } from "@cloudinary/asset-management/models/operations";
 
 let value: GetResourceByAssetIdRequest = {
   assetId: "e9b44a374f66ad53a64a74c7398f7",

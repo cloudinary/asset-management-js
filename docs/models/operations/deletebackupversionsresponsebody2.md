@@ -5,7 +5,7 @@ Multi-status - some versions deleted successfully, others failed
 ## Example Usage
 
 ```typescript
-import { DeleteBackupVersionsResponseBody2 } from "@cloudinary/assets/models/operations";
+import { DeleteBackupVersionsResponseBody2 } from "@cloudinary/asset-management/models/operations";
 
 let value: DeleteBackupVersionsResponseBody2 = {
   assetId: "<id>",

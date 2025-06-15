@@ -5,7 +5,7 @@ The code indicating the result of the operation.
 ## Example Usage
 
 ```typescript
-import { Code } from "@cloudinary/assets/models/components";
+import { Code } from "@cloudinary/asset-management/models/components";
 
 let value: Code = "success_ids";
 ```

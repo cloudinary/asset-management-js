@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { AggregateEnum } from "@cloudinary/assets/models/components";
+import { AggregateEnum } from "@cloudinary/asset-management/models/components";
 
 let value: AggregateEnum = "type";
 ```

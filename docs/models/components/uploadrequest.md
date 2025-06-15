@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { UploadRequest } from "@cloudinary/assets/models/components";
+import { UploadRequest } from "@cloudinary/asset-management/models/components";
 
 let value: UploadRequest = {
   headers: "X-Robots-Tag: noindex",

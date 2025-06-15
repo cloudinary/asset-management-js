@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ListResourcesByContextRequest } from "@cloudinary/assets/models/operations";
+import { ListResourcesByContextRequest } from "@cloudinary/asset-management/models/operations";
 
 let value: ListResourcesByContextRequest = {
   resourceType: "video",

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { RenameAssetRequestBody } from "@cloudinary/assets/models/operations";
+import { RenameAssetRequestBody } from "@cloudinary/asset-management/models/operations";
 
 let value: RenameAssetRequestBody = {
   fromPublicId: "<id>",

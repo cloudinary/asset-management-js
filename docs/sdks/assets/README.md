@@ -38,9 +38,9 @@ Updates an existing asset's identifier and optionally other metadata in your Clo
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -49,7 +49,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.renameAsset("video", {
+  const result = await cloudinaryAssetMgmt.assets.renameAsset("video", {
     fromPublicId: "<id>",
     toPublicId: "<id>",
   });
@@ -65,12 +65,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsRenameAsset } from "@cloudinary/assets/funcs/assetsRenameAsset.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsRenameAsset } from "@cloudinary/asset-management/funcs/assetsRenameAsset.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -79,7 +79,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsRenameAsset(cloudinaryAssets, "video", {
+  const res = await assetsRenameAsset(cloudinaryAssetMgmt, "video", {
     fromPublicId: "<id>",
     toPublicId: "<id>",
   });
@@ -122,9 +122,9 @@ Generates a download link for a specific asset (image)
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -133,7 +133,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.downloadAsset("image", "<id>", "<value>", "<value>", 444233);
+  const result = await cloudinaryAssetMgmt.assets.downloadAsset("image", "<id>", "<value>", "<value>", 444233);
 
   console.log(result);
 }
@@ -146,12 +146,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsDownloadAsset } from "@cloudinary/assets/funcs/assetsDownloadAsset.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsDownloadAsset } from "@cloudinary/asset-management/funcs/assetsDownloadAsset.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -160,7 +160,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsDownloadAsset(cloudinaryAssets, "image", "<id>", "<value>", "<value>", 444233);
+  const res = await assetsDownloadAsset(cloudinaryAssetMgmt, "image", "<id>", "<value>", "<value>", 444233);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -211,9 +211,9 @@ This is useful for applying new transformations, adding tags, or updating metada
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -222,7 +222,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.explicitAsset("image", {
+  const result = await cloudinaryAssetMgmt.assets.explicitAsset("image", {
     headers: "X-Robots-Tag: noindex",
     moderation: "aws_rek_video",
     publicId: "<id>",
@@ -239,12 +239,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsExplicitAsset } from "@cloudinary/assets/funcs/assetsExplicitAsset.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsExplicitAsset } from "@cloudinary/asset-management/funcs/assetsExplicitAsset.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -253,7 +253,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsExplicitAsset(cloudinaryAssets, "image", {
+  const res = await assetsExplicitAsset(cloudinaryAssetMgmt, "image", {
     headers: "X-Robots-Tag: noindex",
     moderation: "aws_rek_video",
     publicId: "<id>",
@@ -297,9 +297,9 @@ Creates a downloadable ZIP or other archive format containing the specified reso
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -308,7 +308,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.generateArchive("image", {
+  const result = await cloudinaryAssetMgmt.assets.generateArchive("image", {
     targetTags: [
       "animal",
       "dog",
@@ -326,12 +326,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsGenerateArchive } from "@cloudinary/assets/funcs/assetsGenerateArchive.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsGenerateArchive } from "@cloudinary/asset-management/funcs/assetsGenerateArchive.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -340,7 +340,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsGenerateArchive(cloudinaryAssets, "image", {
+  const res = await assetsGenerateArchive(cloudinaryAssetMgmt, "image", {
     targetTags: [
       "animal",
       "dog",
@@ -385,9 +385,9 @@ Download a backup copy of an asset
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -396,7 +396,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.downloadBackupAsset("f4e6579cf84dd9cf5683b21f5b30c7d9", "a3978316b0045e5eaf198f4d6885ca35", "<value>", "<value>", 723931);
+  const result = await cloudinaryAssetMgmt.assets.downloadBackupAsset("f4e6579cf84dd9cf5683b21f5b30c7d9", "a3978316b0045e5eaf198f4d6885ca35", "<value>", "<value>", 723931);
 
   console.log(result);
 }
@@ -409,12 +409,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsDownloadBackupAsset } from "@cloudinary/assets/funcs/assetsDownloadBackupAsset.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsDownloadBackupAsset } from "@cloudinary/asset-management/funcs/assetsDownloadBackupAsset.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -423,7 +423,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsDownloadBackupAsset(cloudinaryAssets, "f4e6579cf84dd9cf5683b21f5b30c7d9", "a3978316b0045e5eaf198f4d6885ca35", "<value>", "<value>", 723931);
+  const res = await assetsDownloadBackupAsset(cloudinaryAssetMgmt, "f4e6579cf84dd9cf5683b21f5b30c7d9", "a3978316b0045e5eaf198f4d6885ca35", "<value>", "<value>", 723931);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -470,9 +470,9 @@ Returns the deletion status and asset folder information when folder decoupling 
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -481,7 +481,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.destroyByAssetId({
+  const result = await cloudinaryAssetMgmt.assets.destroyByAssetId({
     assetId: "<id>",
     timestamp: 281941,
     apiKey: "<value>",
@@ -499,12 +499,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsDestroyByAssetId } from "@cloudinary/assets/funcs/assetsDestroyByAssetId.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsDestroyByAssetId } from "@cloudinary/asset-management/funcs/assetsDestroyByAssetId.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -513,7 +513,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsDestroyByAssetId(cloudinaryAssets, {
+  const res = await assetsDestroyByAssetId(cloudinaryAssetMgmt, {
     assetId: "<id>",
     timestamp: 281941,
     apiKey: "<value>",
@@ -563,9 +563,9 @@ Returns a list of all resource types that correspond to assets currently in your
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -574,7 +574,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.listResourceTypes({});
+  const result = await cloudinaryAssetMgmt.assets.listResourceTypes({});
 
   console.log(result);
 }
@@ -587,12 +587,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsListResourceTypes } from "@cloudinary/assets/funcs/assetsListResourceTypes.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsListResourceTypes } from "@cloudinary/asset-management/funcs/assetsListResourceTypes.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -601,7 +601,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsListResourceTypes(cloudinaryAssets, {});
+  const res = await assetsListResourceTypes(cloudinaryAssetMgmt, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -640,9 +640,9 @@ Retrieves a list of image assets. Results can be filtered by various criteria li
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -651,7 +651,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.listImages();
+  const result = await cloudinaryAssetMgmt.assets.listImages();
 
   console.log(result);
 }
@@ -664,12 +664,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsListImages } from "@cloudinary/assets/funcs/assetsListImages.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsListImages } from "@cloudinary/asset-management/funcs/assetsListImages.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -678,7 +678,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsListImages(cloudinaryAssets);
+  const res = await assetsListImages(cloudinaryAssetMgmt);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -726,9 +726,9 @@ Retrieves a list of video assets. Results can be filtered by various criteria li
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -737,7 +737,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.listVideos();
+  const result = await cloudinaryAssetMgmt.assets.listVideos();
 
   console.log(result);
 }
@@ -750,12 +750,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsListVideos } from "@cloudinary/assets/funcs/assetsListVideos.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsListVideos } from "@cloudinary/asset-management/funcs/assetsListVideos.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -764,7 +764,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsListVideos(cloudinaryAssets);
+  const res = await assetsListVideos(cloudinaryAssetMgmt);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -812,9 +812,9 @@ Retrieves a list of raw assets. Results can be filtered by various criteria like
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -823,7 +823,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.listRawFiles();
+  const result = await cloudinaryAssetMgmt.assets.listRawFiles();
 
   console.log(result);
 }
@@ -836,12 +836,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsListRawFiles } from "@cloudinary/assets/funcs/assetsListRawFiles.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsListRawFiles } from "@cloudinary/asset-management/funcs/assetsListRawFiles.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -850,7 +850,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsListRawFiles(cloudinaryAssets);
+  const res = await assetsListRawFiles(cloudinaryAssetMgmt);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -897,9 +897,9 @@ Retrieves a list of resources within a specific asset folder. Requires folder de
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -908,7 +908,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.listResourcesByAssetFolder("<value>");
+  const result = await cloudinaryAssetMgmt.assets.listResourcesByAssetFolder("<value>");
 
   console.log(result);
 }
@@ -921,12 +921,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsListResourcesByAssetFolder } from "@cloudinary/assets/funcs/assetsListResourcesByAssetFolder.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsListResourcesByAssetFolder } from "@cloudinary/asset-management/funcs/assetsListResourcesByAssetFolder.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -935,7 +935,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsListResourcesByAssetFolder(cloudinaryAssets, "<value>");
+  const res = await assetsListResourcesByAssetFolder(cloudinaryAssetMgmt, "<value>");
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -979,9 +979,9 @@ Retrieves details for specific resources using their asset IDs (or external IDs)
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -990,7 +990,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.listResourcesByAssetIDs([]);
+  const result = await cloudinaryAssetMgmt.assets.listResourcesByAssetIDs([]);
 
   console.log(result);
 }
@@ -1003,12 +1003,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsListResourcesByAssetIDs } from "@cloudinary/assets/funcs/assetsListResourcesByAssetIDs.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsListResourcesByAssetIDs } from "@cloudinary/asset-management/funcs/assetsListResourcesByAssetIDs.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1017,7 +1017,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsListResourcesByAssetIDs(cloudinaryAssets, []);
+  const res = await assetsListResourcesByAssetIDs(cloudinaryAssetMgmt, []);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -1058,9 +1058,9 @@ Retrieves resources matching specific context key/value pairs.
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1069,7 +1069,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.listResourcesByContext("raw", "<key>");
+  const result = await cloudinaryAssetMgmt.assets.listResourcesByContext("raw", "<key>");
 
   console.log(result);
 }
@@ -1082,12 +1082,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsListResourcesByContext } from "@cloudinary/assets/funcs/assetsListResourcesByContext.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsListResourcesByContext } from "@cloudinary/asset-management/funcs/assetsListResourcesByContext.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1096,7 +1096,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsListResourcesByContext(cloudinaryAssets, "raw", "<key>");
+  const res = await assetsListResourcesByContext(cloudinaryAssetMgmt, "raw", "<key>");
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -1141,9 +1141,9 @@ Retrieves resources matching specific moderation kind and status.
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1152,7 +1152,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.listResourcesByModerationKindAndStatus("raw", "aws_rek", "aborted");
+  const result = await cloudinaryAssetMgmt.assets.listResourcesByModerationKindAndStatus("raw", "aws_rek", "aborted");
 
   console.log(result);
 }
@@ -1165,12 +1165,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsListResourcesByModerationKindAndStatus } from "@cloudinary/assets/funcs/assetsListResourcesByModerationKindAndStatus.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsListResourcesByModerationKindAndStatus } from "@cloudinary/asset-management/funcs/assetsListResourcesByModerationKindAndStatus.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1179,7 +1179,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsListResourcesByModerationKindAndStatus(cloudinaryAssets, "raw", "aws_rek", "aborted");
+  const res = await assetsListResourcesByModerationKindAndStatus(cloudinaryAssetMgmt, "raw", "aws_rek", "aborted");
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -1224,9 +1224,9 @@ Restores one or more resources from backup using their asset IDs. Can optionally
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1235,7 +1235,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.restoreResourcesByAssetIDs({
+  const result = await cloudinaryAssetMgmt.assets.restoreResourcesByAssetIDs({
     assetIds: [
       "2262b0b5eb88f1fd7724e29b0e57d730",
       "d23c0526e6feca2c343e40c2fce5231a",
@@ -1253,12 +1253,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsRestoreResourcesByAssetIDs } from "@cloudinary/assets/funcs/assetsRestoreResourcesByAssetIDs.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsRestoreResourcesByAssetIDs } from "@cloudinary/asset-management/funcs/assetsRestoreResourcesByAssetIDs.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1267,7 +1267,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsRestoreResourcesByAssetIDs(cloudinaryAssets, {
+  const res = await assetsRestoreResourcesByAssetIDs(cloudinaryAssetMgmt, {
     assetIds: [
       "2262b0b5eb88f1fd7724e29b0e57d730",
       "d23c0526e6feca2c343e40c2fce5231a",
@@ -1313,9 +1313,9 @@ Deletes assets uploaded to your product environment, identified by their public 
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1324,7 +1324,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.deleteResourcesByPublicId("raw", "authenticated", {
+  const result = await cloudinaryAssetMgmt.assets.deleteResourcesByPublicId("raw", "authenticated", {
     all: false,
     resourceType: "image",
     keepOriginal: false,
@@ -1342,12 +1342,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsDeleteResourcesByPublicId } from "@cloudinary/assets/funcs/assetsDeleteResourcesByPublicId.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsDeleteResourcesByPublicId } from "@cloudinary/asset-management/funcs/assetsDeleteResourcesByPublicId.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1356,7 +1356,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsDeleteResourcesByPublicId(cloudinaryAssets, "raw", "authenticated", {
+  const res = await assetsDeleteResourcesByPublicId(cloudinaryAssetMgmt, "raw", "authenticated", {
     all: false,
     resourceType: "image",
     keepOriginal: false,
@@ -1402,9 +1402,9 @@ Returns the details of a single resource specified by its public ID.
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1413,7 +1413,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.getResourceByPublicId("raw", "list", "<id>");
+  const result = await cloudinaryAssetMgmt.assets.getResourceByPublicId("raw", "list", "<id>");
 
   console.log(result);
 }
@@ -1426,12 +1426,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsGetResourceByPublicId } from "@cloudinary/assets/funcs/assetsGetResourceByPublicId.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsGetResourceByPublicId } from "@cloudinary/asset-management/funcs/assetsGetResourceByPublicId.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1440,7 +1440,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsGetResourceByPublicId(cloudinaryAssets, "raw", "list", "<id>");
+  const res = await assetsGetResourceByPublicId(cloudinaryAssetMgmt, "raw", "list", "<id>");
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -1493,9 +1493,9 @@ Updates one or more attributes of a specified resource (asset) identified by its
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1504,7 +1504,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.updateResourceByPublicId("image", "dailymotion", "<id>", {
+  const result = await cloudinaryAssetMgmt.assets.updateResourceByPublicId("image", "dailymotion", "<id>", {
     displayName: "My Product Image",
     assetFolder: "products/summer",
     tags: "product,summer,sale",
@@ -1529,12 +1529,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsUpdateResourceByPublicId } from "@cloudinary/assets/funcs/assetsUpdateResourceByPublicId.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsUpdateResourceByPublicId } from "@cloudinary/asset-management/funcs/assetsUpdateResourceByPublicId.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1543,7 +1543,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsUpdateResourceByPublicId(cloudinaryAssets, "image", "dailymotion", "<id>", {
+  const res = await assetsUpdateResourceByPublicId(cloudinaryAssetMgmt, "image", "dailymotion", "<id>", {
     displayName: "My Product Image",
     assetFolder: "products/summer",
     tags: "product,summer,sale",
@@ -1597,9 +1597,9 @@ Returns the details of a single resource specified by its asset ID.
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1608,7 +1608,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.getResourceByAssetId("e9b44a374f66ad53a64a74c7398f7");
+  const result = await cloudinaryAssetMgmt.assets.getResourceByAssetId("e9b44a374f66ad53a64a74c7398f7");
 
   console.log(result);
 }
@@ -1621,12 +1621,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsGetResourceByAssetId } from "@cloudinary/assets/funcs/assetsGetResourceByAssetId.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsGetResourceByAssetId } from "@cloudinary/asset-management/funcs/assetsGetResourceByAssetId.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1635,7 +1635,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsGetResourceByAssetId(cloudinaryAssets, "e9b44a374f66ad53a64a74c7398f7");
+  const res = await assetsGetResourceByAssetId(cloudinaryAssetMgmt, "e9b44a374f66ad53a64a74c7398f7");
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -1686,9 +1686,9 @@ Updates one or more attributes of a specified resource (asset) by its asset ID. 
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1697,7 +1697,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.updateResourceByAssetId("<id>", {
+  const result = await cloudinaryAssetMgmt.assets.updateResourceByAssetId("<id>", {
     displayName: "My Product Image",
     assetFolder: "products/summer",
     tags: "product,summer,sale",
@@ -1722,12 +1722,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsUpdateResourceByAssetId } from "@cloudinary/assets/funcs/assetsUpdateResourceByAssetId.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsUpdateResourceByAssetId } from "@cloudinary/asset-management/funcs/assetsUpdateResourceByAssetId.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1736,7 +1736,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsUpdateResourceByAssetId(cloudinaryAssets, "<id>", {
+  const res = await assetsUpdateResourceByAssetId(cloudinaryAssetMgmt, "<id>", {
     displayName: "My Product Image",
     assetFolder: "products/summer",
     tags: "product,summer,sale",
@@ -1791,9 +1791,9 @@ Retrieves a comprehensive list of all tags that exist in your product environmen
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1802,7 +1802,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.listResourceTags("raw");
+  const result = await cloudinaryAssetMgmt.assets.listResourceTags("raw");
 
   console.log(result);
 }
@@ -1815,12 +1815,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsListResourceTags } from "@cloudinary/assets/funcs/assetsListResourceTags.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsListResourceTags } from "@cloudinary/asset-management/funcs/assetsListResourceTags.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1829,7 +1829,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsListResourceTags(cloudinaryAssets, "raw");
+  const res = await assetsListResourceTags(cloudinaryAssetMgmt, "raw");
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -1873,9 +1873,9 @@ This operation is irreversible and deleted versions cannot be recovered.
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1884,7 +1884,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.deleteBackupVersions("e9b44a374f66ad53a64a74c7398f7", {
+  const result = await cloudinaryAssetMgmt.assets.deleteBackupVersions("e9b44a374f66ad53a64a74c7398f7", {
     versionIds: [
       "5552aa57e67445552a3cdc1110a0115",
       "383e22a57167445552a3cdc16f0a0c85",
@@ -1902,12 +1902,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsDeleteBackupVersions } from "@cloudinary/assets/funcs/assetsDeleteBackupVersions.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsDeleteBackupVersions } from "@cloudinary/asset-management/funcs/assetsDeleteBackupVersions.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1916,7 +1916,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsDeleteBackupVersions(cloudinaryAssets, "e9b44a374f66ad53a64a74c7398f7", {
+  const res = await assetsDeleteBackupVersions(cloudinaryAssetMgmt, "e9b44a374f66ad53a64a74c7398f7", {
     versionIds: [
       "5552aa57e67445552a3cdc1110a0115",
       "383e22a57167445552a3cdc16f0a0c85",
@@ -1961,9 +1961,9 @@ Deletes derived resources by derived resource ID
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -1972,7 +1972,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assets.derivedDestroy({
+  const result = await cloudinaryAssetMgmt.assets.derivedDestroy({
     derivedResourceIds: [
       "1234567890abcdef",
       "fedcba0987654321",
@@ -1991,12 +1991,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsDerivedDestroy } from "@cloudinary/assets/funcs/assetsDerivedDestroy.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsDerivedDestroy } from "@cloudinary/asset-management/funcs/assetsDerivedDestroy.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -2005,7 +2005,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsDerivedDestroy(cloudinaryAssets, {
+  const res = await assetsDerivedDestroy(cloudinaryAssetMgmt, {
     derivedResourceIds: [
       "1234567890abcdef",
       "fedcba0987654321",

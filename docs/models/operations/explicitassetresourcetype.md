@@ -5,7 +5,7 @@ The type of resource to apply operations on. "image" for images, "video" for vid
 ## Example Usage
 
 ```typescript
-import { ExplicitAssetResourceType } from "@cloudinary/assets/models/operations";
+import { ExplicitAssetResourceType } from "@cloudinary/asset-management/models/operations";
 
 let value: ExplicitAssetResourceType = "image";
 ```

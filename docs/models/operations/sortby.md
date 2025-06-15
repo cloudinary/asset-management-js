@@ -5,7 +5,7 @@ Specifies the expression field by which to sort the results. Prepend values with
 ## Example Usage
 
 ```typescript
-import { SortBy } from "@cloudinary/assets/models/operations";
+import { SortBy } from "@cloudinary/asset-management/models/operations";
 
 let value: SortBy = "-view_watch_time";
 ```

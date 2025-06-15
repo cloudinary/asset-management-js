@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { NotFoundError } from "@cloudinary/assets/models/operations";
+import { NotFoundError } from "@cloudinary/asset-management/models/operations";
 
 let value: NotFoundError = {};
 ```

@@ -19,12 +19,12 @@ specific category of applications.
 ## Example
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { uploadUpload } from "@cloudinary/assets/funcs/uploadUpload.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { uploadUpload } from "@cloudinary/asset-management/funcs/uploadUpload.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -33,7 +33,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await uploadUpload(cloudinaryAssets, "auto", {
+  const res = await uploadUpload(cloudinaryAssetMgmt, "auto", {
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",

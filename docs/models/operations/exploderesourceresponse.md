@@ -5,7 +5,7 @@ Explode operation started successfully
 ## Example Usage
 
 ```typescript
-import { ExplodeResourceResponse } from "@cloudinary/assets/models/operations";
+import { ExplodeResourceResponse } from "@cloudinary/asset-management/models/operations";
 
 let value: ExplodeResourceResponse = {};
 ```

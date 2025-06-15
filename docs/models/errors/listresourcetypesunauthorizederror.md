@@ -5,7 +5,7 @@ Authentication failed.
 ## Example Usage
 
 ```typescript
-import { ListResourceTypesUnauthorizedError } from "@cloudinary/assets/models/errors";
+import { ListResourceTypesUnauthorizedError } from "@cloudinary/asset-management/models/errors";
 
 // No examples available for this model
 ```

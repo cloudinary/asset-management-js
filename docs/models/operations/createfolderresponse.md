@@ -5,7 +5,7 @@ Folder created successfully
 ## Example Usage
 
 ```typescript
-import { CreateFolderResponse } from "@cloudinary/assets/models/operations";
+import { CreateFolderResponse } from "@cloudinary/asset-management/models/operations";
 
 let value: CreateFolderResponse = {
   success: true,

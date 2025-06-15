@@ -5,7 +5,7 @@ The type of OCR to perform on the resource.
 ## Example Usage
 
 ```typescript
-import { ResourceUpdateRequestOcr } from "@cloudinary/assets/models/components";
+import { ResourceUpdateRequestOcr } from "@cloudinary/asset-management/models/components";
 
 let value: ResourceUpdateRequestOcr = "adv_ocr";
 ```

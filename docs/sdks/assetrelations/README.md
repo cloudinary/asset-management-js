@@ -19,9 +19,9 @@ Relates an asset to other assets by their asset IDs, an immutable identifier, re
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -30,7 +30,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assetRelations.createAssetRelationsByAssetId("<id>", {
+  const result = await cloudinaryAssetMgmt.assetRelations.createAssetRelationsByAssetId("<id>", {
     assetsToRelate: [
       "f12345a5c789c",
       "bbb0efc00c0f12",
@@ -48,12 +48,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetRelationsCreateAssetRelationsByAssetId } from "@cloudinary/assets/funcs/assetRelationsCreateAssetRelationsByAssetId.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetRelationsCreateAssetRelationsByAssetId } from "@cloudinary/asset-management/funcs/assetRelationsCreateAssetRelationsByAssetId.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -62,7 +62,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetRelationsCreateAssetRelationsByAssetId(cloudinaryAssets, "<id>", {
+  const res = await assetRelationsCreateAssetRelationsByAssetId(cloudinaryAssetMgmt, "<id>", {
     assetsToRelate: [
       "f12345a5c789c",
       "bbb0efc00c0f12",
@@ -107,9 +107,9 @@ Unrelates the asset from other assets, specified by their asset IDs, an immutabl
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -118,7 +118,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assetRelations.deleteAssetRelationsByAssetId("<id>", {
+  const result = await cloudinaryAssetMgmt.assetRelations.deleteAssetRelationsByAssetId("<id>", {
     assetsToUnrelate: [
       "f12345a5c789c",
       "bbb0efc00c0f12",
@@ -136,12 +136,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetRelationsDeleteAssetRelationsByAssetId } from "@cloudinary/assets/funcs/assetRelationsDeleteAssetRelationsByAssetId.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetRelationsDeleteAssetRelationsByAssetId } from "@cloudinary/asset-management/funcs/assetRelationsDeleteAssetRelationsByAssetId.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -150,7 +150,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetRelationsDeleteAssetRelationsByAssetId(cloudinaryAssets, "<id>", {
+  const res = await assetRelationsDeleteAssetRelationsByAssetId(cloudinaryAssetMgmt, "<id>", {
     assetsToUnrelate: [
       "f12345a5c789c",
       "bbb0efc00c0f12",
@@ -195,9 +195,9 @@ Relates an asset to other assets by public IDs. This allows you to indicate that
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -206,7 +206,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assetRelations.createAssetRelationsByPublicId("raw", "upload", "<id>", {
+  const result = await cloudinaryAssetMgmt.assetRelations.createAssetRelationsByPublicId("raw", "upload", "<id>", {
     assetsToRelate: [
       "raw/upload/dog_subtitles.srt",
       "image/authenticated/dog_license",
@@ -224,12 +224,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetRelationsCreateAssetRelationsByPublicId } from "@cloudinary/assets/funcs/assetRelationsCreateAssetRelationsByPublicId.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetRelationsCreateAssetRelationsByPublicId } from "@cloudinary/asset-management/funcs/assetRelationsCreateAssetRelationsByPublicId.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -238,7 +238,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetRelationsCreateAssetRelationsByPublicId(cloudinaryAssets, "raw", "upload", "<id>", {
+  const res = await assetRelationsCreateAssetRelationsByPublicId(cloudinaryAssetMgmt, "raw", "upload", "<id>", {
     assetsToRelate: [
       "raw/upload/dog_subtitles.srt",
       "image/authenticated/dog_license",
@@ -285,9 +285,9 @@ Unrelates the asset from other assets, specified by public IDs. This is a bidire
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -296,7 +296,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.assetRelations.deleteAssetRelationsByPublicId("raw", "upload", "<id>", {
+  const result = await cloudinaryAssetMgmt.assetRelations.deleteAssetRelationsByPublicId("raw", "upload", "<id>", {
     assetsToUnrelate: [
       "raw/upload/dog_subtitles.srt",
       "image/authenticated/dog_license",
@@ -314,12 +314,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetRelationsDeleteAssetRelationsByPublicId } from "@cloudinary/assets/funcs/assetRelationsDeleteAssetRelationsByPublicId.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetRelationsDeleteAssetRelationsByPublicId } from "@cloudinary/asset-management/funcs/assetRelationsDeleteAssetRelationsByPublicId.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -328,7 +328,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetRelationsDeleteAssetRelationsByPublicId(cloudinaryAssets, "raw", "upload", "<id>", {
+  const res = await assetRelationsDeleteAssetRelationsByPublicId(cloudinaryAssetMgmt, "raw", "upload", "<id>", {
     assetsToUnrelate: [
       "raw/upload/dog_subtitles.srt",
       "image/authenticated/dog_license",

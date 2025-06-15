@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { DeleteResourceByPublicIdsRequest2 } from "@cloudinary/assets/models/components";
+import { DeleteResourceByPublicIdsRequest2 } from "@cloudinary/asset-management/models/components";
 
 let value: DeleteResourceByPublicIdsRequest2 = {
   prefix: "<value>",

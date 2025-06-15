@@ -5,7 +5,7 @@ The delivery type. Necessary for prefix filtering.
 ## Example Usage
 
 ```typescript
-import { ListVideosType } from "@cloudinary/assets/models/operations";
+import { ListVideosType } from "@cloudinary/asset-management/models/operations";
 
 let value: ListVideosType = "fetch";
 ```

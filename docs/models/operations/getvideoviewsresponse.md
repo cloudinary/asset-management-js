@@ -5,7 +5,7 @@ List of video views retrieved
 ## Example Usage
 
 ```typescript
-import { GetVideoViewsResponse } from "@cloudinary/assets/models/operations";
+import { GetVideoViewsResponse } from "@cloudinary/asset-management/models/operations";
 
 let value: GetVideoViewsResponse = {};
 ```

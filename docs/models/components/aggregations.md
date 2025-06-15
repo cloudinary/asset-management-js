@@ -5,7 +5,7 @@ Aggregation results when the aggregate parameter is used in the request. Only in
 ## Example Usage
 
 ```typescript
-import { Aggregations } from "@cloudinary/assets/models/components";
+import { Aggregations } from "@cloudinary/asset-management/models/components";
 
 let value: Aggregations = {
   values: [

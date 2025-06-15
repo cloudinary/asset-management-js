@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { VisualSearchParameters1 } from "@cloudinary/assets/models/components";
+import { VisualSearchParameters1 } from "@cloudinary/asset-management/models/components";
 
 let value: VisualSearchParameters1 = {
   imageUrl: "https://res.cloudinary.com/demo/image/upload/sample.jpg",

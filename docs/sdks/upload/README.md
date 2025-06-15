@@ -31,9 +31,9 @@ The uploaded asset is immediately available for transformation and delivery upon
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -42,7 +42,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.upload("auto", {
+  const result = await cloudinaryAssetMgmt.upload.upload("auto", {
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -65,12 +65,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { uploadUpload } from "@cloudinary/assets/funcs/uploadUpload.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { uploadUpload } from "@cloudinary/asset-management/funcs/uploadUpload.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -79,7 +79,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await uploadUpload(cloudinaryAssets, "auto", {
+  const res = await uploadUpload(cloudinaryAssetMgmt, "auto", {
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -133,9 +133,9 @@ tend to have larger file sizes. Minimum chunk size is 5 MB.
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -144,7 +144,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.uploadChunk("auto", "bytes 0-999999/3000000", "2fd4e1c67a2d28fce", {
+  const result = await cloudinaryAssetMgmt.upload.uploadChunk("auto", "bytes 0-999999/3000000", "2fd4e1c67a2d28fce", {
     headers: "X-Robots-Tag: noindex",
     moderation: "duplicate",
     rawConvert: "google_speech:vtt:en-US",
@@ -167,12 +167,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { uploadUploadChunk } from "@cloudinary/assets/funcs/uploadUploadChunk.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { uploadUploadChunk } from "@cloudinary/asset-management/funcs/uploadUploadChunk.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -181,7 +181,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await uploadUploadChunk(cloudinaryAssets, "auto", "bytes 0-999999/3000000", "2fd4e1c67a2d28fce", {
+  const res = await uploadUploadChunk(cloudinaryAssetMgmt, "auto", "bytes 0-999999/3000000", "2fd4e1c67a2d28fce", {
     headers: "X-Robots-Tag: noindex",
     moderation: "duplicate",
     rawConvert: "google_speech:vtt:en-US",
@@ -233,9 +233,9 @@ Destroys an asset/resource
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -244,7 +244,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.destroyAsset("raw", "<id>");
+  const result = await cloudinaryAssetMgmt.upload.destroyAsset("raw", "<id>");
 
   console.log(result);
 }
@@ -257,12 +257,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { uploadDestroyAsset } from "@cloudinary/assets/funcs/uploadDestroyAsset.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { uploadDestroyAsset } from "@cloudinary/asset-management/funcs/uploadDestroyAsset.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -271,7 +271,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await uploadDestroyAsset(cloudinaryAssets, "raw", "<id>");
+  const res = await uploadDestroyAsset(cloudinaryAssetMgmt, "raw", "<id>");
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -312,9 +312,9 @@ Dynamically generates an image from a specified text string.
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -323,7 +323,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.text("image", {
+  const result = await cloudinaryAssetMgmt.upload.text("image", {
     text: "<value>",
   });
 
@@ -338,12 +338,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { uploadText } from "@cloudinary/assets/funcs/uploadText.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { uploadText } from "@cloudinary/asset-management/funcs/uploadText.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -352,7 +352,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await uploadText(cloudinaryAssets, "image", {
+  const res = await uploadText(cloudinaryAssetMgmt, "image", {
     text: "<value>",
   });
   if (res.ok) {

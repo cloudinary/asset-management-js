@@ -10,7 +10,7 @@ The type of resource to upload:
 ## Example Usage
 
 ```typescript
-import { UploadResourceType } from "@cloudinary/assets/models/components";
+import { UploadResourceType } from "@cloudinary/asset-management/models/components";
 
 let value: UploadResourceType = "video";
 ```

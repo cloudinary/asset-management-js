@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GenerateArchiveRequestBody } from "@cloudinary/assets/models/operations";
+import { GenerateArchiveRequestBody } from "@cloudinary/asset-management/models/operations";
 
 let value: GenerateArchiveRequestBody = {
   targetTags: [

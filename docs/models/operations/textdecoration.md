@@ -5,7 +5,7 @@ Text decoration style.
 ## Example Usage
 
 ```typescript
-import { TextDecoration } from "@cloudinary/assets/models/operations";
+import { TextDecoration } from "@cloudinary/asset-management/models/operations";
 
 let value: TextDecoration = "none";
 ```

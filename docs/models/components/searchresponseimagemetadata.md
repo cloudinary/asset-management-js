@@ -5,7 +5,7 @@ Technical metadata extracted from the image.
 ## Example Usage
 
 ```typescript
-import { SearchResponseImageMetadata } from "@cloudinary/assets/models/components";
+import { SearchResponseImageMetadata } from "@cloudinary/asset-management/models/components";
 
 let value: SearchResponseImageMetadata = {};
 ```

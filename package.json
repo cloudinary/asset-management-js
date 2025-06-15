@@ -1,6 +1,6 @@
 {
-  "name": "@cloudinary/assets",
-  "version": "0.4.0",
+  "name": "@cloudinary/asset-management",
+  "version": "0.4.1",
   "author": "Cloudinary",
   "type": "module",
   "bin": {
@@ -8,7 +8,7 @@
   },
   "tshy": {
     "sourceDialects": [
-      "@cloudinary/assets/source"
+      "@cloudinary/asset-management/source"
     ],
     "exports": {
       ".": "./src/index.ts",
@@ -24,7 +24,7 @@
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/cloudinary/assets-js.git"
+    "url": "https://github.com/cloudinary/asset-management-js.git"
   },
   "scripts": {
     "lint": "eslint --cache --max-warnings=0 src",
@@ -60,7 +60,7 @@
   "exports": {
     ".": {
       "import": {
-        "@cloudinary/assets/source": "./src/index.ts",
+        "@cloudinary/asset-management/source": "./src/index.ts",
         "types": "./dist/esm/index.d.ts",
         "default": "./dist/esm/index.js"
       },
@@ -72,7 +72,7 @@
     "./package.json": "./package.json",
     "./types": {
       "import": {
-        "@cloudinary/assets/source": "./src/types/index.ts",
+        "@cloudinary/asset-management/source": "./src/types/index.ts",
         "types": "./dist/esm/types/index.d.ts",
         "default": "./dist/esm/types/index.js"
       },
@@ -83,7 +83,7 @@
     },
     "./models/errors": {
       "import": {
-        "@cloudinary/assets/source": "./src/models/errors/index.ts",
+        "@cloudinary/asset-management/source": "./src/models/errors/index.ts",
         "types": "./dist/esm/models/errors/index.d.ts",
         "default": "./dist/esm/models/errors/index.js"
       },
@@ -94,7 +94,7 @@
     },
     "./models/components": {
       "import": {
-        "@cloudinary/assets/source": "./src/models/components/index.ts",
+        "@cloudinary/asset-management/source": "./src/models/components/index.ts",
         "types": "./dist/esm/models/components/index.d.ts",
         "default": "./dist/esm/models/components/index.js"
       },
@@ -105,7 +105,7 @@
     },
     "./models/operations": {
       "import": {
-        "@cloudinary/assets/source": "./src/models/operations/index.ts",
+        "@cloudinary/asset-management/source": "./src/models/operations/index.ts",
         "types": "./dist/esm/models/operations/index.d.ts",
         "default": "./dist/esm/models/operations/index.js"
       },
@@ -116,7 +116,7 @@
     },
     "./*.js": {
       "import": {
-        "@cloudinary/assets/source": "./src/*.ts",
+        "@cloudinary/asset-management/source": "./src/*.ts",
         "types": "./dist/esm/*.d.ts",
         "default": "./dist/esm/*.js"
       },
@@ -127,7 +127,7 @@
     },
     "./*": {
       "import": {
-        "@cloudinary/assets/source": "./src/*.ts",
+        "@cloudinary/asset-management/source": "./src/*.ts",
         "types": "./dist/esm/*.d.ts",
         "default": "./dist/esm/*.js"
       },

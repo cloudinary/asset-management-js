@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ListResourceTypesResourceType } from "@cloudinary/assets/models/operations";
+import { ListResourceTypesResourceType } from "@cloudinary/asset-management/models/operations";
 
 let value: ListResourceTypesResourceType = "image";
 ```

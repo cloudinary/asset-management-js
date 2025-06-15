@@ -5,7 +5,7 @@ The type of resource.
 ## Example Usage
 
 ```typescript
-import { SearchResponseResourceType } from "@cloudinary/assets/models/components";
+import { SearchResponseResourceType } from "@cloudinary/asset-management/models/components";
 
 let value: SearchResponseResourceType = "image";
 ```

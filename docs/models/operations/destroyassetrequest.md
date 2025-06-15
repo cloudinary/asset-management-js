@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { DestroyAssetRequest } from "@cloudinary/assets/models/operations";
+import { DestroyAssetRequest } from "@cloudinary/asset-management/models/operations";
 
 let value: DestroyAssetRequest = {
   resourceType: "image",

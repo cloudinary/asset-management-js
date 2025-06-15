@@ -5,7 +5,7 @@ Authentication failed
 ## Example Usage
 
 ```typescript
-import { DownloadBackupAssetUnauthorizedError } from "@cloudinary/assets/models/errors";
+import { DownloadBackupAssetUnauthorizedError } from "@cloudinary/asset-management/models/errors";
 
 // No examples available for this model
 ```

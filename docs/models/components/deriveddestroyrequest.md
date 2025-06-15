@@ -5,7 +5,7 @@ Request parameters for deleting derived resources
 ## Example Usage
 
 ```typescript
-import { DerivedDestroyRequest } from "@cloudinary/assets/models/components";
+import { DerivedDestroyRequest } from "@cloudinary/asset-management/models/components";
 
 let value: DerivedDestroyRequest = {
   derivedResourceIds: [

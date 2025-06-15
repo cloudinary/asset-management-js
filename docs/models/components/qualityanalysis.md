@@ -5,7 +5,7 @@ Results of quality analysis.
 ## Example Usage
 
 ```typescript
-import { QualityAnalysis } from "@cloudinary/assets/models/components";
+import { QualityAnalysis } from "@cloudinary/asset-management/models/components";
 
 let value: QualityAnalysis = {};
 ```

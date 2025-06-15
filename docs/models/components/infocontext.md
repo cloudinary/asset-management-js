@@ -5,7 +5,7 @@ Included if 'context=true' parameter is used.
 ## Example Usage
 
 ```typescript
-import { InfoContext } from "@cloudinary/assets/models/components";
+import { InfoContext } from "@cloudinary/asset-management/models/components";
 
 let value: InfoContext = {};
 ```

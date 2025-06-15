@@ -5,7 +5,7 @@ Backup versions successfully deleted
 ## Example Usage
 
 ```typescript
-import { DeleteBackupVersionsResponseBody1 } from "@cloudinary/assets/models/operations";
+import { DeleteBackupVersionsResponseBody1 } from "@cloudinary/asset-management/models/operations";
 
 let value: DeleteBackupVersionsResponseBody1 = {
   assetId: "<id>",

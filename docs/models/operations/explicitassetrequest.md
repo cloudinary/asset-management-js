@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ExplicitAssetRequest } from "@cloudinary/assets/models/operations";
+import { ExplicitAssetRequest } from "@cloudinary/asset-management/models/operations";
 
 let value: ExplicitAssetRequest = {
   resourceType: "raw",

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ExplicitAssetRequestBody } from "@cloudinary/assets/models/operations";
+import { ExplicitAssetRequestBody } from "@cloudinary/asset-management/models/operations";
 
 let value: ExplicitAssetRequestBody = {
   headers: "X-Robots-Tag: noindex",

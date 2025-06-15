@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { RenameAssetRequest } from "@cloudinary/assets/models/operations";
+import { RenameAssetRequest } from "@cloudinary/asset-management/models/operations";
 
 let value: RenameAssetRequest = {
   resourceType: "raw",

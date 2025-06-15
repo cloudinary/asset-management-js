@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { DestroyResponse } from "@cloudinary/assets/models/components";
+import { DestroyResponse } from "@cloudinary/asset-management/models/components";
 
 let value: DestroyResponse = {
   result: "not found",

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { WithField } from "@cloudinary/assets/models/components";
+import { WithField } from "@cloudinary/asset-management/models/components";
 
 let value: WithField = "image_analysis";
 ```

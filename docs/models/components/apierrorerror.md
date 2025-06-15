@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ApiErrorError } from "@cloudinary/assets/models/components";
+import { ApiErrorError } from "@cloudinary/asset-management/models/components";
 
 let value: ApiErrorError = {
   message: "<value>",

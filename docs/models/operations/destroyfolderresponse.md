@@ -5,7 +5,7 @@ Folder deleted successfully
 ## Example Usage
 
 ```typescript
-import { DestroyFolderResponse } from "@cloudinary/assets/models/operations";
+import { DestroyFolderResponse } from "@cloudinary/asset-management/models/operations";
 
 let value: DestroyFolderResponse = {
   deleted: [

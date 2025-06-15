@@ -5,7 +5,7 @@ Resource successfully deleted
 ## Example Usage
 
 ```typescript
-import { DeleteResourcesByPublicIdResponse } from "@cloudinary/assets/models/operations";
+import { DeleteResourcesByPublicIdResponse } from "@cloudinary/asset-management/models/operations";
 
 let value: DeleteResourcesByPublicIdResponse = {};
 ```

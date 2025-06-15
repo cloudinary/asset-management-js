@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { SearchParametersType } from "@cloudinary/assets/models/components";
+import { SearchParametersType } from "@cloudinary/asset-management/models/components";
 
 let value: SearchParametersType = "duration";
 ```

@@ -5,7 +5,7 @@ Text image created successfully
 ## Example Usage
 
 ```typescript
-import { TextResponse } from "@cloudinary/assets/models/operations";
+import { TextResponse } from "@cloudinary/asset-management/models/operations";
 
 let value: TextResponse = {
   assetId: "<id>",

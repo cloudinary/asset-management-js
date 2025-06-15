@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { Security } from "@cloudinary/assets/models/components";
+import { Security } from "@cloudinary/asset-management/models/components";
 
 let value: Security = {
   apiKey: "CLOUDINARY_API_KEY",

@@ -5,7 +5,7 @@ Additional information about the asset.
 ## Example Usage
 
 ```typescript
-import { Info } from "@cloudinary/assets/models/operations";
+import { Info } from "@cloudinary/asset-management/models/operations";
 
 let value: Info = {};
 ```

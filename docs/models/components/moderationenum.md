@@ -22,7 +22,7 @@ Note: Rejected assets are automatically invalidated on the CDN within approximat
 ## Example Usage
 
 ```typescript
-import { ModerationEnum } from "@cloudinary/assets/models/components";
+import { ModerationEnum } from "@cloudinary/asset-management/models/components";
 
 let value: ModerationEnum = "aws_rek_video";
 ```

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GenerateArchiveGlobals } from "@cloudinary/assets/models/operations";
+import { GenerateArchiveGlobals } from "@cloudinary/asset-management/models/operations";
 
 let value: GenerateArchiveGlobals = {
   cloudName: "<value>",

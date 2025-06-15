@@ -5,7 +5,7 @@ Bad request
 ## Example Usage
 
 ```typescript
-import { BadRequestError } from "@cloudinary/assets/models/errors";
+import { BadRequestError } from "@cloudinary/asset-management/models/errors";
 
 // No examples available for this model
 ```

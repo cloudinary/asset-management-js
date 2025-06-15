@@ -5,7 +5,7 @@ The specific file type of assets to include in the archive. Not applicable when 
 ## Example Usage
 
 ```typescript
-import { GenerateArchiveType } from "@cloudinary/assets/models/operations";
+import { GenerateArchiveType } from "@cloudinary/asset-management/models/operations";
 
 let value: GenerateArchiveType = "upload";
 ```

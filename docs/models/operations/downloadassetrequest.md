@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { DownloadAssetRequest } from "@cloudinary/assets/models/operations";
+import { DownloadAssetRequest } from "@cloudinary/asset-management/models/operations";
 
 let value: DownloadAssetRequest = {
   resourceType: "video",

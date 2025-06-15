@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { DestroyFolderGlobals } from "@cloudinary/assets/models/operations";
+import { DestroyFolderGlobals } from "@cloudinary/asset-management/models/operations";
 
 let value: DestroyFolderGlobals = {
   cloudName: "<value>",

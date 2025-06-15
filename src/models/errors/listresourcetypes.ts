@@ -4,7 +4,7 @@
 
 import * as z from "zod";
 import * as operations from "../operations/index.js";
-import { CloudinaryAssetsError } from "./cloudinaryassetserror.js";
+import { CloudinaryAssetMgmtError } from "./cloudinaryassetmgmterror.js";
 
 /**
  * Authentication failed.
@@ -16,7 +16,9 @@ export type ListResourceTypesUnauthorizedErrorData = {
 /**
  * Authentication failed.
  */
-export class ListResourceTypesUnauthorizedError extends CloudinaryAssetsError {
+export class ListResourceTypesUnauthorizedError
+  extends CloudinaryAssetMgmtError
+{
   error: operations.ListResourceTypesError;
 
   /** The original data that was passed to this error instance. */

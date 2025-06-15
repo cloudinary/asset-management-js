@@ -3,10 +3,10 @@
  */
 
 import * as z from "zod";
-import { CloudinaryAssetsError } from "./cloudinaryassetserror.js";
+import { CloudinaryAssetMgmtError } from "./cloudinaryassetmgmterror.js";
 import { formatZodError } from "./sdkvalidationerror.js";
 
-export class ResponseValidationError extends CloudinaryAssetsError {
+export class ResponseValidationError extends CloudinaryAssetMgmtError {
   /**
    * The raw value that failed validation.
    */

@@ -1,4 +1,4 @@
-# Cloudinary Assets JS SDK
+# Cloudinary Asset Management JS SDK
 
 <!-- Start Summary [summary] -->
 ## Summary
@@ -9,7 +9,7 @@
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
-* [Cloudinary Assets JS SDK](#cloudinary-assets-js-sdk)
+* [Cloudinary Asset Management JS SDK](#cloudinary-asset-management-js-sdk)
   * [SDK Installation](#sdk-installation)
   * [Requirements](#requirements)
   * [SDK Example Usage](#sdk-example-usage)
@@ -32,25 +32,25 @@ The SDK can be installed with either [npm](https://www.npmjs.com/), [pnpm](https
 ### NPM
 
 ```bash
-npm add @cloudinary/assets
+npm add @cloudinary/asset-management
 ```
 
 ### PNPM
 
 ```bash
-pnpm add @cloudinary/assets
+pnpm add @cloudinary/asset-management
 ```
 
 ### Bun
 
 ```bash
-bun add @cloudinary/assets
+bun add @cloudinary/asset-management
 ```
 
 ### Yarn
 
 ```bash
-yarn add @cloudinary/assets zod
+yarn add @cloudinary/asset-management zod
 
 # Note that Yarn does not install peer dependencies automatically. You will need
 # to install zod as shown above.
@@ -73,10 +73,10 @@ Add the following server definition to your `claude_desktop_config.json` file:
 ```json
 {
   "mcpServers": {
-    "CloudinaryAssets": {
+    "cloudinary-asset-mgmt": {
       "command": "npx",
       "args": [
-        "-y", "--package", "@cloudinary/assets",
+        "-y", "--package", "@cloudinary/asset-management",
         "--",
         "mcp", "start",
         "--api-key", "...",
@@ -98,10 +98,10 @@ Create a `.cursor/mcp.json` file in your project root with the following content
 ```json
 {
   "mcpServers": {
-    "CloudinaryAssets": {
+    "cloudinary-asset-mgmt": {
       "command": "npx",
       "args": [
-        "-y", "--package", "@cloudinary/assets",
+        "-y", "--package", "@cloudinary/asset-management",
         "--",
         "mcp", "start",
         "--api-key", "...",
@@ -119,14 +119,14 @@ You can also run MCP servers as a standalone binary with no additional dependenc
 
 ```bash
 curl -L -o mcp-server \
-    https://github.com/cloudinary/assets-js/releases/download/{tag}/mcp-server-bun-darwin-arm64 && \
+    https://github.com/cloudinary/asset-management-js/releases/download/{tag}/mcp-server-bun-darwin-arm64 && \
 chmod +x mcp-server
 ```
 
 For a full list of server arguments, run:
 
 ```sh
-npx -y --package @cloudinary/assets -- mcp start --help
+npx -y --package @cloudinary/asset-management -- mcp start --help
 ```
 <!-- No SDK Installation [installation] -->
 
@@ -142,9 +142,9 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 ### Example
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -153,7 +153,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.upload("auto", {
+  const result = await cloudinaryAssetMgmt.upload.upload("auto", {
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -193,9 +193,9 @@ Global parameters can also be set via environment variable.
 ### Example
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -204,7 +204,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.upload("auto", {
+  const result = await cloudinaryAssetMgmt.upload.upload("auto", {
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -237,9 +237,9 @@ This SDK supports the following security scheme globally:
 
 You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. For example:
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   security: {
     apiKey: "CLOUDINARY_API_KEY",
     apiSecret: "CLOUDINARY_API_SECRET",
@@ -248,7 +248,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.upload("auto", {
+  const result = await cloudinaryAssetMgmt.upload.upload("auto", {
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -429,9 +429,9 @@ Some of the endpoints in this SDK support retries.  If you use the SDK without a
 
 To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -440,7 +440,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.upload("auto", {
+  const result = await cloudinaryAssetMgmt.upload.upload("auto", {
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -472,9 +472,9 @@ run();
 
 If you'd like to override the default retry strategy for all operations that support retries, you can provide a retryConfig at SDK initialization:
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   retryConfig: {
     strategy: "backoff",
     backoff: {
@@ -493,7 +493,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.upload("auto", {
+  const result = await cloudinaryAssetMgmt.upload.upload("auto", {
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -516,7 +516,7 @@ run();
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-[`CloudinaryAssetsError`](./src/models/errors/cloudinaryassetserror.ts) is the base class for all HTTP error responses. It has the following properties:
+[`CloudinaryAssetMgmtError`](./src/models/errors/cloudinaryassetmgmterror.ts) is the base class for all HTTP error responses. It has the following properties:
 
 | Property            | Type       | Description                                                                             |
 | ------------------- | ---------- | --------------------------------------------------------------------------------------- |
@@ -529,10 +529,10 @@ run();
 
 ### Example
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
-import * as errors from "@cloudinary/assets/models/errors";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
+import * as errors from "@cloudinary/asset-management/models/errors";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -542,7 +542,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 
 async function run() {
   try {
-    const result = await cloudinaryAssets.upload.upload("auto", {
+    const result = await cloudinaryAssetMgmt.upload.upload("auto", {
       headers: "X-Robots-Tag: noindex",
       moderation: "google_video_moderation",
       rawConvert: "google_speech:vtt:en-US",
@@ -557,7 +557,7 @@ async function run() {
     console.log(result);
   } catch (error) {
     // The base class for HTTP error responses
-    if (error instanceof errors.CloudinaryAssetsError) {
+    if (error instanceof errors.CloudinaryAssetMgmtError) {
       console.log(error.message);
       console.log(error.statusCode);
       console.log(error.body);
@@ -577,7 +577,7 @@ run();
 
 ### Error Classes
 **Primary errors:**
-* [`CloudinaryAssetsError`](./src/models/errors/cloudinaryassetserror.ts): The base class for HTTP error responses.
+* [`CloudinaryAssetMgmtError`](./src/models/errors/cloudinaryassetmgmterror.ts): The base class for HTTP error responses.
   * [`ApiError`](docs/models/errors/apierror.md): *
 
 <details><summary>Less common errors (10)</summary>
@@ -592,7 +592,7 @@ run();
 * [`UnexpectedClientError`](./src/models/errors/httpclienterrors.ts): Unrecognised or unexpected error.
 
 
-**Inherit from [`CloudinaryAssetsError`](./src/models/errors/cloudinaryassetserror.ts)**:
+**Inherit from [`CloudinaryAssetMgmtError`](./src/models/errors/cloudinaryassetmgmterror.ts)**:
 * [`BadRequestError`](docs/models/errors/badrequesterror.md): Bad request. Status code `400`. Applicable to 1 of 46 methods.*
 * [`DownloadBackupAssetUnauthorizedError`](docs/models/errors/downloadbackupassetunauthorizederror.md): Authentication failed. Status code `401`. Applicable to 1 of 46 methods.*
 * [`ListResourceTypesUnauthorizedError`](docs/models/errors/listresourcetypesunauthorizederror.md): Authentication failed. Status code `401`. Applicable to 1 of 46 methods.*
@@ -626,9 +626,9 @@ If the selected server has variables, you may override its default values throug
 #### Example
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   serverIdx: 1,
   host: "nutritious-fisherman.net",
   cloudName: "<value>",
@@ -639,7 +639,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.upload("auto", {
+  const result = await cloudinaryAssetMgmt.upload.upload("auto", {
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -662,9 +662,9 @@ run();
 
 The default server can also be overridden globally by passing a URL to the `serverURL: string` optional parameter when initializing the SDK client instance. For example:
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   serverURL: "https://api.cloudinary.com",
   cloudName: "<value>",
   security: {
@@ -674,7 +674,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.upload.upload("auto", {
+  const result = await cloudinaryAssetMgmt.upload.upload("auto", {
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -712,8 +712,8 @@ custom header and a timeout to requests and how to use the `"requestError"` hook
 to log errors:
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
-import { HTTPClient } from "@cloudinary/assets/lib/http";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
+import { HTTPClient } from "@cloudinary/asset-management/lib/http";
 
 const httpClient = new HTTPClient({
   // fetcher takes a function that has the same signature as native `fetch`.
@@ -739,7 +739,7 @@ httpClient.addHook("requestError", (error, request) => {
   console.groupEnd();
 });
 
-const sdk = new CloudinaryAssets({ httpClient });
+const sdk = new CloudinaryAssetMgmt({ httpClient });
 ```
 <!-- End Custom HTTP Client [http-client] -->
 
@@ -754,9 +754,9 @@ You can pass a logger that matches `console`'s interface as an SDK option.
 > Beware that debug logging will reveal secrets, like API tokens in headers, in log messages printed to a console or files. It's recommended to use this feature only during local development and not in production.
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const sdk = new CloudinaryAssets({ debugLogger: console });
+const sdk = new CloudinaryAssetMgmt({ debugLogger: console });
 ```
 
 You can also enable a default debug logger by setting an environment variable `CLOUDINARY_DEBUG` to true.

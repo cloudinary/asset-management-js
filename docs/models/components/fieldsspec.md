@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { FieldsSpec } from "@cloudinary/assets/models/components";
+import { FieldsSpec } from "@cloudinary/asset-management/models/components";
 
 let value: FieldsSpec = "custom";
 ```

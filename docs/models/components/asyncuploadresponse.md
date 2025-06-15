@@ -5,7 +5,7 @@ Response returned when an upload is processed asynchronously (async=true)
 ## Example Usage
 
 ```typescript
-import { AsyncUploadResponse } from "@cloudinary/assets/models/components";
+import { AsyncUploadResponse } from "@cloudinary/asset-management/models/components";
 
 let value: AsyncUploadResponse = {
   status: "pending",

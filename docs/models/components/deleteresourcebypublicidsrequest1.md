@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { DeleteResourceByPublicIdsRequest1 } from "@cloudinary/assets/models/components";
+import { DeleteResourceByPublicIdsRequest1 } from "@cloudinary/asset-management/models/components";
 
 let value: DeleteResourceByPublicIdsRequest1 = {
   publicIds: [],

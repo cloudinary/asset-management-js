@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { DestroyFolderRequest } from "@cloudinary/assets/models/operations";
+import { DestroyFolderRequest } from "@cloudinary/asset-management/models/operations";
 
 let value: DestroyFolderRequest = {
   folder: "product/test",

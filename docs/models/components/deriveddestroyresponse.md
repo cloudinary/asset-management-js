@@ -5,7 +5,7 @@ Response for derived resource deletion
 ## Example Usage
 
 ```typescript
-import { DerivedDestroyResponse } from "@cloudinary/assets/models/components";
+import { DerivedDestroyResponse } from "@cloudinary/asset-management/models/components";
 
 let value: DerivedDestroyResponse = {
   deleted: {

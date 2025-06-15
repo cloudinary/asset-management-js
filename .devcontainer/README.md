@@ -1,6 +1,6 @@
 
 <div align="center">
-    <a href="https://codespaces.new/cloudinary/assets-js.git/tree/main"><img src="https://github.com/codespaces/badge.svg" /></a>
+    <a href="https://codespaces.new/cloudinary/asset-management-js.git/tree/main"><img src="https://github.com/codespaces/badge.svg" /></a>
 </div>
 <br>
 
@@ -25,11 +25,11 @@ The speakeasy CLI allows you to generate more usage snippets. Here's how:
 - To generate a sample for a specific operation by providing an operation ID, use:
 
 ```
-speakeasy generate usage -s https://cloudinary.github.io/api-schemas/assets/schema.yml -l typescript -i {INPUT_OPERATION_ID} -o ./samples
+speakeasy generate usage -s https://cloudinary.github.io/api-schemas/asset-management/schema.yml -l typescript -i {INPUT_OPERATION_ID} -o ./samples
 ```
 
 - To generate samples for an entire namespace (like a tag or group name), use:
 
 ```
-speakeasy generate usage -s https://cloudinary.github.io/api-schemas/assets/schema.yml -l typescript -n {INPUT_TAG_NAME} -o ./samples
+speakeasy generate usage -s https://cloudinary.github.io/api-schemas/asset-management/schema.yml -l typescript -n {INPUT_TAG_NAME} -o ./samples
 ```

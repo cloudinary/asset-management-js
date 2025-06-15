@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { UploadChunkRequest } from "@cloudinary/assets/models/operations";
+import { UploadChunkRequest } from "@cloudinary/asset-management/models/operations";
 
 let value: UploadChunkRequest = {
   contentRange: "bytes 0-999999/3000000",

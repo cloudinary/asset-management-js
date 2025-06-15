@@ -5,7 +5,7 @@ The background removal provider to use for the resource.
 ## Example Usage
 
 ```typescript
-import { ResourceUpdateRequestBackgroundRemoval } from "@cloudinary/assets/models/components";
+import { ResourceUpdateRequestBackgroundRemoval } from "@cloudinary/asset-management/models/components";
 
 let value: ResourceUpdateRequestBackgroundRemoval = "cloudinary_ai";
 ```

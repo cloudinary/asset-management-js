@@ -5,7 +5,7 @@ The delivery type of the asset.
 ## Example Usage
 
 ```typescript
-import { CreateAssetRelationsByPublicIdType } from "@cloudinary/assets/models/operations";
+import { CreateAssetRelationsByPublicIdType } from "@cloudinary/asset-management/models/operations";
 
 let value: CreateAssetRelationsByPublicIdType = "upload";
 ```

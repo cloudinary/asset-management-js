@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { DestroyRequest } from "@cloudinary/assets/models/components";
+import { DestroyRequest } from "@cloudinary/asset-management/models/components";
 
 let value: DestroyRequest = {
   assetId: "<id>",

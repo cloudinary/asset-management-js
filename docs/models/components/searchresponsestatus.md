@@ -5,7 +5,7 @@ The current status of the asset.
 ## Example Usage
 
 ```typescript
-import { SearchResponseStatus } from "@cloudinary/assets/models/components";
+import { SearchResponseStatus } from "@cloudinary/asset-management/models/components";
 
 let value: SearchResponseStatus = "active";
 ```

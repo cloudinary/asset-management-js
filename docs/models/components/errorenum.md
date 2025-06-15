@@ -5,7 +5,7 @@ The error message if restore failed for a specific asset.
 ## Example Usage
 
 ```typescript
-import { ErrorEnum } from "@cloudinary/assets/models/components";
+import { ErrorEnum } from "@cloudinary/asset-management/models/components";
 
 let value: ErrorEnum = "failed";
 ```

@@ -5,7 +5,7 @@ The type of categorization to perform on the resource.
 ## Example Usage
 
 ```typescript
-import { ResourceUpdateRequestCategorization } from "@cloudinary/assets/models/components";
+import { ResourceUpdateRequestCategorization } from "@cloudinary/asset-management/models/components";
 
 let value: ResourceUpdateRequestCategorization = "google_video_tagging";
 ```

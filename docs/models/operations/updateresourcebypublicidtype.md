@@ -5,7 +5,7 @@ The delivery type of the asset.
 ## Example Usage
 
 ```typescript
-import { UpdateResourceByPublicIdType } from "@cloudinary/assets/models/operations";
+import { UpdateResourceByPublicIdType } from "@cloudinary/asset-management/models/operations";
 
 let value: UpdateResourceByPublicIdType = "facebook";
 ```

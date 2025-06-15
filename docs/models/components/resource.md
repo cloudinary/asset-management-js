@@ -5,7 +5,7 @@ Resource fields that can be returned. All fields are optional and can be filtere
 ## Example Usage
 
 ```typescript
-import { Resource } from "@cloudinary/assets/models/components";
+import { Resource } from "@cloudinary/asset-management/models/components";
 
 let value: Resource = {
   assetId: "09169cf604b03521789d1b3b8cca53d1",

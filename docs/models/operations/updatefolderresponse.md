@@ -5,7 +5,7 @@ Folder renamed successfully
 ## Example Usage
 
 ```typescript
-import { UpdateFolderResponse } from "@cloudinary/assets/models/operations";
+import { UpdateFolderResponse } from "@cloudinary/asset-management/models/operations";
 
 let value: UpdateFolderResponse = {
   from: {

@@ -22,9 +22,9 @@ Returns a list of sub-folders under the specified folder path.
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -33,7 +33,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.folders.showFolder("product/test");
+  const result = await cloudinaryAssetMgmt.folders.showFolder("product/test");
 
   console.log(result);
 }
@@ -46,12 +46,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { foldersShowFolder } from "@cloudinary/assets/funcs/foldersShowFolder.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { foldersShowFolder } from "@cloudinary/asset-management/funcs/foldersShowFolder.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -60,7 +60,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await foldersShowFolder(cloudinaryAssets, "product/test");
+  const res = await foldersShowFolder(cloudinaryAssetMgmt, "product/test");
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -99,9 +99,9 @@ Updates a folder's properties.
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -110,7 +110,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.folders.updateFolder("product/test", {
+  const result = await cloudinaryAssetMgmt.folders.updateFolder("product/test", {
     toFolder: "product1/test1",
   });
 
@@ -125,12 +125,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { foldersUpdateFolder } from "@cloudinary/assets/funcs/foldersUpdateFolder.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { foldersUpdateFolder } from "@cloudinary/asset-management/funcs/foldersUpdateFolder.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -139,7 +139,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await foldersUpdateFolder(cloudinaryAssets, "product/test", {
+  const res = await foldersUpdateFolder(cloudinaryAssetMgmt, "product/test", {
     toFolder: "product1/test1",
   });
   if (res.ok) {
@@ -181,9 +181,9 @@ Creates a new folder at the specified path
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -192,7 +192,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.folders.createFolder("samples/food");
+  const result = await cloudinaryAssetMgmt.folders.createFolder("samples/food");
 
   console.log(result);
 }
@@ -205,12 +205,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { foldersCreateFolder } from "@cloudinary/assets/funcs/foldersCreateFolder.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { foldersCreateFolder } from "@cloudinary/asset-management/funcs/foldersCreateFolder.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -219,7 +219,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await foldersCreateFolder(cloudinaryAssets, "samples/food");
+  const res = await foldersCreateFolder(cloudinaryAssetMgmt, "samples/food");
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -258,9 +258,9 @@ Deletes a folder and all assets within it.
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -269,7 +269,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.folders.destroyFolder("product/test");
+  const result = await cloudinaryAssetMgmt.folders.destroyFolder("product/test");
 
   console.log(result);
 }
@@ -282,12 +282,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { foldersDestroyFolder } from "@cloudinary/assets/funcs/foldersDestroyFolder.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { foldersDestroyFolder } from "@cloudinary/asset-management/funcs/foldersDestroyFolder.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -296,7 +296,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await foldersDestroyFolder(cloudinaryAssets, "product/test");
+  const res = await foldersDestroyFolder(cloudinaryAssetMgmt, "product/test");
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -336,9 +336,9 @@ Retrieves an array of all root folders in your Cloudinary product environment. L
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -347,7 +347,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.folders.listRootFolders({});
+  const result = await cloudinaryAssetMgmt.folders.listRootFolders({});
 
   console.log(result);
 }
@@ -360,12 +360,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { foldersListRootFolders } from "@cloudinary/assets/funcs/foldersListRootFolders.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { foldersListRootFolders } from "@cloudinary/asset-management/funcs/foldersListRootFolders.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -374,7 +374,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await foldersListRootFolders(cloudinaryAssets, {});
+  const res = await foldersListRootFolders(cloudinaryAssetMgmt, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -413,9 +413,9 @@ Lists the folders that match the specified search expression. Limited to 2000 re
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -424,7 +424,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.folders.searchFolders([
+  const result = await cloudinaryAssetMgmt.folders.searchFolders([
     "name:asc",
   ]);
 
@@ -439,12 +439,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { foldersSearchFolders } from "@cloudinary/assets/funcs/foldersSearchFolders.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { foldersSearchFolders } from "@cloudinary/asset-management/funcs/foldersSearchFolders.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -453,7 +453,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await foldersSearchFolders(cloudinaryAssets, [
+  const res = await foldersSearchFolders(cloudinaryAssetMgmt, [
     "name:asc",
   ]);
   if (res.ok) {
@@ -498,9 +498,9 @@ Lists the folders that match the specified search expression. Limited to 2000 re
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -509,7 +509,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.folders.searchFoldersPost({
+  const result = await cloudinaryAssetMgmt.folders.searchFoldersPost({
     expression: "name:folder AND path:my_parent AND created_at=>4w",
     sortBy: [
       "name:asc",
@@ -528,12 +528,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { foldersSearchFoldersPost } from "@cloudinary/assets/funcs/foldersSearchFoldersPost.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { foldersSearchFoldersPost } from "@cloudinary/asset-management/funcs/foldersSearchFoldersPost.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -542,7 +542,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await foldersSearchFoldersPost(cloudinaryAssets, {
+  const res = await foldersSearchFoldersPost(cloudinaryAssetMgmt, {
     expression: "name:folder AND path:my_parent AND created_at=>4w",
     sortBy: [
       "name:asc",

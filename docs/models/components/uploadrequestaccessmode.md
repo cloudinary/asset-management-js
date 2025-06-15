@@ -8,7 +8,7 @@ Allows the asset to behave as if it's of the authenticated 'type' (see above) wh
 ## Example Usage
 
 ```typescript
-import { UploadRequestAccessMode } from "@cloudinary/assets/models/components";
+import { UploadRequestAccessMode } from "@cloudinary/asset-management/models/components";
 
 let value: UploadRequestAccessMode = "authenticated";
 ```

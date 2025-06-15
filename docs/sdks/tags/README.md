@@ -19,9 +19,9 @@ Retrieves a comprehensive list of all tags that exist in your product environmen
 ### Example Usage
 
 ```typescript
-import { CloudinaryAssets } from "@cloudinary/assets";
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
-const cloudinaryAssets = new CloudinaryAssets({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -30,7 +30,7 @@ const cloudinaryAssets = new CloudinaryAssets({
 });
 
 async function run() {
-  const result = await cloudinaryAssets.tags.listResourceTags("raw");
+  const result = await cloudinaryAssetMgmt.tags.listResourceTags("raw");
 
   console.log(result);
 }
@@ -43,12 +43,12 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { CloudinaryAssetsCore } from "@cloudinary/assets/core.js";
-import { assetsListResourceTags } from "@cloudinary/assets/funcs/assetsListResourceTags.js";
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsListResourceTags } from "@cloudinary/asset-management/funcs/assetsListResourceTags.js";
 
-// Use `CloudinaryAssetsCore` for best tree-shaking performance.
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const cloudinaryAssets = new CloudinaryAssetsCore({
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
     apiKey: "CLOUDINARY_API_KEY",
@@ -57,7 +57,7 @@ const cloudinaryAssets = new CloudinaryAssetsCore({
 });
 
 async function run() {
-  const res = await assetsListResourceTags(cloudinaryAssets, "raw");
+  const res = await assetsListResourceTags(cloudinaryAssetMgmt, "raw");
   if (res.ok) {
     const { value: result } = res;
     console.log(result);

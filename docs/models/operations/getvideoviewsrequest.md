@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GetVideoViewsRequest } from "@cloudinary/assets/models/operations";
+import { GetVideoViewsRequest } from "@cloudinary/asset-management/models/operations";
 
 let value: GetVideoViewsRequest = {};
 ```

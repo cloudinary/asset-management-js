@@ -5,7 +5,7 @@ The delivery type of the asset.
 ## Example Usage
 
 ```typescript
-import { DeleteResourcesByPublicIdType } from "@cloudinary/assets/models/operations";
+import { DeleteResourcesByPublicIdType } from "@cloudinary/asset-management/models/operations";
 
 let value: DeleteResourcesByPublicIdType = "youtube";
 ```

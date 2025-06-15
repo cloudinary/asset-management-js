@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { DeleteBackupVersionsRequestBody } from "@cloudinary/assets/models/operations";
+import { DeleteBackupVersionsRequestBody } from "@cloudinary/asset-management/models/operations";
 
 let value: DeleteBackupVersionsRequestBody = {
   versionIds: [
