@@ -3,10 +3,10 @@ id: 92b56ec8-e19a-476d-afba-926cd2d071b4
 management:
   docChecksum: b3567bbf0c6abb0cdf632a2603c3f278
   docVersion: 0.2.5
-  speakeasyVersion: 1.563.1
-  generationVersion: 2.629.1
-  releaseVersion: 0.4.1
-  configChecksum: 9da7afd72035d12d749b9c92f6ba36e4
+  speakeasyVersion: 1.563.4
+  generationVersion: 2.630.6
+  releaseVersion: 0.4.2
+  configChecksum: b3aa0edf951b0e00dbeb416b750b4dd5
   repoURL: https://github.com/cloudinary/asset-management-js.git
   installationURL: https://github.com/cloudinary/asset-management-js
   published: true
@@ -35,7 +35,7 @@ features:
     responseFormat: 0.2.3
     retries: 2.83.0
     sdkHooks: 0.3.0
-    unions: 2.85.9
+    unions: 2.85.10
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
