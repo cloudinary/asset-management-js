@@ -34,7 +34,7 @@ export type RestoreResponse = {
   error?: ErrorEnum | undefined;
 };
 
-export type RestoreResponseUnion = RestoreResponse | Info;
+export type RestoreResponseUnion = Info | RestoreResponse;
 
 /** @internal */
 export const ErrorEnum$inboundSchema: z.ZodNativeEnum<typeof ErrorEnum> = z
@@ -112,12 +112,12 @@ export const RestoreResponseUnion$inboundSchema: z.ZodType<
   RestoreResponseUnion,
   z.ZodTypeDef,
   unknown
-> = z.union([z.lazy(() => RestoreResponse$inboundSchema), Info$inboundSchema]);
+> = z.union([Info$inboundSchema, z.lazy(() => RestoreResponse$inboundSchema)]);
 
 /** @internal */
 export type RestoreResponseUnion$Outbound =
-  | RestoreResponse$Outbound
-  | Info$Outbound;
+  | Info$Outbound
+  | RestoreResponse$Outbound;
 
 /** @internal */
 export const RestoreResponseUnion$outboundSchema: z.ZodType<
@@ -125,8 +125,8 @@ export const RestoreResponseUnion$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RestoreResponseUnion
 > = z.union([
-  z.lazy(() => RestoreResponse$outboundSchema),
   Info$outboundSchema,
+  z.lazy(() => RestoreResponse$outboundSchema),
 ]);
 
 /**
