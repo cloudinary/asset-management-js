@@ -95,6 +95,34 @@ To stop the container started from the `cloudinary-asset-management-mcp` image:
 docker stop $(docker ps -a -q --filter "ancestor=cloudinary-asset-management-mcp")
 ```
 
+## Viewing Logs
+
+You can view the logs from your running container to monitor its output or troubleshoot issues.
+
+First, find the ID of your container:
+```sh
+docker ps
+```
+This will list all running containers, including their IDs.
+
+### Static Logs
+
+To see all logs that have been generated so far, use the `docker logs` command with the container ID.
+
+```sh
+docker logs <your_container_id>
+```
+
+### Live Logs
+
+To see logs in real time, add the `--follow` (or `-f`) flag.
+
+```sh
+docker logs --follow <your_container_id>
+```
+
+Press `Ctrl+C` to stop following the logs.
+
 ## Debugging
 
 You can enable more detailed logging for troubleshooting in two ways.
