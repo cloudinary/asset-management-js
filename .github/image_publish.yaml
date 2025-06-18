@@ -28,4 +28,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: cloudinaryltd/asset-management-mcp:latest
+          tags: |
+            cloudinaryltd/asset-management-mcp:latest
+            cloudinaryltd/asset-management-mcp:${{ github.sha }}
