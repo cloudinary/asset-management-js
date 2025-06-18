@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - master
+      - main
       - add-github-action-for-build-and-push-to-dockerhub
 
 jobs:
