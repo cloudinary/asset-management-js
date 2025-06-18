@@ -20,7 +20,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Extract short SHA
-        run: echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+        id: sha
+        run: echo "sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -37,5 +38,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ env.IMAGE_NAME }}:${{ github.event.release.tag_name }}
-            ${{ env.IMAGE_NAME }}:${{ env.SHORT_SHA }}
+            ${{ env.IMAGE_NAME }}:${{ github.event_name == 'release' && github.event.release.tag_name || steps.sha.outputs.sha }}
+            ${{ env.IMAGE_NAME }}:${{ steps.sha.outputs.sha }}
