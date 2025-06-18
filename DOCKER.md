@@ -4,10 +4,22 @@ This document provides instructions on how to build and run the Model Context Pr
 
 ## Building the Image
 
+You can build the Docker image in two ways: from a local clone of the repository or directly from GitHub.
+
+### Building from a Local Clone
+
 First, build the Docker image from the root of the project:
 
 ```sh
 docker build -t cloudinary-asset-management-mcp .
+```
+
+### Building from GitHub
+
+You can also build the image directly from the GitHub repository without cloning it first.
+
+```sh
+docker build -t cloudinary-asset-management-mcp https://github.com/cloudinary/asset-management-js.git
 ```
 
 ## Running the Container
