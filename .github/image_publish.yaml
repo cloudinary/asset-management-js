@@ -28,8 +28,3 @@ jobs:
           context: .
           push: true
           tags: cloudinaryltd/asset-management-mcp:latest
-
-      # (Optional) you can also tag with the commit SHA or branch name:
-      #     tags: |
-      #       your-dockerhub-username/your-image-name:latest
-      #       your-dockerhub-username/your-image-name:${{ github.sha }}
