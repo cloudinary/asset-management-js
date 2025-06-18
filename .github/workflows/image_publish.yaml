@@ -4,14 +4,23 @@ on:
   push:
     branches:
       - main
+      - add-github-action-for-build-and-push-to-dockerhub
+  release:
+    types:
+      - published
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: cloudinaryltd/asset-management-mcp
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
+      - name: Extract short SHA
+        run: echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -28,5 +37,5 @@ jobs:
           context: .
           push: true
           tags: |
-            cloudinaryltd/asset-management-mcp:latest
-            cloudinaryltd/asset-management-mcp:${{ github.sha }}
+            ${{ env.IMAGE_NAME }}:${{ github.event.release.tag_name }}
+            ${{ env.IMAGE_NAME }}:${{ env.SHORT_SHA }}
