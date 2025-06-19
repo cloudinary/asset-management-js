@@ -6,14 +6,16 @@
 import { Security } from "@cloudinary/asset-management/models/components";
 
 let value: Security = {
-  apiKey: "CLOUDINARY_API_KEY",
-  apiSecret: "CLOUDINARY_API_SECRET",
+  cloudinaryAuth: {
+    apiKey: "CLOUDINARY_API_KEY",
+    apiSecret: "CLOUDINARY_API_SECRET",
+  },
 };
 ```
 
 ## Fields
 
-| Field                 | Type                  | Required              | Description           | Example               |
-| --------------------- | --------------------- | --------------------- | --------------------- | --------------------- |
-| `apiKey`              | *string*              | :heavy_minus_sign:    | N/A                   | CLOUDINARY_API_KEY    |
-| `apiSecret`           | *string*              | :heavy_minus_sign:    | N/A                   | CLOUDINARY_API_SECRET |
+| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `cloudinaryAuth`                                                                   | [components.SchemeCloudinaryAuth](../../models/components/schemecloudinaryauth.md) | :heavy_minus_sign:                                                                 | N/A                                                                                |
+| `oauth2`                                                                           | *string*                                                                           | :heavy_minus_sign:                                                                 | N/A                                                                                |

@@ -23,6 +23,7 @@ export * from "./nonfinalchunkuploadresponse.js";
 export * from "./resourcetypeparameter.js";
 export * from "./resourceupdaterequest.js";
 export * from "./restoreresponseunion.js";
+export * from "./schemecloudinaryauth.js";
 export * from "./searchparameters.js";
 export * from "./searchresponse.js";
 export * from "./security.js";

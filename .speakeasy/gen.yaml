@@ -21,7 +21,7 @@ generation:
     oAuth2PasswordEnabled: true
   sdkHooksConfigAccess: true
 typescript:
-  version: 0.4.2
+  version: 0.5.0
   additionalDependencies:
     dependencies: {}
     devDependencies: {}
@@ -33,6 +33,7 @@ typescript:
     - Speakeasy
   baseErrorName: CloudinaryAssetMgmtError
   clientServerStatusCodesAsErrors: true
+  constFieldsAlwaysOptional: true
   defaultErrorName: SDKError
   enableCustomCodeRegions: false
   enableMCPServer: true
