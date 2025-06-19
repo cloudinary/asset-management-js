@@ -38,6 +38,8 @@ jobs:
           context: .
           push: true
           platforms: linux/amd64,linux/arm64
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           tags: |
             ${{ env.IMAGE_NAME }}:${{ github.event_name == 'release' && github.event.release.tag_name || steps.sha.outputs.sha }}
             ${{ env.IMAGE_NAME }}:${{ steps.sha.outputs.sha }}
