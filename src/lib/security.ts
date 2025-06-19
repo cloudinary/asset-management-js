@@ -242,14 +242,19 @@ export function resolveGlobalSecurity(
   return resolveSecurity(
     [
       {
-        fieldName: "api_key",
         type: "http:custom",
-        value: security?.apiKey ?? env().CLOUDINARY_API_KEY,
+        value: {
+          apiKey: security?.cloudinaryAuth?.apiKey ?? env().CLOUDINARY_API_KEY,
+          apiSecret: security?.cloudinaryAuth?.apiSecret
+            ?? env().CLOUDINARY_API_SECRET,
+        },
       },
+    ],
+    [
       {
-        fieldName: "api_secret",
-        type: "http:custom",
-        value: security?.apiSecret ?? env().CLOUDINARY_API_SECRET,
+        fieldName: "Authorization",
+        type: "oauth2",
+        value: security?.oauth2 ?? env().CLOUDINARY_OAUTH2,
       },
     ],
   );

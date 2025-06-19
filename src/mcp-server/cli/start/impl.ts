@@ -21,6 +21,7 @@ interface StartCommandFlags {
   readonly scope?: MCPScope[];
   readonly "api-key"?: string | undefined;
   readonly "api-secret"?: string | undefined;
+  readonly oauth2?: string | undefined;
   readonly "cloud-name"?: SDKOptions["cloudName"] | undefined;
   readonly "server-url"?: string;
   readonly "server-index"?: SDKOptions["serverIdx"];
@@ -55,8 +56,10 @@ async function startStdio(flags: StartCommandFlags) {
     allowedTools: flags.tool,
     scopes: flags.scope,
     security: {
-      apiKey: flags["api-key"] ?? "",
-      apiSecret: flags["api-secret"] ?? "",
+      cloudinaryAuth: flags["api-key"] != null && flags["api-secret"] != null
+        ? { apiKey: flags["api-key"], apiSecret: flags["api-secret"] }
+        : void 0,
+      oauth2: flags.oauth2 ?? "",
     },
     cloudName: flags["cloud-name"],
     serverURL: flags["server-url"],
@@ -82,8 +85,10 @@ async function startSSE(flags: StartCommandFlags) {
     allowedTools: flags.tool,
     scopes: flags.scope,
     security: {
-      apiKey: flags["api-key"] ?? "",
-      apiSecret: flags["api-secret"] ?? "",
+      cloudinaryAuth: flags["api-key"] != null && flags["api-secret"] != null
+        ? { apiKey: flags["api-key"], apiSecret: flags["api-secret"] }
+        : void 0,
+      oauth2: flags.oauth2 ?? "",
     },
     cloudName: flags["cloud-name"],
     serverURL: flags["server-url"],

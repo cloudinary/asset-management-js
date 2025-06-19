@@ -147,8 +147,10 @@ import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -198,8 +200,10 @@ import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -229,20 +233,23 @@ run();
 
 ### Per-Client Security Schemes
 
-This SDK supports the following security scheme globally:
+This SDK supports the following security schemes globally:
 
-| Name                     | Type | Scheme      | Environment Variable                             |
-| ------------------------ | ---- | ----------- | ------------------------------------------------ |
-| `apiKey`<br/>`apiSecret` | http | Custom HTTP | `CLOUDINARY_API_KEY`<br/>`CLOUDINARY_API_SECRET` |
+| Name             | Type   | Scheme       | Environment Variable         |
+| ---------------- | ------ | ------------ | ---------------------------- |
+| `cloudinaryAuth` | http   | Custom HTTP  | `CLOUDINARY_CLOUDINARY_AUTH` |
+| `oauth2`         | oauth2 | OAuth2 token | `CLOUDINARY_OAUTH2`          |
 
-You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. For example:
+You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
   cloudName: "<value>",
 });
@@ -434,8 +441,10 @@ import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -487,8 +496,10 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   },
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -535,8 +546,10 @@ import * as errors from "@cloudinary/asset-management/models/errors";
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -633,8 +646,10 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   host: "nutritious-fisherman.net",
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -668,8 +683,10 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   serverURL: "https://api.cloudinary.com",
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 

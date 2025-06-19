@@ -3,14 +3,19 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import {
+  SchemeCloudinaryAuth,
+  SchemeCloudinaryAuth$inboundSchema,
+  SchemeCloudinaryAuth$Outbound,
+  SchemeCloudinaryAuth$outboundSchema,
+} from "./schemecloudinaryauth.js";
 
 export type Security = {
-  apiKey?: string | undefined;
-  apiSecret?: string | undefined;
+  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
+  oauth2?: string | undefined;
 };
 
 /** @internal */
@@ -19,19 +24,14 @@ export const Security$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  api_key: z.string().optional(),
-  api_secret: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "api_key": "apiKey",
-    "api_secret": "apiSecret",
-  });
+  cloudinaryAuth: SchemeCloudinaryAuth$inboundSchema.optional(),
+  oauth2: z.string().optional(),
 });
 
 /** @internal */
 export type Security$Outbound = {
-  api_key?: string | undefined;
-  api_secret?: string | undefined;
+  cloudinaryAuth?: SchemeCloudinaryAuth$Outbound | undefined;
+  oauth2?: string | undefined;
 };
 
 /** @internal */
@@ -40,13 +40,8 @@ export const Security$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Security
 > = z.object({
-  apiKey: z.string().optional(),
-  apiSecret: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    apiKey: "api_key",
-    apiSecret: "api_secret",
-  });
+  cloudinaryAuth: SchemeCloudinaryAuth$outboundSchema.optional(),
+  oauth2: z.string().optional(),
 });
 
 /**

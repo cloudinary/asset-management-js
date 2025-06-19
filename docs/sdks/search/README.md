@@ -22,8 +22,10 @@ import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -61,8 +63,10 @@ import { searchSearchAssets } from "@cloudinary/asset-management/funcs/searchSea
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -133,8 +137,10 @@ import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -163,8 +169,10 @@ import { searchVisualSearchAssets } from "@cloudinary/asset-management/funcs/sea
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 

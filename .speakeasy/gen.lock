@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 92b56ec8-e19a-476d-afba-926cd2d071b4
 management:
-  docChecksum: b3567bbf0c6abb0cdf632a2603c3f278
-  docVersion: 0.2.5
-  speakeasyVersion: 1.563.4
-  generationVersion: 2.630.6
-  releaseVersion: 0.4.2
-  configChecksum: b3aa0edf951b0e00dbeb416b750b4dd5
+  docChecksum: f0901846fc81dda2a70f3b123fbc9f09
+  docVersion: 0.3.0
+  speakeasyVersion: 1.567.0
+  generationVersion: 2.632.0
+  releaseVersion: 0.5.0
+  configChecksum: cefed0376bb735e1eac22a0343e7ccc3
   repoURL: https://github.com/cloudinary/asset-management-js.git
   installationURL: https://github.com/cloudinary/asset-management-js
   published: true
@@ -14,7 +14,7 @@ features:
   typescript:
     acceptHeaders: 2.81.2
     additionalDependencies: 0.1.0
-    constsAndDefaults: 0.1.11
+    constsAndDefaults: 0.1.12
     core: 3.21.11
     customSecuritySchemes: 0.1.1
     defaultEnabledRetries: 0.1.0
@@ -108,6 +108,7 @@ generatedFiles:
   - docs/models/components/restoreresponse.md
   - docs/models/components/restoreresponseunion.md
   - docs/models/components/result.md
+  - docs/models/components/schemecloudinaryauth.md
   - docs/models/components/searchparameters.md
   - docs/models/components/searchparametersrange.md
   - docs/models/components/searchparameterstype.md
@@ -448,6 +449,7 @@ generatedFiles:
   - src/models/components/resourcetypeparameter.ts
   - src/models/components/resourceupdaterequest.ts
   - src/models/components/restoreresponseunion.ts
+  - src/models/components/schemecloudinaryauth.ts
   - src/models/components/searchparameters.ts
   - src/models/components/searchresponse.ts
   - src/models/components/security.ts

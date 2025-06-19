@@ -23,8 +23,10 @@ import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -50,8 +52,10 @@ import { videoAnalyticsGetVideoViews } from "@cloudinary/asset-management/funcs/
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 

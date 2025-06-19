@@ -27,8 +27,10 @@ import { uploadUpload } from "@cloudinary/asset-management/funcs/uploadUpload.js
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 

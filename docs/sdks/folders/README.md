@@ -27,8 +27,10 @@ import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -54,8 +56,10 @@ import { foldersShowFolder } from "@cloudinary/asset-management/funcs/foldersSho
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -104,8 +108,10 @@ import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -133,8 +139,10 @@ import { foldersUpdateFolder } from "@cloudinary/asset-management/funcs/foldersU
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -186,8 +194,10 @@ import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -213,8 +223,10 @@ import { foldersCreateFolder } from "@cloudinary/asset-management/funcs/foldersC
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -263,8 +275,10 @@ import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -290,8 +304,10 @@ import { foldersDestroyFolder } from "@cloudinary/asset-management/funcs/folders
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -341,8 +357,10 @@ import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -368,8 +386,10 @@ import { foldersListRootFolders } from "@cloudinary/asset-management/funcs/folde
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -418,8 +438,10 @@ import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -447,8 +469,10 @@ import { foldersSearchFolders } from "@cloudinary/asset-management/funcs/folders
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -503,8 +527,10 @@ import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
@@ -536,8 +562,10 @@ import { foldersSearchFoldersPost } from "@cloudinary/asset-management/funcs/fol
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
   cloudName: "<value>",
   security: {
-    apiKey: "CLOUDINARY_API_KEY",
-    apiSecret: "CLOUDINARY_API_SECRET",
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
   },
 });
 
