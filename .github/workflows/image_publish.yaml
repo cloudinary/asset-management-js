@@ -1,10 +1,6 @@
 name: Build and Push Docker Image
 
 on:
-  push:
-    branches:
-      - main
-      - add-github-action-for-build-and-push-to-dockerhub
   release:
     types:
       - published
