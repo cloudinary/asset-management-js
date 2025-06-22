@@ -48,3 +48,4 @@ jobs:
           tags: |
             ${{ env.IMAGE_NAME }}:${{ github.event_name == 'release' && github.event.release.tag_name || steps.sha.outputs.sha }}
             ${{ env.IMAGE_NAME }}:${{ steps.sha.outputs.sha }}
+            ${{ env.IMAGE_NAME }}:latest
