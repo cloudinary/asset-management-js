@@ -2,20 +2,20 @@ speakeasyVersion: 1.568.0
 sources:
     Asset Management API:
         sourceNamespace: asset-management-api
-        sourceRevisionDigest: sha256:6d8d4929fddf266f74d3901eefa1ba804887a596611b72fac4602c9bd625a7cd
+        sourceRevisionDigest: sha256:5dad8d635f0a8b9706cd8961056aab3684b9ddfc43d926affc33949025240150
         sourceBlobDigest: sha256:179d489fec56540309c4f7ba9e675ab23f0d259539e4892212254f45de96755d
         tags:
             - latest
-            - speakeasy-sdk-regen-1750679253
+            - speakeasy-sdk-regen-1750682979
             - 0.3.0
 targets:
     asset-management-js:
         source: Asset Management API
         sourceNamespace: asset-management-api
-        sourceRevisionDigest: sha256:6d8d4929fddf266f74d3901eefa1ba804887a596611b72fac4602c9bd625a7cd
+        sourceRevisionDigest: sha256:5dad8d635f0a8b9706cd8961056aab3684b9ddfc43d926affc33949025240150
         sourceBlobDigest: sha256:179d489fec56540309c4f7ba9e675ab23f0d259539e4892212254f45de96755d
         codeSamplesNamespace: asset-management-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:c882a91b14a4a0d796fc530dd1d29228e9fdbd09ba99faf5dbff3f2c2b971a26
+        codeSamplesRevisionDigest: sha256:b109314c94d09cca51db1d5ba613c50719ef5d021d5ddfa11357f4f1fa234e9f
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
