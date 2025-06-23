@@ -5,8 +5,8 @@ management:
   docVersion: 0.3.0
   speakeasyVersion: 1.568.0
   generationVersion: 2.632.2
-  releaseVersion: 0.5.1
-  configChecksum: 46e6160ba041782fbda744dc4f313973
+  releaseVersion: 0.5.2
+  configChecksum: a7cad73edae6b5937fad571e160dde20
   repoURL: https://github.com/cloudinary/asset-management-js.git
   installationURL: https://github.com/cloudinary/asset-management-js
   published: true
