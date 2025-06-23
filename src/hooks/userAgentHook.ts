@@ -22,7 +22,17 @@ function getProductName(packageName: string): string {
     }
 }
 
+function isRemoteMCP(): boolean {
+    // Hacky solution to check if we are in CF Workers env
+    // CF Workers expose a global 'caches' object with a 'default' property
+    return typeof caches !== 'undefined' && typeof (caches as any).default !== 'undefined';
+}
+
 function getRuntime(): string {
+    if (isRemoteMCP()) {
+        return 'MCP';
+    }
+
     // Check if we can find MCP-related modules in the call stack
     try {
         const stack = new Error().stack;
@@ -45,7 +55,7 @@ function getSystemInfo(): string {
 }
 
 function getEnvDetails(): string {
-    return typeof caches !== 'undefined' && typeof (caches as any).default !== 'undefined' ? ' RemoteMCP' : '';
+    return isRemoteMCP() ? '; RemoteMCP' : '';
 }
 
 function buildUserAgent(sdkVersion: string, genVersion: string, openapiDocVersion: string, packageName: string, runtime: string): string {
