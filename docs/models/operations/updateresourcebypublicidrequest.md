@@ -9,6 +9,19 @@ let value: UpdateResourceByPublicIdRequest = {
   resourceType: "video",
   type: "dailymotion",
   publicId: "<id>",
+  resourceUpdateRequest: {
+    displayName: "My Product Image",
+    assetFolder: "products/summer",
+    tags: "product,summer,sale",
+    context: "alt=My product image|caption=Summer collection",
+    metadata: "in_stock_id=50|color_id=[\"green\",\"red\"]",
+    faceCoordinates: "10,20,150,130|213,345,82,61",
+    customCoordinates: "10,20,150,130|213,345,82,61",
+    regions: "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}",
+    qualityOverride: "80:420",
+    detection: "captioning",
+    accessControl: "[{\"access_type\":\"token\"}]",
+  },
 };
 ```
 

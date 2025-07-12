@@ -591,7 +591,7 @@ run();
 ### Error Classes
 **Primary errors:**
 * [`CloudinaryAssetMgmtError`](./src/models/errors/cloudinaryassetmgmterror.ts): The base class for HTTP error responses.
-  * [`ApiError`](docs/models/errors/apierror.md): *
+  * [`ApiError`](./src/models/errors/apierror.ts): *
 
 <details><summary>Less common errors (10)</summary>
 
@@ -606,10 +606,10 @@ run();
 
 
 **Inherit from [`CloudinaryAssetMgmtError`](./src/models/errors/cloudinaryassetmgmterror.ts)**:
-* [`BadRequestError`](docs/models/errors/badrequesterror.md): Bad request. Status code `400`. Applicable to 1 of 46 methods.*
-* [`DownloadBackupAssetUnauthorizedError`](docs/models/errors/downloadbackupassetunauthorizederror.md): Authentication failed. Status code `401`. Applicable to 1 of 46 methods.*
-* [`ListResourceTypesUnauthorizedError`](docs/models/errors/listresourcetypesunauthorizederror.md): Authentication failed. Status code `401`. Applicable to 1 of 46 methods.*
-* [`NotFoundError`](docs/models/errors/notfounderror.md): Version not found. Status code `404`. Applicable to 1 of 46 methods.*
+* [`BadRequestError`](./src/models/errors/badrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 46 methods.*
+* [`DownloadBackupAssetUnauthorizedError`](./src/models/errors/downloadbackupassetunauthorizederror.ts): Authentication failed. Status code `401`. Applicable to 1 of 46 methods.*
+* [`ListResourceTypesUnauthorizedError`](./src/models/errors/listresourcetypesunauthorizederror.ts): Authentication failed. Status code `401`. Applicable to 1 of 46 methods.*
+* [`NotFoundError`](./src/models/errors/notfounderror.ts): Version not found. Status code `404`. Applicable to 1 of 46 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
