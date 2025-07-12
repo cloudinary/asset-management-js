@@ -7,6 +7,12 @@ import { DeleteAssetRelationsByAssetIdRequest } from "@cloudinary/asset-manageme
 
 let value: DeleteAssetRelationsByAssetIdRequest = {
   assetId: "<id>",
+  requestBody: {
+    assetsToUnrelate: [
+      "f12345a5c789c",
+      "bbb0efc00c0f12",
+    ],
+  },
 };
 ```
 

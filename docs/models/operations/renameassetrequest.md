@@ -7,6 +7,10 @@ import { RenameAssetRequest } from "@cloudinary/asset-management/models/operatio
 
 let value: RenameAssetRequest = {
   resourceType: "raw",
+  requestBody: {
+    fromPublicId: "<id>",
+    toPublicId: "<id>",
+  },
 };
 ```
 

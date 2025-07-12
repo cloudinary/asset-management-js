@@ -8,6 +8,12 @@ import { DeleteResourcesByPublicIdRequest } from "@cloudinary/asset-management/m
 let value: DeleteResourcesByPublicIdRequest = {
   resourceType: "raw",
   type: "twitter",
+  deleteResourceByPublicIdsRequest: {
+    publicIds: [],
+    resourceType: "image",
+    keepOriginal: false,
+    invalidate: false,
+  },
 };
 ```
 
