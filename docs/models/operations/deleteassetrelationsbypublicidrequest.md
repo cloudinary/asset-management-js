@@ -8,6 +8,12 @@ import { DeleteAssetRelationsByPublicIdRequest } from "@cloudinary/asset-managem
 let value: DeleteAssetRelationsByPublicIdRequest = {
   resourceType: "video",
   publicId: "<id>",
+  requestBody: {
+    assetsToUnrelate: [
+      "raw/upload/dog_subtitles.srt",
+      "image/authenticated/dog_license",
+    ],
+  },
 };
 ```
 

@@ -26,9 +26,8 @@ export class NotFoundError extends CloudinaryAssetMgmtError {
     err: NotFoundErrorData,
     httpMeta: { response: Response; request: Request; body: string },
   ) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
+    const message = err.error?.message
+      || `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
     if (err.error != null) this.error = err.error;
@@ -59,9 +58,8 @@ export class DownloadBackupAssetUnauthorizedError
     err: DownloadBackupAssetUnauthorizedErrorData,
     httpMeta: { response: Response; request: Request; body: string },
   ) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
+    const message = err.error?.message
+      || `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
     if (err.error != null) this.error = err.error;
@@ -90,9 +88,8 @@ export class BadRequestError extends CloudinaryAssetMgmtError {
     err: BadRequestErrorData,
     httpMeta: { response: Response; request: Request; body: string },
   ) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
+    const message = err.error?.message
+      || `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
     if (err.error != null) this.error = err.error;

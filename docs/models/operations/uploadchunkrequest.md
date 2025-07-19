@@ -8,6 +8,17 @@ import { UploadChunkRequest } from "@cloudinary/asset-management/models/operatio
 let value: UploadChunkRequest = {
   contentRange: "bytes 0-999999/3000000",
   xUniqueUploadId: "2fd4e1c67a2d28fce",
+  uploadRequest: {
+    headers: "X-Robots-Tag: noindex",
+    moderation: "google_video_moderation",
+    rawConvert: "google_speech:vtt:en-US",
+    backgroundRemoval: "pixelz",
+    format: "jpg",
+    allowedFormats: "mp4,ogv,jpg,png,pdf",
+    autoTagging: 0.5,
+    detection: "coco_v2",
+    file: "<value>",
+  },
 };
 ```
 

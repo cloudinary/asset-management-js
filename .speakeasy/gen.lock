@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 92b56ec8-e19a-476d-afba-926cd2d071b4
 management:
-  docChecksum: f0901846fc81dda2a70f3b123fbc9f09
+  docChecksum: 488148391e6eb41723a066681d88b0e3
   docVersion: 0.3.0
-  speakeasyVersion: 1.568.0
-  generationVersion: 2.632.2
-  releaseVersion: 0.5.3
-  configChecksum: 097b91bb5e0091463c262122d5263d9e
+  speakeasyVersion: 1.583.0
+  generationVersion: 2.658.3
+  releaseVersion: 0.5.4
+  configChecksum: 94b845f595fcefaaf5a4bd020cf43007
   repoURL: https://github.com/cloudinary/asset-management-js.git
   installationURL: https://github.com/cloudinary/asset-management-js
   published: true
@@ -15,7 +15,7 @@ features:
     acceptHeaders: 2.81.2
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
-    core: 3.21.11
+    core: 3.21.14
     customSecuritySchemes: 0.1.1
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
@@ -30,7 +30,7 @@ features:
     globals: 2.82.2
     hiddenGlobals: 0.1.0
     ignores: 2.81.1
-    mcpServer: 0.9.2
+    mcpServer: 0.9.3
     nullables: 0.1.1
     responseFormat: 0.2.3
     retries: 2.83.0
@@ -326,6 +326,10 @@ generatedFiles:
   - docs/sdks/videoanalytics/README.md
   - docs/types/rfcdate.md
   - eslint.config.mjs
+  - examples/.env.template
+  - examples/README.md
+  - examples/package.json
+  - examples/uploadUpload.example.ts
   - jsr.json
   - package.json
   - src/core.ts

@@ -7,6 +7,12 @@ import { GenerateArchiveRequest } from "@cloudinary/asset-management/models/oper
 
 let value: GenerateArchiveRequest = {
   resourceType: "all",
+  requestBody: {
+    targetTags: [
+      "animal",
+      "dog",
+    ],
+  },
 };
 ```
 

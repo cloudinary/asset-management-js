@@ -7,6 +7,12 @@ import { DeleteBackupVersionsRequest } from "@cloudinary/asset-management/models
 
 let value: DeleteBackupVersionsRequest = {
   assetId: "e9b44a374f66ad53a64a74c7398f7",
+  requestBody: {
+    versionIds: [
+      "5552aa57e67445552a3cdc1110a0115",
+      "383e22a57167445552a3cdc16f0a0c85",
+    ],
+  },
 };
 ```
 
