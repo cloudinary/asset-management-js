@@ -8,6 +8,12 @@ import { CreateAssetRelationsByPublicIdRequest } from "@cloudinary/asset-managem
 let value: CreateAssetRelationsByPublicIdRequest = {
   resourceType: "video",
   publicId: "<id>",
+  requestBody: {
+    assetsToRelate: [
+      "raw/upload/dog_subtitles.srt",
+      "image/authenticated/dog_license",
+    ],
+  },
 };
 ```
 

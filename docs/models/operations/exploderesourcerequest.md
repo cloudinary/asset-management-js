@@ -7,6 +7,11 @@ import { ExplodeResourceRequest } from "@cloudinary/asset-management/models/oper
 
 let value: ExplodeResourceRequest = {
   resourceType: "image",
+  requestBody: {
+    publicId: "<id>",
+    transformation: "<value>",
+    signature: "<value>",
+  },
 };
 ```
 

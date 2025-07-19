@@ -5,7 +5,19 @@
 ```typescript
 import { UploadRequest } from "@cloudinary/asset-management/models/operations";
 
-let value: UploadRequest = {};
+let value: UploadRequest = {
+  uploadRequest: {
+    headers: "X-Robots-Tag: noindex",
+    moderation: "google_video_moderation",
+    rawConvert: "google_speech:vtt:en-US",
+    backgroundRemoval: "pixelz",
+    format: "jpg",
+    allowedFormats: "mp4,ogv,jpg,png,pdf",
+    autoTagging: 0.5,
+    detection: "coco_v2",
+    file: "<value>",
+  },
+};
 ```
 
 ## Fields
