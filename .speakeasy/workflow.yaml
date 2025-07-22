@@ -9,6 +9,7 @@ sources:
             - location: https://cloudinary.github.io/api-schemas/overlays/cloud-name-overlay.yml
             - location: https://cloudinary.github.io/api-schemas/overlays/mcp-disabled.yml
             - location: https://cloudinary.github.io/api-schemas/overlays/remove-mcp-description.yml
+            - location: https://cloudinary.github.io/api-schemas/overlays/signature-optional-overlay.yml
             - location: https://cloudinary.github.io/api-schemas/asset-management/overlays/remove-multipart-overlay.yml
         registry:
             location: registry.speakeasyapi.dev/cloudinary/cloudinary/asset-management-api

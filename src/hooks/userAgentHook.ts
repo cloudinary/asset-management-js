@@ -23,9 +23,8 @@ function getProductName(packageName: string): string {
 }
 
 function isRemoteMCP(): boolean {
-    // Hacky solution to check if we are in CF Workers env
-    // CF Workers expose a global 'caches' object with a 'default' property
-    return typeof caches !== 'undefined' && typeof (caches as any).default !== 'undefined';
+    // Check if we are running in the OAuth wrapper environment
+    return typeof process !== 'undefined' && process.env['OAUTH_WRAPPER_ORIGIN'] !== undefined;
 }
 
 function getRuntime(): string {

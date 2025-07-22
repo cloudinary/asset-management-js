@@ -20,6 +20,10 @@ generation:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: true
   sdkHooksConfigAccess: true
+  tests:
+    generateTests: true
+    generateNewTests: false
+    skipResponseBodyAssertions: false
 typescript:
   version: 0.5.3
   additionalDependencies:
@@ -42,6 +46,7 @@ typescript:
   envVarPrefix: CLOUDINARY
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
+  generateExamples: false
   imports:
     option: openapi
     paths:

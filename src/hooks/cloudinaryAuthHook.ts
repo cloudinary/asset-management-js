@@ -11,32 +11,46 @@ export class CloudinaryAuthHook
     }
 
     async beforeRequest(hookCtx: BeforeRequestContext, request: Request): Promise<Request> {
-        // modify the request object before it is sent, such as adding headers or query parameters, or throw an error to stop the request from being sent
+        let security = hookCtx.securitySource;
+        // Resolve the security source if it's a function (for dynamic token refresh)
+        if (typeof security === 'function') {
+            security = await security();
+        }
 
+        // Prioritize OAuth2 bearer token if it's provided.
+        if (security && typeof security === 'object' && 'oauth2' in security && typeof security.oauth2 === 'string') {
+            const token = security.oauth2;
+            if (token) {
+                request.headers.set("Authorization", `Bearer ${token}`);
+                return request;
+            }
+        }
+
+        // Fallback to API key/secret signing if no OAuth token is present.
         let { apiKey, apiSecret } = this.cloudConfig;
 
         // Optionally merge user-supplied security overrides
-        const securityVal = hookCtx.securitySource ? hookCtx.securitySource : null;
-        if (securityVal) {
+        if (security) {
             // Handle custom cloudinaryAuth format
-            if (securityVal.cloudinaryAuth) {
-                if (securityVal.cloudinaryAuth.apiKey) {
-                    apiKey = securityVal.cloudinaryAuth.apiKey;
+            if ('cloudinaryAuth' in security && security.cloudinaryAuth) {
+                if (security.cloudinaryAuth.apiKey) {
+                    apiKey = security.cloudinaryAuth.apiKey;
                 }
-                if (securityVal.cloudinaryAuth.apiSecret) {
-                    apiSecret = securityVal.cloudinaryAuth.apiSecret;
+                if (security.cloudinaryAuth.apiSecret) {
+                    apiSecret = security.cloudinaryAuth.apiSecret;
                 }
             }
             // Handle standard SDK security format (used by MCP server)
-            else if (securityVal.apiKey || securityVal.apiSecret) {
-                if (securityVal.apiKey) {
-                    apiKey = securityVal.apiKey;
+            else if ('apiKey' in security || 'apiSecret' in security) {
+                if ('apiKey' in security && security.apiKey) {
+                    apiKey = security.apiKey;
                 }
-                if (securityVal.apiSecret) {
-                    apiSecret = securityVal.apiSecret;
+                if ('apiSecret' in security && security.apiSecret) {
+                    apiSecret = security.apiSecret;
                 }
             }
         }
+
         if (!apiKey || !apiSecret) {
             return request;
         }
@@ -140,12 +154,12 @@ export class CloudinaryAuthHook
 
     async preprocessJsonRequest(request: Request): Promise<any> {
         const body = await request.json();
-        
+
         // Handle file:// URLs by converting to base64 data URIs
         if (body.file && typeof body.file === 'string' && body.file.startsWith('file://')) {
             body.file = await this.convertFileToDataUri(body.file);
         }
-        
+
         return body;
     }
 
@@ -167,23 +181,23 @@ export class CloudinaryAuthHook
     private async convertFileToDataUri(fileUrl: string): Promise<string> {
         // Remove 'file://' prefix to get the actual file path
         const filePath = fileUrl.replace(/^file:\/\//, '');
-        
+
         try {
             // Import required Node.js modules
             const { readFile } = await import('node:fs/promises');
-            
+
             // Read the file as a buffer
             const fileBuffer = await readFile(filePath);
-            
+
             // Convert to base64
             const base64Data = fileBuffer.toString('base64');
-            
+
             // Use generic MIME type for all files
             const mimeType = 'application/octet-stream';
-            
+
             // Return as data URI
             return `data:${mimeType};base64,${base64Data}`;
-            
+
         } catch (error) {
             // If file reading fails, log error and return original URL
             console.error(`Failed to read file: ${filePath}`, error);
@@ -218,6 +232,7 @@ export class CloudinaryAuthHook
         'explicit', 'upload', 'download', 'destroy', 'sprite', 'tags', 'context', 'metadata_update', 'text', 'multi', 'explode',
         'rename', 'create_slideshow', 'create_video', 'create_collage', 'generate_archive'];
 
-    SIGNED_PATHS = ["image", "video", "raw", "auto"].flatMap(resourceType => this.SIGNED_ACTIONS.map(action => `${resourceType}/${action}`));
+    SIGNED_PATHS = ["image", "video", "raw", "auto", "asset"].flatMap(resourceType => this.SIGNED_ACTIONS.map(action => `${resourceType}/${action}`));
+
 
 }
