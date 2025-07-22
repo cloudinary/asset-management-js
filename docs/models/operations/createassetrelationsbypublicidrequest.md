@@ -7,7 +7,14 @@ import { CreateAssetRelationsByPublicIdRequest } from "@cloudinary/asset-managem
 
 let value: CreateAssetRelationsByPublicIdRequest = {
   resourceType: "video",
+  type: "upload",
   publicId: "<id>",
+  requestBody: {
+    assetsToRelate: [
+      "raw/upload/dog_subtitles.srt",
+      "image/authenticated/dog_license",
+    ],
+  },
 };
 ```
 
@@ -15,7 +22,7 @@ let value: CreateAssetRelationsByPublicIdRequest = {
 
 | Field                                                                                                                        | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `resourceType`                                                                                                               | [components.ResourceTypeParameter](../../models/components/resourcetypeparameter.md)                                         | :heavy_check_mark:                                                                                                           | The type the of asset.                                                                                                       |
-| `type`                                                                                                                       | [operations.CreateAssetRelationsByPublicIdType](../../models/operations/createassetrelationsbypublicidtype.md)               | :heavy_check_mark:                                                                                                           | The delivery type of the asset.                                                                                              |
+| `resourceType`                                                                                                               | [components.ResourceType](../../models/components/resourcetype.md)                                                           | :heavy_check_mark:                                                                                                           | The type of resource.                                                                                                        |
+| `type`                                                                                                                       | [components.StorageType](../../models/components/storagetype.md)                                                             | :heavy_check_mark:                                                                                                           | The delivery type of the asset.                                                                                              |
 | `publicId`                                                                                                                   | *string*                                                                                                                     | :heavy_check_mark:                                                                                                           | The public ID of the asset.                                                                                                  |
 | `requestBody`                                                                                                                | [operations.CreateAssetRelationsByPublicIdRequestBody](../../models/operations/createassetrelationsbypublicidrequestbody.md) | :heavy_check_mark:                                                                                                           | N/A                                                                                                                          |

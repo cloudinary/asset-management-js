@@ -8,6 +8,15 @@ import { Info } from "@cloudinary/asset-management/models/components";
 let value: Info = {
   moderationKind: "manual",
   moderationStatus: "pending",
+  derivatives: [
+    {
+      id: "5a73fd588cb301206c0a5c5c6ad796b3",
+      transformation: "w_300,h_100/",
+      transformationSignature: "658a49d8-2944-37db-9825-1ddface10c7b",
+      secureUrl:
+        "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample",
+    },
+  ],
 };
 ```
 
@@ -46,3 +55,4 @@ let value: Info = {
 | `status`                                                                                      | *string*                                                                                      | :heavy_minus_sign:                                                                            | N/A                                                                                           |                                                                                               |
 | `accessControl`                                                                               | [components.InfoAccessControl](../../models/components/infoaccesscontrol.md)[]                | :heavy_minus_sign:                                                                            | N/A                                                                                           |                                                                                               |
 | `etag`                                                                                        | *string*                                                                                      | :heavy_minus_sign:                                                                            | N/A                                                                                           |                                                                                               |
+| `derivatives`                                                                                 | [components.Derivative](../../models/components/derivative.md)[]                              | :heavy_minus_sign:                                                                            | Included if 'derived=true' parameter is used. Array of derived resources.                     |                                                                                               |

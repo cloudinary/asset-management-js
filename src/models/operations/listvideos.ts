@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -17,26 +16,11 @@ export type ListVideosGlobals = {
   cloudName?: string | undefined;
 };
 
-/**
- * The delivery type. Necessary for prefix filtering.
- */
-export const ListVideosType = {
-  Upload: "upload",
-  Private: "private",
-  Authenticated: "authenticated",
-  Fetch: "fetch",
-  List: "list",
-} as const;
-/**
- * The delivery type. Necessary for prefix filtering.
- */
-export type ListVideosType = ClosedEnum<typeof ListVideosType>;
-
 export type ListVideosRequest = {
   /**
-   * The delivery type. Necessary for prefix filtering.
+   * The storage type of the assets. Necessary for prefix filtering.
    */
-  type?: ListVideosType | undefined;
+  type?: components.ListStorageType | undefined;
   /**
    * A public_id prefix. When specified, all assets with that prefix are returned. When using this, the `type` parameter must also be specified.
    */
@@ -131,33 +115,12 @@ export function listVideosGlobalsFromJSON(
 }
 
 /** @internal */
-export const ListVideosType$inboundSchema: z.ZodNativeEnum<
-  typeof ListVideosType
-> = z.nativeEnum(ListVideosType);
-
-/** @internal */
-export const ListVideosType$outboundSchema: z.ZodNativeEnum<
-  typeof ListVideosType
-> = ListVideosType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListVideosType$ {
-  /** @deprecated use `ListVideosType$inboundSchema` instead. */
-  export const inboundSchema = ListVideosType$inboundSchema;
-  /** @deprecated use `ListVideosType$outboundSchema` instead. */
-  export const outboundSchema = ListVideosType$outboundSchema;
-}
-
-/** @internal */
 export const ListVideosRequest$inboundSchema: z.ZodType<
   ListVideosRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: ListVideosType$inboundSchema.optional(),
+  type: components.ListStorageType$inboundSchema.optional(),
   prefix: z.string().optional(),
   public_ids: z.array(z.string()).optional(),
   tags: z.boolean().optional(),
@@ -195,7 +158,7 @@ export const ListVideosRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListVideosRequest
 > = z.object({
-  type: ListVideosType$outboundSchema.optional(),
+  type: components.ListStorageType$outboundSchema.optional(),
   prefix: z.string().optional(),
   publicIds: z.array(z.string()).optional(),
   tags: z.boolean().optional(),

@@ -16,7 +16,7 @@ export class Moderations extends ClientSDK {
    * Retrieves resources matching specific moderation kind and status.
    */
   async listResourcesByModerationKindAndStatus(
-    resourceType: components.ResourceTypeParameter,
+    resourceType: components.ResourceType,
     moderationKind: operations.ModerationKind,
     moderationStatus: operations.ModerationStatus,
     fields?: Array<components.FieldsSpec> | undefined,

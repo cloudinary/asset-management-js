@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -17,21 +16,6 @@ export type ListResourcesByAssetIDsGlobals = {
   cloudName?: string | undefined;
 };
 
-/**
- * Resource type (optional, can sometimes disambiguate).
- */
-export const ListResourcesByAssetIDsResourceType = {
-  Image: "image",
-  Video: "video",
-  Raw: "raw",
-} as const;
-/**
- * Resource type (optional, can sometimes disambiguate).
- */
-export type ListResourcesByAssetIDsResourceType = ClosedEnum<
-  typeof ListResourcesByAssetIDsResourceType
->;
-
 export type ListResourcesByAssetIDsRequest = {
   /**
    * List of asset IDs to retrieve (max 100).
@@ -40,7 +24,7 @@ export type ListResourcesByAssetIDsRequest = {
   /**
    * Resource type (optional, can sometimes disambiguate).
    */
-  resourceType?: ListResourcesByAssetIDsResourceType | undefined;
+  resourceType?: components.ResourceType | undefined;
   fields?: Array<components.FieldsSpec> | undefined;
 };
 
@@ -109,36 +93,13 @@ export function listResourcesByAssetIDsGlobalsFromJSON(
 }
 
 /** @internal */
-export const ListResourcesByAssetIDsResourceType$inboundSchema: z.ZodNativeEnum<
-  typeof ListResourcesByAssetIDsResourceType
-> = z.nativeEnum(ListResourcesByAssetIDsResourceType);
-
-/** @internal */
-export const ListResourcesByAssetIDsResourceType$outboundSchema:
-  z.ZodNativeEnum<typeof ListResourcesByAssetIDsResourceType> =
-    ListResourcesByAssetIDsResourceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListResourcesByAssetIDsResourceType$ {
-  /** @deprecated use `ListResourcesByAssetIDsResourceType$inboundSchema` instead. */
-  export const inboundSchema =
-    ListResourcesByAssetIDsResourceType$inboundSchema;
-  /** @deprecated use `ListResourcesByAssetIDsResourceType$outboundSchema` instead. */
-  export const outboundSchema =
-    ListResourcesByAssetIDsResourceType$outboundSchema;
-}
-
-/** @internal */
 export const ListResourcesByAssetIDsRequest$inboundSchema: z.ZodType<
   ListResourcesByAssetIDsRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
   asset_ids: z.array(z.string()),
-  resource_type: ListResourcesByAssetIDsResourceType$inboundSchema.optional(),
+  resource_type: components.ResourceType$inboundSchema.optional(),
   fields: z.array(components.FieldsSpec$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -161,7 +122,7 @@ export const ListResourcesByAssetIDsRequest$outboundSchema: z.ZodType<
   ListResourcesByAssetIDsRequest
 > = z.object({
   assetIds: z.array(z.string()),
-  resourceType: ListResourcesByAssetIDsResourceType$outboundSchema.optional(),
+  resourceType: components.ResourceType$outboundSchema.optional(),
   fields: z.array(components.FieldsSpec$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {

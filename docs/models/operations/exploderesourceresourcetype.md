@@ -1,6 +1,6 @@
 # ExplodeResourceResourceType
 
-The type of resource to explode. only "image"
+The type of resource to explode. Only "image" is supported.
 
 ## Example Usage
 

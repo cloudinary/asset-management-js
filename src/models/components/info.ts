@@ -23,6 +23,25 @@ export type InfoModeration = {
 
 export type InfoAccessControl = {};
 
+export type Derivative = {
+  /**
+   * The unique identifier of the derived resource
+   */
+  id?: string | undefined;
+  /**
+   * The transformation string that was applied
+   */
+  transformation?: string | undefined;
+  /**
+   * The unique signature of the transformation
+   */
+  transformationSignature?: string | undefined;
+  /**
+   * The secure URL for accessing the derived resource
+   */
+  secureUrl?: string | undefined;
+};
+
 export type Info = {
   assetId?: string | undefined;
   publicId?: string | undefined;
@@ -70,6 +89,10 @@ export type Info = {
   status?: string | undefined;
   accessControl?: Array<InfoAccessControl> | null | undefined;
   etag?: string | undefined;
+  /**
+   * Included if 'derived=true' parameter is used. Array of derived resources.
+   */
+  derivatives?: Array<Derivative> | undefined;
 };
 
 /** @internal */
@@ -236,6 +259,75 @@ export function infoAccessControlFromJSON(
 }
 
 /** @internal */
+export const Derivative$inboundSchema: z.ZodType<
+  Derivative,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.string().optional(),
+  transformation: z.string().optional(),
+  transformation_signature: z.string().optional(),
+  secure_url: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "transformation_signature": "transformationSignature",
+    "secure_url": "secureUrl",
+  });
+});
+
+/** @internal */
+export type Derivative$Outbound = {
+  id?: string | undefined;
+  transformation?: string | undefined;
+  transformation_signature?: string | undefined;
+  secure_url?: string | undefined;
+};
+
+/** @internal */
+export const Derivative$outboundSchema: z.ZodType<
+  Derivative$Outbound,
+  z.ZodTypeDef,
+  Derivative
+> = z.object({
+  id: z.string().optional(),
+  transformation: z.string().optional(),
+  transformationSignature: z.string().optional(),
+  secureUrl: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    transformationSignature: "transformation_signature",
+    secureUrl: "secure_url",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Derivative$ {
+  /** @deprecated use `Derivative$inboundSchema` instead. */
+  export const inboundSchema = Derivative$inboundSchema;
+  /** @deprecated use `Derivative$outboundSchema` instead. */
+  export const outboundSchema = Derivative$outboundSchema;
+  /** @deprecated use `Derivative$Outbound` instead. */
+  export type Outbound = Derivative$Outbound;
+}
+
+export function derivativeToJSON(derivative: Derivative): string {
+  return JSON.stringify(Derivative$outboundSchema.parse(derivative));
+}
+
+export function derivativeFromJSON(
+  jsonString: string,
+): SafeParseResult<Derivative, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Derivative$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Derivative' from JSON`,
+  );
+}
+
+/** @internal */
 export const Info$inboundSchema: z.ZodType<Info, z.ZodTypeDef, unknown> = z
   .object({
     asset_id: z.string().optional(),
@@ -275,6 +367,7 @@ export const Info$inboundSchema: z.ZodType<Info, z.ZodTypeDef, unknown> = z
       z.array(z.lazy(() => InfoAccessControl$inboundSchema)),
     ).optional(),
     etag: z.string().optional(),
+    derivatives: z.array(z.lazy(() => Derivative$inboundSchema)).optional(),
   }).transform((v) => {
     return remap$(v, {
       "asset_id": "assetId",
@@ -327,6 +420,7 @@ export type Info$Outbound = {
   status?: string | undefined;
   access_control?: Array<InfoAccessControl$Outbound> | null | undefined;
   etag?: string | undefined;
+  derivatives?: Array<Derivative$Outbound> | undefined;
 };
 
 /** @internal */
@@ -365,6 +459,7 @@ export const Info$outboundSchema: z.ZodType<Info$Outbound, z.ZodTypeDef, Info> =
       z.array(z.lazy(() => InfoAccessControl$outboundSchema)),
     ).optional(),
     etag: z.string().optional(),
+    derivatives: z.array(z.lazy(() => Derivative$outboundSchema)).optional(),
   }).transform((v) => {
     return remap$(v, {
       assetId: "asset_id",

@@ -42,13 +42,13 @@ export type UploadChunkRequest = {
  * Chunk upload successful. For all but the final chunk, this returns upload status. For the final chunk, it returns the complete upload response.
  */
 export type UploadChunkResponseBody =
-  | components.NonFinalChunkUploadResponse
   | components.AsyncUploadResponse
+  | components.NonFinalChunkUploadResponse
   | components.UploadResponse;
 
 export type UploadChunkResponse =
-  | components.NonFinalChunkUploadResponse
   | components.AsyncUploadResponse
+  | components.NonFinalChunkUploadResponse
   | components.UploadResponse
   | string;
 
@@ -197,15 +197,15 @@ export const UploadChunkResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  components.NonFinalChunkUploadResponse$inboundSchema,
   components.AsyncUploadResponse$inboundSchema,
+  components.NonFinalChunkUploadResponse$inboundSchema,
   components.UploadResponse$inboundSchema,
 ]);
 
 /** @internal */
 export type UploadChunkResponseBody$Outbound =
-  | components.NonFinalChunkUploadResponse$Outbound
   | components.AsyncUploadResponse$Outbound
+  | components.NonFinalChunkUploadResponse$Outbound
   | components.UploadResponse$Outbound;
 
 /** @internal */
@@ -214,8 +214,8 @@ export const UploadChunkResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UploadChunkResponseBody
 > = z.union([
-  components.NonFinalChunkUploadResponse$outboundSchema,
   components.AsyncUploadResponse$outboundSchema,
+  components.NonFinalChunkUploadResponse$outboundSchema,
   components.UploadResponse$outboundSchema,
 ]);
 
@@ -257,8 +257,8 @@ export const UploadChunkResponse$inboundSchema: z.ZodType<
   unknown
 > = z.union([
   z.union([
-    components.NonFinalChunkUploadResponse$inboundSchema,
     components.AsyncUploadResponse$inboundSchema,
+    components.NonFinalChunkUploadResponse$inboundSchema,
     components.UploadResponse$inboundSchema,
   ]),
   z.string(),
@@ -266,8 +266,8 @@ export const UploadChunkResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type UploadChunkResponse$Outbound =
-  | components.NonFinalChunkUploadResponse$Outbound
   | components.AsyncUploadResponse$Outbound
+  | components.NonFinalChunkUploadResponse$Outbound
   | components.UploadResponse$Outbound
   | string;
 
@@ -278,8 +278,8 @@ export const UploadChunkResponse$outboundSchema: z.ZodType<
   UploadChunkResponse
 > = z.union([
   z.union([
-    components.NonFinalChunkUploadResponse$outboundSchema,
     components.AsyncUploadResponse$outboundSchema,
+    components.NonFinalChunkUploadResponse$outboundSchema,
     components.UploadResponse$outboundSchema,
   ]),
   z.string(),

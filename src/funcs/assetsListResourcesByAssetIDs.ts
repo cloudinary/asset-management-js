@@ -35,7 +35,7 @@ import { Result } from "../types/fp.js";
 export function assetsListResourcesByAssetIDs(
   client: CloudinaryAssetMgmtCore,
   assetIds: Array<string>,
-  resourceType?: operations.ListResourcesByAssetIDsResourceType | undefined,
+  resourceType?: components.ResourceType | undefined,
   fields?: Array<components.FieldsSpec> | undefined,
   options?: RequestOptions,
 ): APIPromise<
@@ -64,7 +64,7 @@ export function assetsListResourcesByAssetIDs(
 async function $do(
   client: CloudinaryAssetMgmtCore,
   assetIds: Array<string>,
-  resourceType?: operations.ListResourcesByAssetIDsResourceType | undefined,
+  resourceType?: components.ResourceType | undefined,
   fields?: Array<components.FieldsSpec> | undefined,
   options?: RequestOptions,
 ): Promise<

@@ -7,6 +7,7 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
+import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DestroyAssetGlobals = {
@@ -16,28 +17,13 @@ export type DestroyAssetGlobals = {
   cloudName?: string | undefined;
 };
 
-/**
- * The type of asset/resource to destroy
- */
-export const DestroyAssetResourceType = {
-  Image: "image",
-  Video: "video",
-  Raw: "raw",
-} as const;
-/**
- * The type of asset/resource to destroy
- */
-export type DestroyAssetResourceType = ClosedEnum<
-  typeof DestroyAssetResourceType
->;
-
 export type DestroyAssetRequest = {
   /**
-   * The type of asset/resource to destroy
+   * The type of resource.
    */
-  resourceType: DestroyAssetResourceType;
+  resourceType: components.ResourceType;
   /**
-   * The public ID of the asset/resource to destroy
+   * The public ID of the asset.
    */
   publicId: string;
   /**
@@ -130,33 +116,12 @@ export function destroyAssetGlobalsFromJSON(
 }
 
 /** @internal */
-export const DestroyAssetResourceType$inboundSchema: z.ZodNativeEnum<
-  typeof DestroyAssetResourceType
-> = z.nativeEnum(DestroyAssetResourceType);
-
-/** @internal */
-export const DestroyAssetResourceType$outboundSchema: z.ZodNativeEnum<
-  typeof DestroyAssetResourceType
-> = DestroyAssetResourceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DestroyAssetResourceType$ {
-  /** @deprecated use `DestroyAssetResourceType$inboundSchema` instead. */
-  export const inboundSchema = DestroyAssetResourceType$inboundSchema;
-  /** @deprecated use `DestroyAssetResourceType$outboundSchema` instead. */
-  export const outboundSchema = DestroyAssetResourceType$outboundSchema;
-}
-
-/** @internal */
 export const DestroyAssetRequest$inboundSchema: z.ZodType<
   DestroyAssetRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource_type: DestroyAssetResourceType$inboundSchema,
+  resource_type: components.ResourceType$inboundSchema,
   public_id: z.string(),
   invalidate: z.boolean().default(false),
 }).transform((v) => {
@@ -179,7 +144,7 @@ export const DestroyAssetRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DestroyAssetRequest
 > = z.object({
-  resourceType: DestroyAssetResourceType$outboundSchema,
+  resourceType: components.ResourceType$outboundSchema,
   publicId: z.string(),
   invalidate: z.boolean().default(false),
 }).transform((v) => {

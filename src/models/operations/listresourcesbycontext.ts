@@ -18,9 +18,9 @@ export type ListResourcesByContextGlobals = {
 
 export type ListResourcesByContextRequest = {
   /**
-   * The type the of asset.
+   * The type of resource.
    */
-  resourceType: components.ResourceTypeParameter;
+  resourceType: components.ResourceType;
   /**
    * Context key to filter by.
    */
@@ -114,7 +114,7 @@ export const ListResourcesByContextRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource_type: components.ResourceTypeParameter$inboundSchema,
+  resource_type: components.ResourceType$inboundSchema,
   key: z.string(),
   value: z.string().optional(),
   next_cursor: z.string().optional(),
@@ -146,7 +146,7 @@ export const ListResourcesByContextRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListResourcesByContextRequest
 > = z.object({
-  resourceType: components.ResourceTypeParameter$outboundSchema,
+  resourceType: components.ResourceType$outboundSchema,
   key: z.string(),
   value: z.string().optional(),
   nextCursor: z.string().optional(),

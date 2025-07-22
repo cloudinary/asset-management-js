@@ -35,7 +35,7 @@ import { Result } from "../types/fp.js";
  */
 export function assetsExplicitAsset(
   client: CloudinaryAssetMgmtCore,
-  resourceType: operations.ExplicitAssetResourceType,
+  resourceType: components.ResourceType,
   requestBody: operations.ExplicitAssetRequestBody,
   options?: RequestOptions,
 ): APIPromise<
@@ -62,7 +62,7 @@ export function assetsExplicitAsset(
 
 async function $do(
   client: CloudinaryAssetMgmtCore,
-  resourceType: operations.ExplicitAssetResourceType,
+  resourceType: components.ResourceType,
   requestBody: operations.ExplicitAssetRequestBody,
   options?: RequestOptions,
 ): Promise<

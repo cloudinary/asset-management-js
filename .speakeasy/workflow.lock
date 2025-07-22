@@ -1,21 +1,21 @@
-speakeasyVersion: 1.568.0
+speakeasyVersion: 1.586.0
 sources:
     Asset Management API:
         sourceNamespace: asset-management-api
-        sourceRevisionDigest: sha256:5dad8d635f0a8b9706cd8961056aab3684b9ddfc43d926affc33949025240150
-        sourceBlobDigest: sha256:179d489fec56540309c4f7ba9e675ab23f0d259539e4892212254f45de96755d
+        sourceRevisionDigest: sha256:0f62deef9308153e022214e363c80425432fc74be8574404e13461c305a3b2cf
+        sourceBlobDigest: sha256:d12e3d55711a53e5b4c2707acc0b95f5cd9c6354354d13cc5980af19f3ba3f14
         tags:
             - latest
-            - speakeasy-sdk-regen-1750682979
-            - 0.3.0
+            - speakeasy-sdk-regen-1751934608
+            - 0.3.1
 targets:
     asset-management-js:
         source: Asset Management API
         sourceNamespace: asset-management-api
-        sourceRevisionDigest: sha256:5dad8d635f0a8b9706cd8961056aab3684b9ddfc43d926affc33949025240150
-        sourceBlobDigest: sha256:179d489fec56540309c4f7ba9e675ab23f0d259539e4892212254f45de96755d
+        sourceRevisionDigest: sha256:0f62deef9308153e022214e363c80425432fc74be8574404e13461c305a3b2cf
+        sourceBlobDigest: sha256:d12e3d55711a53e5b4c2707acc0b95f5cd9c6354354d13cc5980af19f3ba3f14
         codeSamplesNamespace: asset-management-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:b109314c94d09cca51db1d5ba613c50719ef5d021d5ddfa11357f4f1fa234e9f
+        codeSamplesRevisionDigest: sha256:9c91404343a487687e0bee6af3b378f98fcd2d0a474dc30e4d073ae403291301
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -28,6 +28,7 @@ workflow:
                 - location: https://cloudinary.github.io/api-schemas/overlays/cloud-name-overlay.yml
                 - location: https://cloudinary.github.io/api-schemas/overlays/mcp-disabled.yml
                 - location: https://cloudinary.github.io/api-schemas/overlays/remove-mcp-description.yml
+                - location: https://cloudinary.github.io/api-schemas/overlays/signature-optional-overlay.yml
                 - location: https://cloudinary.github.io/api-schemas/asset-management/overlays/remove-multipart-overlay.yml
             registry:
                 location: registry.speakeasyapi.dev/cloudinary/cloudinary/asset-management-api

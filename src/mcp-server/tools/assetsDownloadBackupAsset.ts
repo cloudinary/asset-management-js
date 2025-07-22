@@ -9,9 +9,9 @@ import { formatResult, ToolDefinition } from "../tools.js";
 const args = {
   assetId: z.string(),
   versionId: z.string(),
-  apiKey: z.string(),
-  signature: z.string(),
-  timestamp: z.number().int(),
+  apiKey: z.string().optional(),
+  signature: z.string().optional(),
+  timestamp: z.number().int().optional(),
 };
 
 export const tool$assetsDownloadBackupAsset: ToolDefinition<typeof args> = {

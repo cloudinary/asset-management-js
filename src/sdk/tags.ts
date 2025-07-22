@@ -18,7 +18,7 @@ export class Tags extends ClientSDK {
    * [Cloudinary Admin API documentation](https://cloudinary.com/documentation/admin_api)
    */
   async listResourceTags(
-    resourceType: components.ResourceTypeParameter,
+    resourceType: components.ResourceType,
     prefix?: string | undefined,
     nextCursor?: string | undefined,
     maxResults?: number | undefined,

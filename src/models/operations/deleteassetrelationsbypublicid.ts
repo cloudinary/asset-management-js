@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -17,21 +16,6 @@ export type DeleteAssetRelationsByPublicIdGlobals = {
   cloudName?: string | undefined;
 };
 
-/**
- * The delivery type of the asset.
- */
-export const DeleteAssetRelationsByPublicIdType = {
-  Upload: "upload",
-  Private: "private",
-  Authenticated: "authenticated",
-} as const;
-/**
- * The delivery type of the asset.
- */
-export type DeleteAssetRelationsByPublicIdType = ClosedEnum<
-  typeof DeleteAssetRelationsByPublicIdType
->;
-
 export type DeleteAssetRelationsByPublicIdRequestBody = {
   /**
    * Unrelates the asset from all the assets specified in this array of assets, specified as resource_type/type/public_id.
@@ -41,13 +25,13 @@ export type DeleteAssetRelationsByPublicIdRequestBody = {
 
 export type DeleteAssetRelationsByPublicIdRequest = {
   /**
-   * The type the of asset.
+   * The type of resource.
    */
-  resourceType: components.ResourceTypeParameter;
+  resourceType: components.ResourceType;
   /**
    * The delivery type of the asset.
    */
-  type?: DeleteAssetRelationsByPublicIdType | undefined;
+  type: components.StorageType;
   /**
    * The public ID of the asset.
    */
@@ -120,28 +104,6 @@ export function deleteAssetRelationsByPublicIdGlobalsFromJSON(
       DeleteAssetRelationsByPublicIdGlobals$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'DeleteAssetRelationsByPublicIdGlobals' from JSON`,
   );
-}
-
-/** @internal */
-export const DeleteAssetRelationsByPublicIdType$inboundSchema: z.ZodNativeEnum<
-  typeof DeleteAssetRelationsByPublicIdType
-> = z.nativeEnum(DeleteAssetRelationsByPublicIdType);
-
-/** @internal */
-export const DeleteAssetRelationsByPublicIdType$outboundSchema: z.ZodNativeEnum<
-  typeof DeleteAssetRelationsByPublicIdType
-> = DeleteAssetRelationsByPublicIdType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeleteAssetRelationsByPublicIdType$ {
-  /** @deprecated use `DeleteAssetRelationsByPublicIdType$inboundSchema` instead. */
-  export const inboundSchema = DeleteAssetRelationsByPublicIdType$inboundSchema;
-  /** @deprecated use `DeleteAssetRelationsByPublicIdType$outboundSchema` instead. */
-  export const outboundSchema =
-    DeleteAssetRelationsByPublicIdType$outboundSchema;
 }
 
 /** @internal */
@@ -224,8 +186,8 @@ export const DeleteAssetRelationsByPublicIdRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource_type: components.ResourceTypeParameter$inboundSchema,
-  type: DeleteAssetRelationsByPublicIdType$inboundSchema.default("upload"),
+  resource_type: components.ResourceType$inboundSchema,
+  type: components.StorageType$inboundSchema,
   public_id: z.string(),
   RequestBody: z.lazy(() =>
     DeleteAssetRelationsByPublicIdRequestBody$inboundSchema
@@ -252,8 +214,8 @@ export const DeleteAssetRelationsByPublicIdRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DeleteAssetRelationsByPublicIdRequest
 > = z.object({
-  resourceType: components.ResourceTypeParameter$outboundSchema,
-  type: DeleteAssetRelationsByPublicIdType$outboundSchema.default("upload"),
+  resourceType: components.ResourceType$outboundSchema,
+  type: components.StorageType$outboundSchema,
   publicId: z.string(),
   requestBody: z.lazy(() =>
     DeleteAssetRelationsByPublicIdRequestBody$outboundSchema

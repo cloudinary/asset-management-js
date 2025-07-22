@@ -62,7 +62,7 @@ export type SearchParameters = {
    */
   expression?: string | undefined;
   /**
-   * The fields to sort results by. You can specify multiple fields with optional directions (asc/desc). Default direction is desc.
+   * An array of key-value pairs for sorting. Each value is a key and direction (asc/desc). If no direction is specified, defaults to desc.
    */
   sortBy?: Array<string> | undefined;
   /**

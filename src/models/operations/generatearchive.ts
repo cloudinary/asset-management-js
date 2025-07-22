@@ -7,6 +7,7 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
+import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GenerateArchiveGlobals = {
@@ -15,36 +16,6 @@ export type GenerateArchiveGlobals = {
    */
   cloudName?: string | undefined;
 };
-
-/**
- * The type of resources to include in the archive. "image" for images, "video" for videos, "raw" for non-media files, or "all" for mixed types.
- */
-export const GenerateArchiveResourceType = {
-  Image: "image",
-  Video: "video",
-  Raw: "raw",
-  All: "all",
-} as const;
-/**
- * The type of resources to include in the archive. "image" for images, "video" for videos, "raw" for non-media files, or "all" for mixed types.
- */
-export type GenerateArchiveResourceType = ClosedEnum<
-  typeof GenerateArchiveResourceType
->;
-
-/**
- * The specific file type of assets to include in the archive. Not applicable when "resource_type" is "all".
- */
-export const GenerateArchiveType = {
-  Upload: "upload",
-  Private: "private",
-  Authenticated: "authenticated",
-  Fetch: "fetch",
-} as const;
-/**
- * The specific file type of assets to include in the archive. Not applicable when "resource_type" is "all".
- */
-export type GenerateArchiveType = ClosedEnum<typeof GenerateArchiveType>;
 
 /**
  * The method for generating and delivering the archive. Options:
@@ -83,19 +54,19 @@ export type TargetFormat = ClosedEnum<typeof TargetFormat>;
 
 export type GenerateArchiveRequestBody = {
   /**
-   * (Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.
-   *
-   * @remarks
+   * The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.
    */
-  signature?: string | undefined;
+  apiKey?: string | undefined;
   /**
    * The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.
    */
   timestamp?: number | undefined;
   /**
-   * The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.
+   * (Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.
+   *
+   * @remarks
    */
-  apiKey?: string | undefined;
+  signature?: string | undefined;
   /**
    * The list of public IDs to include in the archive. Up to 1000 public IDs are supported.
    */
@@ -109,9 +80,9 @@ export type GenerateArchiveRequestBody = {
    */
   prefixes?: Array<string> | undefined;
   /**
-   * The specific file type of assets to include in the archive. Not applicable when "resource_type" is "all".
+   * The storage type of resources to include in the archive.
    */
-  type?: GenerateArchiveType | undefined;
+  type?: components.ArchiveStorageType | undefined;
   /**
    * The transformations to apply to the assets before including them in the archive (separated by "|").
    */
@@ -183,7 +154,7 @@ export type GenerateArchiveRequest = {
   /**
    * The type of resources to include in the archive. "image" for images, "video" for videos, "raw" for non-media files, or "all" for mixed types.
    */
-  resourceType: GenerateArchiveResourceType;
+  resourceType: components.ArchiveResourceType;
   requestBody: GenerateArchiveRequestBody;
 };
 
@@ -339,48 +310,6 @@ export function generateArchiveGlobalsFromJSON(
 }
 
 /** @internal */
-export const GenerateArchiveResourceType$inboundSchema: z.ZodNativeEnum<
-  typeof GenerateArchiveResourceType
-> = z.nativeEnum(GenerateArchiveResourceType);
-
-/** @internal */
-export const GenerateArchiveResourceType$outboundSchema: z.ZodNativeEnum<
-  typeof GenerateArchiveResourceType
-> = GenerateArchiveResourceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GenerateArchiveResourceType$ {
-  /** @deprecated use `GenerateArchiveResourceType$inboundSchema` instead. */
-  export const inboundSchema = GenerateArchiveResourceType$inboundSchema;
-  /** @deprecated use `GenerateArchiveResourceType$outboundSchema` instead. */
-  export const outboundSchema = GenerateArchiveResourceType$outboundSchema;
-}
-
-/** @internal */
-export const GenerateArchiveType$inboundSchema: z.ZodNativeEnum<
-  typeof GenerateArchiveType
-> = z.nativeEnum(GenerateArchiveType);
-
-/** @internal */
-export const GenerateArchiveType$outboundSchema: z.ZodNativeEnum<
-  typeof GenerateArchiveType
-> = GenerateArchiveType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GenerateArchiveType$ {
-  /** @deprecated use `GenerateArchiveType$inboundSchema` instead. */
-  export const inboundSchema = GenerateArchiveType$inboundSchema;
-  /** @deprecated use `GenerateArchiveType$outboundSchema` instead. */
-  export const outboundSchema = GenerateArchiveType$outboundSchema;
-}
-
-/** @internal */
 export const Mode$inboundSchema: z.ZodNativeEnum<typeof Mode> = z.nativeEnum(
   Mode,
 );
@@ -425,13 +354,13 @@ export const GenerateArchiveRequestBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  signature: z.string().optional(),
-  timestamp: z.number().int().optional(),
   api_key: z.string().optional(),
+  timestamp: z.number().int().optional(),
+  signature: z.string().optional(),
   public_ids: z.array(z.string()).optional(),
   tags: z.array(z.string()).optional(),
   prefixes: z.array(z.string()).optional(),
-  type: GenerateArchiveType$inboundSchema.optional(),
+  type: components.ArchiveStorageType$inboundSchema.optional(),
   transformations: z.string().optional(),
   mode: Mode$inboundSchema.default("create"),
   target_format: TargetFormat$inboundSchema.default("zip"),
@@ -468,9 +397,9 @@ export const GenerateArchiveRequestBody$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GenerateArchiveRequestBody$Outbound = {
-  signature?: string | undefined;
-  timestamp?: number | undefined;
   api_key?: string | undefined;
+  timestamp?: number | undefined;
+  signature?: string | undefined;
   public_ids?: Array<string> | undefined;
   tags?: Array<string> | undefined;
   prefixes?: Array<string> | undefined;
@@ -498,13 +427,13 @@ export const GenerateArchiveRequestBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GenerateArchiveRequestBody
 > = z.object({
-  signature: z.string().optional(),
-  timestamp: z.number().int().optional(),
   apiKey: z.string().optional(),
+  timestamp: z.number().int().optional(),
+  signature: z.string().optional(),
   publicIds: z.array(z.string()).optional(),
   tags: z.array(z.string()).optional(),
   prefixes: z.array(z.string()).optional(),
-  type: GenerateArchiveType$outboundSchema.optional(),
+  type: components.ArchiveStorageType$outboundSchema.optional(),
   transformations: z.string().optional(),
   mode: Mode$outboundSchema.default("create"),
   targetFormat: TargetFormat$outboundSchema.default("zip"),
@@ -576,7 +505,7 @@ export const GenerateArchiveRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource_type: GenerateArchiveResourceType$inboundSchema,
+  resource_type: components.ArchiveResourceType$inboundSchema,
   RequestBody: z.lazy(() => GenerateArchiveRequestBody$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
@@ -597,7 +526,7 @@ export const GenerateArchiveRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GenerateArchiveRequest
 > = z.object({
-  resourceType: GenerateArchiveResourceType$outboundSchema,
+  resourceType: components.ArchiveResourceType$outboundSchema,
   requestBody: z.lazy(() => GenerateArchiveRequestBody$outboundSchema),
 }).transform((v) => {
   return remap$(v, {

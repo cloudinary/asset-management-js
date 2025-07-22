@@ -219,11 +219,11 @@ export type Resource = {
   /**
    * Information about who created the asset.
    */
-  createdBy?: CreatedBy | undefined;
+  createdBy?: CreatedBy | null | undefined;
   /**
    * Information about who uploaded the asset.
    */
-  uploadedBy?: UploadedBy | undefined;
+  uploadedBy?: UploadedBy | null | undefined;
   /**
    * Custom context metadata associated with the asset.
    */
@@ -235,23 +235,23 @@ export type Resource = {
   /**
    * Technical metadata extracted from the image.
    */
-  imageMetadata?: SearchResponseImageMetadata | undefined;
+  imageMetadata?: SearchResponseImageMetadata | null | undefined;
   /**
    * Results of image analysis.
    */
-  imageAnalysis?: ImageAnalysis | undefined;
+  imageAnalysis?: ImageAnalysis | null | undefined;
   /**
    * Structured metadata associated with the asset.
    */
-  metadata?: Metadata | undefined;
+  metadata?: Metadata | null | undefined;
   /**
    * Results of quality analysis.
    */
-  qualityAnalysis?: QualityAnalysis | undefined;
+  qualityAnalysis?: QualityAnalysis | null | undefined;
   /**
    * Results of accessibility analysis.
    */
-  accessibilityAnalysis?: AccessibilityAnalysis | undefined;
+  accessibilityAnalysis?: AccessibilityAnalysis | null | undefined;
 };
 
 export type Value = {
@@ -883,17 +883,21 @@ export const Resource$inboundSchema: z.ZodType<
     z.lazy(() => SearchResponseAccessControl$inboundSchema),
   ).optional(),
   etag: z.string().optional(),
-  created_by: z.lazy(() => CreatedBy$inboundSchema).optional(),
-  uploaded_by: z.lazy(() => UploadedBy$inboundSchema).optional(),
+  created_by: z.nullable(z.lazy(() => CreatedBy$inboundSchema)).optional(),
+  uploaded_by: z.nullable(z.lazy(() => UploadedBy$inboundSchema)).optional(),
   context: z.lazy(() => SearchResponseContext$inboundSchema).optional(),
   tags: z.array(z.string()).optional(),
-  image_metadata: z.lazy(() => SearchResponseImageMetadata$inboundSchema)
+  image_metadata: z.nullable(
+    z.lazy(() => SearchResponseImageMetadata$inboundSchema),
+  ).optional(),
+  image_analysis: z.nullable(z.lazy(() => ImageAnalysis$inboundSchema))
     .optional(),
-  image_analysis: z.lazy(() => ImageAnalysis$inboundSchema).optional(),
-  metadata: z.lazy(() => Metadata$inboundSchema).optional(),
-  quality_analysis: z.lazy(() => QualityAnalysis$inboundSchema).optional(),
-  accessibility_analysis: z.lazy(() => AccessibilityAnalysis$inboundSchema)
+  metadata: z.nullable(z.lazy(() => Metadata$inboundSchema)).optional(),
+  quality_analysis: z.nullable(z.lazy(() => QualityAnalysis$inboundSchema))
     .optional(),
+  accessibility_analysis: z.nullable(
+    z.lazy(() => AccessibilityAnalysis$inboundSchema),
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     "asset_id": "assetId",
@@ -942,15 +946,15 @@ export type Resource$Outbound = {
   access_mode?: string | undefined;
   access_control?: SearchResponseAccessControl$Outbound | null | undefined;
   etag?: string | undefined;
-  created_by?: CreatedBy$Outbound | undefined;
-  uploaded_by?: UploadedBy$Outbound | undefined;
+  created_by?: CreatedBy$Outbound | null | undefined;
+  uploaded_by?: UploadedBy$Outbound | null | undefined;
   context?: SearchResponseContext$Outbound | undefined;
   tags?: Array<string> | undefined;
-  image_metadata?: SearchResponseImageMetadata$Outbound | undefined;
-  image_analysis?: ImageAnalysis$Outbound | undefined;
-  metadata?: Metadata$Outbound | undefined;
-  quality_analysis?: QualityAnalysis$Outbound | undefined;
-  accessibility_analysis?: AccessibilityAnalysis$Outbound | undefined;
+  image_metadata?: SearchResponseImageMetadata$Outbound | null | undefined;
+  image_analysis?: ImageAnalysis$Outbound | null | undefined;
+  metadata?: Metadata$Outbound | null | undefined;
+  quality_analysis?: QualityAnalysis$Outbound | null | undefined;
+  accessibility_analysis?: AccessibilityAnalysis$Outbound | null | undefined;
 };
 
 /** @internal */
@@ -984,17 +988,21 @@ export const Resource$outboundSchema: z.ZodType<
     z.lazy(() => SearchResponseAccessControl$outboundSchema),
   ).optional(),
   etag: z.string().optional(),
-  createdBy: z.lazy(() => CreatedBy$outboundSchema).optional(),
-  uploadedBy: z.lazy(() => UploadedBy$outboundSchema).optional(),
+  createdBy: z.nullable(z.lazy(() => CreatedBy$outboundSchema)).optional(),
+  uploadedBy: z.nullable(z.lazy(() => UploadedBy$outboundSchema)).optional(),
   context: z.lazy(() => SearchResponseContext$outboundSchema).optional(),
   tags: z.array(z.string()).optional(),
-  imageMetadata: z.lazy(() => SearchResponseImageMetadata$outboundSchema)
+  imageMetadata: z.nullable(
+    z.lazy(() => SearchResponseImageMetadata$outboundSchema),
+  ).optional(),
+  imageAnalysis: z.nullable(z.lazy(() => ImageAnalysis$outboundSchema))
     .optional(),
-  imageAnalysis: z.lazy(() => ImageAnalysis$outboundSchema).optional(),
-  metadata: z.lazy(() => Metadata$outboundSchema).optional(),
-  qualityAnalysis: z.lazy(() => QualityAnalysis$outboundSchema).optional(),
-  accessibilityAnalysis: z.lazy(() => AccessibilityAnalysis$outboundSchema)
+  metadata: z.nullable(z.lazy(() => Metadata$outboundSchema)).optional(),
+  qualityAnalysis: z.nullable(z.lazy(() => QualityAnalysis$outboundSchema))
     .optional(),
+  accessibilityAnalysis: z.nullable(
+    z.lazy(() => AccessibilityAnalysis$outboundSchema),
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     assetId: "asset_id",

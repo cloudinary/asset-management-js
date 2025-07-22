@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -17,41 +16,15 @@ export type DeleteResourcesByPublicIdGlobals = {
   cloudName?: string | undefined;
 };
 
-/**
- * The delivery type of the asset.
- */
-export const DeleteResourcesByPublicIdType = {
-  Upload: "upload",
-  Private: "private",
-  Authenticated: "authenticated",
-  Fetch: "fetch",
-  Facebook: "facebook",
-  Twitter: "twitter",
-  Gravatar: "gravatar",
-  Youtube: "youtube",
-  Hulu: "hulu",
-  Vimeo: "vimeo",
-  Animoto: "animoto",
-  Worldstarhiphop: "worldstarhiphop",
-  Dailymotion: "dailymotion",
-  List: "list",
-} as const;
-/**
- * The delivery type of the asset.
- */
-export type DeleteResourcesByPublicIdType = ClosedEnum<
-  typeof DeleteResourcesByPublicIdType
->;
-
 export type DeleteResourcesByPublicIdRequest = {
   /**
-   * The type the of asset.
+   * The type of resource.
    */
-  resourceType: components.ResourceTypeParameter;
+  resourceType: components.ResourceType;
   /**
-   * The delivery type of the asset.
+   * The extended storage type of the resource.
    */
-  type: DeleteResourcesByPublicIdType;
+  type: components.ExtendedStorageType;
   deleteResourceByPublicIdsRequest:
     components.DeleteResourceByPublicIdsRequestUnion;
 };
@@ -126,34 +99,13 @@ export function deleteResourcesByPublicIdGlobalsFromJSON(
 }
 
 /** @internal */
-export const DeleteResourcesByPublicIdType$inboundSchema: z.ZodNativeEnum<
-  typeof DeleteResourcesByPublicIdType
-> = z.nativeEnum(DeleteResourcesByPublicIdType);
-
-/** @internal */
-export const DeleteResourcesByPublicIdType$outboundSchema: z.ZodNativeEnum<
-  typeof DeleteResourcesByPublicIdType
-> = DeleteResourcesByPublicIdType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeleteResourcesByPublicIdType$ {
-  /** @deprecated use `DeleteResourcesByPublicIdType$inboundSchema` instead. */
-  export const inboundSchema = DeleteResourcesByPublicIdType$inboundSchema;
-  /** @deprecated use `DeleteResourcesByPublicIdType$outboundSchema` instead. */
-  export const outboundSchema = DeleteResourcesByPublicIdType$outboundSchema;
-}
-
-/** @internal */
 export const DeleteResourcesByPublicIdRequest$inboundSchema: z.ZodType<
   DeleteResourcesByPublicIdRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource_type: components.ResourceTypeParameter$inboundSchema,
-  type: DeleteResourcesByPublicIdType$inboundSchema,
+  resource_type: components.ResourceType$inboundSchema,
+  type: components.ExtendedStorageType$inboundSchema,
   DeleteResourceByPublicIdsRequest:
     components.DeleteResourceByPublicIdsRequestUnion$inboundSchema,
 }).transform((v) => {
@@ -177,8 +129,8 @@ export const DeleteResourcesByPublicIdRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DeleteResourcesByPublicIdRequest
 > = z.object({
-  resourceType: components.ResourceTypeParameter$outboundSchema,
-  type: DeleteResourcesByPublicIdType$outboundSchema,
+  resourceType: components.ResourceType$outboundSchema,
+  type: components.ExtendedStorageType$outboundSchema,
   deleteResourceByPublicIdsRequest:
     components.DeleteResourceByPublicIdsRequestUnion$outboundSchema,
 }).transform((v) => {

@@ -3,11 +3,12 @@
  */
 
 import { assetsRenameAsset } from "../../funcs/assetsRenameAsset.js";
+import * as components from "../../models/components/index.js";
 import * as operations from "../../models/operations/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  resourceType: operations.RenameAssetResourceType$inboundSchema,
+  resourceType: components.ResourceType$inboundSchema,
   requestBody: operations.RenameAssetRequestBody$inboundSchema,
 };
 

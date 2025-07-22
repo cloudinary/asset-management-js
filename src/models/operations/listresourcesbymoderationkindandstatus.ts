@@ -39,9 +39,9 @@ export type ModerationStatus = ClosedEnum<typeof ModerationStatus>;
 
 export type ListResourcesByModerationKindAndStatusRequest = {
   /**
-   * The type the of asset.
+   * The type of resource.
    */
-  resourceType: components.ResourceTypeParameter;
+  resourceType: components.ResourceType;
   moderationKind: ModerationKind;
   moderationStatus: ModerationStatus;
   fields?: Array<components.FieldsSpec> | undefined;
@@ -183,7 +183,7 @@ export const ListResourcesByModerationKindAndStatusRequest$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    resource_type: components.ResourceTypeParameter$inboundSchema,
+    resource_type: components.ResourceType$inboundSchema,
     moderation_kind: ModerationKind$inboundSchema,
     moderation_status: ModerationStatus$inboundSchema,
     fields: z.array(components.FieldsSpec$inboundSchema).optional(),
@@ -218,7 +218,7 @@ export const ListResourcesByModerationKindAndStatusRequest$outboundSchema:
     z.ZodTypeDef,
     ListResourcesByModerationKindAndStatusRequest
   > = z.object({
-    resourceType: components.ResourceTypeParameter$outboundSchema,
+    resourceType: components.ResourceType$outboundSchema,
     moderationKind: ModerationKind$outboundSchema,
     moderationStatus: ModerationStatus$outboundSchema,
     fields: z.array(components.FieldsSpec$outboundSchema).optional(),

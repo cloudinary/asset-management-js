@@ -304,7 +304,7 @@ run();
 * [listResourcesByAssetIDs](docs/sdks/assets/README.md#listresourcesbyassetids) - Get resources by asset IDs
 * [listResourcesByContext](docs/sdks/assets/README.md#listresourcesbycontext) - Get resources by context
 * [listResourcesByModerationKindAndStatus](docs/sdks/assets/README.md#listresourcesbymoderationkindandstatus) - Get resources by moderation kind and status
-* [restoreResourcesByAssetIDs](docs/sdks/assets/README.md#restoreresourcesbyassetids) - Restore assets
+* [restoreResourcesByAssetIDs](docs/sdks/assets/README.md#restoreresourcesbyassetids) - Restore assets by asset ID
 * [deleteResourcesByPublicId](docs/sdks/assets/README.md#deleteresourcesbypublicid) - Delete resources by public ID
 * [getResourceByPublicId](docs/sdks/assets/README.md#getresourcebypublicid) - Get resource by public ID
 * [updateResourceByPublicId](docs/sdks/assets/README.md#updateresourcebypublicid) - Update asset by public ID
@@ -349,6 +349,7 @@ run();
 ### [upload](docs/sdks/upload/README.md)
 
 * [upload](docs/sdks/upload/README.md#upload) - Uploads media assets (images, videos, raw files) to your Cloudinary product environment
+* [uploadNoResourceType](docs/sdks/upload/README.md#uploadnoresourcetype) - Upload with automatic file type detection
 * [uploadChunk](docs/sdks/upload/README.md#uploadchunk) - Upload a single chunk of a large file
 * [destroyAsset](docs/sdks/upload/README.md#destroyasset) - Destroys an asset/resource
 * [text](docs/sdks/upload/README.md#text) - Create image from text
@@ -406,7 +407,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`assetsListResourceTypes`](docs/sdks/assets/README.md#listresourcetypes) - Get resource types
 - [`assetsListVideos`](docs/sdks/assets/README.md#listvideos) - Get video assets
 - [`assetsRenameAsset`](docs/sdks/assets/README.md#renameasset) - Updates an existing asset's identifier and optionally other metadata in your Cloudinary account
-- [`assetsRestoreResourcesByAssetIDs`](docs/sdks/assets/README.md#restoreresourcesbyassetids) - Restore assets
+- [`assetsRestoreResourcesByAssetIDs`](docs/sdks/assets/README.md#restoreresourcesbyassetids) - Restore assets by asset ID
 - [`assetsUpdateResourceByAssetId`](docs/sdks/assets/README.md#updateresourcebyassetid) - Updates an existing asset's metadata, tags, and other attributes using its asset ID
 - [`assetsUpdateResourceByPublicId`](docs/sdks/assets/README.md#updateresourcebypublicid) - Update asset by public ID
 - [`explodeExplodeResource`](docs/sdks/explode/README.md#exploderesource) - Create derived images from multi-page file
@@ -423,6 +424,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`uploadText`](docs/sdks/upload/README.md#text) - Create image from text
 - [`uploadUpload`](docs/sdks/upload/README.md#upload) - Uploads media assets (images, videos, raw files) to your Cloudinary product environment
 - [`uploadUploadChunk`](docs/sdks/upload/README.md#uploadchunk) - Upload a single chunk of a large file
+- [`uploadUploadNoResourceType`](docs/sdks/upload/README.md#uploadnoresourcetype) - Upload with automatic file type detection
 - [`usageGetUsage`](docs/sdks/usage/README.md#getusage) - Retrieves comprehensive usage metrics and account statistics
 - [`videoAnalyticsGetVideoViews`](docs/sdks/videoanalytics/README.md#getvideoviews) - Get video views
 
@@ -591,7 +593,7 @@ run();
 ### Error Classes
 **Primary errors:**
 * [`CloudinaryAssetMgmtError`](./src/models/errors/cloudinaryassetmgmterror.ts): The base class for HTTP error responses.
-  * [`ApiError`](docs/models/errors/apierror.md): *
+  * [`ApiError`](./src/models/errors/apierror.ts): *
 
 <details><summary>Less common errors (10)</summary>
 
@@ -606,10 +608,10 @@ run();
 
 
 **Inherit from [`CloudinaryAssetMgmtError`](./src/models/errors/cloudinaryassetmgmterror.ts)**:
-* [`BadRequestError`](docs/models/errors/badrequesterror.md): Bad request. Status code `400`. Applicable to 1 of 46 methods.*
-* [`DownloadBackupAssetUnauthorizedError`](docs/models/errors/downloadbackupassetunauthorizederror.md): Authentication failed. Status code `401`. Applicable to 1 of 46 methods.*
-* [`ListResourceTypesUnauthorizedError`](docs/models/errors/listresourcetypesunauthorizederror.md): Authentication failed. Status code `401`. Applicable to 1 of 46 methods.*
-* [`NotFoundError`](docs/models/errors/notfounderror.md): Version not found. Status code `404`. Applicable to 1 of 46 methods.*
+* [`BadRequestError`](./src/models/errors/badrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 47 methods.*
+* [`DownloadBackupAssetUnauthorizedError`](./src/models/errors/downloadbackupassetunauthorizederror.ts): Authentication failed. Status code `401`. Applicable to 1 of 47 methods.*
+* [`ListResourceTypesUnauthorizedError`](./src/models/errors/listresourcetypesunauthorizederror.ts): Authentication failed. Status code `401`. Applicable to 1 of 47 methods.*
+* [`NotFoundError`](./src/models/errors/notfounderror.ts): Version not found. Status code `404`. Applicable to 1 of 47 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

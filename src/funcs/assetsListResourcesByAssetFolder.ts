@@ -35,7 +35,7 @@ import { Result } from "../types/fp.js";
 export function assetsListResourcesByAssetFolder(
   client: CloudinaryAssetMgmtCore,
   assetFolder: string,
-  resourceType?: operations.ListResourcesByAssetFolderResourceType | undefined,
+  resourceType?: components.ResourceType | undefined,
   nextCursor?: string | undefined,
   maxResults?: number | undefined,
   direction?: components.Direction | undefined,
@@ -70,7 +70,7 @@ export function assetsListResourcesByAssetFolder(
 async function $do(
   client: CloudinaryAssetMgmtCore,
   assetFolder: string,
-  resourceType?: operations.ListResourcesByAssetFolderResourceType | undefined,
+  resourceType?: components.ResourceType | undefined,
   nextCursor?: string | undefined,
   maxResults?: number | undefined,
   direction?: components.Direction | undefined,

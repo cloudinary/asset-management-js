@@ -17,7 +17,7 @@ export type DownloadBackupAssetGlobals = {
 
 export type DownloadBackupAssetRequest = {
   /**
-   * The asset ID of the backup to download. Must be a 32-character hexadecimal string.
+   * The asset ID of the resource. Must be a 32-character hexadecimal string.
    */
   assetId: string;
   /**
@@ -25,17 +25,19 @@ export type DownloadBackupAssetRequest = {
    */
   versionId: string;
   /**
-   * The API key for authentication.
+   * The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.
    */
-  apiKey: string;
+  apiKey?: string | undefined;
   /**
-   * The request signature.
+   * (Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.
+   *
+   * @remarks
    */
-  signature: string;
+  signature?: string | undefined;
   /**
-   * The request timestamp.
+   * The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.
    */
-  timestamp: number;
+  timestamp?: number | undefined;
 };
 
 export type NotFoundError = {
@@ -143,9 +145,9 @@ export const DownloadBackupAssetRequest$inboundSchema: z.ZodType<
 > = z.object({
   asset_id: z.string(),
   version_id: z.string(),
-  api_key: z.string(),
-  signature: z.string(),
-  timestamp: z.number().int(),
+  api_key: z.string().optional(),
+  signature: z.string().optional(),
+  timestamp: z.number().int().optional(),
 }).transform((v) => {
   return remap$(v, {
     "asset_id": "assetId",
@@ -158,9 +160,9 @@ export const DownloadBackupAssetRequest$inboundSchema: z.ZodType<
 export type DownloadBackupAssetRequest$Outbound = {
   asset_id: string;
   version_id: string;
-  api_key: string;
-  signature: string;
-  timestamp: number;
+  api_key?: string | undefined;
+  signature?: string | undefined;
+  timestamp?: number | undefined;
 };
 
 /** @internal */
@@ -171,9 +173,9 @@ export const DownloadBackupAssetRequest$outboundSchema: z.ZodType<
 > = z.object({
   assetId: z.string(),
   versionId: z.string(),
-  apiKey: z.string(),
-  signature: z.string(),
-  timestamp: z.number().int(),
+  apiKey: z.string().optional(),
+  signature: z.string().optional(),
+  timestamp: z.number().int().optional(),
 }).transform((v) => {
   return remap$(v, {
     assetId: "asset_id",

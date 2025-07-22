@@ -10,6 +10,18 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
+ * Configuration object for automatic video transcription with translation options.
+ */
+export type AutoTranscription = {
+  /**
+   * Array of target language codes for transcription translation.
+   */
+  translate?: Array<string> | undefined;
+};
+
+export type AutoTranscriptionUnion = AutoTranscription | boolean;
+
+/**
  * For all asset types, set to:
  *
  * @remarks
@@ -168,19 +180,19 @@ export type UploadRequestBackgroundRemoval = ClosedEnum<
 
 export type UploadRequest = {
   /**
-   * (Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.
-   *
-   * @remarks
+   * The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.
    */
-  signature?: string | undefined;
+  apiKey?: string | undefined;
   /**
    * The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.
    */
   timestamp?: number | undefined;
   /**
-   * The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.
+   * (Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.
+   *
+   * @remarks
    */
-  apiKey?: string | undefined;
+  signature?: string | undefined;
   /**
    * Whether to return return accessibility analysis values for the image.
    */
@@ -199,10 +211,7 @@ export type UploadRequest = {
    * Whether to trigger automatic generation of video chapters. Chapters will be generated and saved as a .vtt file with -chapters appended to the public ID of the video. You can enable chapters as part of the Cloudinary Video Player. Relevant for videos only.
    */
   autoChaptering?: boolean | undefined;
-  /**
-   * Whether to trigger automatic generation of video transcription. Transcription will be generated and saved as a .vtt file with -transcription appended to the public ID of the video. Relevant for videos only.
-   */
-  autoTranscription?: boolean | undefined;
+  autoTranscription?: AutoTranscription | boolean | undefined;
   /**
    * Whether to return a cinemagraph analysis value for the media asset between 0 and 1, where 0 means the asset is not a cinemagraph and 1 means the asset is a cinemagraph. Relevant for animated images and video only. A static image will return 0.
    */
@@ -323,6 +332,8 @@ export type UploadRequest = {
    * @remarks
    * Signed upload result parameters are added to the callback URL. This parameter is ignored for XHR (Ajax XMLHttpRequest) or JavaScript Fetch API upload requests.
    * Note: This parameter is relevant for direct uploads from a form in the browser. It is automatically set if you perform direct upload from the browser using Cloudinary's SDKs and the jQuery plugin.
+   *
+   * @deprecated field: The callback parameter is deprecated. Not relevant for modern browsers. Starting July 2025 new customers will not be able to use this parameter..
    */
   callback?: string | undefined;
   /**
@@ -513,6 +524,110 @@ export type UploadRequest = {
    */
   file: string;
 };
+
+/** @internal */
+export const AutoTranscription$inboundSchema: z.ZodType<
+  AutoTranscription,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  translate: z.array(z.string()).optional(),
+});
+
+/** @internal */
+export type AutoTranscription$Outbound = {
+  translate?: Array<string> | undefined;
+};
+
+/** @internal */
+export const AutoTranscription$outboundSchema: z.ZodType<
+  AutoTranscription$Outbound,
+  z.ZodTypeDef,
+  AutoTranscription
+> = z.object({
+  translate: z.array(z.string()).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace AutoTranscription$ {
+  /** @deprecated use `AutoTranscription$inboundSchema` instead. */
+  export const inboundSchema = AutoTranscription$inboundSchema;
+  /** @deprecated use `AutoTranscription$outboundSchema` instead. */
+  export const outboundSchema = AutoTranscription$outboundSchema;
+  /** @deprecated use `AutoTranscription$Outbound` instead. */
+  export type Outbound = AutoTranscription$Outbound;
+}
+
+export function autoTranscriptionToJSON(
+  autoTranscription: AutoTranscription,
+): string {
+  return JSON.stringify(
+    AutoTranscription$outboundSchema.parse(autoTranscription),
+  );
+}
+
+export function autoTranscriptionFromJSON(
+  jsonString: string,
+): SafeParseResult<AutoTranscription, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AutoTranscription$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AutoTranscription' from JSON`,
+  );
+}
+
+/** @internal */
+export const AutoTranscriptionUnion$inboundSchema: z.ZodType<
+  AutoTranscriptionUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([z.lazy(() => AutoTranscription$inboundSchema), z.boolean()]);
+
+/** @internal */
+export type AutoTranscriptionUnion$Outbound =
+  | AutoTranscription$Outbound
+  | boolean;
+
+/** @internal */
+export const AutoTranscriptionUnion$outboundSchema: z.ZodType<
+  AutoTranscriptionUnion$Outbound,
+  z.ZodTypeDef,
+  AutoTranscriptionUnion
+> = z.union([z.lazy(() => AutoTranscription$outboundSchema), z.boolean()]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace AutoTranscriptionUnion$ {
+  /** @deprecated use `AutoTranscriptionUnion$inboundSchema` instead. */
+  export const inboundSchema = AutoTranscriptionUnion$inboundSchema;
+  /** @deprecated use `AutoTranscriptionUnion$outboundSchema` instead. */
+  export const outboundSchema = AutoTranscriptionUnion$outboundSchema;
+  /** @deprecated use `AutoTranscriptionUnion$Outbound` instead. */
+  export type Outbound = AutoTranscriptionUnion$Outbound;
+}
+
+export function autoTranscriptionUnionToJSON(
+  autoTranscriptionUnion: AutoTranscriptionUnion,
+): string {
+  return JSON.stringify(
+    AutoTranscriptionUnion$outboundSchema.parse(autoTranscriptionUnion),
+  );
+}
+
+export function autoTranscriptionUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<AutoTranscriptionUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AutoTranscriptionUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AutoTranscriptionUnion' from JSON`,
+  );
+}
 
 /** @internal */
 export const ModerationEnum$inboundSchema: z.ZodNativeEnum<
@@ -731,14 +846,17 @@ export const UploadRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  signature: z.string().optional(),
-  timestamp: z.number().int().optional(),
   api_key: z.string().optional(),
+  timestamp: z.number().int().optional(),
+  signature: z.string().optional(),
   accessibility_analysis: z.boolean().optional(),
   asset_folder: z.string().optional(),
   async: z.boolean().optional(),
   auto_chaptering: z.boolean().optional(),
-  auto_transcription: z.boolean().optional(),
+  auto_transcription: z.union([
+    z.lazy(() => AutoTranscription$inboundSchema),
+    z.boolean(),
+  ]).optional(),
   cinemagraph_analysis: z.boolean().optional(),
   colors: z.boolean().default(false),
   context: z.string().optional(),
@@ -835,14 +953,14 @@ export const UploadRequest$inboundSchema: z.ZodType<
 
 /** @internal */
 export type UploadRequest$Outbound = {
-  signature?: string | undefined;
-  timestamp?: number | undefined;
   api_key?: string | undefined;
+  timestamp?: number | undefined;
+  signature?: string | undefined;
   accessibility_analysis?: boolean | undefined;
   asset_folder?: string | undefined;
   async?: boolean | undefined;
   auto_chaptering?: boolean | undefined;
-  auto_transcription?: boolean | undefined;
+  auto_transcription?: AutoTranscription$Outbound | boolean | undefined;
   cinemagraph_analysis?: boolean | undefined;
   colors: boolean;
   context?: string | undefined;
@@ -904,14 +1022,17 @@ export const UploadRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UploadRequest
 > = z.object({
-  signature: z.string().optional(),
-  timestamp: z.number().int().optional(),
   apiKey: z.string().optional(),
+  timestamp: z.number().int().optional(),
+  signature: z.string().optional(),
   accessibilityAnalysis: z.boolean().optional(),
   assetFolder: z.string().optional(),
   async: z.boolean().optional(),
   autoChaptering: z.boolean().optional(),
-  autoTranscription: z.boolean().optional(),
+  autoTranscription: z.union([
+    z.lazy(() => AutoTranscription$outboundSchema),
+    z.boolean(),
+  ]).optional(),
   cinemagraphAnalysis: z.boolean().optional(),
   colors: z.boolean().default(false),
   context: z.string().optional(),

@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
  */
 export function assetsListResourcesByModerationKindAndStatus(
   client: CloudinaryAssetMgmtCore,
-  resourceType: components.ResourceTypeParameter,
+  resourceType: components.ResourceType,
   moderationKind: operations.ModerationKind,
   moderationStatus: operations.ModerationStatus,
   fields?: Array<components.FieldsSpec> | undefined,
@@ -71,7 +71,7 @@ export function assetsListResourcesByModerationKindAndStatus(
 
 async function $do(
   client: CloudinaryAssetMgmtCore,
-  resourceType: components.ResourceTypeParameter,
+  resourceType: components.ResourceType,
   moderationKind: operations.ModerationKind,
   moderationStatus: operations.ModerationStatus,
   fields?: Array<components.FieldsSpec> | undefined,

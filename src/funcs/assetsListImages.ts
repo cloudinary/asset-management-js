@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
  */
 export function assetsListImages(
   client: CloudinaryAssetMgmtCore,
-  type?: operations.ListImagesType | undefined,
+  type?: components.ListStorageType | undefined,
   prefix?: string | undefined,
   publicIds?: Array<string> | undefined,
   tags?: boolean | undefined,
@@ -75,7 +75,7 @@ export function assetsListImages(
 
 async function $do(
   client: CloudinaryAssetMgmtCore,
-  type?: operations.ListImagesType | undefined,
+  type?: components.ListStorageType | undefined,
   prefix?: string | undefined,
   publicIds?: Array<string> | undefined,
   tags?: boolean | undefined,

@@ -5,22 +5,13 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-/**
- * The storage type of the asset. Defaults to 'upload'.
- */
-export const Kind = {
-  Upload: "upload",
-  Private: "private",
-  Authenticated: "authenticated",
-} as const;
-/**
- * The storage type of the asset. Defaults to 'upload'.
- */
-export type Kind = ClosedEnum<typeof Kind>;
+import {
+  StorageType,
+  StorageType$inboundSchema,
+  StorageType$outboundSchema,
+} from "./storagetype.js";
 
 /**
  * Status information returned for in-progress chunked uploads.
@@ -38,9 +29,9 @@ export type NonFinalChunkUploadResponse = {
    */
   bytes: number;
   /**
-   * The storage type of the asset. Defaults to 'upload'.
+   * The storage type of the resource.
    */
-  kind?: Kind | undefined;
+  kind?: StorageType | undefined;
   /**
    * The type of resource being uploaded (e.g., "image", "video", "raw"). May be omitted in early chunks when using auto detection.
    */
@@ -52,26 +43,6 @@ export type NonFinalChunkUploadResponse = {
 };
 
 /** @internal */
-export const Kind$inboundSchema: z.ZodNativeEnum<typeof Kind> = z.nativeEnum(
-  Kind,
-);
-
-/** @internal */
-export const Kind$outboundSchema: z.ZodNativeEnum<typeof Kind> =
-  Kind$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Kind$ {
-  /** @deprecated use `Kind$inboundSchema` instead. */
-  export const inboundSchema = Kind$inboundSchema;
-  /** @deprecated use `Kind$outboundSchema` instead. */
-  export const outboundSchema = Kind$outboundSchema;
-}
-
-/** @internal */
 export const NonFinalChunkUploadResponse$inboundSchema: z.ZodType<
   NonFinalChunkUploadResponse,
   z.ZodTypeDef,
@@ -79,7 +50,7 @@ export const NonFinalChunkUploadResponse$inboundSchema: z.ZodType<
 > = z.object({
   done: z.boolean(),
   bytes: z.number().int(),
-  kind: Kind$inboundSchema.optional(),
+  kind: StorageType$inboundSchema.optional(),
   resource_type: z.string().optional(),
   public_id: z.string().optional(),
 }).transform((v) => {
@@ -106,7 +77,7 @@ export const NonFinalChunkUploadResponse$outboundSchema: z.ZodType<
 > = z.object({
   done: z.boolean(),
   bytes: z.number().int(),
-  kind: Kind$outboundSchema.optional(),
+  kind: StorageType$outboundSchema.optional(),
   resourceType: z.string().optional(),
   publicId: z.string().optional(),
 }).transform((v) => {

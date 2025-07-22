@@ -36,7 +36,7 @@ export type SearchFoldersRequest = {
    */
   maxResults?: number | undefined;
   /**
-   * When more results are available, use the next_cursor value from the previous response.
+   * The cursor for pagination. Use the next_cursor value from a previous response to get the next page of results.
    */
   nextCursor?: string | undefined;
 };

@@ -38,7 +38,7 @@ export type GetVideoViewsRequest = {
    */
   expression?: string | undefined;
   /**
-   * Specifies the number of items to include in the response.
+   * The maximum number of results to return. Default is 10.
    */
   maxResults?: number | undefined;
   /**
@@ -46,7 +46,7 @@ export type GetVideoViewsRequest = {
    */
   sortBy?: SortBy | undefined;
   /**
-   * The value to be used to obtain the next batch of results.
+   * The cursor for pagination. Use the next_cursor value from a previous response to get the next page of results.
    */
   nextCursor?: string | undefined;
 };

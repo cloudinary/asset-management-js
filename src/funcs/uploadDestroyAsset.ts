@@ -10,6 +10,7 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
+import * as components from "../models/components/index.js";
 import { CloudinaryAssetMgmtError } from "../models/errors/cloudinaryassetmgmterror.js";
 import {
   ConnectionError,
@@ -30,7 +31,7 @@ import { Result } from "../types/fp.js";
  */
 export function uploadDestroyAsset(
   client: CloudinaryAssetMgmtCore,
-  resourceType: operations.DestroyAssetResourceType,
+  resourceType: components.ResourceType,
   publicId: string,
   invalidate?: boolean | undefined,
   options?: RequestOptions,
@@ -59,7 +60,7 @@ export function uploadDestroyAsset(
 
 async function $do(
   client: CloudinaryAssetMgmtCore,
-  resourceType: operations.DestroyAssetResourceType,
+  resourceType: components.ResourceType,
   publicId: string,
   invalidate?: boolean | undefined,
   options?: RequestOptions,

@@ -5,8 +5,8 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
+import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type RenameAssetGlobals = {
@@ -16,62 +16,21 @@ export type RenameAssetGlobals = {
   cloudName?: string | undefined;
 };
 
-/**
- * The type of resource to rename. "image", "video", or "raw".
- */
-export const RenameAssetResourceType = {
-  Image: "image",
-  Video: "video",
-  Raw: "raw",
-} as const;
-/**
- * The type of resource to rename. "image", "video", or "raw".
- */
-export type RenameAssetResourceType = ClosedEnum<
-  typeof RenameAssetResourceType
->;
-
-/**
- * The storage type of the asset. Defaults to 'upload'.
- */
-export const RenameAssetType = {
-  Upload: "upload",
-  Private: "private",
-  Authenticated: "authenticated",
-} as const;
-/**
- * The storage type of the asset. Defaults to 'upload'.
- */
-export type RenameAssetType = ClosedEnum<typeof RenameAssetType>;
-
-/**
- * The new storage type for the asset.
- */
-export const ToType = {
-  Upload: "upload",
-  Private: "private",
-  Authenticated: "authenticated",
-} as const;
-/**
- * The new storage type for the asset.
- */
-export type ToType = ClosedEnum<typeof ToType>;
-
 export type RenameAssetRequestBody = {
+  /**
+   * The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.
+   */
+  apiKey?: string | undefined;
+  /**
+   * The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.
+   */
+  timestamp?: number | undefined;
   /**
    * (Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.
    *
    * @remarks
    */
   signature?: string | undefined;
-  /**
-   * The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.
-   */
-  timestamp?: number | undefined;
-  /**
-   * The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.
-   */
-  apiKey?: string | undefined;
   /**
    * The public ID of the asset to rename.
    */
@@ -81,13 +40,13 @@ export type RenameAssetRequestBody = {
    */
   toPublicId: string;
   /**
-   * The storage type of the asset. Defaults to 'upload'.
+   * The storage type of the resource.
    */
-  type?: RenameAssetType | undefined;
+  type?: components.StorageType | undefined;
   /**
-   * The new storage type for the asset.
+   * The storage type of the resource.
    */
-  toType?: ToType | undefined;
+  toType?: components.StorageType | undefined;
   /**
    * Whether to overwrite the target asset if it already exists.
    */
@@ -112,9 +71,9 @@ export type RenameAssetRequestBody = {
 
 export type RenameAssetRequest = {
   /**
-   * The type of resource to rename. "image", "video", or "raw".
+   * The type of resource.
    */
-  resourceType: RenameAssetResourceType;
+  resourceType: components.ResourceType;
   requestBody: RenameAssetRequestBody;
 };
 
@@ -181,79 +140,18 @@ export function renameAssetGlobalsFromJSON(
 }
 
 /** @internal */
-export const RenameAssetResourceType$inboundSchema: z.ZodNativeEnum<
-  typeof RenameAssetResourceType
-> = z.nativeEnum(RenameAssetResourceType);
-
-/** @internal */
-export const RenameAssetResourceType$outboundSchema: z.ZodNativeEnum<
-  typeof RenameAssetResourceType
-> = RenameAssetResourceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RenameAssetResourceType$ {
-  /** @deprecated use `RenameAssetResourceType$inboundSchema` instead. */
-  export const inboundSchema = RenameAssetResourceType$inboundSchema;
-  /** @deprecated use `RenameAssetResourceType$outboundSchema` instead. */
-  export const outboundSchema = RenameAssetResourceType$outboundSchema;
-}
-
-/** @internal */
-export const RenameAssetType$inboundSchema: z.ZodNativeEnum<
-  typeof RenameAssetType
-> = z.nativeEnum(RenameAssetType);
-
-/** @internal */
-export const RenameAssetType$outboundSchema: z.ZodNativeEnum<
-  typeof RenameAssetType
-> = RenameAssetType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RenameAssetType$ {
-  /** @deprecated use `RenameAssetType$inboundSchema` instead. */
-  export const inboundSchema = RenameAssetType$inboundSchema;
-  /** @deprecated use `RenameAssetType$outboundSchema` instead. */
-  export const outboundSchema = RenameAssetType$outboundSchema;
-}
-
-/** @internal */
-export const ToType$inboundSchema: z.ZodNativeEnum<typeof ToType> = z
-  .nativeEnum(ToType);
-
-/** @internal */
-export const ToType$outboundSchema: z.ZodNativeEnum<typeof ToType> =
-  ToType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ToType$ {
-  /** @deprecated use `ToType$inboundSchema` instead. */
-  export const inboundSchema = ToType$inboundSchema;
-  /** @deprecated use `ToType$outboundSchema` instead. */
-  export const outboundSchema = ToType$outboundSchema;
-}
-
-/** @internal */
 export const RenameAssetRequestBody$inboundSchema: z.ZodType<
   RenameAssetRequestBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  signature: z.string().optional(),
-  timestamp: z.number().int().optional(),
   api_key: z.string().optional(),
+  timestamp: z.number().int().optional(),
+  signature: z.string().optional(),
   from_public_id: z.string(),
   to_public_id: z.string(),
-  type: RenameAssetType$inboundSchema.optional(),
-  to_type: ToType$inboundSchema.optional(),
+  type: components.StorageType$inboundSchema.optional(),
+  to_type: components.StorageType$inboundSchema.optional(),
   overwrite: z.boolean().optional(),
   invalidate: z.boolean().optional(),
   context: z.string().optional(),
@@ -271,9 +169,9 @@ export const RenameAssetRequestBody$inboundSchema: z.ZodType<
 
 /** @internal */
 export type RenameAssetRequestBody$Outbound = {
-  signature?: string | undefined;
-  timestamp?: number | undefined;
   api_key?: string | undefined;
+  timestamp?: number | undefined;
+  signature?: string | undefined;
   from_public_id: string;
   to_public_id: string;
   type?: string | undefined;
@@ -291,13 +189,13 @@ export const RenameAssetRequestBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RenameAssetRequestBody
 > = z.object({
-  signature: z.string().optional(),
-  timestamp: z.number().int().optional(),
   apiKey: z.string().optional(),
+  timestamp: z.number().int().optional(),
+  signature: z.string().optional(),
   fromPublicId: z.string(),
   toPublicId: z.string(),
-  type: RenameAssetType$outboundSchema.optional(),
-  toType: ToType$outboundSchema.optional(),
+  type: components.StorageType$outboundSchema.optional(),
+  toType: components.StorageType$outboundSchema.optional(),
   overwrite: z.boolean().optional(),
   invalidate: z.boolean().optional(),
   context: z.string().optional(),
@@ -350,7 +248,7 @@ export const RenameAssetRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource_type: RenameAssetResourceType$inboundSchema,
+  resource_type: components.ResourceType$inboundSchema,
   RequestBody: z.lazy(() => RenameAssetRequestBody$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
@@ -371,7 +269,7 @@ export const RenameAssetRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RenameAssetRequest
 > = z.object({
-  resourceType: RenameAssetResourceType$outboundSchema,
+  resourceType: components.ResourceType$outboundSchema,
   requestBody: z.lazy(() => RenameAssetRequestBody$outboundSchema),
 }).transform((v) => {
   return remap$(v, {

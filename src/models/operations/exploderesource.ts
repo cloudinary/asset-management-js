@@ -7,6 +7,7 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
+import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type ExplodeResourceGlobals = {
@@ -17,32 +18,33 @@ export type ExplodeResourceGlobals = {
 };
 
 /**
- * The type of resource to explode. only "image"
+ * The type of resource to explode. Only "image" is supported.
  */
 export const ExplodeResourceResourceType = {
   Image: "image",
 } as const;
 /**
- * The type of resource to explode. only "image"
+ * The type of resource to explode. Only "image" is supported.
  */
 export type ExplodeResourceResourceType = ClosedEnum<
   typeof ExplodeResourceResourceType
 >;
 
-/**
- * description: The delivery type of the asset. Default: upload
- */
-export const ExplodeResourceType = {
-  Upload: "upload",
-  Private: "private",
-  Authenticated: "authenticated",
-} as const;
-/**
- * description: The delivery type of the asset. Default: upload
- */
-export type ExplodeResourceType = ClosedEnum<typeof ExplodeResourceType>;
-
 export type ExplodeResourceRequestBody = {
+  /**
+   * The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.
+   */
+  apiKey?: string | undefined;
+  /**
+   * The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.
+   */
+  timestamp?: number | undefined;
+  /**
+   * (Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.
+   *
+   * @remarks
+   */
+  signature?: string | undefined;
   /**
    * The public ID of the PDF or animated image to generate from.
    */
@@ -56,22 +58,18 @@ export type ExplodeResourceRequestBody = {
    */
   transformation: string;
   /**
-   * Used to authenticate the request and based on the parameters you use in the request. Use it if you manually generate your own signed POST request.
-   */
-  signature: string;
-  /**
    * The webhook URL to notify when the operation is complete.
    */
   notificationUrl?: string | undefined;
   /**
-   * description: The delivery type of the asset. Default: upload
+   * The storage type of the resource.
    */
-  type?: ExplodeResourceType | undefined;
+  type?: components.StorageType | undefined;
 };
 
 export type ExplodeResourceRequest = {
   /**
-   * The type of resource to explode. only "image"
+   * The type of resource to explode. Only "image" is supported.
    */
   resourceType: ExplodeResourceResourceType;
   requestBody: ExplodeResourceRequestBody;
@@ -186,40 +184,22 @@ export namespace ExplodeResourceResourceType$ {
 }
 
 /** @internal */
-export const ExplodeResourceType$inboundSchema: z.ZodNativeEnum<
-  typeof ExplodeResourceType
-> = z.nativeEnum(ExplodeResourceType);
-
-/** @internal */
-export const ExplodeResourceType$outboundSchema: z.ZodNativeEnum<
-  typeof ExplodeResourceType
-> = ExplodeResourceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ExplodeResourceType$ {
-  /** @deprecated use `ExplodeResourceType$inboundSchema` instead. */
-  export const inboundSchema = ExplodeResourceType$inboundSchema;
-  /** @deprecated use `ExplodeResourceType$outboundSchema` instead. */
-  export const outboundSchema = ExplodeResourceType$outboundSchema;
-}
-
-/** @internal */
 export const ExplodeResourceRequestBody$inboundSchema: z.ZodType<
   ExplodeResourceRequestBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  api_key: z.string().optional(),
+  timestamp: z.number().int().optional(),
+  signature: z.string().optional(),
   public_id: z.string(),
   format: z.string().optional(),
   transformation: z.string(),
-  signature: z.string(),
   notification_url: z.string().optional(),
-  type: ExplodeResourceType$inboundSchema.optional(),
+  type: components.StorageType$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
+    "api_key": "apiKey",
     "public_id": "publicId",
     "notification_url": "notificationUrl",
   });
@@ -227,10 +207,12 @@ export const ExplodeResourceRequestBody$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ExplodeResourceRequestBody$Outbound = {
+  api_key?: string | undefined;
+  timestamp?: number | undefined;
+  signature?: string | undefined;
   public_id: string;
   format?: string | undefined;
   transformation: string;
-  signature: string;
   notification_url?: string | undefined;
   type?: string | undefined;
 };
@@ -241,14 +223,17 @@ export const ExplodeResourceRequestBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ExplodeResourceRequestBody
 > = z.object({
+  apiKey: z.string().optional(),
+  timestamp: z.number().int().optional(),
+  signature: z.string().optional(),
   publicId: z.string(),
   format: z.string().optional(),
   transformation: z.string(),
-  signature: z.string(),
   notificationUrl: z.string().optional(),
-  type: ExplodeResourceType$outboundSchema.optional(),
+  type: components.StorageType$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
+    apiKey: "api_key",
     publicId: "public_id",
     notificationUrl: "notification_url",
   });

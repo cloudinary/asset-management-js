@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -17,21 +16,6 @@ export type ListResourcesByAssetFolderGlobals = {
   cloudName?: string | undefined;
 };
 
-/**
- * Filter by resource type within the folder.
- */
-export const ListResourcesByAssetFolderResourceType = {
-  Image: "image",
-  Video: "video",
-  Raw: "raw",
-} as const;
-/**
- * Filter by resource type within the folder.
- */
-export type ListResourcesByAssetFolderResourceType = ClosedEnum<
-  typeof ListResourcesByAssetFolderResourceType
->;
-
 export type ListResourcesByAssetFolderRequest = {
   /**
    * The full path of the asset folder.
@@ -40,7 +24,7 @@ export type ListResourcesByAssetFolderRequest = {
   /**
    * Filter by resource type within the folder.
    */
-  resourceType?: ListResourcesByAssetFolderResourceType | undefined;
+  resourceType?: components.ResourceType | undefined;
   /**
    * Cursor for pagination.
    */
@@ -122,38 +106,13 @@ export function listResourcesByAssetFolderGlobalsFromJSON(
 }
 
 /** @internal */
-export const ListResourcesByAssetFolderResourceType$inboundSchema:
-  z.ZodNativeEnum<typeof ListResourcesByAssetFolderResourceType> = z.nativeEnum(
-    ListResourcesByAssetFolderResourceType,
-  );
-
-/** @internal */
-export const ListResourcesByAssetFolderResourceType$outboundSchema:
-  z.ZodNativeEnum<typeof ListResourcesByAssetFolderResourceType> =
-    ListResourcesByAssetFolderResourceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListResourcesByAssetFolderResourceType$ {
-  /** @deprecated use `ListResourcesByAssetFolderResourceType$inboundSchema` instead. */
-  export const inboundSchema =
-    ListResourcesByAssetFolderResourceType$inboundSchema;
-  /** @deprecated use `ListResourcesByAssetFolderResourceType$outboundSchema` instead. */
-  export const outboundSchema =
-    ListResourcesByAssetFolderResourceType$outboundSchema;
-}
-
-/** @internal */
 export const ListResourcesByAssetFolderRequest$inboundSchema: z.ZodType<
   ListResourcesByAssetFolderRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
   asset_folder: z.string(),
-  resource_type: ListResourcesByAssetFolderResourceType$inboundSchema
-    .optional(),
+  resource_type: components.ResourceType$inboundSchema.optional(),
   next_cursor: z.string().optional(),
   max_results: z.number().int().optional(),
   direction: components.Direction$inboundSchema.optional(),
@@ -184,8 +143,7 @@ export const ListResourcesByAssetFolderRequest$outboundSchema: z.ZodType<
   ListResourcesByAssetFolderRequest
 > = z.object({
   assetFolder: z.string(),
-  resourceType: ListResourcesByAssetFolderResourceType$outboundSchema
-    .optional(),
+  resourceType: components.ResourceType$outboundSchema.optional(),
   nextCursor: z.string().optional(),
   maxResults: z.number().int().optional(),
   direction: components.Direction$outboundSchema.optional(),

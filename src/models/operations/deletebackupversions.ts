@@ -24,7 +24,7 @@ export type DeleteBackupVersionsRequestBody = {
 
 export type DeleteBackupVersionsRequest = {
   /**
-   * The asset ID of the resource.
+   * The asset ID of the resource. Must be a 32-character hexadecimal string.
    */
   assetId: string;
   requestBody: DeleteBackupVersionsRequestBody;

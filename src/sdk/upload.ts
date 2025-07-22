@@ -9,12 +9,18 @@ import {
   UploadChunkAcceptEnum,
   uploadUploadChunk,
 } from "../funcs/uploadUploadChunk.js";
+import {
+  UploadNoResourceTypeAcceptEnum,
+  uploadUploadNoResourceType,
+} from "../funcs/uploadUploadNoResourceType.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as components from "../models/components/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export { UploadAcceptEnum } from "../funcs/uploadUpload.js";
+
+export { UploadNoResourceTypeAcceptEnum } from "../funcs/uploadUploadNoResourceType.js";
 
 export { UploadChunkAcceptEnum } from "../funcs/uploadUploadChunk.js";
 
@@ -50,6 +56,25 @@ export class Upload extends ClientSDK {
   }
 
   /**
+   * Upload with automatic file type detection
+   *
+   * @remarks
+   * Uploads a file to Cloudinary. The file type is automatically detected based on its content, so you don't need to specify the type manually.
+   */
+  async uploadNoResourceType(
+    request: components.UploadRequest,
+    options?: RequestOptions & {
+      acceptHeaderOverride?: UploadNoResourceTypeAcceptEnum;
+    },
+  ): Promise<operations.UploadNoResourceTypeResponse> {
+    return unwrapAsync(uploadUploadNoResourceType(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
    * Upload a single chunk of a large file
    *
    * @remarks
@@ -79,7 +104,7 @@ export class Upload extends ClientSDK {
    * Destroys an asset/resource
    */
   async destroyAsset(
-    resourceType: operations.DestroyAssetResourceType,
+    resourceType: components.ResourceType,
     publicId: string,
     invalidate?: boolean | undefined,
     options?: RequestOptions,
