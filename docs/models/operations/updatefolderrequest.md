@@ -7,6 +7,9 @@ import { UpdateFolderRequest } from "@cloudinary/asset-management/models/operati
 
 let value: UpdateFolderRequest = {
   folder: "product/test",
+  requestBody: {
+    toFolder: "product1/test1",
+  },
 };
 ```
 

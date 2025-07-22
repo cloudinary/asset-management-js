@@ -37,17 +37,17 @@ export enum DownloadAssetAcceptEnum {
  */
 export function assetsDownloadAsset(
   client: CloudinaryAssetMgmtCore,
-  resourceType: components.ResourceTypeParameter,
+  resourceType: components.ResourceType,
   publicId: string,
-  apiKey: string,
-  signature: string,
-  timestamp: number,
   format?: string | undefined,
-  type?: operations.DownloadAssetType | undefined,
+  type?: components.StorageType | undefined,
   expiresAt?: number | undefined,
   attachment?: boolean | undefined,
   targetFilename?: string | undefined,
   transformation?: string | undefined,
+  apiKey?: string | undefined,
+  signature?: string | undefined,
+  timestamp?: number | undefined,
   options?: RequestOptions & { acceptHeaderOverride?: DownloadAssetAcceptEnum },
 ): APIPromise<
   Result<
@@ -67,32 +67,32 @@ export function assetsDownloadAsset(
     client,
     resourceType,
     publicId,
-    apiKey,
-    signature,
-    timestamp,
     format,
     type,
     expiresAt,
     attachment,
     targetFilename,
     transformation,
+    apiKey,
+    signature,
+    timestamp,
     options,
   ));
 }
 
 async function $do(
   client: CloudinaryAssetMgmtCore,
-  resourceType: components.ResourceTypeParameter,
+  resourceType: components.ResourceType,
   publicId: string,
-  apiKey: string,
-  signature: string,
-  timestamp: number,
   format?: string | undefined,
-  type?: operations.DownloadAssetType | undefined,
+  type?: components.StorageType | undefined,
   expiresAt?: number | undefined,
   attachment?: boolean | undefined,
   targetFilename?: string | undefined,
   transformation?: string | undefined,
+  apiKey?: string | undefined,
+  signature?: string | undefined,
+  timestamp?: number | undefined,
   options?: RequestOptions & { acceptHeaderOverride?: DownloadAssetAcceptEnum },
 ): Promise<
   [
@@ -114,15 +114,15 @@ async function $do(
   const input: operations.DownloadAssetRequest = {
     resourceType: resourceType,
     publicId: publicId,
-    apiKey: apiKey,
-    signature: signature,
-    timestamp: timestamp,
     format: format,
     type: type,
     expiresAt: expiresAt,
     attachment: attachment,
     targetFilename: targetFilename,
     transformation: transformation,
+    apiKey: apiKey,
+    signature: signature,
+    timestamp: timestamp,
   };
 
   const parsed = safeParse(

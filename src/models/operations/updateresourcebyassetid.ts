@@ -18,7 +18,7 @@ export type UpdateResourceByAssetIdGlobals = {
 
 export type UpdateResourceByAssetIdRequest = {
   /**
-   * The unique asset ID of the asset to update.
+   * The asset ID of the resource. Must be a 32-character hexadecimal string.
    */
   assetId: string;
   resourceUpdateRequest: components.ResourceUpdateRequest;

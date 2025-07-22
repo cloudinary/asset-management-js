@@ -21,7 +21,7 @@ export type RestoreResourcesByAssetIDsRequest = {
    */
   assetIds: Array<string>;
   /**
-   * The version of each asset to restore. Must match length of asset_ids if provided.
+   * If you specify versions, the number of versions in the array must exactly match the number of asset_ids.
    */
   versions?: Array<string> | undefined;
   /**

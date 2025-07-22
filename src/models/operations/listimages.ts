@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -17,26 +16,11 @@ export type ListImagesGlobals = {
   cloudName?: string | undefined;
 };
 
-/**
- * The storage type of the assets. Necessary for prefix filtering.
- */
-export const ListImagesType = {
-  Upload: "upload",
-  Private: "private",
-  Authenticated: "authenticated",
-  Fetch: "fetch",
-  List: "list",
-} as const;
-/**
- * The storage type of the assets. Necessary for prefix filtering.
- */
-export type ListImagesType = ClosedEnum<typeof ListImagesType>;
-
 export type ListImagesRequest = {
   /**
    * The storage type of the assets. Necessary for prefix filtering.
    */
-  type?: ListImagesType | undefined;
+  type?: components.ListStorageType | undefined;
   /**
    * Find resources with a public ID prefix. Requires the `type` parameter.
    */
@@ -131,33 +115,12 @@ export function listImagesGlobalsFromJSON(
 }
 
 /** @internal */
-export const ListImagesType$inboundSchema: z.ZodNativeEnum<
-  typeof ListImagesType
-> = z.nativeEnum(ListImagesType);
-
-/** @internal */
-export const ListImagesType$outboundSchema: z.ZodNativeEnum<
-  typeof ListImagesType
-> = ListImagesType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListImagesType$ {
-  /** @deprecated use `ListImagesType$inboundSchema` instead. */
-  export const inboundSchema = ListImagesType$inboundSchema;
-  /** @deprecated use `ListImagesType$outboundSchema` instead. */
-  export const outboundSchema = ListImagesType$outboundSchema;
-}
-
-/** @internal */
 export const ListImagesRequest$inboundSchema: z.ZodType<
   ListImagesRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: ListImagesType$inboundSchema.optional(),
+  type: components.ListStorageType$inboundSchema.optional(),
   prefix: z.string().optional(),
   public_ids: z.array(z.string()).optional(),
   tags: z.boolean().optional(),
@@ -195,7 +158,7 @@ export const ListImagesRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListImagesRequest
 > = z.object({
-  type: ListImagesType$outboundSchema.optional(),
+  type: components.ListStorageType$outboundSchema.optional(),
   prefix: z.string().optional(),
   publicIds: z.array(z.string()).optional(),
   tags: z.boolean().optional(),

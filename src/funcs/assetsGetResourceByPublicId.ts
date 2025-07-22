@@ -34,8 +34,8 @@ import { Result } from "../types/fp.js";
  */
 export function assetsGetResourceByPublicId(
   client: CloudinaryAssetMgmtCore,
-  resourceType: components.ResourceTypeParameter,
-  type: operations.GetResourceByPublicIdType,
+  resourceType: components.ResourceType,
+  type: components.ExtendedStorageType,
   publicId: string,
   colors?: boolean | undefined,
   mediaMetadata?: boolean | undefined,
@@ -85,8 +85,8 @@ export function assetsGetResourceByPublicId(
 
 async function $do(
   client: CloudinaryAssetMgmtCore,
-  resourceType: components.ResourceTypeParameter,
-  type: operations.GetResourceByPublicIdType,
+  resourceType: components.ResourceType,
+  type: components.ExtendedStorageType,
   publicId: string,
   colors?: boolean | undefined,
   mediaMetadata?: boolean | undefined,

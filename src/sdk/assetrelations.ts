@@ -57,8 +57,8 @@ export class AssetRelations extends ClientSDK {
    * Relates an asset to other assets by public IDs. This allows you to indicate that the asset is logically related to other assets in some way (e.g., similar content, or a peripheral asset like video/transcript, etc). This is a bidirectional process, meaning that the asset is also added as a related_asset to all the other assets specified. The relation is also a one to many relationship, where the asset is related to all the assets specified, but those assets aren't also related to each other.
    */
   async createAssetRelationsByPublicId(
-    resourceType: components.ResourceTypeParameter,
-    type: operations.CreateAssetRelationsByPublicIdType | undefined,
+    resourceType: components.ResourceType,
+    type: components.StorageType,
     publicId: string,
     requestBody: operations.CreateAssetRelationsByPublicIdRequestBody,
     options?: RequestOptions,
@@ -80,8 +80,8 @@ export class AssetRelations extends ClientSDK {
    * Unrelates the asset from other assets, specified by public IDs. This is a bidirectional process, meaning that the asset will also be removed as a related_asset from all the other assets specified.
    */
   async deleteAssetRelationsByPublicId(
-    resourceType: components.ResourceTypeParameter,
-    type: operations.DeleteAssetRelationsByPublicIdType | undefined,
+    resourceType: components.ResourceType,
+    type: components.StorageType,
     publicId: string,
     requestBody: operations.DeleteAssetRelationsByPublicIdRequestBody,
     options?: RequestOptions,

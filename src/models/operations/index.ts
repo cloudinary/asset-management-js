@@ -44,4 +44,5 @@ export * from "./updateresourcebyassetid.js";
 export * from "./updateresourcebypublicid.js";
 export * from "./upload.js";
 export * from "./uploadchunk.js";
+export * from "./uploadnoresourcetype.js";
 export * from "./visualsearchassets.js";

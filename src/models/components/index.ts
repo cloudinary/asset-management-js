@@ -3,6 +3,8 @@
  */
 
 export * from "./apierror.js";
+export * from "./archiveresourcetype.js";
+export * from "./archivestoragetype.js";
 export * from "./assetrelationinfo.js";
 export * from "./assetrelationsdeleteresponse.js";
 export * from "./assetrelationsresponse.js";
@@ -13,20 +15,23 @@ export * from "./deriveddestroyresponse.js";
 export * from "./destroyrequest.js";
 export * from "./destroyresponse.js";
 export * from "./direction.js";
+export * from "./extendedstoragetype.js";
 export * from "./fieldsspec.js";
 export * from "./folder.js";
 export * from "./folderslistresponse.js";
 export * from "./folderssearchresponse.js";
 export * from "./info.js";
 export * from "./listresponse.js";
+export * from "./liststoragetype.js";
 export * from "./nonfinalchunkuploadresponse.js";
-export * from "./resourcetypeparameter.js";
+export * from "./resourcetype.js";
 export * from "./resourceupdaterequest.js";
 export * from "./restoreresponseunion.js";
 export * from "./schemecloudinaryauth.js";
 export * from "./searchparameters.js";
 export * from "./searchresponse.js";
 export * from "./security.js";
+export * from "./storagetype.js";
 export * from "./uploadrequest.js";
 export * from "./uploadresourcetype.js";
 export * from "./uploadresponse.js";

@@ -8,6 +8,16 @@ import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import {
+  ResourceType,
+  ResourceType$inboundSchema,
+  ResourceType$outboundSchema,
+} from "./resourcetype.js";
+import {
+  StorageType,
+  StorageType$inboundSchema,
+  StorageType$outboundSchema,
+} from "./storagetype.js";
 
 /**
  * The status of the asynchronous upload. Will be 'pending' for async uploads.
@@ -23,36 +33,6 @@ export type AsyncUploadResponseStatus = ClosedEnum<
 >;
 
 /**
- * The type of resource being uploaded. This field may be omitted if resource_type is not known at the time of the call.
- */
-export const AsyncUploadResponseResourceType = {
-  Image: "image",
-  Video: "video",
-  Raw: "raw",
-} as const;
-/**
- * The type of resource being uploaded. This field may be omitted if resource_type is not known at the time of the call.
- */
-export type AsyncUploadResponseResourceType = ClosedEnum<
-  typeof AsyncUploadResponseResourceType
->;
-
-/**
- * The storage type of the asset. Defaults to 'upload'.
- */
-export const AsyncUploadResponseType = {
-  Upload: "upload",
-  Private: "private",
-  Authenticated: "authenticated",
-} as const;
-/**
- * The storage type of the asset. Defaults to 'upload'.
- */
-export type AsyncUploadResponseType = ClosedEnum<
-  typeof AsyncUploadResponseType
->;
-
-/**
  * Response returned when an upload is processed asynchronously (async=true)
  */
 export type AsyncUploadResponse = {
@@ -61,13 +41,13 @@ export type AsyncUploadResponse = {
    */
   status: AsyncUploadResponseStatus;
   /**
-   * The type of resource being uploaded. This field may be omitted if resource_type is not known at the time of the call.
+   * The type of resource.
    */
-  resourceType?: AsyncUploadResponseResourceType | undefined;
+  resourceType?: ResourceType | undefined;
   /**
-   * The storage type of the asset. Defaults to 'upload'.
+   * The storage type of the resource.
    */
-  type?: AsyncUploadResponseType | undefined;
+  type: StorageType;
   /**
    * The public ID assigned to the upload. May be omitted if it will be auto-generated.
    */
@@ -104,56 +84,14 @@ export namespace AsyncUploadResponseStatus$ {
 }
 
 /** @internal */
-export const AsyncUploadResponseResourceType$inboundSchema: z.ZodNativeEnum<
-  typeof AsyncUploadResponseResourceType
-> = z.nativeEnum(AsyncUploadResponseResourceType);
-
-/** @internal */
-export const AsyncUploadResponseResourceType$outboundSchema: z.ZodNativeEnum<
-  typeof AsyncUploadResponseResourceType
-> = AsyncUploadResponseResourceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AsyncUploadResponseResourceType$ {
-  /** @deprecated use `AsyncUploadResponseResourceType$inboundSchema` instead. */
-  export const inboundSchema = AsyncUploadResponseResourceType$inboundSchema;
-  /** @deprecated use `AsyncUploadResponseResourceType$outboundSchema` instead. */
-  export const outboundSchema = AsyncUploadResponseResourceType$outboundSchema;
-}
-
-/** @internal */
-export const AsyncUploadResponseType$inboundSchema: z.ZodNativeEnum<
-  typeof AsyncUploadResponseType
-> = z.nativeEnum(AsyncUploadResponseType);
-
-/** @internal */
-export const AsyncUploadResponseType$outboundSchema: z.ZodNativeEnum<
-  typeof AsyncUploadResponseType
-> = AsyncUploadResponseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AsyncUploadResponseType$ {
-  /** @deprecated use `AsyncUploadResponseType$inboundSchema` instead. */
-  export const inboundSchema = AsyncUploadResponseType$inboundSchema;
-  /** @deprecated use `AsyncUploadResponseType$outboundSchema` instead. */
-  export const outboundSchema = AsyncUploadResponseType$outboundSchema;
-}
-
-/** @internal */
 export const AsyncUploadResponse$inboundSchema: z.ZodType<
   AsyncUploadResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
   status: AsyncUploadResponseStatus$inboundSchema,
-  resource_type: AsyncUploadResponseResourceType$inboundSchema.optional(),
-  type: AsyncUploadResponseType$inboundSchema.default("upload"),
+  resource_type: ResourceType$inboundSchema.optional(),
+  type: StorageType$inboundSchema,
   public_id: z.string().optional(),
   batch_id: z.string(),
   requester_ip: z.string().optional(),
@@ -183,8 +121,8 @@ export const AsyncUploadResponse$outboundSchema: z.ZodType<
   AsyncUploadResponse
 > = z.object({
   status: AsyncUploadResponseStatus$outboundSchema,
-  resourceType: AsyncUploadResponseResourceType$outboundSchema.optional(),
-  type: AsyncUploadResponseType$outboundSchema.default("upload"),
+  resourceType: ResourceType$outboundSchema.optional(),
+  type: StorageType$outboundSchema,
   publicId: z.string().optional(),
   batchId: z.string(),
   requesterIp: z.string().optional(),

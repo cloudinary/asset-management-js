@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  */
 export function assetsRenameAsset(
   client: CloudinaryAssetMgmtCore,
-  resourceType: operations.RenameAssetResourceType,
+  resourceType: components.ResourceType,
   requestBody: operations.RenameAssetRequestBody,
   options?: RequestOptions,
 ): APIPromise<
@@ -58,7 +58,7 @@ export function assetsRenameAsset(
 
 async function $do(
   client: CloudinaryAssetMgmtCore,
-  resourceType: operations.RenameAssetResourceType,
+  resourceType: components.ResourceType,
   requestBody: operations.RenameAssetRequestBody,
   options?: RequestOptions,
 ): Promise<

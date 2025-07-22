@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
  */
 export function assetsListResourcesByContext(
   client: CloudinaryAssetMgmtCore,
-  resourceType: components.ResourceTypeParameter,
+  resourceType: components.ResourceType,
   key: string,
   value?: string | undefined,
   nextCursor?: string | undefined,
@@ -71,7 +71,7 @@ export function assetsListResourcesByContext(
 
 async function $do(
   client: CloudinaryAssetMgmtCore,
-  resourceType: components.ResourceTypeParameter,
+  resourceType: components.ResourceType,
   key: string,
   value?: string | undefined,
   nextCursor?: string | undefined,

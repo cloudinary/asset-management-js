@@ -7,6 +7,12 @@ import { GenerateArchiveRequest } from "@cloudinary/asset-management/models/oper
 
 let value: GenerateArchiveRequest = {
   resourceType: "all",
+  requestBody: {
+    targetTags: [
+      "animal",
+      "dog",
+    ],
+  },
 };
 ```
 
@@ -14,5 +20,5 @@ let value: GenerateArchiveRequest = {
 
 | Field                                                                                                                                         | Type                                                                                                                                          | Required                                                                                                                                      | Description                                                                                                                                   |
 | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `resourceType`                                                                                                                                | [operations.GenerateArchiveResourceType](../../models/operations/generatearchiveresourcetype.md)                                              | :heavy_check_mark:                                                                                                                            | The type of resources to include in the archive. "image" for images, "video" for videos, "raw" for non-media files, or "all" for mixed types. |
+| `resourceType`                                                                                                                                | [components.ArchiveResourceType](../../models/components/archiveresourcetype.md)                                                              | :heavy_check_mark:                                                                                                                            | The type of resources to include in the archive. "image" for images, "video" for videos, "raw" for non-media files, or "all" for mixed types. |
 | `requestBody`                                                                                                                                 | [operations.GenerateArchiveRequestBody](../../models/operations/generatearchiverequestbody.md)                                                | :heavy_check_mark:                                                                                                                            | N/A                                                                                                                                           |

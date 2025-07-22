@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -17,25 +16,11 @@ export type ListRawFilesGlobals = {
   cloudName?: string | undefined;
 };
 
-/**
- * The delivery type. Necessary for prefix filtering.
- */
-export const ListRawFilesType = {
-  Upload: "upload",
-  Private: "private",
-  Authenticated: "authenticated",
-  List: "list",
-} as const;
-/**
- * The delivery type. Necessary for prefix filtering.
- */
-export type ListRawFilesType = ClosedEnum<typeof ListRawFilesType>;
-
 export type ListRawFilesRequest = {
   /**
-   * The delivery type. Necessary for prefix filtering.
+   * The storage type of the assets. Necessary for prefix filtering.
    */
-  type?: ListRawFilesType | undefined;
+  type?: components.ListStorageType | undefined;
   /**
    * A public_id prefix. When specified, all assets with that prefix are returned. When using this, the `type` parameter must also be specified.
    */
@@ -130,33 +115,12 @@ export function listRawFilesGlobalsFromJSON(
 }
 
 /** @internal */
-export const ListRawFilesType$inboundSchema: z.ZodNativeEnum<
-  typeof ListRawFilesType
-> = z.nativeEnum(ListRawFilesType);
-
-/** @internal */
-export const ListRawFilesType$outboundSchema: z.ZodNativeEnum<
-  typeof ListRawFilesType
-> = ListRawFilesType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListRawFilesType$ {
-  /** @deprecated use `ListRawFilesType$inboundSchema` instead. */
-  export const inboundSchema = ListRawFilesType$inboundSchema;
-  /** @deprecated use `ListRawFilesType$outboundSchema` instead. */
-  export const outboundSchema = ListRawFilesType$outboundSchema;
-}
-
-/** @internal */
 export const ListRawFilesRequest$inboundSchema: z.ZodType<
   ListRawFilesRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: ListRawFilesType$inboundSchema.optional(),
+  type: components.ListStorageType$inboundSchema.optional(),
   prefix: z.string().optional(),
   public_ids: z.array(z.string()).optional(),
   tags: z.boolean().optional(),
@@ -194,7 +158,7 @@ export const ListRawFilesRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListRawFilesRequest
 > = z.object({
-  type: ListRawFilesType$outboundSchema.optional(),
+  type: components.ListStorageType$outboundSchema.optional(),
   prefix: z.string().optional(),
   publicIds: z.array(z.string()).optional(),
   tags: z.boolean().optional(),

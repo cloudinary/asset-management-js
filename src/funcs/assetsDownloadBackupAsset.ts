@@ -39,9 +39,9 @@ export function assetsDownloadBackupAsset(
   client: CloudinaryAssetMgmtCore,
   assetId: string,
   versionId: string,
-  apiKey: string,
-  signature: string,
-  timestamp: number,
+  apiKey?: string | undefined,
+  signature?: string | undefined,
+  timestamp?: number | undefined,
   options?: RequestOptions & {
     acceptHeaderOverride?: DownloadBackupAssetAcceptEnum;
   },
@@ -76,9 +76,9 @@ async function $do(
   client: CloudinaryAssetMgmtCore,
   assetId: string,
   versionId: string,
-  apiKey: string,
-  signature: string,
-  timestamp: number,
+  apiKey?: string | undefined,
+  signature?: string | undefined,
+  timestamp?: number | undefined,
   options?: RequestOptions & {
     acceptHeaderOverride?: DownloadBackupAssetAcceptEnum;
   },

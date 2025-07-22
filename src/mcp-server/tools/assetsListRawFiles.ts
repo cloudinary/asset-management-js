@@ -5,11 +5,10 @@
 import * as z from "zod";
 import { assetsListRawFiles } from "../../funcs/assetsListRawFiles.js";
 import * as components from "../../models/components/index.js";
-import * as operations from "../../models/operations/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  type: operations.ListRawFilesType$inboundSchema.optional(),
+  type: components.ListStorageType$inboundSchema.optional(),
   prefix: z.string().optional(),
   publicIds: z.array(z.string()).optional(),
   tags: z.boolean().optional(),

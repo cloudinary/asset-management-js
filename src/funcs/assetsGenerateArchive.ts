@@ -10,6 +10,7 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
+import * as components from "../models/components/index.js";
 import { CloudinaryAssetMgmtError } from "../models/errors/cloudinaryassetmgmterror.js";
 import {
   ConnectionError,
@@ -38,7 +39,7 @@ export enum GenerateArchiveAcceptEnum {
  */
 export function assetsGenerateArchive(
   client: CloudinaryAssetMgmtCore,
-  resourceType: operations.GenerateArchiveResourceType,
+  resourceType: components.ArchiveResourceType,
   requestBody: operations.GenerateArchiveRequestBody,
   options?: RequestOptions & {
     acceptHeaderOverride?: GenerateArchiveAcceptEnum;
@@ -67,7 +68,7 @@ export function assetsGenerateArchive(
 
 async function $do(
   client: CloudinaryAssetMgmtCore,
-  resourceType: operations.GenerateArchiveResourceType,
+  resourceType: components.ArchiveResourceType,
   requestBody: operations.GenerateArchiveRequestBody,
   options?: RequestOptions & {
     acceptHeaderOverride?: GenerateArchiveAcceptEnum;

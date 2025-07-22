@@ -5,21 +5,20 @@
 import * as z from "zod";
 import { assetsDownloadAsset } from "../../funcs/assetsDownloadAsset.js";
 import * as components from "../../models/components/index.js";
-import * as operations from "../../models/operations/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  resourceType: components.ResourceTypeParameter$inboundSchema,
+  resourceType: components.ResourceType$inboundSchema,
   publicId: z.string(),
-  apiKey: z.string(),
-  signature: z.string(),
-  timestamp: z.number().int(),
   format: z.string().optional(),
-  type: operations.DownloadAssetType$inboundSchema.default("upload"),
+  type: components.StorageType$inboundSchema.optional(),
   expiresAt: z.number().int().optional(),
   attachment: z.boolean().default(false),
   targetFilename: z.string().optional(),
   transformation: z.string().optional(),
+  apiKey: z.string().optional(),
+  signature: z.string().optional(),
+  timestamp: z.number().int().optional(),
 };
 
 export const tool$assetsDownloadAsset: ToolDefinition<typeof args> = {
@@ -32,15 +31,15 @@ export const tool$assetsDownloadAsset: ToolDefinition<typeof args> = {
       client,
       args.resourceType,
       args.publicId,
-      args.apiKey,
-      args.signature,
-      args.timestamp,
       args.format,
       args.type,
       args.expiresAt,
       args.attachment,
       args.targetFilename,
       args.transformation,
+      args.apiKey,
+      args.signature,
+      args.timestamp,
       { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 

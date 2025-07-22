@@ -8,7 +8,7 @@ import * as components from "../../models/components/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  resourceType: components.ResourceTypeParameter$inboundSchema,
+  resourceType: components.ResourceType$inboundSchema,
   prefix: z.string().optional(),
   nextCursor: z.string().optional(),
   maxResults: z.number().int().optional(),

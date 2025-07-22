@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 92b56ec8-e19a-476d-afba-926cd2d071b4
 management:
-  docChecksum: f0901846fc81dda2a70f3b123fbc9f09
-  docVersion: 0.3.0
-  speakeasyVersion: 1.568.0
-  generationVersion: 2.632.2
-  releaseVersion: 0.5.3
-  configChecksum: 097b91bb5e0091463c262122d5263d9e
+  docChecksum: 7119d8fbf532f4370ea39106505194ca
+  docVersion: 0.3.1
+  speakeasyVersion: 1.586.0
+  generationVersion: 2.661.4
+  releaseVersion: 0.5.4
+  configChecksum: ecf870cefc0777eb4151a1fe9271eb5e
   repoURL: https://github.com/cloudinary/asset-management-js.git
   installationURL: https://github.com/cloudinary/asset-management-js
   published: true
@@ -15,7 +15,7 @@ features:
     acceptHeaders: 2.81.2
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
-    core: 3.21.11
+    core: 3.21.14
     customSecuritySchemes: 0.1.1
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
@@ -30,7 +30,7 @@ features:
     globals: 2.82.2
     hiddenGlobals: 0.1.0
     ignores: 2.81.1
-    mcpServer: 0.9.2
+    mcpServer: 0.9.3
     nullables: 0.1.1
     responseFormat: 0.2.3
     retries: 2.83.0
@@ -52,13 +52,15 @@ generatedFiles:
   - docs/models/components/aggregateunion.md
   - docs/models/components/aggregations.md
   - docs/models/components/apierrorerror.md
+  - docs/models/components/archiveresourcetype.md
+  - docs/models/components/archivestoragetype.md
   - docs/models/components/assetrelationinfo.md
   - docs/models/components/assetrelationsdeleteresponse.md
   - docs/models/components/assetrelationsresponse.md
   - docs/models/components/asyncuploadresponse.md
-  - docs/models/components/asyncuploadresponseresourcetype.md
   - docs/models/components/asyncuploadresponsestatus.md
-  - docs/models/components/asyncuploadresponsetype.md
+  - docs/models/components/autotranscription.md
+  - docs/models/components/autotranscriptionunion.md
   - docs/models/components/bandwidth.md
   - docs/models/components/code.md
   - docs/models/components/createdby.md
@@ -70,6 +72,7 @@ generatedFiles:
   - docs/models/components/deleteresourcebypublicidsrequestresourcetype2.md
   - docs/models/components/deleteresourcebypublicidsrequestresourcetype3.md
   - docs/models/components/deleteresourcebypublicidsrequestunion.md
+  - docs/models/components/derivative.md
   - docs/models/components/deriveddestroyrequest.md
   - docs/models/components/deriveddestroyresponse.md
   - docs/models/components/destroyrequest.md
@@ -77,6 +80,7 @@ generatedFiles:
   - docs/models/components/direction.md
   - docs/models/components/eager.md
   - docs/models/components/errorenum.md
+  - docs/models/components/extendedstoragetype.md
   - docs/models/components/fieldsspec.md
   - docs/models/components/folder.md
   - docs/models/components/folderslistresponse.md
@@ -88,8 +92,8 @@ generatedFiles:
   - docs/models/components/infocontext.md
   - docs/models/components/infomoderation.md
   - docs/models/components/invalidation.md
-  - docs/models/components/kind.md
   - docs/models/components/listresponse.md
+  - docs/models/components/liststoragetype.md
   - docs/models/components/medialimits.md
   - docs/models/components/metadata.md
   - docs/models/components/moderationenum.md
@@ -99,7 +103,7 @@ generatedFiles:
   - docs/models/components/qualityanalysis.md
   - docs/models/components/rawconvert.md
   - docs/models/components/resource.md
-  - docs/models/components/resourcetypeparameter.md
+  - docs/models/components/resourcetype.md
   - docs/models/components/resourceupdaterequest.md
   - docs/models/components/resourceupdaterequestbackgroundremoval.md
   - docs/models/components/resourceupdaterequestcategorization.md
@@ -124,6 +128,7 @@ generatedFiles:
   - docs/models/components/secondsdelivered.md
   - docs/models/components/security.md
   - docs/models/components/storage.md
+  - docs/models/components/storagetype.md
   - docs/models/components/transformations.md
   - docs/models/components/uploadedby.md
   - docs/models/components/uploadrequest.md
@@ -148,6 +153,8 @@ generatedFiles:
   - docs/models/errors/listresourcetypesunauthorizederror.md
   - docs/models/errors/notfounderror.md
   - docs/models/operations/accesscontrol.md
+  - docs/models/operations/autotranscription.md
+  - docs/models/operations/autotranscriptionunion.md
   - docs/models/operations/badrequesterror.md
   - docs/models/operations/createassetrelationsbyassetidglobals.md
   - docs/models/operations/createassetrelationsbyassetidrequest.md
@@ -155,7 +162,6 @@ generatedFiles:
   - docs/models/operations/createassetrelationsbypublicidglobals.md
   - docs/models/operations/createassetrelationsbypublicidrequest.md
   - docs/models/operations/createassetrelationsbypublicidrequestbody.md
-  - docs/models/operations/createassetrelationsbypublicidtype.md
   - docs/models/operations/createfolderglobals.md
   - docs/models/operations/createfolderrequest.md
   - docs/models/operations/createfolderresponse.md
@@ -166,7 +172,6 @@ generatedFiles:
   - docs/models/operations/deleteassetrelationsbypublicidglobals.md
   - docs/models/operations/deleteassetrelationsbypublicidrequest.md
   - docs/models/operations/deleteassetrelationsbypublicidrequestbody.md
-  - docs/models/operations/deleteassetrelationsbypublicidtype.md
   - docs/models/operations/deletebackupversionsglobals.md
   - docs/models/operations/deletebackupversionsrequest.md
   - docs/models/operations/deletebackupversionsrequestbody.md
@@ -176,11 +181,9 @@ generatedFiles:
   - docs/models/operations/deleteresourcesbypublicidglobals.md
   - docs/models/operations/deleteresourcesbypublicidrequest.md
   - docs/models/operations/deleteresourcesbypublicidresponse.md
-  - docs/models/operations/deleteresourcesbypublicidtype.md
   - docs/models/operations/deriveddestroyglobals.md
   - docs/models/operations/destroyassetglobals.md
   - docs/models/operations/destroyassetrequest.md
-  - docs/models/operations/destroyassetresourcetype.md
   - docs/models/operations/destroyassetresponse.md
   - docs/models/operations/destroybyassetidglobals.md
   - docs/models/operations/destroyfolderglobals.md
@@ -189,7 +192,6 @@ generatedFiles:
   - docs/models/operations/downloadassetglobals.md
   - docs/models/operations/downloadassetrequest.md
   - docs/models/operations/downloadassetresponse.md
-  - docs/models/operations/downloadassettype.md
   - docs/models/operations/downloadbackupassetglobals.md
   - docs/models/operations/downloadbackupassetrequest.md
   - docs/models/operations/downloadbackupassetresponse.md
@@ -198,14 +200,11 @@ generatedFiles:
   - docs/models/operations/explicitassetmoderation.md
   - docs/models/operations/explicitassetrequest.md
   - docs/models/operations/explicitassetrequestbody.md
-  - docs/models/operations/explicitassetresourcetype.md
-  - docs/models/operations/explicitassettype.md
   - docs/models/operations/exploderesourceglobals.md
   - docs/models/operations/exploderesourcerequest.md
   - docs/models/operations/exploderesourcerequestbody.md
   - docs/models/operations/exploderesourceresourcetype.md
   - docs/models/operations/exploderesourceresponse.md
-  - docs/models/operations/exploderesourcetype.md
   - docs/models/operations/expression.md
   - docs/models/operations/expressionunion.md
   - docs/models/operations/failure.md
@@ -215,15 +214,12 @@ generatedFiles:
   - docs/models/operations/generatearchiveglobals.md
   - docs/models/operations/generatearchiverequest.md
   - docs/models/operations/generatearchiverequestbody.md
-  - docs/models/operations/generatearchiveresourcetype.md
   - docs/models/operations/generatearchiveresponse.md
   - docs/models/operations/generatearchiveresponsebody.md
-  - docs/models/operations/generatearchivetype.md
   - docs/models/operations/getresourcebyassetidglobals.md
   - docs/models/operations/getresourcebyassetidrequest.md
   - docs/models/operations/getresourcebypublicidglobals.md
   - docs/models/operations/getresourcebypublicidrequest.md
-  - docs/models/operations/getresourcebypublicidtype.md
   - docs/models/operations/getusageglobals.md
   - docs/models/operations/getusagerequest.md
   - docs/models/operations/getvideoviewsglobals.md
@@ -232,16 +228,12 @@ generatedFiles:
   - docs/models/operations/info.md
   - docs/models/operations/listimagesglobals.md
   - docs/models/operations/listimagesrequest.md
-  - docs/models/operations/listimagestype.md
   - docs/models/operations/listrawfilesglobals.md
   - docs/models/operations/listrawfilesrequest.md
-  - docs/models/operations/listrawfilestype.md
   - docs/models/operations/listresourcesbyassetfolderglobals.md
   - docs/models/operations/listresourcesbyassetfolderrequest.md
-  - docs/models/operations/listresourcesbyassetfolderresourcetype.md
   - docs/models/operations/listresourcesbyassetidsglobals.md
   - docs/models/operations/listresourcesbyassetidsrequest.md
-  - docs/models/operations/listresourcesbyassetidsresourcetype.md
   - docs/models/operations/listresourcesbycontextglobals.md
   - docs/models/operations/listresourcesbycontextrequest.md
   - docs/models/operations/listresourcesbymoderationkindandstatusglobals.md
@@ -258,7 +250,6 @@ generatedFiles:
   - docs/models/operations/listrootfoldersrequest.md
   - docs/models/operations/listvideosglobals.md
   - docs/models/operations/listvideosrequest.md
-  - docs/models/operations/listvideostype.md
   - docs/models/operations/mode.md
   - docs/models/operations/moderationkind.md
   - docs/models/operations/moderationstatus.md
@@ -268,8 +259,6 @@ generatedFiles:
   - docs/models/operations/renameassetglobals.md
   - docs/models/operations/renameassetrequest.md
   - docs/models/operations/renameassetrequestbody.md
-  - docs/models/operations/renameassetresourcetype.md
-  - docs/models/operations/renameassettype.md
   - docs/models/operations/responsivebreakpoint.md
   - docs/models/operations/restoreresourcesbyassetidsglobals.md
   - docs/models/operations/restoreresourcesbyassetidsrequest.md
@@ -293,7 +282,6 @@ generatedFiles:
   - docs/models/operations/textresourcetype.md
   - docs/models/operations/textresponse.md
   - docs/models/operations/to.md
-  - docs/models/operations/totype.md
   - docs/models/operations/updatefolderglobals.md
   - docs/models/operations/updatefolderrequest.md
   - docs/models/operations/updatefolderrequestbody.md
@@ -302,12 +290,14 @@ generatedFiles:
   - docs/models/operations/updateresourcebyassetidrequest.md
   - docs/models/operations/updateresourcebypublicidglobals.md
   - docs/models/operations/updateresourcebypublicidrequest.md
-  - docs/models/operations/updateresourcebypublicidtype.md
   - docs/models/operations/uploadchunkglobals.md
   - docs/models/operations/uploadchunkrequest.md
   - docs/models/operations/uploadchunkresponse.md
   - docs/models/operations/uploadchunkresponsebody.md
   - docs/models/operations/uploadglobals.md
+  - docs/models/operations/uploadnoresourcetypeglobals.md
+  - docs/models/operations/uploadnoresourcetyperesponse.md
+  - docs/models/operations/uploadnoresourcetyperesponsebody.md
   - docs/models/operations/uploadrequest.md
   - docs/models/operations/uploadresponse.md
   - docs/models/operations/uploadresponsebody.md
@@ -326,6 +316,10 @@ generatedFiles:
   - docs/sdks/videoanalytics/README.md
   - docs/types/rfcdate.md
   - eslint.config.mjs
+  - examples/.env.template
+  - examples/README.md
+  - examples/package.json
+  - examples/uploadUpload.example.ts
   - jsr.json
   - package.json
   - src/core.ts
@@ -370,6 +364,7 @@ generatedFiles:
   - src/funcs/uploadText.ts
   - src/funcs/uploadUpload.ts
   - src/funcs/uploadUploadChunk.ts
+  - src/funcs/uploadUploadNoResourceType.ts
   - src/funcs/usageGetUsage.ts
   - src/funcs/videoAnalyticsGetVideoViews.ts
   - src/hooks/hooks.ts
@@ -428,6 +423,8 @@ generatedFiles:
   - src/mcp-server/tools/uploadUpload.ts
   - src/mcp-server/tools/usageGetUsage.ts
   - src/models/components/apierror.ts
+  - src/models/components/archiveresourcetype.ts
+  - src/models/components/archivestoragetype.ts
   - src/models/components/assetrelationinfo.ts
   - src/models/components/assetrelationsdeleteresponse.ts
   - src/models/components/assetrelationsresponse.ts
@@ -438,6 +435,7 @@ generatedFiles:
   - src/models/components/destroyrequest.ts
   - src/models/components/destroyresponse.ts
   - src/models/components/direction.ts
+  - src/models/components/extendedstoragetype.ts
   - src/models/components/fieldsspec.ts
   - src/models/components/folder.ts
   - src/models/components/folderslistresponse.ts
@@ -445,14 +443,16 @@ generatedFiles:
   - src/models/components/index.ts
   - src/models/components/info.ts
   - src/models/components/listresponse.ts
+  - src/models/components/liststoragetype.ts
   - src/models/components/nonfinalchunkuploadresponse.ts
-  - src/models/components/resourcetypeparameter.ts
+  - src/models/components/resourcetype.ts
   - src/models/components/resourceupdaterequest.ts
   - src/models/components/restoreresponseunion.ts
   - src/models/components/schemecloudinaryauth.ts
   - src/models/components/searchparameters.ts
   - src/models/components/searchresponse.ts
   - src/models/components/security.ts
+  - src/models/components/storagetype.ts
   - src/models/components/uploadrequest.ts
   - src/models/components/uploadresourcetype.ts
   - src/models/components/uploadresponse.ts
@@ -510,6 +510,7 @@ generatedFiles:
   - src/models/operations/updateresourcebypublicid.ts
   - src/models/operations/upload.ts
   - src/models/operations/uploadchunk.ts
+  - src/models/operations/uploadnoresourcetype.ts
   - src/models/operations/visualsearchassets.ts
   - src/sdk/assetrelations.ts
   - src/sdk/assets.ts
@@ -556,7 +557,7 @@ examples:
           cloud_name: "<value>"
           resource_type: "auto"
       requestBody:
-        application/json: {"colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "google_video_moderation", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "detection": "coco_v2", "file": "<value>"}
+        application/json: {"auto_transcription": true, "colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "google_video_moderation", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "detection": "coco_v2", "file": "<value>"}
       responses:
         "200":
           application/json: {"status": "pending", "resource_type": "image", "type": "upload", "public_id": "sample_image", "batch_id": "9c2f5a46b3a6c4d9e8f7g0h1i2j3k4l5"}
@@ -583,7 +584,7 @@ examples:
         path:
           cloud_name: "<value>"
       requestBody:
-        application/json: {"colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "aws_rek_video", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "detection": "coco_v2", "file": "<value>"}
+        application/json: {"auto_transcription": true, "colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "aws_rek_video", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "detection": "coco_v2", "file": "<value>"}
       responses:
         "200":
           application/json: {"status": "pending", "resource_type": "image", "type": "upload", "public_id": "sample_image", "batch_id": "9c2f5a46b3a6c4d9e8f7g0h1i2j3k4l5"}
@@ -693,7 +694,7 @@ examples:
           cloud_name: "<value>"
           resource_type: "image"
       requestBody:
-        application/json: {"colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "aws_rek_video", "public_id": "<id>"}
+        application/json: {"auto_transcription": true, "colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "aws_rek_video", "public_id": "<id>"}
       responses:
         "200":
           application/json: {"url": "http://res.cloudinary.com/cld-docs/image/upload/v1719307544/gotjephlnz2jgiu20zni.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/v1719307544/gotjephlnz2jgiu20zni.jpg", "public_id": "gotjephlnz2jgiu20zni", "version": 1719307544, "version_id": "7d2cc533bee9ff39f7da7414b61fce7e", "signature": "d0b1009e3271a942836c25756ce3e04d205bf754", "width": 1920, "height": 1441, "asset_id": "3515c6000a548515f1134043f9785c2f", "format": "jpg", "resource_type": "image", "created_at": "2024-06-25T09:25:44Z", "tags": [], "pages": 1, "bytes": 896838, "type": "upload", "etag": "2a2df1d2d2c3b675521e866599273083", "placeholder": false, "original_filename": "sample", "image_metadata": {}, "illustration_score": 0, "semi_transparent": false, "grayscale": false, "eager": [{"transformation": "c_pad,h_300,w_400", "width": 400, "height": 300, "bytes": 26775, "format": "jpg", "url": "http://res.cloudinary.com/cld-docs/image/upload/c_pad,h_300,w_400/v1719307544/gotjephlnz2jgiu20zni.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/c_pad,h_300,w_400/v1719307544/gotjephlnz2jgiu20zni.jpg"}], "api_key": "614335564976464"}
@@ -792,13 +793,32 @@ examples:
       responses:
         "401":
           application/json: {"error": {"message": "Request timestamp expired", "http_code": 401}}
+    speakeasy-default-download-backup-asset:
+      parameters:
+        path:
+          cloud_name: "<value>"
+        query:
+          asset_id: "f4e6579cf84dd9cf5683b21f5b30c7d9"
+          version_id: "a3978316b0045e5eaf198f4d6885ca35"
+      responses:
+        "200":
+          application/octet-stream: "x-file: example.file"
+          text/plain: "x-file: example.file"
+          image/*: "x-file: example.file"
+          video/*: "x-file: example.file"
+        "400":
+          application/json: {"error": {"http_code": 400}}
+        "401":
+          application/json: {"error": {"message": "Invalid Signature abc123. String to sign - 'timestamp=1234567890&api_key=12345'.", "http_code": 401}}
+        "404":
+          application/json: {}
   destroyByAssetId:
     speakeasy-default-destroy-by-asset-id:
       parameters:
         path:
           cloud_name: "<value>"
       requestBody:
-        application/json: {"asset_id": "<id>", "timestamp": 281941, "api_key": "<value>", "signature": "<value>"}
+        application/json: {"asset_id": "<id>"}
       responses:
         "200":
           application/json: {"result": "ok"}
@@ -819,6 +839,8 @@ examples:
       parameters:
         path:
           cloud_name: "<value>"
+        query:
+          public_ids: ["sample", "product_image", "banner_2023"]
       responses:
         "200":
           application/json: {"resources": [{"moderation_kind": "manual", "moderation_status": "pending"}]}
@@ -829,6 +851,8 @@ examples:
       parameters:
         path:
           cloud_name: "<value>"
+        query:
+          public_ids: ["sample", "product_image", "banner_2023"]
       responses:
         "200":
           application/json: {"resources": [{"moderation_kind": "manual", "moderation_status": "pending"}, {"moderation_kind": "manual", "moderation_status": "pending"}]}
@@ -839,6 +863,8 @@ examples:
       parameters:
         path:
           cloud_name: "<value>"
+        query:
+          public_ids: ["sample", "product_image", "banner_2023"]
       responses:
         "200":
           application/json: {"resources": [{"moderation_kind": "manual", "moderation_status": "pending"}, {"moderation_kind": "manual", "moderation_status": "pending"}]}
@@ -982,6 +1008,33 @@ examples:
       responses:
         "400":
           application/json: {"error": {"message": "versions count must match ids count"}}
+    restoreResponseFullRestoreExample:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook"}
+      responses:
+        "200":
+          application/json: {"2262b0b5eb88f1fd7724e29b0e57d730": {}, "d23c0526e6feca2c343e40c2fce5231a": {}}
+    restoreResponsePartialRestoreExample:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook"}
+      responses:
+        "200":
+          application/json: {"2262b0b5eb88f1fd7724e29b0e57d730": {"moderation_kind": "manual", "moderation_status": "pending", "derivatives": [{"id": "5a73fd588cb301206c0a5c5c6ad796b3", "transformation": "w_300,h_100/", "transformation_signature": "658a49d8-2944-37db-9825-1ddface10c7b", "secure_url": "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample"}]}, "d23c0526e6feca2c343e40c2fce5231a": {"error": "no_backup"}, "invalid_asset_id": {"error": "failed"}}
+    restoreResponseFailedRestoreExample:
+      parameters:
+        path:
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook"}
+      responses:
+        "200":
+          application/json: {"d23c0526e6feca2c343e40c2fce5231a": {"error": "no_backup"}, "f45e7890abc123def456": {"error": "unauthorized"}}
   listResourcesByExternalIDs:
     getResourceResponseExample:
       parameters:
@@ -1069,7 +1122,7 @@ examples:
       parameters:
         path:
           cloud_name: "<value>"
-          asset_id: "e9b44a374f66ad53a64a74c7398f7"
+          asset_id: "f4e6579cf84dd9cf5683b21f5b30c7d9"
         query:
           colors: false
           media_metadata: false
@@ -1088,7 +1141,7 @@ examples:
       parameters:
         path:
           cloud_name: "<value>"
-          asset_id: "e9b44a374f66ad53a64a74c7398f7"
+          asset_id: "f4e6579cf84dd9cf5683b21f5b30c7d9"
         query:
           colors: false
           media_metadata: false
@@ -1102,7 +1155,7 @@ examples:
           max_results: 10
       responses:
         "200":
-          application/json: {"moderation_kind": "manual", "moderation_status": "pending"}
+          application/json: {"moderation_kind": "manual", "moderation_status": "pending", "derivatives": [{"id": "5a73fd588cb301206c0a5c5c6ad796b3", "transformation": "w_300,h_100/", "transformation_signature": "658a49d8-2944-37db-9825-1ddface10c7b", "secure_url": "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample"}]}
         "400":
           application/json: {"error": {"message": "<value>"}}
   updateResourceByAssetId:
@@ -1110,12 +1163,24 @@ examples:
       parameters:
         path:
           cloud_name: "<value>"
-          asset_id: "<id>"
+          asset_id: "f4e6579cf84dd9cf5683b21f5b30c7d9"
       requestBody:
         application/json: {"display_name": "My Product Image", "unique_display_name": false, "asset_folder": "products/summer", "tags": "product,summer,sale", "context": "alt=My product image|caption=Summer collection", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130|213,345,82,61", "regions": "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}", "quality_override": "80:420", "detection": "captioning", "access_control": "[{\"access_type\":\"token\"}]"}
       responses:
         "200":
           application/json: {"asset_id": "bc71d3cedb739ed931be3706e94c413a", "public_id": "qdi8r768kj5tticu8keh", "asset_folder": "", "display_name": "qdi8r768kj5tticu8keh", "format": "jpg", "version": 1747134921, "resource_type": "image", "type": "upload", "created_at": "2025-05-13T11:15:21Z", "bytes": 206960, "width": 400, "height": 300, "moderation_kind": "manual", "moderation_status": "approved", "moderation": [{"kind": "manual", "status": "approved", "updated_at": "2025-05-13T11:15:22Z"}], "url": "http://res.cloudinary.com/cloud-name/image/upload/v1747134921/qdi8r768kj5tticu8keh.jpg", "secure_url": "https://res.cloudinary.com/cloud-name/image/upload/v1747134921/qdi8r768kj5tticu8keh.jpg"}
+    speakeasy-default-update-resource-by-asset-id:
+      parameters:
+        path:
+          cloud_name: "<value>"
+          asset_id: "f4e6579cf84dd9cf5683b21f5b30c7d9"
+      requestBody:
+        application/json: {"display_name": "My Product Image", "unique_display_name": false, "asset_folder": "products/summer", "tags": "product,summer,sale", "context": "alt=My product image|caption=Summer collection", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130|213,345,82,61", "regions": "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}", "quality_override": "80:420", "detection": "captioning", "access_control": "[{\"access_type\":\"token\"}]"}
+      responses:
+        "200":
+          application/json: {"moderation_kind": "manual", "moderation_status": "pending", "derivatives": [{"id": "5a73fd588cb301206c0a5c5c6ad796b3", "transformation": "w_300,h_100/", "transformation_signature": "658a49d8-2944-37db-9825-1ddface10c7b", "secure_url": "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample"}]}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
   listResourceTags:
     speakeasy-default-list-resource-tags:
       parameters:
@@ -1146,7 +1211,7 @@ examples:
       parameters:
         path:
           cloud_name: "<value>"
-          asset_id: "e9b44a374f66ad53a64a74c7398f7"
+          asset_id: "f4e6579cf84dd9cf5683b21f5b30c7d9"
       requestBody:
         application/json: {"version_ids": ["5552aa57e67445552a3cdc1110a0115", "383e22a57167445552a3cdc16f0a0c85"]}
       responses:
@@ -1175,7 +1240,7 @@ examples:
           cloud_name: "<value>"
           resource_type: "image"
       requestBody:
-        application/json: {"public_id": "<id>", "transformation": "<value>", "signature": "<value>"}
+        application/json: {"public_id": "<id>", "transformation": "<value>"}
       responses:
         "200":
           application/json: {}
@@ -1219,7 +1284,7 @@ examples:
       parameters:
         path:
           cloud_name: "<value>"
-          asset_id: "<id>"
+          asset_id: "f4e6579cf84dd9cf5683b21f5b30c7d9"
       requestBody:
         application/json: {"assets_to_relate": ["f12345a5c789c", "bbb0efc00c0f12"]}
       responses:
@@ -1232,7 +1297,7 @@ examples:
       parameters:
         path:
           cloud_name: "<value>"
-          asset_id: "<id>"
+          asset_id: "f4e6579cf84dd9cf5683b21f5b30c7d9"
       requestBody:
         application/json: {"assets_to_unrelate": ["f12345a5c789c", "bbb0efc00c0f12"]}
       responses:
@@ -1421,7 +1486,7 @@ examples:
           Content-Range: "bytes 0-999999/3000000"
           X-Unique-Upload-Id: "2fd4e1c67a2d28fce"
       requestBody:
-        application/json: {"colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "duplicate", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "detection": "coco_v2", "file": "<value>"}
+        application/json: {"auto_transcription": true, "colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "duplicate", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "detection": "coco_v2", "file": "<value>"}
       responses:
         "200":
           application/json: {"done": false, "bytes": 1000000, "kind": "upload", "resource_type": "image", "public_id": "sample_image"}
@@ -1435,7 +1500,7 @@ examples:
         path:
           cloud_name: "<value>"
       requestBody:
-        application/json: {"expression": "resource_type:image AND tags:kitten", "sort_by": ["created_at", "public_id desc"], "max_results": 30, "aggregate": ["format", "resource_type"], "fields": "tags,context,metadata"}
+        application/json: {"expression": "resource_type:image AND tags:kitten", "sort_by": ["created_at", "public_id:asc"], "max_results": 30, "aggregate": ["format", "resource_type"], "fields": "tags,context,metadata"}
       responses:
         "200":
           application/json: {"total_count": 42, "time": 42, "resources": [{"asset_id": "09169cf604b03521789d1b3b8cca53d1", "public_id": "blue_sweater", "asset_folder": "Clothing Sale", "filename": "blue_sweater", "display_name": "blue_sweater", "format": "jpg", "version": 1719316754, "resource_type": "image", "type": "upload", "created_at": "2024-06-25T11:59:14+00:00", "uploaded_at": "2024-06-25T11:59:14+00:00", "bytes": 71063, "backup_bytes": 71063, "width": 4800, "height": 6400, "aspect_ratio": 0.75, "pixels": 307200, "url": "http://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "status": "active", "access_mode": "public", "access_control": null, "etag": "7242da7b353e7da2c3eb8c006165b385", "created_by": {"access_key": "614335564976464"}, "uploaded_by": {"access_key": "614335564976464"}}], "next_cursor": "e4d03a236b27e306e56719f74d05cdef", "aggregations": {"values": [{"value": "jpg", "count": 42}], "ranges": [{"from": 0, "to": 1048576, "count": 17}]}}

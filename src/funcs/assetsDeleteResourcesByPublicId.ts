@@ -34,8 +34,8 @@ import { Result } from "../types/fp.js";
  */
 export function assetsDeleteResourcesByPublicId(
   client: CloudinaryAssetMgmtCore,
-  resourceType: components.ResourceTypeParameter,
-  type: operations.DeleteResourcesByPublicIdType,
+  resourceType: components.ResourceType,
+  type: components.ExtendedStorageType,
   deleteResourceByPublicIdsRequest:
     components.DeleteResourceByPublicIdsRequestUnion,
   options?: RequestOptions,
@@ -64,8 +64,8 @@ export function assetsDeleteResourcesByPublicId(
 
 async function $do(
   client: CloudinaryAssetMgmtCore,
-  resourceType: components.ResourceTypeParameter,
-  type: operations.DeleteResourcesByPublicIdType,
+  resourceType: components.ResourceType,
+  type: components.ExtendedStorageType,
   deleteResourceByPublicIdsRequest:
     components.DeleteResourceByPublicIdsRequestUnion,
   options?: RequestOptions,

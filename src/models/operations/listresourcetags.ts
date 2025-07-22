@@ -18,9 +18,9 @@ export type ListResourceTagsGlobals = {
 
 export type ListResourceTagsRequest = {
   /**
-   * The type the of asset.
+   * The type of resource.
    */
-  resourceType: components.ResourceTypeParameter;
+  resourceType: components.ResourceType;
   /**
    * The prefix to use if you want to limit the returned tags to those that start with the specified prefix.
    */
@@ -111,7 +111,7 @@ export const ListResourceTagsRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource_type: components.ResourceTypeParameter$inboundSchema,
+  resource_type: components.ResourceType$inboundSchema,
   prefix: z.string().optional(),
   next_cursor: z.string().optional(),
   max_results: z.number().int().optional(),
@@ -137,7 +137,7 @@ export const ListResourceTagsRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListResourceTagsRequest
 > = z.object({
-  resourceType: components.ResourceTypeParameter$outboundSchema,
+  resourceType: components.ResourceType$outboundSchema,
   prefix: z.string().optional(),
   nextCursor: z.string().optional(),
   maxResults: z.number().int().optional(),

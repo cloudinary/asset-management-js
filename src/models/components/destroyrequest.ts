@@ -10,21 +10,23 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DestroyRequest = {
   /**
+   * The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.
+   */
+  apiKey?: string | undefined;
+  /**
+   * The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.
+   */
+  timestamp?: number | undefined;
+  /**
+   * (Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.
+   *
+   * @remarks
+   */
+  signature?: string | undefined;
+  /**
    * The ID of the asset to delete.
    */
   assetId: string;
-  /**
-   * The current Unix timestamp.
-   */
-  timestamp: number;
-  /**
-   * The API key for authentication.
-   */
-  apiKey: string;
-  /**
-   * The signed request signature.
-   */
-  signature: string;
   /**
    * Whether to invalidate CDN cache. Default is false.
    */
@@ -45,27 +47,27 @@ export const DestroyRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  api_key: z.string().optional(),
+  timestamp: z.number().int().optional(),
+  signature: z.string().optional(),
   asset_id: z.string(),
-  timestamp: z.number().int(),
-  api_key: z.string(),
-  signature: z.string(),
   invalidate: z.boolean().optional(),
   notification_url: z.string().optional(),
   callback: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "asset_id": "assetId",
     "api_key": "apiKey",
+    "asset_id": "assetId",
     "notification_url": "notificationUrl",
   });
 });
 
 /** @internal */
 export type DestroyRequest$Outbound = {
+  api_key?: string | undefined;
+  timestamp?: number | undefined;
+  signature?: string | undefined;
   asset_id: string;
-  timestamp: number;
-  api_key: string;
-  signature: string;
   invalidate?: boolean | undefined;
   notification_url?: string | undefined;
   callback?: string | undefined;
@@ -77,17 +79,17 @@ export const DestroyRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DestroyRequest
 > = z.object({
+  apiKey: z.string().optional(),
+  timestamp: z.number().int().optional(),
+  signature: z.string().optional(),
   assetId: z.string(),
-  timestamp: z.number().int(),
-  apiKey: z.string(),
-  signature: z.string(),
   invalidate: z.boolean().optional(),
   notificationUrl: z.string().optional(),
   callback: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
-    assetId: "asset_id",
     apiKey: "api_key",
+    assetId: "asset_id",
     notificationUrl: "notification_url",
   });
 });

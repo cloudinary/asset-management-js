@@ -24,7 +24,7 @@ export type CreateAssetRelationsByAssetIdRequestBody = {
 
 export type CreateAssetRelationsByAssetIdRequest = {
   /**
-   * The asset ID of the asset to update.
+   * The asset ID of the resource. Must be a 32-character hexadecimal string.
    */
   assetId: string;
   requestBody: CreateAssetRelationsByAssetIdRequestBody;

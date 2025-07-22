@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -17,21 +16,6 @@ export type CreateAssetRelationsByPublicIdGlobals = {
   cloudName?: string | undefined;
 };
 
-/**
- * The delivery type of the asset.
- */
-export const CreateAssetRelationsByPublicIdType = {
-  Upload: "upload",
-  Private: "private",
-  Authenticated: "authenticated",
-} as const;
-/**
- * The delivery type of the asset.
- */
-export type CreateAssetRelationsByPublicIdType = ClosedEnum<
-  typeof CreateAssetRelationsByPublicIdType
->;
-
 export type CreateAssetRelationsByPublicIdRequestBody = {
   /**
    * Relates the asset to all the other assets specified in this array of up to 10 assets, specified as resource_type/type/public_id.
@@ -41,13 +25,13 @@ export type CreateAssetRelationsByPublicIdRequestBody = {
 
 export type CreateAssetRelationsByPublicIdRequest = {
   /**
-   * The type the of asset.
+   * The type of resource.
    */
-  resourceType: components.ResourceTypeParameter;
+  resourceType: components.ResourceType;
   /**
    * The delivery type of the asset.
    */
-  type?: CreateAssetRelationsByPublicIdType | undefined;
+  type: components.StorageType;
   /**
    * The public ID of the asset.
    */
@@ -120,28 +104,6 @@ export function createAssetRelationsByPublicIdGlobalsFromJSON(
       CreateAssetRelationsByPublicIdGlobals$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CreateAssetRelationsByPublicIdGlobals' from JSON`,
   );
-}
-
-/** @internal */
-export const CreateAssetRelationsByPublicIdType$inboundSchema: z.ZodNativeEnum<
-  typeof CreateAssetRelationsByPublicIdType
-> = z.nativeEnum(CreateAssetRelationsByPublicIdType);
-
-/** @internal */
-export const CreateAssetRelationsByPublicIdType$outboundSchema: z.ZodNativeEnum<
-  typeof CreateAssetRelationsByPublicIdType
-> = CreateAssetRelationsByPublicIdType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateAssetRelationsByPublicIdType$ {
-  /** @deprecated use `CreateAssetRelationsByPublicIdType$inboundSchema` instead. */
-  export const inboundSchema = CreateAssetRelationsByPublicIdType$inboundSchema;
-  /** @deprecated use `CreateAssetRelationsByPublicIdType$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateAssetRelationsByPublicIdType$outboundSchema;
 }
 
 /** @internal */
@@ -224,8 +186,8 @@ export const CreateAssetRelationsByPublicIdRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource_type: components.ResourceTypeParameter$inboundSchema,
-  type: CreateAssetRelationsByPublicIdType$inboundSchema.default("upload"),
+  resource_type: components.ResourceType$inboundSchema,
+  type: components.StorageType$inboundSchema,
   public_id: z.string(),
   RequestBody: z.lazy(() =>
     CreateAssetRelationsByPublicIdRequestBody$inboundSchema
@@ -252,8 +214,8 @@ export const CreateAssetRelationsByPublicIdRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateAssetRelationsByPublicIdRequest
 > = z.object({
-  resourceType: components.ResourceTypeParameter$outboundSchema,
-  type: CreateAssetRelationsByPublicIdType$outboundSchema.default("upload"),
+  resourceType: components.ResourceType$outboundSchema,
+  type: components.StorageType$outboundSchema,
   publicId: z.string(),
   requestBody: z.lazy(() =>
     CreateAssetRelationsByPublicIdRequestBody$outboundSchema

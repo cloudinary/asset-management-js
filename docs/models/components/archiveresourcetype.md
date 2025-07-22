@@ -1,13 +1,13 @@
-# GenerateArchiveResourceType
+# ArchiveResourceType
 
 The type of resources to include in the archive. "image" for images, "video" for videos, "raw" for non-media files, or "all" for mixed types.
 
 ## Example Usage
 
 ```typescript
-import { GenerateArchiveResourceType } from "@cloudinary/asset-management/models/operations";
+import { ArchiveResourceType } from "@cloudinary/asset-management/models/components";
 
-let value: GenerateArchiveResourceType = "all";
+let value: ArchiveResourceType = "raw";
 ```
 
 ## Values

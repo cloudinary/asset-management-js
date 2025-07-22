@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -17,41 +16,17 @@ export type UpdateResourceByPublicIdGlobals = {
   cloudName?: string | undefined;
 };
 
-/**
- * The delivery type of the asset.
- */
-export const UpdateResourceByPublicIdType = {
-  Upload: "upload",
-  Private: "private",
-  Authenticated: "authenticated",
-  Facebook: "facebook",
-  Twitter: "twitter",
-  Gravatar: "gravatar",
-  Youtube: "youtube",
-  Hulu: "hulu",
-  Vimeo: "vimeo",
-  Animoto: "animoto",
-  Worldstarhiphop: "worldstarhiphop",
-  Dailymotion: "dailymotion",
-} as const;
-/**
- * The delivery type of the asset.
- */
-export type UpdateResourceByPublicIdType = ClosedEnum<
-  typeof UpdateResourceByPublicIdType
->;
-
 export type UpdateResourceByPublicIdRequest = {
   /**
-   * The type the of asset.
+   * The type of resource.
    */
-  resourceType: components.ResourceTypeParameter;
+  resourceType: components.ResourceType;
   /**
-   * The delivery type of the asset.
+   * The extended storage type of the resource.
    */
-  type: UpdateResourceByPublicIdType;
+  type: components.ExtendedStorageType;
   /**
-   * The public ID of the asset to update.
+   * The public ID of the asset.
    */
   publicId: string;
   resourceUpdateRequest: components.ResourceUpdateRequest;
@@ -122,34 +97,13 @@ export function updateResourceByPublicIdGlobalsFromJSON(
 }
 
 /** @internal */
-export const UpdateResourceByPublicIdType$inboundSchema: z.ZodNativeEnum<
-  typeof UpdateResourceByPublicIdType
-> = z.nativeEnum(UpdateResourceByPublicIdType);
-
-/** @internal */
-export const UpdateResourceByPublicIdType$outboundSchema: z.ZodNativeEnum<
-  typeof UpdateResourceByPublicIdType
-> = UpdateResourceByPublicIdType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateResourceByPublicIdType$ {
-  /** @deprecated use `UpdateResourceByPublicIdType$inboundSchema` instead. */
-  export const inboundSchema = UpdateResourceByPublicIdType$inboundSchema;
-  /** @deprecated use `UpdateResourceByPublicIdType$outboundSchema` instead. */
-  export const outboundSchema = UpdateResourceByPublicIdType$outboundSchema;
-}
-
-/** @internal */
 export const UpdateResourceByPublicIdRequest$inboundSchema: z.ZodType<
   UpdateResourceByPublicIdRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource_type: components.ResourceTypeParameter$inboundSchema,
-  type: UpdateResourceByPublicIdType$inboundSchema,
+  resource_type: components.ResourceType$inboundSchema,
+  type: components.ExtendedStorageType$inboundSchema,
   public_id: z.string(),
   ResourceUpdateRequest: components.ResourceUpdateRequest$inboundSchema,
 }).transform((v) => {
@@ -174,8 +128,8 @@ export const UpdateResourceByPublicIdRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UpdateResourceByPublicIdRequest
 > = z.object({
-  resourceType: components.ResourceTypeParameter$outboundSchema,
-  type: UpdateResourceByPublicIdType$outboundSchema,
+  resourceType: components.ResourceType$outboundSchema,
+  type: components.ExtendedStorageType$outboundSchema,
   publicId: z.string(),
   resourceUpdateRequest: components.ResourceUpdateRequest$outboundSchema,
 }).transform((v) => {

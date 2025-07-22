@@ -28,7 +28,7 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Restore assets
+ * Restore assets by asset ID
  *
  * @remarks
  * Restores one or more resources from backup using their asset IDs. Can optionally specify versions to restore.

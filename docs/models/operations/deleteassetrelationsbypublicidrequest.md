@@ -7,7 +7,14 @@ import { DeleteAssetRelationsByPublicIdRequest } from "@cloudinary/asset-managem
 
 let value: DeleteAssetRelationsByPublicIdRequest = {
   resourceType: "video",
+  type: "authenticated",
   publicId: "<id>",
+  requestBody: {
+    assetsToUnrelate: [
+      "raw/upload/dog_subtitles.srt",
+      "image/authenticated/dog_license",
+    ],
+  },
 };
 ```
 
@@ -15,7 +22,7 @@ let value: DeleteAssetRelationsByPublicIdRequest = {
 
 | Field                                                                                                                        | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `resourceType`                                                                                                               | [components.ResourceTypeParameter](../../models/components/resourcetypeparameter.md)                                         | :heavy_check_mark:                                                                                                           | The type the of asset.                                                                                                       |
-| `type`                                                                                                                       | [operations.DeleteAssetRelationsByPublicIdType](../../models/operations/deleteassetrelationsbypublicidtype.md)               | :heavy_check_mark:                                                                                                           | The delivery type of the asset.                                                                                              |
+| `resourceType`                                                                                                               | [components.ResourceType](../../models/components/resourcetype.md)                                                           | :heavy_check_mark:                                                                                                           | The type of resource.                                                                                                        |
+| `type`                                                                                                                       | [components.StorageType](../../models/components/storagetype.md)                                                             | :heavy_check_mark:                                                                                                           | The delivery type of the asset.                                                                                              |
 | `publicId`                                                                                                                   | *string*                                                                                                                     | :heavy_check_mark:                                                                                                           | The public ID of the asset.                                                                                                  |
 | `requestBody`                                                                                                                | [operations.DeleteAssetRelationsByPublicIdRequestBody](../../models/operations/deleteassetrelationsbypublicidrequestbody.md) | :heavy_check_mark:                                                                                                           | N/A                                                                                                                          |

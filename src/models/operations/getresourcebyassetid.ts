@@ -17,7 +17,7 @@ export type GetResourceByAssetIdGlobals = {
 
 export type GetResourceByAssetIdRequest = {
   /**
-   * The asset ID of the resource.
+   * The asset ID of the resource. Must be a 32-character hexadecimal string.
    */
   assetId: string;
   /**

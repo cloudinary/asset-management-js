@@ -7,6 +7,7 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
+import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type ExplicitAssetGlobals = {
@@ -17,19 +18,16 @@ export type ExplicitAssetGlobals = {
 };
 
 /**
- * The type of resource to apply operations on. "image" for images, "video" for videos, or "raw" for non-media files.
+ * Configuration object for automatic video transcription with translation options.
  */
-export const ExplicitAssetResourceType = {
-  Image: "image",
-  Video: "video",
-  Raw: "raw",
-} as const;
-/**
- * The type of resource to apply operations on. "image" for images, "video" for videos, or "raw" for non-media files.
- */
-export type ExplicitAssetResourceType = ClosedEnum<
-  typeof ExplicitAssetResourceType
->;
+export type AutoTranscription = {
+  /**
+   * Array of target language codes for transcription translation.
+   */
+  translate?: Array<string> | undefined;
+};
+
+export type AutoTranscriptionUnion = AutoTranscription | boolean;
 
 /**
  * For all asset types, set to:
@@ -98,39 +96,25 @@ export type ResponsiveBreakpoint = {
 };
 
 /**
- * The storage type of the asset. Defaults to 'upload'.
- */
-export const ExplicitAssetType = {
-  Upload: "upload",
-  Private: "private",
-  Authenticated: "authenticated",
-  Fetch: "fetch",
-} as const;
-/**
- * The storage type of the asset. Defaults to 'upload'.
- */
-export type ExplicitAssetType = ClosedEnum<typeof ExplicitAssetType>;
-
-/**
  * Override the quality setting for this asset.
  */
 export type QualityOverride = string | number;
 
 export type ExplicitAssetRequestBody = {
   /**
-   * (Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.
-   *
-   * @remarks
+   * The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.
    */
-  signature?: string | undefined;
+  apiKey?: string | undefined;
   /**
    * The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.
    */
   timestamp?: number | undefined;
   /**
-   * The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.
+   * (Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.
+   *
+   * @remarks
    */
-  apiKey?: string | undefined;
+  signature?: string | undefined;
   /**
    * Whether to return return accessibility analysis values for the image.
    */
@@ -149,10 +133,7 @@ export type ExplicitAssetRequestBody = {
    * Whether to trigger automatic generation of video chapters. Chapters will be generated and saved as a .vtt file with -chapters appended to the public ID of the video. You can enable chapters as part of the Cloudinary Video Player. Relevant for videos only.
    */
   autoChaptering?: boolean | undefined;
-  /**
-   * Whether to trigger automatic generation of video transcription. Transcription will be generated and saved as a .vtt file with -transcription appended to the public ID of the video. Relevant for videos only.
-   */
-  autoTranscription?: boolean | undefined;
+  autoTranscription?: AutoTranscription | boolean | undefined;
   /**
    * Whether to return a cinemagraph analysis value for the media asset between 0 and 1, where 0 means the asset is not a cinemagraph and 1 means the asset is a cinemagraph. Relevant for animated images and video only. A static image will return 0.
    */
@@ -273,6 +254,8 @@ export type ExplicitAssetRequestBody = {
    * @remarks
    * Signed upload result parameters are added to the callback URL. This parameter is ignored for XHR (Ajax XMLHttpRequest) or JavaScript Fetch API upload requests.
    * Note: This parameter is relevant for direct uploads from a form in the browser. It is automatically set if you perform direct upload from the browser using Cloudinary's SDKs and the jQuery plugin.
+   *
+   * @deprecated field: The callback parameter is deprecated. Not relevant for modern browsers. Starting July 2025 new customers will not be able to use this parameter..
    */
   callback?: string | undefined;
   /**
@@ -280,9 +263,9 @@ export type ExplicitAssetRequestBody = {
    */
   publicId: string;
   /**
-   * The storage type of the asset. Defaults to 'upload'.
+   * The storage type of resources to include in the archive.
    */
-  type?: ExplicitAssetType | undefined;
+  type?: components.ArchiveStorageType | undefined;
   /**
    * When applying eager for already existing video transformations, this setting indicates whether to force the existing derived video resources to be regenerated. Default for videos: false.
    *
@@ -298,9 +281,9 @@ export type ExplicitAssetRequestBody = {
 
 export type ExplicitAssetRequest = {
   /**
-   * The type of resource to apply operations on. "image" for images, "video" for videos, or "raw" for non-media files.
+   * The type of resource.
    */
-  resourceType: ExplicitAssetResourceType;
+  resourceType: components.ResourceType;
   requestBody: ExplicitAssetRequestBody;
 };
 
@@ -367,24 +350,107 @@ export function explicitAssetGlobalsFromJSON(
 }
 
 /** @internal */
-export const ExplicitAssetResourceType$inboundSchema: z.ZodNativeEnum<
-  typeof ExplicitAssetResourceType
-> = z.nativeEnum(ExplicitAssetResourceType);
+export const AutoTranscription$inboundSchema: z.ZodType<
+  AutoTranscription,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  translate: z.array(z.string()).optional(),
+});
 
 /** @internal */
-export const ExplicitAssetResourceType$outboundSchema: z.ZodNativeEnum<
-  typeof ExplicitAssetResourceType
-> = ExplicitAssetResourceType$inboundSchema;
+export type AutoTranscription$Outbound = {
+  translate?: Array<string> | undefined;
+};
+
+/** @internal */
+export const AutoTranscription$outboundSchema: z.ZodType<
+  AutoTranscription$Outbound,
+  z.ZodTypeDef,
+  AutoTranscription
+> = z.object({
+  translate: z.array(z.string()).optional(),
+});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ExplicitAssetResourceType$ {
-  /** @deprecated use `ExplicitAssetResourceType$inboundSchema` instead. */
-  export const inboundSchema = ExplicitAssetResourceType$inboundSchema;
-  /** @deprecated use `ExplicitAssetResourceType$outboundSchema` instead. */
-  export const outboundSchema = ExplicitAssetResourceType$outboundSchema;
+export namespace AutoTranscription$ {
+  /** @deprecated use `AutoTranscription$inboundSchema` instead. */
+  export const inboundSchema = AutoTranscription$inboundSchema;
+  /** @deprecated use `AutoTranscription$outboundSchema` instead. */
+  export const outboundSchema = AutoTranscription$outboundSchema;
+  /** @deprecated use `AutoTranscription$Outbound` instead. */
+  export type Outbound = AutoTranscription$Outbound;
+}
+
+export function autoTranscriptionToJSON(
+  autoTranscription: AutoTranscription,
+): string {
+  return JSON.stringify(
+    AutoTranscription$outboundSchema.parse(autoTranscription),
+  );
+}
+
+export function autoTranscriptionFromJSON(
+  jsonString: string,
+): SafeParseResult<AutoTranscription, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AutoTranscription$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AutoTranscription' from JSON`,
+  );
+}
+
+/** @internal */
+export const AutoTranscriptionUnion$inboundSchema: z.ZodType<
+  AutoTranscriptionUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([z.lazy(() => AutoTranscription$inboundSchema), z.boolean()]);
+
+/** @internal */
+export type AutoTranscriptionUnion$Outbound =
+  | AutoTranscription$Outbound
+  | boolean;
+
+/** @internal */
+export const AutoTranscriptionUnion$outboundSchema: z.ZodType<
+  AutoTranscriptionUnion$Outbound,
+  z.ZodTypeDef,
+  AutoTranscriptionUnion
+> = z.union([z.lazy(() => AutoTranscription$outboundSchema), z.boolean()]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace AutoTranscriptionUnion$ {
+  /** @deprecated use `AutoTranscriptionUnion$inboundSchema` instead. */
+  export const inboundSchema = AutoTranscriptionUnion$inboundSchema;
+  /** @deprecated use `AutoTranscriptionUnion$outboundSchema` instead. */
+  export const outboundSchema = AutoTranscriptionUnion$outboundSchema;
+  /** @deprecated use `AutoTranscriptionUnion$Outbound` instead. */
+  export type Outbound = AutoTranscriptionUnion$Outbound;
+}
+
+export function autoTranscriptionUnionToJSON(
+  autoTranscriptionUnion: AutoTranscriptionUnion,
+): string {
+  return JSON.stringify(
+    AutoTranscriptionUnion$outboundSchema.parse(autoTranscriptionUnion),
+  );
+}
+
+export function autoTranscriptionUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<AutoTranscriptionUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AutoTranscriptionUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AutoTranscriptionUnion' from JSON`,
+  );
 }
 
 /** @internal */
@@ -494,27 +560,6 @@ export function responsiveBreakpointFromJSON(
 }
 
 /** @internal */
-export const ExplicitAssetType$inboundSchema: z.ZodNativeEnum<
-  typeof ExplicitAssetType
-> = z.nativeEnum(ExplicitAssetType);
-
-/** @internal */
-export const ExplicitAssetType$outboundSchema: z.ZodNativeEnum<
-  typeof ExplicitAssetType
-> = ExplicitAssetType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ExplicitAssetType$ {
-  /** @deprecated use `ExplicitAssetType$inboundSchema` instead. */
-  export const inboundSchema = ExplicitAssetType$inboundSchema;
-  /** @deprecated use `ExplicitAssetType$outboundSchema` instead. */
-  export const outboundSchema = ExplicitAssetType$outboundSchema;
-}
-
-/** @internal */
 export const QualityOverride$inboundSchema: z.ZodType<
   QualityOverride,
   z.ZodTypeDef,
@@ -566,14 +611,17 @@ export const ExplicitAssetRequestBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  signature: z.string().optional(),
-  timestamp: z.number().int().optional(),
   api_key: z.string().optional(),
+  timestamp: z.number().int().optional(),
+  signature: z.string().optional(),
   accessibility_analysis: z.boolean().optional(),
   asset_folder: z.string().optional(),
   async: z.boolean().optional(),
   auto_chaptering: z.boolean().optional(),
-  auto_transcription: z.boolean().optional(),
+  auto_transcription: z.union([
+    z.lazy(() => AutoTranscription$inboundSchema),
+    z.boolean(),
+  ]).optional(),
   cinemagraph_analysis: z.boolean().optional(),
   colors: z.boolean().default(false),
   context: z.string().optional(),
@@ -599,7 +647,7 @@ export const ExplicitAssetRequestBody$inboundSchema: z.ZodType<
   tags: z.string().optional(),
   callback: z.string().optional(),
   public_id: z.string(),
-  type: ExplicitAssetType$inboundSchema.optional(),
+  type: components.ArchiveStorageType$inboundSchema.optional(),
   overwrite: z.boolean().optional(),
   quality_override: z.union([z.string(), z.number().int()]).optional(),
 }).transform((v) => {
@@ -626,14 +674,14 @@ export const ExplicitAssetRequestBody$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ExplicitAssetRequestBody$Outbound = {
-  signature?: string | undefined;
-  timestamp?: number | undefined;
   api_key?: string | undefined;
+  timestamp?: number | undefined;
+  signature?: string | undefined;
   accessibility_analysis?: boolean | undefined;
   asset_folder?: string | undefined;
   async?: boolean | undefined;
   auto_chaptering?: boolean | undefined;
-  auto_transcription?: boolean | undefined;
+  auto_transcription?: AutoTranscription$Outbound | boolean | undefined;
   cinemagraph_analysis?: boolean | undefined;
   colors: boolean;
   context?: string | undefined;
@@ -668,14 +716,17 @@ export const ExplicitAssetRequestBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ExplicitAssetRequestBody
 > = z.object({
-  signature: z.string().optional(),
-  timestamp: z.number().int().optional(),
   apiKey: z.string().optional(),
+  timestamp: z.number().int().optional(),
+  signature: z.string().optional(),
   accessibilityAnalysis: z.boolean().optional(),
   assetFolder: z.string().optional(),
   async: z.boolean().optional(),
   autoChaptering: z.boolean().optional(),
-  autoTranscription: z.boolean().optional(),
+  autoTranscription: z.union([
+    z.lazy(() => AutoTranscription$outboundSchema),
+    z.boolean(),
+  ]).optional(),
   cinemagraphAnalysis: z.boolean().optional(),
   colors: z.boolean().default(false),
   context: z.string().optional(),
@@ -701,7 +752,7 @@ export const ExplicitAssetRequestBody$outboundSchema: z.ZodType<
   tags: z.string().optional(),
   callback: z.string().optional(),
   publicId: z.string(),
-  type: ExplicitAssetType$outboundSchema.optional(),
+  type: components.ArchiveStorageType$outboundSchema.optional(),
   overwrite: z.boolean().optional(),
   qualityOverride: z.union([z.string(), z.number().int()]).optional(),
 }).transform((v) => {
@@ -763,7 +814,7 @@ export const ExplicitAssetRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource_type: ExplicitAssetResourceType$inboundSchema,
+  resource_type: components.ResourceType$inboundSchema,
   RequestBody: z.lazy(() => ExplicitAssetRequestBody$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
@@ -784,7 +835,7 @@ export const ExplicitAssetRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ExplicitAssetRequest
 > = z.object({
-  resourceType: ExplicitAssetResourceType$outboundSchema,
+  resourceType: components.ResourceType$outboundSchema,
   requestBody: z.lazy(() => ExplicitAssetRequestBody$outboundSchema),
 }).transform((v) => {
   return remap$(v, {

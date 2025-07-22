@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -17,26 +16,13 @@ export type DownloadAssetGlobals = {
   cloudName?: string | undefined;
 };
 
-/**
- * The storage type of the asset. Defaults to 'upload'.
- */
-export const DownloadAssetType = {
-  Upload: "upload",
-  Private: "private",
-  Authenticated: "authenticated",
-} as const;
-/**
- * The storage type of the asset. Defaults to 'upload'.
- */
-export type DownloadAssetType = ClosedEnum<typeof DownloadAssetType>;
-
 export type DownloadAssetRequest = {
   /**
-   * The type the of asset.
+   * The type of resource.
    */
-  resourceType: components.ResourceTypeParameter;
+  resourceType: components.ResourceType;
   /**
-   * The public ID of the asset to download.
+   * The public ID of the asset.
    */
   publicId: string;
   /**
@@ -44,9 +30,9 @@ export type DownloadAssetRequest = {
    */
   format?: string | undefined;
   /**
-   * The storage type of the asset. Defaults to 'upload'.
+   * The storage type of the asset. Default is "upload".
    */
-  type?: DownloadAssetType | undefined;
+  type?: components.StorageType | undefined;
   /**
    * Unix timestamp indicating when the download URL should expire.
    */
@@ -63,9 +49,20 @@ export type DownloadAssetRequest = {
    * A transformation to apply to the asset before downloading.
    */
   transformation?: string | undefined;
-  apiKey: string;
-  signature: string;
-  timestamp: number;
+  /**
+   * The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.
+   */
+  apiKey?: string | undefined;
+  /**
+   * (Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.
+   *
+   * @remarks
+   */
+  signature?: string | undefined;
+  /**
+   * The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.
+   */
+  timestamp?: number | undefined;
 };
 
 export type DownloadAssetResponse =
@@ -136,43 +133,22 @@ export function downloadAssetGlobalsFromJSON(
 }
 
 /** @internal */
-export const DownloadAssetType$inboundSchema: z.ZodNativeEnum<
-  typeof DownloadAssetType
-> = z.nativeEnum(DownloadAssetType);
-
-/** @internal */
-export const DownloadAssetType$outboundSchema: z.ZodNativeEnum<
-  typeof DownloadAssetType
-> = DownloadAssetType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DownloadAssetType$ {
-  /** @deprecated use `DownloadAssetType$inboundSchema` instead. */
-  export const inboundSchema = DownloadAssetType$inboundSchema;
-  /** @deprecated use `DownloadAssetType$outboundSchema` instead. */
-  export const outboundSchema = DownloadAssetType$outboundSchema;
-}
-
-/** @internal */
 export const DownloadAssetRequest$inboundSchema: z.ZodType<
   DownloadAssetRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resource_type: components.ResourceTypeParameter$inboundSchema,
+  resource_type: components.ResourceType$inboundSchema,
   public_id: z.string(),
   format: z.string().optional(),
-  type: DownloadAssetType$inboundSchema.default("upload"),
+  type: components.StorageType$inboundSchema.optional(),
   expires_at: z.number().int().optional(),
   attachment: z.boolean().default(false),
   target_filename: z.string().optional(),
   transformation: z.string().optional(),
-  api_key: z.string(),
-  signature: z.string(),
-  timestamp: z.number().int(),
+  api_key: z.string().optional(),
+  signature: z.string().optional(),
+  timestamp: z.number().int().optional(),
 }).transform((v) => {
   return remap$(v, {
     "resource_type": "resourceType",
@@ -188,14 +164,14 @@ export type DownloadAssetRequest$Outbound = {
   resource_type: string;
   public_id: string;
   format?: string | undefined;
-  type: string;
+  type?: string | undefined;
   expires_at?: number | undefined;
   attachment: boolean;
   target_filename?: string | undefined;
   transformation?: string | undefined;
-  api_key: string;
-  signature: string;
-  timestamp: number;
+  api_key?: string | undefined;
+  signature?: string | undefined;
+  timestamp?: number | undefined;
 };
 
 /** @internal */
@@ -204,17 +180,17 @@ export const DownloadAssetRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DownloadAssetRequest
 > = z.object({
-  resourceType: components.ResourceTypeParameter$outboundSchema,
+  resourceType: components.ResourceType$outboundSchema,
   publicId: z.string(),
   format: z.string().optional(),
-  type: DownloadAssetType$outboundSchema.default("upload"),
+  type: components.StorageType$outboundSchema.optional(),
   expiresAt: z.number().int().optional(),
   attachment: z.boolean().default(false),
   targetFilename: z.string().optional(),
   transformation: z.string().optional(),
-  apiKey: z.string(),
-  signature: z.string(),
-  timestamp: z.number().int(),
+  apiKey: z.string().optional(),
+  signature: z.string().optional(),
+  timestamp: z.number().int().optional(),
 }).transform((v) => {
   return remap$(v, {
     resourceType: "resource_type",
