@@ -15,6 +15,7 @@ A report on the status of product environment usage, including storage, credits,
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getUsage" method="get" path="/v1_1/{cloud_name}/usage" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 

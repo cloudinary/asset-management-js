@@ -18,6 +18,7 @@ Retrieves a comprehensive list of all tags that exist in your product environmen
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listResourceTags" method="get" path="/v1_1/{cloud_name}/tags/{resource_type}" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 

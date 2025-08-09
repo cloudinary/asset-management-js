@@ -31,6 +31,7 @@ The uploaded asset is immediately available for transformation and delivery upon
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="upload" method="post" path="/v1_1/{cloud_name}/{resource_type}/upload" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -133,6 +134,7 @@ Uploads a file to Cloudinary. The file type is automatically detected based on i
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="uploadNoResourceType" method="post" path="/v1_1/{cloud_name}/upload" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -238,6 +240,7 @@ tend to have larger file sizes. Minimum chunk size is 5 MB.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="uploadChunk" method="post" path="/v1_1/{cloud_name}/{resource_type}/upload_chunked" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -342,6 +345,7 @@ Destroys an asset/resource
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="destroyAsset" method="post" path="/v1_1/{cloud_name}/{resource_type}/destroy" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -425,6 +429,7 @@ Dynamically generates an image from a specified text string.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="text" method="post" path="/v1_1/{cloud_name}/{resource_type}/text" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 

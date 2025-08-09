@@ -15,6 +15,7 @@ Generates derived images for each of the individual pages/frames in a multi-page
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="explodeResource" method="post" path="/v1_1/{cloud_name}/{resource_type}/explode" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
