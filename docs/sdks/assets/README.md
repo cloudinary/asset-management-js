@@ -37,6 +37,7 @@ Updates an existing asset's identifier and optionally other metadata in your Clo
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="renameAsset" method="post" path="/v1_1/{cloud_name}/{resource_type}/rename" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -125,6 +126,7 @@ Generates a download link for a specific asset (image)
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="downloadAsset" method="get" path="/v1_1/{cloud_name}/{resource_type}/download" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -218,6 +220,7 @@ This is useful for applying new transformations, adding tags, or updating metada
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="explicitAsset" method="post" path="/v1_1/{cloud_name}/{resource_type}/explicit" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -310,6 +313,7 @@ Creates a downloadable ZIP or other archive format containing the specified reso
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="generateArchive" method="post" path="/v1_1/{cloud_name}/{resource_type}/generate_archive" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -402,6 +406,7 @@ Download a backup copy of an asset
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="downloadBackupAsset" method="get" path="/v1_1/{cloud_name}/download_backup" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -491,6 +496,7 @@ Returns the deletion status and asset folder information when folder decoupling 
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="destroyByAssetId" method="post" path="/v1_1/{cloud_name}/asset/destroy" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -582,6 +588,7 @@ Returns a list of all resource types that correspond to assets currently in your
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listResourceTypes" method="get" path="/v1_1/{cloud_name}/resources" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -663,6 +670,7 @@ Retrieves a list of image assets. Results can be filtered by various criteria li
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listImages" method="get" path="/v1_1/{cloud_name}/resources/image" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -761,6 +769,7 @@ Retrieves a list of video assets. Results can be filtered by various criteria li
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listVideos" method="get" path="/v1_1/{cloud_name}/resources/video" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -859,6 +868,7 @@ Retrieves a list of raw assets. Results can be filtered by various criteria like
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listRawFiles" method="get" path="/v1_1/{cloud_name}/resources/raw" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -956,6 +966,7 @@ Retrieves a list of resources within a specific asset folder. Requires folder de
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listResourcesByAssetFolder" method="get" path="/v1_1/{cloud_name}/resources/by_asset_folder" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -1042,6 +1053,7 @@ Retrieves details for specific resources using their asset IDs (or external IDs)
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listResourcesByAssetIDs" method="get" path="/v1_1/{cloud_name}/resources/by_asset_ids" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -1125,6 +1137,7 @@ Retrieves resources matching specific context key/value pairs.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listResourcesByContext" method="get" path="/v1_1/{cloud_name}/resources/{resource_type}/context" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -1212,6 +1225,7 @@ Retrieves resources matching specific moderation kind and status.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listResourcesByModerationKindAndStatus" method="get" path="/v1_1/{cloud_name}/resources/{resource_type}/moderations/{moderation_kind}/{moderation_status}" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -1299,6 +1313,7 @@ Restores one or more resources from backup using their asset IDs. Can optionally
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="restoreResourcesByAssetIDs" method="post" path="/v1_1/{cloud_name}/resources/restore" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -1392,6 +1407,7 @@ Deletes assets uploaded to your product environment, identified by their public 
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="deleteResourcesByPublicId" method="delete" path="/v1_1/{cloud_name}/resources/{resource_type}/{type}" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -1485,6 +1501,7 @@ Returns the details of a single resource specified by its public ID.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getResourceByPublicId" method="get" path="/v1_1/{cloud_name}/resources/{resource_type}/{type}/{public_id}" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -1580,6 +1597,7 @@ Updates one or more attributes of a specified resource (asset) identified by its
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updateResourceByPublicId" method="post" path="/v1_1/{cloud_name}/resources/{resource_type}/{type}/{public_id}" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -1688,6 +1706,7 @@ Returns the details of a single resource specified by its asset ID.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getResourceByAssetId" method="get" path="/v1_1/{cloud_name}/resources/{asset_id}" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -1781,6 +1800,7 @@ Updates one or more attributes of a specified resource (asset) by its asset ID. 
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updateResourceByAssetId" method="put" path="/v1_1/{cloud_name}/resources/{asset_id}" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -1890,6 +1910,7 @@ Retrieves a comprehensive list of all tags that exist in your product environmen
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listResourceTags" method="get" path="/v1_1/{cloud_name}/tags/{resource_type}" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -1976,6 +1997,7 @@ This operation is irreversible and deleted versions cannot be recovered.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="deleteBackupVersions" method="delete" path="/v1_1/{cloud_name}/resources/backup/{asset_id}" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -2068,6 +2090,7 @@ Deletes derived resources by derived resource ID
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="derivedDestroy" method="delete" path="/v1_1/{cloud_name}/derived_resources" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
