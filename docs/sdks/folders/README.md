@@ -21,6 +21,7 @@ Returns a list of sub-folders under the specified folder path.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="showFolder" method="get" path="/v1_1/{cloud_name}/folders/{folder}" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -102,6 +103,7 @@ Updates a folder's properties.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updateFolder" method="put" path="/v1_1/{cloud_name}/folders/{folder}" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -188,6 +190,7 @@ Creates a new folder at the specified path
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createFolder" method="post" path="/v1_1/{cloud_name}/folders/{folder}" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -269,6 +272,7 @@ Deletes a folder and all assets within it.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="destroyFolder" method="delete" path="/v1_1/{cloud_name}/folders/{folder}" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -351,6 +355,7 @@ Retrieves an array of all root folders in your Cloudinary product environment. L
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listRootFolders" method="get" path="/v1_1/{cloud_name}/folders" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -432,6 +437,7 @@ Lists the folders that match the specified search expression. Limited to 2000 re
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="searchFolders" method="get" path="/v1_1/{cloud_name}/folders/search" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -521,6 +527,7 @@ Lists the folders that match the specified search expression. Limited to 2000 re
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="searchFoldersPost" method="post" path="/v1_1/{cloud_name}/folders/search" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 

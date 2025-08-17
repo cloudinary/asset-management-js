@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 92b56ec8-e19a-476d-afba-926cd2d071b4
 management:
-  docChecksum: 7119d8fbf532f4370ea39106505194ca
-  docVersion: 0.3.1
-  speakeasyVersion: 1.586.0
-  generationVersion: 2.661.4
-  releaseVersion: 0.5.4
-  configChecksum: ecf870cefc0777eb4151a1fe9271eb5e
+  docChecksum: a8fb5008ada8aaaa4a8861b75c36f662
+  docVersion: 0.3.2
+  speakeasyVersion: 1.605.0
+  generationVersion: 2.684.0
+  releaseVersion: 0.5.5
+  configChecksum: 772af4a6806e8d0fdf72816c8e8f869e
   repoURL: https://github.com/cloudinary/asset-management-js.git
   installationURL: https://github.com/cloudinary/asset-management-js
   published: true
@@ -15,7 +15,7 @@ features:
     acceptHeaders: 2.81.2
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
-    core: 3.21.14
+    core: 3.21.20
     customSecuritySchemes: 0.1.1
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
@@ -404,7 +404,6 @@ generatedFiles:
   - src/mcp-server/tools/assetRelationsDeleteAssetRelationsByAssetId.ts
   - src/mcp-server/tools/assetsDerivedDestroy.ts
   - src/mcp-server/tools/assetsDestroyByAssetId.ts
-  - src/mcp-server/tools/assetsDownloadAsset.ts
   - src/mcp-server/tools/assetsDownloadBackupAsset.ts
   - src/mcp-server/tools/assetsGenerateArchive.ts
   - src/mcp-server/tools/assetsGetResourceByAssetId.ts

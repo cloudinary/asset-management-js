@@ -17,6 +17,7 @@ This operation is irreversible and deleted versions cannot be recovered.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="deleteBackupVersions" method="delete" path="/v1_1/{cloud_name}/resources/backup/{asset_id}" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 

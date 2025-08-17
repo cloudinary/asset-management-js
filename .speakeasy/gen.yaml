@@ -25,7 +25,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.5.4
+  version: 0.5.5
   additionalDependencies:
     dependencies: {}
     devDependencies: {}
@@ -64,4 +64,5 @@ typescript:
   packageName: '@cloudinary/asset-management'
   responseFormat: flat
   templateVersion: v2
+  usageSDKInitImports: []
   useIndexModules: true
