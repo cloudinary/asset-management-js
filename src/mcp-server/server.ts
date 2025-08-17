@@ -17,7 +17,6 @@ import { tool$assetRelationsCreateAssetRelationsByAssetId } from "./tools/assetR
 import { tool$assetRelationsDeleteAssetRelationsByAssetId } from "./tools/assetRelationsDeleteAssetRelationsByAssetId.js";
 import { tool$assetsDerivedDestroy } from "./tools/assetsDerivedDestroy.js";
 import { tool$assetsDestroyByAssetId } from "./tools/assetsDestroyByAssetId.js";
-import { tool$assetsDownloadAsset } from "./tools/assetsDownloadAsset.js";
 import { tool$assetsDownloadBackupAsset } from "./tools/assetsDownloadBackupAsset.js";
 import { tool$assetsGenerateArchive } from "./tools/assetsGenerateArchive.js";
 import { tool$assetsGetResourceByAssetId } from "./tools/assetsGetResourceByAssetId.js";
@@ -49,7 +48,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "CloudinaryAssetMgmt",
-    version: "0.5.4",
+    version: "0.5.5",
   });
 
   const client = new CloudinaryAssetMgmtCore({
@@ -84,7 +83,6 @@ export function createMCPServer(deps: {
 
   tool(tool$uploadUpload);
   tool(tool$assetsRenameAsset);
-  tool(tool$assetsDownloadAsset);
   tool(tool$assetsGenerateArchive);
   tool(tool$assetsDownloadBackupAsset);
   tool(tool$assetsDestroyByAssetId);

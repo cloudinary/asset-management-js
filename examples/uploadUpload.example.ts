@@ -8,7 +8,7 @@ dotenv.config();
  * Example usage of the @cloudinary/asset-management SDK
  *
  * To run this example from the examples directory:
- * npm run build && npx tsx uploadUpload.ts
+ * npm run build && npx tsx uploadUpload.example.ts
  */
 
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";

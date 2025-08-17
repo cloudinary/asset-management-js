@@ -16,6 +16,7 @@ Returns a list of resources matching the specified search criteria. The API supp
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="searchAssets" method="post" path="/v1_1/{cloud_name}/resources/search" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -131,6 +132,7 @@ Returns a list of resources that are visually similar to a specified image. You 
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="visualSearchAssets" method="post" path="/v1_1/{cloud_name}/resources/visual_search" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 

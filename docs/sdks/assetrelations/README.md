@@ -18,6 +18,7 @@ Relates an asset to other assets by their asset IDs, an immutable identifier, re
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createAssetRelationsByAssetId" method="post" path="/v1_1/{cloud_name}/resources/related_assets/{asset_id}" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -110,6 +111,7 @@ Unrelates the asset from other assets, specified by their asset IDs, an immutabl
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="deleteAssetRelationsByAssetId" method="delete" path="/v1_1/{cloud_name}/resources/related_assets/{asset_id}" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -202,6 +204,7 @@ Relates an asset to other assets by public IDs. This allows you to indicate that
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createAssetRelationsByPublicId" method="post" path="/v1_1/{cloud_name}/resources/related_assets/{resource_type}/{type}/{public_id}" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -296,6 +299,7 @@ Unrelates the asset from other assets, specified by public IDs. This is a bidire
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="deleteAssetRelationsByPublicId" method="delete" path="/v1_1/{cloud_name}/resources/related_assets/{resource_type}/{type}/{public_id}" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 

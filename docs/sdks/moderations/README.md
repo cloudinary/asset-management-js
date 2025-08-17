@@ -13,6 +13,7 @@ Retrieves resources matching specific moderation kind and status.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listResourcesByModerationKindAndStatus" method="get" path="/v1_1/{cloud_name}/resources/{resource_type}/moderations/{moderation_kind}/{moderation_status}" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 

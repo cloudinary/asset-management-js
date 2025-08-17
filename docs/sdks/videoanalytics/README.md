@@ -17,6 +17,7 @@ such as video public ID, view duration, viewer information, and more.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getVideoViews" method="get" path="/v1_1/{cloud_name}/video/analytics/views" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
