@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 92b56ec8-e19a-476d-afba-926cd2d071b4
 management:
-  docChecksum: a8fb5008ada8aaaa4a8861b75c36f662
+  docChecksum: 86489b279c477c94cb6f5d7c7d928c2a
   docVersion: 0.3.2
-  speakeasyVersion: 1.605.0
-  generationVersion: 2.684.0
-  releaseVersion: 0.5.5
-  configChecksum: 772af4a6806e8d0fdf72816c8e8f869e
+  speakeasyVersion: 1.606.0
+  generationVersion: 2.686.7
+  releaseVersion: 0.5.6
+  configChecksum: cf0cad6961e1ec4cc04225e00ebf9151
   repoURL: https://github.com/cloudinary/asset-management-js.git
   installationURL: https://github.com/cloudinary/asset-management-js
   published: true

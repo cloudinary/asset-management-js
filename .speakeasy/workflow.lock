@@ -1,21 +1,21 @@
-speakeasyVersion: 1.605.0
+speakeasyVersion: 1.606.0
 sources:
     Asset Management API:
         sourceNamespace: asset-management-api
-        sourceRevisionDigest: sha256:76323bc806a720b1af0525322462d716de7f8f64bcca2d5a715be4a9f84e100b
-        sourceBlobDigest: sha256:78d20b4cf9c5d78d6c808df10ea1149ca00a456d1e19972abae195afda81daf8
+        sourceRevisionDigest: sha256:0527bd3d3bb03146e0271e20e5d78c468490c4425d7bc7d9c237a5e517d8406c
+        sourceBlobDigest: sha256:d4bffb4149dc920cc1441c50e762e9864d1cd71a009418b8098c3cb1688baa5a
         tags:
             - latest
-            - speakeasy-sdk-regen-1754440347
+            - speakeasy-sdk-regen-1755621600
             - 0.3.2
 targets:
     asset-management-js:
         source: Asset Management API
         sourceNamespace: asset-management-api
-        sourceRevisionDigest: sha256:76323bc806a720b1af0525322462d716de7f8f64bcca2d5a715be4a9f84e100b
-        sourceBlobDigest: sha256:78d20b4cf9c5d78d6c808df10ea1149ca00a456d1e19972abae195afda81daf8
+        sourceRevisionDigest: sha256:0527bd3d3bb03146e0271e20e5d78c468490c4425d7bc7d9c237a5e517d8406c
+        sourceBlobDigest: sha256:d4bffb4149dc920cc1441c50e762e9864d1cd71a009418b8098c3cb1688baa5a
         codeSamplesNamespace: asset-management-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:0959f574162ddb81d2cb4f3674f4b2ef3b801ba4987ac132f11d55d748f4ff4c
+        codeSamplesRevisionDigest: sha256:3966e38e9c7888a922be98284b7d7176fb781dd871afcbb6b1b111f52005b85b
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -30,6 +30,7 @@ workflow:
                 - location: https://cloudinary.github.io/api-schemas/overlays/remove-mcp-description.yml
                 - location: https://cloudinary.github.io/api-schemas/overlays/signature-optional-overlay.yml
                 - location: https://cloudinary.github.io/api-schemas/asset-management/overlays/remove-multipart-overlay.yml
+                - location: https://cloudinary.github.io/api-schemas/asset-management/overlays/create-only-archive-mode-overlay.yml
             registry:
                 location: registry.speakeasyapi.dev/cloudinary/cloudinary/asset-management-api
     targets:

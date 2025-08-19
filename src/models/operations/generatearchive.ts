@@ -18,25 +18,19 @@ export type GenerateArchiveGlobals = {
 };
 
 /**
- * The method for generating and delivering the archive. Options:
+ * The method for generating and delivering the archive. Only "create" is supported:
  *
  * @remarks
- * download - Generates and delivers the archive file without storing it
  * create - Creates and stores the archive as a raw asset, returning URLs in the response
- * create_and_download - Creates, stores, and delivers the archive file
  */
 export const Mode = {
-  Download: "download",
   Create: "create",
-  CreateAndDownload: "create_and_download",
 } as const;
 /**
- * The method for generating and delivering the archive. Options:
+ * The method for generating and delivering the archive. Only "create" is supported:
  *
  * @remarks
- * download - Generates and delivers the archive file without storing it
  * create - Creates and stores the archive as a raw asset, returning URLs in the response
- * create_and_download - Creates, stores, and delivers the archive file
  */
 export type Mode = ClosedEnum<typeof Mode>;
 
@@ -88,12 +82,10 @@ export type GenerateArchiveRequestBody = {
    */
   transformations?: string | undefined;
   /**
-   * The method for generating and delivering the archive. Options:
+   * The method for generating and delivering the archive. Only "create" is supported:
    *
    * @remarks
-   * download - Generates and delivers the archive file without storing it
    * create - Creates and stores the archive as a raw asset, returning URLs in the response
-   * create_and_download - Creates, stores, and delivers the archive file
    */
   mode?: Mode | undefined;
   /**
