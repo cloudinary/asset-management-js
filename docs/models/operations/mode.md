@@ -1,9 +1,7 @@
 # Mode
 
-The method for generating and delivering the archive. Options:
-download - Generates and delivers the archive file without storing it
+The method for generating and delivering the archive. Only "create" is supported:
 create - Creates and stores the archive as a raw asset, returning URLs in the response
-create_and_download - Creates, stores, and delivers the archive file
 
 
 ## Example Usage
@@ -11,11 +9,11 @@ create_and_download - Creates, stores, and delivers the archive file
 ```typescript
 import { Mode } from "@cloudinary/asset-management/models/operations";
 
-let value: Mode = "create_and_download";
+let value: Mode = "create";
 ```
 
 ## Values
 
 ```typescript
-"download" | "create" | "create_and_download"
+"create"
 ```
