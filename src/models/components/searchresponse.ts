@@ -8,6 +8,12 @@ import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import {
+  AccessControl,
+  AccessControl$inboundSchema,
+  AccessControl$Outbound,
+  AccessControl$outboundSchema,
+} from "./accesscontrol.js";
 
 /**
  * The type of resource.
@@ -64,11 +70,6 @@ export const SearchResponseAccessMode = {
 export type SearchResponseAccessMode = ClosedEnum<
   typeof SearchResponseAccessMode
 >;
-
-/**
- * The access control settings for the asset.
- */
-export type SearchResponseAccessControl = {};
 
 /**
  * Information about who created the asset.
@@ -211,7 +212,7 @@ export type Resource = {
   /**
    * The access control settings for the asset.
    */
-  accessControl?: SearchResponseAccessControl | null | undefined;
+  accessControl?: Array<AccessControl> | null | undefined;
   /**
    * The ETag of the asset.
    */
@@ -402,56 +403,6 @@ export namespace SearchResponseAccessMode$ {
   export const inboundSchema = SearchResponseAccessMode$inboundSchema;
   /** @deprecated use `SearchResponseAccessMode$outboundSchema` instead. */
   export const outboundSchema = SearchResponseAccessMode$outboundSchema;
-}
-
-/** @internal */
-export const SearchResponseAccessControl$inboundSchema: z.ZodType<
-  SearchResponseAccessControl,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type SearchResponseAccessControl$Outbound = {};
-
-/** @internal */
-export const SearchResponseAccessControl$outboundSchema: z.ZodType<
-  SearchResponseAccessControl$Outbound,
-  z.ZodTypeDef,
-  SearchResponseAccessControl
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SearchResponseAccessControl$ {
-  /** @deprecated use `SearchResponseAccessControl$inboundSchema` instead. */
-  export const inboundSchema = SearchResponseAccessControl$inboundSchema;
-  /** @deprecated use `SearchResponseAccessControl$outboundSchema` instead. */
-  export const outboundSchema = SearchResponseAccessControl$outboundSchema;
-  /** @deprecated use `SearchResponseAccessControl$Outbound` instead. */
-  export type Outbound = SearchResponseAccessControl$Outbound;
-}
-
-export function searchResponseAccessControlToJSON(
-  searchResponseAccessControl: SearchResponseAccessControl,
-): string {
-  return JSON.stringify(
-    SearchResponseAccessControl$outboundSchema.parse(
-      searchResponseAccessControl,
-    ),
-  );
-}
-
-export function searchResponseAccessControlFromJSON(
-  jsonString: string,
-): SafeParseResult<SearchResponseAccessControl, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SearchResponseAccessControl$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SearchResponseAccessControl' from JSON`,
-  );
 }
 
 /** @internal */
@@ -879,9 +830,7 @@ export const Resource$inboundSchema: z.ZodType<
   secure_url: z.string().optional(),
   status: SearchResponseStatus$inboundSchema.optional(),
   access_mode: SearchResponseAccessMode$inboundSchema.optional(),
-  access_control: z.nullable(
-    z.lazy(() => SearchResponseAccessControl$inboundSchema),
-  ).optional(),
+  access_control: z.nullable(z.array(AccessControl$inboundSchema)).optional(),
   etag: z.string().optional(),
   created_by: z.nullable(z.lazy(() => CreatedBy$inboundSchema)).optional(),
   uploaded_by: z.nullable(z.lazy(() => UploadedBy$inboundSchema)).optional(),
@@ -944,7 +893,7 @@ export type Resource$Outbound = {
   secure_url?: string | undefined;
   status?: string | undefined;
   access_mode?: string | undefined;
-  access_control?: SearchResponseAccessControl$Outbound | null | undefined;
+  access_control?: Array<AccessControl$Outbound> | null | undefined;
   etag?: string | undefined;
   created_by?: CreatedBy$Outbound | null | undefined;
   uploaded_by?: UploadedBy$Outbound | null | undefined;
@@ -984,9 +933,7 @@ export const Resource$outboundSchema: z.ZodType<
   secureUrl: z.string().optional(),
   status: SearchResponseStatus$outboundSchema.optional(),
   accessMode: SearchResponseAccessMode$outboundSchema.optional(),
-  accessControl: z.nullable(
-    z.lazy(() => SearchResponseAccessControl$outboundSchema),
-  ).optional(),
+  accessControl: z.nullable(z.array(AccessControl$outboundSchema)).optional(),
   etag: z.string().optional(),
   createdBy: z.nullable(z.lazy(() => CreatedBy$outboundSchema)).optional(),
   uploadedBy: z.nullable(z.lazy(() => UploadedBy$outboundSchema)).optional(),

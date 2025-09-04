@@ -8,6 +8,12 @@ import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import {
+  AccessControl,
+  AccessControl$inboundSchema,
+  AccessControl$Outbound,
+  AccessControl$outboundSchema,
+} from "./accesscontrol.js";
 
 /**
  * The moderation status of the resource.
@@ -155,14 +161,12 @@ export type ResourceUpdateRequest = {
    */
   backgroundRemoval?: ResourceUpdateRequestBackgroundRemoval | undefined;
   /**
-   * A JSON array of access_types for the asset. The asset is accessible as long as one of the access types is valid.
+   * Restricts access to the asset by specifying one or more access types.
    *
    * @remarks
-   * Possible values for each access type:
-   *   - 'token' - requires either Token-based access or Cookie-based access for accessing the resource.
-   *   - 'anonymous' - allows public access to the resource. The anonymous access type should also include start and end dates (in ISO 8601 format) defining when the resource is publicly available.
+   * The asset is restricted unless at least one listed access type is valid.
    */
-  accessControl?: string | undefined;
+  accessControl?: Array<AccessControl> | undefined;
 };
 
 /** @internal */
@@ -299,7 +303,7 @@ export const ResourceUpdateRequest$inboundSchema: z.ZodType<
   visual_search: z.boolean().optional(),
   background_removal: ResourceUpdateRequestBackgroundRemoval$inboundSchema
     .optional(),
-  access_control: z.string().optional(),
+  access_control: z.array(AccessControl$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     "display_name": "displayName",
@@ -339,7 +343,7 @@ export type ResourceUpdateRequest$Outbound = {
   categorization?: string | undefined;
   visual_search?: boolean | undefined;
   background_removal?: string | undefined;
-  access_control?: string | undefined;
+  access_control?: Array<AccessControl$Outbound> | undefined;
 };
 
 /** @internal */
@@ -368,7 +372,7 @@ export const ResourceUpdateRequest$outboundSchema: z.ZodType<
   visualSearch: z.boolean().optional(),
   backgroundRemoval: ResourceUpdateRequestBackgroundRemoval$outboundSchema
     .optional(),
-  accessControl: z.string().optional(),
+  accessControl: z.array(AccessControl$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     displayName: "display_name",

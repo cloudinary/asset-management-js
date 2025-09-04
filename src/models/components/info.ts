@@ -7,6 +7,12 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import {
+  AccessControl,
+  AccessControl$inboundSchema,
+  AccessControl$Outbound,
+  AccessControl$outboundSchema,
+} from "./accesscontrol.js";
 
 /**
  * Included if 'context=true' parameter is used.
@@ -20,8 +26,6 @@ export type InfoModeration = {
   status?: string | undefined;
   updatedAt?: Date | undefined;
 };
-
-export type InfoAccessControl = {};
 
 export type Derivative = {
   /**
@@ -87,7 +91,7 @@ export type Info = {
   url?: string | undefined;
   secureUrl?: string | undefined;
   status?: string | undefined;
-  accessControl?: Array<InfoAccessControl> | null | undefined;
+  accessControl?: Array<AccessControl> | null | undefined;
   etag?: string | undefined;
   /**
    * Included if 'derived=true' parameter is used. Array of derived resources.
@@ -211,54 +215,6 @@ export function infoModerationFromJSON(
 }
 
 /** @internal */
-export const InfoAccessControl$inboundSchema: z.ZodType<
-  InfoAccessControl,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InfoAccessControl$Outbound = {};
-
-/** @internal */
-export const InfoAccessControl$outboundSchema: z.ZodType<
-  InfoAccessControl$Outbound,
-  z.ZodTypeDef,
-  InfoAccessControl
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InfoAccessControl$ {
-  /** @deprecated use `InfoAccessControl$inboundSchema` instead. */
-  export const inboundSchema = InfoAccessControl$inboundSchema;
-  /** @deprecated use `InfoAccessControl$outboundSchema` instead. */
-  export const outboundSchema = InfoAccessControl$outboundSchema;
-  /** @deprecated use `InfoAccessControl$Outbound` instead. */
-  export type Outbound = InfoAccessControl$Outbound;
-}
-
-export function infoAccessControlToJSON(
-  infoAccessControl: InfoAccessControl,
-): string {
-  return JSON.stringify(
-    InfoAccessControl$outboundSchema.parse(infoAccessControl),
-  );
-}
-
-export function infoAccessControlFromJSON(
-  jsonString: string,
-): SafeParseResult<InfoAccessControl, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InfoAccessControl$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InfoAccessControl' from JSON`,
-  );
-}
-
-/** @internal */
 export const Derivative$inboundSchema: z.ZodType<
   Derivative,
   z.ZodTypeDef,
@@ -363,9 +319,7 @@ export const Info$inboundSchema: z.ZodType<Info, z.ZodTypeDef, unknown> = z
     url: z.string().optional(),
     secure_url: z.string().optional(),
     status: z.string().optional(),
-    access_control: z.nullable(
-      z.array(z.lazy(() => InfoAccessControl$inboundSchema)),
-    ).optional(),
+    access_control: z.nullable(z.array(AccessControl$inboundSchema)).optional(),
     etag: z.string().optional(),
     derivatives: z.array(z.lazy(() => Derivative$inboundSchema)).optional(),
   }).transform((v) => {
@@ -418,7 +372,7 @@ export type Info$Outbound = {
   url?: string | undefined;
   secure_url?: string | undefined;
   status?: string | undefined;
-  access_control?: Array<InfoAccessControl$Outbound> | null | undefined;
+  access_control?: Array<AccessControl$Outbound> | null | undefined;
   etag?: string | undefined;
   derivatives?: Array<Derivative$Outbound> | undefined;
 };
@@ -455,9 +409,7 @@ export const Info$outboundSchema: z.ZodType<Info$Outbound, z.ZodTypeDef, Info> =
     url: z.string().optional(),
     secureUrl: z.string().optional(),
     status: z.string().optional(),
-    accessControl: z.nullable(
-      z.array(z.lazy(() => InfoAccessControl$outboundSchema)),
-    ).optional(),
+    accessControl: z.nullable(z.array(AccessControl$outboundSchema)).optional(),
     etag: z.string().optional(),
     derivatives: z.array(z.lazy(() => Derivative$outboundSchema)).optional(),
   }).transform((v) => {

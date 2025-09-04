@@ -17,6 +17,17 @@ let value: UploadChunkRequest = {
     format: "jpg",
     allowedFormats: "mp4,ogv,jpg,png,pdf",
     autoTagging: 0.5,
+    accessControl: [
+      {
+        accessType: "token",
+        key: "prod2024",
+      },
+      {
+        accessType: "anonymous",
+        start: new Date("2024-03-15T09:00:00Z"),
+        end: new Date("2024-06-30T23:59:59Z"),
+      },
+    ],
     detection: "coco_v2",
     file: "<value>",
   },

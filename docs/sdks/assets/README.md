@@ -1625,7 +1625,17 @@ async function run() {
     regions: "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}",
     qualityOverride: "80:420",
     detection: "captioning",
-    accessControl: "[{\"access_type\":\"token\"}]",
+    accessControl: [
+      {
+        accessType: "token",
+        key: "prod2024",
+      },
+      {
+        accessType: "anonymous",
+        start: new Date("2024-03-15T09:00:00Z"),
+        end: new Date("2024-06-30T23:59:59Z"),
+      },
+    ],
   });
 
   console.log(result);
@@ -1666,7 +1676,17 @@ async function run() {
     regions: "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}",
     qualityOverride: "80:420",
     detection: "captioning",
-    accessControl: "[{\"access_type\":\"token\"}]",
+    accessControl: [
+      {
+        accessType: "token",
+        key: "prod2024",
+      },
+      {
+        accessType: "anonymous",
+        start: new Date("2024-03-15T09:00:00Z"),
+        end: new Date("2024-06-30T23:59:59Z"),
+      },
+    ],
   });
   if (res.ok) {
     const { value: result } = res;
@@ -1828,7 +1848,17 @@ async function run() {
     regions: "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}",
     qualityOverride: "80:420",
     detection: "captioning",
-    accessControl: "[{\"access_type\":\"token\"}]",
+    accessControl: [
+      {
+        accessType: "token",
+        key: "prod2024",
+      },
+      {
+        accessType: "anonymous",
+        start: new Date("2024-03-15T09:00:00Z"),
+        end: new Date("2024-06-30T23:59:59Z"),
+      },
+    ],
   });
 
   console.log(result);
@@ -1869,7 +1899,17 @@ async function run() {
     regions: "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}",
     qualityOverride: "80:420",
     detection: "captioning",
-    accessControl: "[{\"access_type\":\"token\"}]",
+    accessControl: [
+      {
+        accessType: "token",
+        key: "prod2024",
+      },
+      {
+        accessType: "anonymous",
+        start: new Date("2024-03-15T09:00:00Z"),
+        end: new Date("2024-06-30T23:59:59Z"),
+      },
+    ],
   });
   if (res.ok) {
     const { value: result } = res;
