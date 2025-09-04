@@ -15,9 +15,9 @@ const args = {
 export const tool$foldersUpdateFolder: ToolDefinition<typeof args> = {
   name: "move-folder",
   description:
-    `Renames or moves an entire folder (along with all assets it contains) to a
+    `Renames or moves an entire folder (along with all assets it contains) to a new location
 
-Updates a folder's properties.`,
+Renames or moves an entire folder (along with all assets it contains) to a new location within your Cloudinary media library.`,
   scopes: ["librarian"],
   args,
   tool: async (client, args, ctx) => {

@@ -33,10 +33,10 @@ export class Folders extends ClientSDK {
   }
 
   /**
-   * Renames or moves an entire folder (along with all assets it contains) to a
+   * Renames or moves an entire folder (along with all assets it contains) to a new location
    *
    * @remarks
-   * Updates a folder's properties.
+   * Renames or moves an entire folder (along with all assets it contains) to a new location within your Cloudinary media library.
    */
   async updateFolder(
     folder: string,

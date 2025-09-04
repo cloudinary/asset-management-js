@@ -143,13 +143,13 @@ export type UploadRequestCategorization = ClosedEnum<
 /**
  * Set to adv_ocr to extract all text elements in an image as well as the bounding box coordinates of each detected element using the OCR text detection and extraction add-on.
  */
-export const UploadRequestOcr = {
+export const UploadRequestOcr2 = {
   AdvOcr: "adv_ocr",
 } as const;
 /**
  * Set to adv_ocr to extract all text elements in an image as well as the bounding box coordinates of each detected element using the OCR text detection and extraction add-on.
  */
-export type UploadRequestOcr = ClosedEnum<typeof UploadRequestOcr>;
+export type UploadRequestOcr2 = ClosedEnum<typeof UploadRequestOcr2>;
 
 /**
  * Automatically remove the background of an image using an add-on.
@@ -178,21 +178,7 @@ export type UploadRequestBackgroundRemoval = ClosedEnum<
   typeof UploadRequestBackgroundRemoval
 >;
 
-export type UploadRequest = {
-  /**
-   * The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.
-   */
-  apiKey?: string | undefined;
-  /**
-   * The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.
-   */
-  timestamp?: number | undefined;
-  /**
-   * (Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.
-   *
-   * @remarks
-   */
-  signature?: string | undefined;
+export type UploadRequestAdvOcr = {
   /**
    * Whether to return return accessibility analysis values for the image.
    */
@@ -373,7 +359,7 @@ export type UploadRequest = {
   /**
    * Set to adv_ocr to extract all text elements in an image as well as the bounding box coordinates of each detected element using the OCR text detection and extraction add-on.
    */
-  ocr?: UploadRequestOcr | undefined;
+  ocr?: UploadRequestOcr2 | undefined;
   /**
    * Generates a related file based on the uploaded file.
    *
@@ -508,6 +494,518 @@ export type UploadRequest = {
    * @remarks
    * Name of an upload preset that you defined for your Cloudinary product environment. An upload preset consists of upload parameters centrally managed using the Admin API or from the Upload Presets page of the Console Settings. An upload preset may be marked as unsigned, which allows unsigned uploading directly from the browser and restricts the optional parameters to: public_id, folder, tags, context, face_coordinates, regions and custom_coordinates.
    */
+  uploadPreset: string;
+  /**
+   * Allows you to update an asset by specifying custom logic with JavaScript that is executed after the upload to Cloudinary is completed successfully. This can be useful for conditionally adding tags, contextual metadata, and structured metadata, depending on the results of using the detection parameter on upload.
+   */
+  onSuccess?: string | undefined;
+  /**
+   * One of the following:
+   *
+   * @remarks
+   * - The remote HTTP or HTTPS URL address of an existing file.
+   * - The Data URI (Base64 encoded), max ~60 MB (62,910,000 chars).
+   * - The FTP address of an existing file.
+   * - Local file path starting with file://.
+   */
+  file: string;
+};
+
+/**
+ * Configuration object for automatic video transcription with translation options.
+ */
+export type AutoTranscriptionAdvOcr = {
+  /**
+   * Array of target language codes for transcription translation.
+   */
+  translate?: Array<string> | undefined;
+};
+
+export type AutoTranscriptionAdvOcrUnion = AutoTranscriptionAdvOcr | boolean;
+
+/**
+ * For all asset types, set to:
+ *
+ * @remarks
+ * - manual to add the uploaded asset to a list of pending assets that can be moderated using the Admin API or the Cloudinary Console.
+ * - perception_point to automatically moderate the uploaded asset using the Perception Point Malware Detection add-on.
+ *
+ * For images only, set to:
+ * - webpurify to automatically moderate the uploaded image using the WebPurify Image Moderation add-on.
+ * - aws_rek to automatically moderate the uploaded image using the Amazon Rekognition AI Moderation add-on.
+ * - duplicate:<threshold> to detect if the same or a similar image already exists using the Cloudinary Duplicate Image Detection add-on. Set threshold to a float greater than 0 and less than or equal to 1.0 to specify how similar an image needs to be in order to be considered a duplicate. Set threshold to 0 to add an image to the index of images that are searched when duplicate detection is invoked for another image.
+ *
+ * For videos only, set to:
+ * - aws_rek_video to automatically moderate the uploaded video using the Amazon Rekognition Video Moderation add-on.
+ * - google_video_moderation automatically moderate the uploaded video using the Google AI Video Moderation add-on.
+ *
+ * To request multiple moderations in a single API call:
+ * - Send the desired list of moderations as a pipe-separated string with manual moderation, if relevant, being last.
+ *
+ * Note: Rejected assets are automatically invalidated on the CDN within approximately ten minutes.
+ */
+export const ModerationAdvOcr = {
+  Manual: "manual",
+  Webpurify: "webpurify",
+  Metascan: "metascan",
+  AwsRek: "aws_rek",
+  AwsRekVideo: "aws_rek_video",
+  GoogleVideoModeration: "google_video_moderation",
+  PerceptionPoint: "perception_point",
+  Duplicate: "duplicate",
+  Cld: "cld",
+} as const;
+/**
+ * For all asset types, set to:
+ *
+ * @remarks
+ * - manual to add the uploaded asset to a list of pending assets that can be moderated using the Admin API or the Cloudinary Console.
+ * - perception_point to automatically moderate the uploaded asset using the Perception Point Malware Detection add-on.
+ *
+ * For images only, set to:
+ * - webpurify to automatically moderate the uploaded image using the WebPurify Image Moderation add-on.
+ * - aws_rek to automatically moderate the uploaded image using the Amazon Rekognition AI Moderation add-on.
+ * - duplicate:<threshold> to detect if the same or a similar image already exists using the Cloudinary Duplicate Image Detection add-on. Set threshold to a float greater than 0 and less than or equal to 1.0 to specify how similar an image needs to be in order to be considered a duplicate. Set threshold to 0 to add an image to the index of images that are searched when duplicate detection is invoked for another image.
+ *
+ * For videos only, set to:
+ * - aws_rek_video to automatically moderate the uploaded video using the Amazon Rekognition Video Moderation add-on.
+ * - google_video_moderation automatically moderate the uploaded video using the Google AI Video Moderation add-on.
+ *
+ * To request multiple moderations in a single API call:
+ * - Send the desired list of moderations as a pipe-separated string with manual moderation, if relevant, being last.
+ *
+ * Note: Rejected assets are automatically invalidated on the CDN within approximately ten minutes.
+ */
+export type ModerationAdvOcr = ClosedEnum<typeof ModerationAdvOcr>;
+
+export type ResponsiveBreakpointAdvOcr = {
+  createDerived?: boolean | undefined;
+  maxWidth?: number | undefined;
+  minWidth?: number | undefined;
+  bytesStep?: number | undefined;
+  maxImages?: number | undefined;
+  transformation?: string | undefined;
+};
+
+/**
+ * The delivery type that defines if and how the uploaded asset is available for public delivery. By default, all uploaded assets are public (upload). Possible values are upload, authenticated, private or asset.
+ */
+export const TypeAdvOcr = {
+  Upload: "upload",
+  Authenticated: "authenticated",
+  Private: "private",
+  Asset: "asset",
+} as const;
+/**
+ * The delivery type that defines if and how the uploaded asset is available for public delivery. By default, all uploaded assets are public (upload). Possible values are upload, authenticated, private or asset.
+ */
+export type TypeAdvOcr = ClosedEnum<typeof TypeAdvOcr>;
+
+/**
+ * Allows the asset to behave as if it's of the authenticated 'type' (see above) while still using the default 'upload' type in delivery URLs. The asset can later be made public by changing its access_mode via the Admin API, without having to update any delivery URLs. Valid values: public, and authenticated.
+ *
+ * @remarks
+ *
+ * @deprecated enum: The access_mode parameter is no longer supported. To restrict access to assets, you can use the access_control parameter.. Use accessControl instead.
+ */
+export const AccessModeAdvOcr = {
+  Public: "public",
+  Authenticated: "authenticated",
+} as const;
+/**
+ * Allows the asset to behave as if it's of the authenticated 'type' (see above) while still using the default 'upload' type in delivery URLs. The asset can later be made public by changing its access_mode via the Admin API, without having to update any delivery URLs. Valid values: public, and authenticated.
+ *
+ * @remarks
+ *
+ * @deprecated enum: The access_mode parameter is no longer supported. To restrict access to assets, you can use the access_control parameter.. Use accessControl instead.
+ */
+export type AccessModeAdvOcr = ClosedEnum<typeof AccessModeAdvOcr>;
+
+/**
+ * A comma-separated list of the categorization add-ons to run on the asset. Set to google_tagging, google_video_tagging, imagga_tagging and/or aws_rek_tagging to automatically classify the scenes of the uploaded asset.
+ */
+export const CategorizationAdvOcr = {
+  RekognitionScene: "rekognition_scene",
+  ImaggaTagging: "imagga_tagging",
+  AwsRekTagging: "aws_rek_tagging",
+  GoogleVideoTagging: "google_video_tagging",
+  GoogleTagging: "google_tagging",
+  VisenzeRecognition: "visenze_recognition",
+  AzureVideoIndexer: "azure_video_indexer",
+} as const;
+/**
+ * A comma-separated list of the categorization add-ons to run on the asset. Set to google_tagging, google_video_tagging, imagga_tagging and/or aws_rek_tagging to automatically classify the scenes of the uploaded asset.
+ */
+export type CategorizationAdvOcr = ClosedEnum<typeof CategorizationAdvOcr>;
+
+/**
+ * Set to adv_ocr to extract all text elements in an image as well as the bounding box coordinates of each detected element using the OCR text detection and extraction add-on.
+ */
+export const UploadRequestOcr1 = {
+  AdvOcr: "adv_ocr",
+} as const;
+/**
+ * Set to adv_ocr to extract all text elements in an image as well as the bounding box coordinates of each detected element using the OCR text detection and extraction add-on.
+ */
+export type UploadRequestOcr1 = ClosedEnum<typeof UploadRequestOcr1>;
+
+/**
+ * Automatically remove the background of an image using an add-on.
+ *
+ * @remarks
+ * - Set to cloudinary_ai to use the deep-learning based Cloudinary AI Background Removal add-on.
+ * - Note: this feature has been superseded by background removal on the fly.
+ * - Set to pixelz to use the human-powered Pixelz Remove-The-Background Editing add-on service.
+ * Relevant for images only.
+ */
+export const BackgroundRemovalAdvOcr = {
+  CloudinaryAi: "cloudinary_ai",
+  RemoveTheBackground: "remove_the_background",
+  Pixelz: "pixelz",
+} as const;
+/**
+ * Automatically remove the background of an image using an add-on.
+ *
+ * @remarks
+ * - Set to cloudinary_ai to use the deep-learning based Cloudinary AI Background Removal add-on.
+ * - Note: this feature has been superseded by background removal on the fly.
+ * - Set to pixelz to use the human-powered Pixelz Remove-The-Background Editing add-on service.
+ * Relevant for images only.
+ */
+export type BackgroundRemovalAdvOcr = ClosedEnum<
+  typeof BackgroundRemovalAdvOcr
+>;
+
+export type SignatureParameters = {
+  /**
+   * The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.
+   */
+  apiKey?: string | undefined;
+  /**
+   * The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.
+   */
+  timestamp?: number | undefined;
+  /**
+   * (Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.
+   *
+   * @remarks
+   */
+  signature?: string | undefined;
+  /**
+   * Whether to return return accessibility analysis values for the image.
+   */
+  accessibilityAnalysis?: boolean | undefined;
+  /**
+   * The asset folder to assign to the asset.
+   */
+  assetFolder?: string | undefined;
+  /**
+   * When set to true, returns the uploaded asset's public_id immediately in the response, before the upload is completed (asynchronously). Default: false.
+   *
+   * @remarks
+   */
+  async?: boolean | undefined;
+  /**
+   * Whether to trigger automatic generation of video chapters. Chapters will be generated and saved as a .vtt file with -chapters appended to the public ID of the video. You can enable chapters as part of the Cloudinary Video Player. Relevant for videos only.
+   */
+  autoChaptering?: boolean | undefined;
+  autoTranscription?: AutoTranscriptionAdvOcr | boolean | undefined;
+  /**
+   * Whether to return a cinemagraph analysis value for the media asset between 0 and 1, where 0 means the asset is not a cinemagraph and 1 means the asset is a cinemagraph. Relevant for animated images and video only. A static image will return 0.
+   */
+  cinemagraphAnalysis?: boolean | undefined;
+  /**
+   * Whether to retrieve predominant colors & color histogram of the uploaded image. Note: If all returned colors are opaque, then 6-digit RGB hex values are returned. If one or more colors contain an alpha channel, then 8-digit RGBA hex quadruplet values are returned.
+   */
+  colors?: boolean | undefined;
+  /**
+   * Key-value pairs of general textual context metadata to attach to the asset.
+   */
+  context?: string | undefined;
+  /**
+   * An array of coordinates for custom cropping.
+   */
+  customCoordinates?: string | undefined;
+  /**
+   * A display name for the asset.
+   */
+  displayName?: string | undefined;
+  /**
+   * A list of transformations to eagerly generate for the asset. Accepts either a single transformation or a pipe-separated list of transformations.
+   */
+  eager?: string | undefined;
+  /**
+   * Whether to generate the eager transformations asynchronously in the background after the upload request is completed rather than before the upload is completed.
+   */
+  eagerAsync?: boolean | undefined;
+  /**
+   * A URL to notify when eager transformations are completed.
+   */
+  eagerNotificationUrl?: string | undefined;
+  /**
+   * An array of coordinates representing detected faces in the asset, used for custom cropping or overlays.
+   */
+  faceCoordinates?: string | undefined;
+  /**
+   * Whether to detect faces in the asset.
+   */
+  faces?: boolean | undefined;
+  /**
+   * An HTTP header or a list of headers lines for adding as response HTTP headers when delivering the asset to your users. Supported headers: Link, Authorization, X-Robots-Tag.
+   *
+   * @remarks
+   */
+  headers?: string | undefined;
+  /**
+   * Whether to invalidate CDN cache copies of a previously uploaded asset that shares the same public ID. Default: false.
+   *
+   * @remarks
+   */
+  invalidate?: boolean | undefined;
+  /**
+   * Whether to return IPTC, XMP, and detailed Exif metadata of the uploaded asset in the response.
+   *
+   * @remarks
+   * Supported for images, video, and audio.
+   * - Returned metadata for images includes: PixelsPerUnitX, PixelsPerUnitY, PixelUnits, Colorspace, and DPI.
+   * - Returned metadata for audio and video includes: audio_codec, audio_bit_rate, audio_frequency, channels, channel_layout.
+   * - Additional metadata for video includes: pix_format, codec, level, profile, video_bit_rate, dar.
+   */
+  mediaMetadata?: boolean | undefined;
+  /**
+   * Structured metadata to attach to the asset based on the metadata fields defined for your account.
+   */
+  metadata?: string | undefined;
+  /**
+   * For all asset types, set to:
+   *
+   * @remarks
+   * - manual to add the uploaded asset to a list of pending assets that can be moderated using the Admin API or the Cloudinary Console.
+   * - perception_point to automatically moderate the uploaded asset using the Perception Point Malware Detection add-on.
+   *
+   * For images only, set to:
+   * - webpurify to automatically moderate the uploaded image using the WebPurify Image Moderation add-on.
+   * - aws_rek to automatically moderate the uploaded image using the Amazon Rekognition AI Moderation add-on.
+   * - duplicate:<threshold> to detect if the same or a similar image already exists using the Cloudinary Duplicate Image Detection add-on. Set threshold to a float greater than 0 and less than or equal to 1.0 to specify how similar an image needs to be in order to be considered a duplicate. Set threshold to 0 to add an image to the index of images that are searched when duplicate detection is invoked for another image.
+   *
+   * For videos only, set to:
+   * - aws_rek_video to automatically moderate the uploaded video using the Amazon Rekognition Video Moderation add-on.
+   * - google_video_moderation automatically moderate the uploaded video using the Google AI Video Moderation add-on.
+   *
+   * To request multiple moderations in a single API call:
+   * - Send the desired list of moderations as a pipe-separated string with manual moderation, if relevant, being last.
+   *
+   * Note: Rejected assets are automatically invalidated on the CDN within approximately ten minutes.
+   */
+  moderation?: ModerationAdvOcr | undefined;
+  /**
+   * A URL to notify when the asset is ready.
+   */
+  notificationUrl?: string | undefined;
+  /**
+   * Whether to return the perceptual hash (pHash) on the uploaded image for image similarity detection.
+   *
+   * @remarks
+   */
+  phash?: boolean | undefined;
+  /**
+   * Whether to return a quality analysis value for the image between 0 and 1, where 0 means the image is blurry and out of focus and 1 means the image is sharp and in focus. Relevant for images only.
+   */
+  qualityAnalysis?: boolean | undefined;
+  /**
+   * Regions to detect in the asset.
+   */
+  regions?: string | undefined;
+  /**
+   * Settings to automatically generate breakpoints for responsive images.
+   */
+  responsiveBreakpoints?: Array<ResponsiveBreakpointAdvOcr> | undefined;
+  /**
+   * A comma-separated list of tag names to assign to the asset.
+   */
+  tags?: string | undefined;
+  /**
+   * A URL to redirect to after the upload/explicit is completed instead of returning the upload response.
+   *
+   * @remarks
+   * Signed upload result parameters are added to the callback URL. This parameter is ignored for XHR (Ajax XMLHttpRequest) or JavaScript Fetch API upload requests.
+   * Note: This parameter is relevant for direct uploads from a form in the browser. It is automatically set if you perform direct upload from the browser using Cloudinary's SDKs and the jQuery plugin.
+   *
+   * @deprecated field: The callback parameter is deprecated. Not relevant for modern browsers. Starting July 2025 new customers will not be able to use this parameter..
+   */
+  callback?: string | undefined;
+  /**
+   * Whether to backup the uploaded asset. When set to true, backs up uploaded assets to a secondary storage bucket.
+   */
+  backup?: boolean | undefined;
+  /**
+   * Whether to discard the name of the original uploaded file. Relevant when delivering assets as attachments (setting the flag disposition:attachment in delivery URLs).
+   */
+  discardOriginalFilename?: boolean | undefined;
+  /**
+   * Whether to overwrite existing assets with the same public ID. When set to false, return immediately if an asset with the same public ID already exists. Default: true (when using unsigned upload, the default is false and cannot be changed to true).
+   *
+   * @remarks
+   */
+  overwrite?: boolean | undefined;
+  /**
+   * Whether to return a deletion token in the upload response. The token can be used to delete the uploaded asset within approximately 10 minutes using an unauthenticated API call.
+   */
+  returnDeleteToken?: boolean | undefined;
+  /**
+   * The delivery type that defines if and how the uploaded asset is available for public delivery. By default, all uploaded assets are public (upload). Possible values are upload, authenticated, private or asset.
+   */
+  type?: TypeAdvOcr | undefined;
+  /**
+   * Allows the asset to behave as if it's of the authenticated 'type' (see above) while still using the default 'upload' type in delivery URLs. The asset can later be made public by changing its access_mode via the Admin API, without having to update any delivery URLs. Valid values: public, and authenticated.
+   *
+   * @remarks
+   *
+   * @deprecated field: The access_mode parameter is no longer supported. To restrict access to assets, you can use the access_control parameter.. Use accessControl instead.
+   */
+  accessMode?: AccessModeAdvOcr | undefined;
+  /**
+   * A comma-separated list of the categorization add-ons to run on the asset. Set to google_tagging, google_video_tagging, imagga_tagging and/or aws_rek_tagging to automatically classify the scenes of the uploaded asset.
+   */
+  categorization?: CategorizationAdvOcr | undefined;
+  /**
+   * Set to adv_ocr to extract all text elements in an image as well as the bounding box coordinates of each detected element using the OCR text detection and extraction add-on.
+   */
+  ocr?: UploadRequestOcr1 | undefined;
+  /**
+   * Generates a related file based on the uploaded file.
+   *
+   * @remarks
+   * - Set to aspose to automatically create a PDF or other image format from a raw Office document using the Aspose Document Conversion add-on. (Asynchronous)
+   * - Set to google_speech to instruct the Google AI Video Transcription add-on to generate an automatic transcript raw file from an uploaded video. (Asynchronous)
+   * - Set to extract_text to extract all the text from a PDF file and store it in a raw JSON file with a public ID in the format: [pdf_public_id].extract_text.json. The full URL of the generated JSON file is included in the API response. Unlike the above raw_convert options, this option doesn't require registering for an add-on.(Synchronous)
+   * - Set to azure_video_indexer to generate AI-powered video insights from Microsoft Azure. (Asynchronous)
+   */
+  rawConvert?: string | undefined;
+  /**
+   * Automatically remove the background of an image using an add-on.
+   *
+   * @remarks
+   * - Set to cloudinary_ai to use the deep-learning based Cloudinary AI Background Removal add-on.
+   * - Note: this feature has been superseded by background removal on the fly.
+   * - Set to pixelz to use the human-powered Pixelz Remove-The-Background Editing add-on service.
+   * Relevant for images only.
+   */
+  backgroundRemoval?: BackgroundRemovalAdvOcr | undefined;
+  /**
+   * The identifier that is used for accessing the uploaded asset. If not specified, a unique ID is generated automatically.
+   */
+  publicId?: string | undefined;
+  /**
+   * An incoming transformation to run on the uploaded asset before its storage. In contrast to eager, this parameter is applied before the file is stored.
+   */
+  transformation?: string | undefined;
+  /**
+   * An optional format to convert the uploaded asset to before saving in the cloud.
+   */
+  format?: string | undefined;
+  /**
+   * A proxy to use for fetching remote URLs. The format should be http://hostname:port.
+   */
+  proxy?: string | undefined;
+  /**
+   * Folder name where the uploaded asset will be stored. This parameter applies when using the Admin API, or when specifying the upload preset for unsigned uploading with the Upload API.
+   *
+   * @deprecated field: If Dynamic folders mode is enabled on your product environment, this parameter is deprecated, and it's recommended to use the asset_folder parameter to control where the asset will be placed. If you also want your public_id to match the initial asset folder path, include the use_asset_folder_as_public_id_prefixparameter.
+  .
+   */
+  folder?: string | undefined;
+  /**
+   * A comma-separated list of file formats that are allowed for uploading. Files of other types will be rejected. The formats can be any combination of image types, video formats or raw file extensions.
+   *
+   * @remarks
+   * Note: You can also add the `format` parameter to convert other file types instead of rejecting them. In this case, only files that would normally be rejected are converted, any file format allowed for upload wont be converted.
+   */
+  allowedFormats?: string | undefined;
+  /**
+   * Automatically assigns tags to an asset according to detected objects or categories with a confidence score higher than the specified value.
+   *
+   * @remarks
+   * Use together with the detection parameter for:
+   * - Cloudinary AI Content Analysis
+   * - Amazon Rekognition Celebrity Detection
+   * Use together with the categorization parameter for:
+   * - Google Automatic Video Tagging
+   * - Google Auto Tagging
+   * - Imagga Auto Tagging
+   * - Amazon Rekognition Auto Tagging
+   */
+  autoTagging?: number | undefined;
+  /**
+   * Restrict access to the asset by passing an array of access types for the asset. The asset is restricted unless one of the access types is valid.
+   *
+   * @remarks
+   * Possible values for each access type:
+   * - token requires either Token-based access or Cookie-based access for accessing the asset.
+   * For example: access_type: "token"
+   * - anonymous allows public access to the asset during a set time period. The anonymous access type can optionally include start and/or end dates (in ISO 8601 format) that define when the asset is publicly available. Note that you can only include a single 'anonymous' access type. For example:
+   * access_type: "anonymous", start: "2017-12-15T12:00Z", end: "2018-01-20T12:00Z"
+   */
+  accessControl?: string | undefined;
+  /**
+   * Allows you to modify upload parameters by specifying custom logic with JavaScript. This can be useful for conditionally adding tags, contextual metadata, structured metadata or eager transformations depending on specific criteria of the uploaded file.
+   */
+  eval?: string | undefined;
+  /**
+   * Invokes the relevant add-on to return a list of detected content.
+   *
+   * @remarks
+   * Set to:
+   * - <content-aware model>_[<version>] (e.g. coco_v2) to return a list of detected content using the Cloudinary AI Content Analysis add-on. Can be used together with the auto_tagging parameter to apply tags automatically.
+   * - captioning to analyze an image and suggest a caption based on the image's contents.
+   * - iqa to analyze the quality of an image.
+   * - watermark-detection to detect watermarks in an image.
+   * - adv_face to return a list of facial attributes using the Advanced Facial Attribute Detection add-on.
+   * - aws_rek_face to return a list of detected celebrities and facial attributes using the Amazon Rekognition Celebrity Detection add-on. Can be used together with the auto_tagging parameter to apply tags automatically.
+   */
+  detection?: string | undefined;
+  /**
+   * Overrides the originally uploaded asset's file name in downloads that use flags like fl_attachment or fl_force_original.
+   */
+  filenameOverride?: string | undefined;
+  /**
+   * A string or path that's automatically prepended to the public_id with a forward slash. The value can contain the same characters as the public_id including additional forward slashes. This prefix can be useful to provide context and improve the SEO of an asset's filename in the delivery URL, but the value does not impact the location where the asset is stored.
+   */
+  publicIdPrefix?: string | undefined;
+  /**
+   * Whether to add the asset_folder value as a prefix to the public_id value (prepended with a forward slash). This ensures that the public ID path will always match the initial asset folder, and can help to retain the behavior that previously existed in fixed folder mode. However, keep in mind that even when this option is used during upload, an asset with a certain public ID path can later be moved to a completely different asset folder hierarchy without impacting the public ID. This option only ensures path matching for the initial upload. Relevant only when public_id_prefix (or folder) has not been separately specified.
+   */
+  useAssetFolderAsPublicIdPrefix?: boolean | undefined;
+  /**
+   * Whether the display name should be unique.
+   */
+  uniqueDisplayName?: boolean | undefined;
+  /**
+   * Whether to index the image for use with visual searches. Relevant for images only.
+   */
+  visualSearch?: boolean | undefined;
+  /**
+   * Whether to automatically assign the original filename of the uploaded asset as the asset's display name. Relevant only if the display_name parameter isn't set.
+   */
+  useFilenameAsDisplayName?: boolean | undefined;
+  /**
+   * Whether to use the original file name of the uploaded asset if available for the public ID. The file name is normalized and random characters are appended to ensure uniqueness if the file name already exists. Default: false.
+   *
+   * @remarks
+   */
+  useFilename?: boolean | undefined;
+  /**
+   * When set to false and used together with use_filename, if an asset with the same file name already exists, no random characters are appended to the file name. Instead, the asset is overwritten. Default: true (random characters are added to the file name if needed).
+   *
+   * @remarks
+   */
+  uniqueFilename?: boolean | undefined;
+  /**
+   * (Required for unsigned uploading / optional for signed uploading)
+   *
+   * @remarks
+   * Name of an upload preset that you defined for your Cloudinary product environment. An upload preset consists of upload parameters centrally managed using the Admin API or from the Upload Presets page of the Console Settings. An upload preset may be marked as unsigned, which allows unsigned uploading directly from the browser and restricts the optional parameters to: public_id, folder, tags, context, face_coordinates, regions and custom_coordinates.
+   */
   uploadPreset?: string | undefined;
   /**
    * Allows you to update an asset by specifying custom logic with JavaScript that is executed after the upload to Cloudinary is completed successfully. This can be useful for conditionally adding tags, contextual metadata, and structured metadata, depending on the results of using the detection parameter on upload.
@@ -524,6 +1022,8 @@ export type UploadRequest = {
    */
   file: string;
 };
+
+export type UploadRequest = UploadRequestAdvOcr | SignatureParameters;
 
 /** @internal */
 export const AutoTranscription$inboundSchema: z.ZodType<
@@ -799,24 +1299,24 @@ export namespace UploadRequestCategorization$ {
 }
 
 /** @internal */
-export const UploadRequestOcr$inboundSchema: z.ZodNativeEnum<
-  typeof UploadRequestOcr
-> = z.nativeEnum(UploadRequestOcr);
+export const UploadRequestOcr2$inboundSchema: z.ZodNativeEnum<
+  typeof UploadRequestOcr2
+> = z.nativeEnum(UploadRequestOcr2);
 
 /** @internal */
-export const UploadRequestOcr$outboundSchema: z.ZodNativeEnum<
-  typeof UploadRequestOcr
-> = UploadRequestOcr$inboundSchema;
+export const UploadRequestOcr2$outboundSchema: z.ZodNativeEnum<
+  typeof UploadRequestOcr2
+> = UploadRequestOcr2$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace UploadRequestOcr$ {
-  /** @deprecated use `UploadRequestOcr$inboundSchema` instead. */
-  export const inboundSchema = UploadRequestOcr$inboundSchema;
-  /** @deprecated use `UploadRequestOcr$outboundSchema` instead. */
-  export const outboundSchema = UploadRequestOcr$outboundSchema;
+export namespace UploadRequestOcr2$ {
+  /** @deprecated use `UploadRequestOcr2$inboundSchema` instead. */
+  export const inboundSchema = UploadRequestOcr2$inboundSchema;
+  /** @deprecated use `UploadRequestOcr2$outboundSchema` instead. */
+  export const outboundSchema = UploadRequestOcr2$outboundSchema;
 }
 
 /** @internal */
@@ -841,14 +1341,11 @@ export namespace UploadRequestBackgroundRemoval$ {
 }
 
 /** @internal */
-export const UploadRequest$inboundSchema: z.ZodType<
-  UploadRequest,
+export const UploadRequestAdvOcr$inboundSchema: z.ZodType<
+  UploadRequestAdvOcr,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  api_key: z.string().optional(),
-  timestamp: z.number().int().optional(),
-  signature: z.string().optional(),
   accessibility_analysis: z.boolean().optional(),
   asset_folder: z.string().optional(),
   async: z.boolean().optional(),
@@ -888,9 +1385,637 @@ export const UploadRequest$inboundSchema: z.ZodType<
   type: UploadRequestType$inboundSchema.optional(),
   access_mode: UploadRequestAccessMode$inboundSchema.optional(),
   categorization: UploadRequestCategorization$inboundSchema.optional(),
-  ocr: UploadRequestOcr$inboundSchema.optional(),
+  ocr: UploadRequestOcr2$inboundSchema.optional(),
   raw_convert: z.string().optional(),
   background_removal: UploadRequestBackgroundRemoval$inboundSchema.optional(),
+  public_id: z.string().optional(),
+  transformation: z.string().optional(),
+  format: z.string().optional(),
+  proxy: z.string().optional(),
+  folder: z.string().optional(),
+  allowed_formats: z.string().optional(),
+  auto_tagging: z.number().optional(),
+  access_control: z.string().optional(),
+  eval: z.string().optional(),
+  detection: z.string().optional(),
+  filename_override: z.string().optional(),
+  public_id_prefix: z.string().optional(),
+  use_asset_folder_as_public_id_prefix: z.boolean().optional(),
+  unique_display_name: z.boolean().optional(),
+  visual_search: z.boolean().optional(),
+  use_filename_as_display_name: z.boolean().optional(),
+  use_filename: z.boolean().optional(),
+  unique_filename: z.boolean().optional(),
+  upload_preset: z.string(),
+  on_success: z.string().optional(),
+  file: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "accessibility_analysis": "accessibilityAnalysis",
+    "asset_folder": "assetFolder",
+    "auto_chaptering": "autoChaptering",
+    "auto_transcription": "autoTranscription",
+    "cinemagraph_analysis": "cinemagraphAnalysis",
+    "custom_coordinates": "customCoordinates",
+    "display_name": "displayName",
+    "eager_async": "eagerAsync",
+    "eager_notification_url": "eagerNotificationUrl",
+    "face_coordinates": "faceCoordinates",
+    "media_metadata": "mediaMetadata",
+    "notification_url": "notificationUrl",
+    "quality_analysis": "qualityAnalysis",
+    "responsive_breakpoints": "responsiveBreakpoints",
+    "discard_original_filename": "discardOriginalFilename",
+    "return_delete_token": "returnDeleteToken",
+    "access_mode": "accessMode",
+    "raw_convert": "rawConvert",
+    "background_removal": "backgroundRemoval",
+    "public_id": "publicId",
+    "allowed_formats": "allowedFormats",
+    "auto_tagging": "autoTagging",
+    "access_control": "accessControl",
+    "filename_override": "filenameOverride",
+    "public_id_prefix": "publicIdPrefix",
+    "use_asset_folder_as_public_id_prefix": "useAssetFolderAsPublicIdPrefix",
+    "unique_display_name": "uniqueDisplayName",
+    "visual_search": "visualSearch",
+    "use_filename_as_display_name": "useFilenameAsDisplayName",
+    "use_filename": "useFilename",
+    "unique_filename": "uniqueFilename",
+    "upload_preset": "uploadPreset",
+    "on_success": "onSuccess",
+  });
+});
+
+/** @internal */
+export type UploadRequestAdvOcr$Outbound = {
+  accessibility_analysis?: boolean | undefined;
+  asset_folder?: string | undefined;
+  async?: boolean | undefined;
+  auto_chaptering?: boolean | undefined;
+  auto_transcription?: AutoTranscription$Outbound | boolean | undefined;
+  cinemagraph_analysis?: boolean | undefined;
+  colors: boolean;
+  context?: string | undefined;
+  custom_coordinates?: string | undefined;
+  display_name?: string | undefined;
+  eager?: string | undefined;
+  eager_async?: boolean | undefined;
+  eager_notification_url?: string | undefined;
+  face_coordinates?: string | undefined;
+  faces?: boolean | undefined;
+  headers?: string | undefined;
+  invalidate?: boolean | undefined;
+  media_metadata?: boolean | undefined;
+  metadata?: string | undefined;
+  moderation?: string | undefined;
+  notification_url?: string | undefined;
+  phash?: boolean | undefined;
+  quality_analysis?: boolean | undefined;
+  regions?: string | undefined;
+  responsive_breakpoints?: Array<ResponsiveBreakpoint$Outbound> | undefined;
+  tags?: string | undefined;
+  callback?: string | undefined;
+  backup?: boolean | undefined;
+  discard_original_filename?: boolean | undefined;
+  overwrite?: boolean | undefined;
+  return_delete_token?: boolean | undefined;
+  type?: string | undefined;
+  access_mode?: string | undefined;
+  categorization?: string | undefined;
+  ocr?: string | undefined;
+  raw_convert?: string | undefined;
+  background_removal?: string | undefined;
+  public_id?: string | undefined;
+  transformation?: string | undefined;
+  format?: string | undefined;
+  proxy?: string | undefined;
+  folder?: string | undefined;
+  allowed_formats?: string | undefined;
+  auto_tagging?: number | undefined;
+  access_control?: string | undefined;
+  eval?: string | undefined;
+  detection?: string | undefined;
+  filename_override?: string | undefined;
+  public_id_prefix?: string | undefined;
+  use_asset_folder_as_public_id_prefix?: boolean | undefined;
+  unique_display_name?: boolean | undefined;
+  visual_search?: boolean | undefined;
+  use_filename_as_display_name?: boolean | undefined;
+  use_filename?: boolean | undefined;
+  unique_filename?: boolean | undefined;
+  upload_preset: string;
+  on_success?: string | undefined;
+  file: string;
+};
+
+/** @internal */
+export const UploadRequestAdvOcr$outboundSchema: z.ZodType<
+  UploadRequestAdvOcr$Outbound,
+  z.ZodTypeDef,
+  UploadRequestAdvOcr
+> = z.object({
+  accessibilityAnalysis: z.boolean().optional(),
+  assetFolder: z.string().optional(),
+  async: z.boolean().optional(),
+  autoChaptering: z.boolean().optional(),
+  autoTranscription: z.union([
+    z.lazy(() => AutoTranscription$outboundSchema),
+    z.boolean(),
+  ]).optional(),
+  cinemagraphAnalysis: z.boolean().optional(),
+  colors: z.boolean().default(false),
+  context: z.string().optional(),
+  customCoordinates: z.string().optional(),
+  displayName: z.string().optional(),
+  eager: z.string().optional(),
+  eagerAsync: z.boolean().optional(),
+  eagerNotificationUrl: z.string().optional(),
+  faceCoordinates: z.string().optional(),
+  faces: z.boolean().optional(),
+  headers: z.string().optional(),
+  invalidate: z.boolean().optional(),
+  mediaMetadata: z.boolean().optional(),
+  metadata: z.string().optional(),
+  moderation: ModerationEnum$outboundSchema.optional(),
+  notificationUrl: z.string().optional(),
+  phash: z.boolean().optional(),
+  qualityAnalysis: z.boolean().optional(),
+  regions: z.string().optional(),
+  responsiveBreakpoints: z.array(
+    z.lazy(() => ResponsiveBreakpoint$outboundSchema),
+  ).optional(),
+  tags: z.string().optional(),
+  callback: z.string().optional(),
+  backup: z.boolean().optional(),
+  discardOriginalFilename: z.boolean().optional(),
+  overwrite: z.boolean().optional(),
+  returnDeleteToken: z.boolean().optional(),
+  type: UploadRequestType$outboundSchema.optional(),
+  accessMode: UploadRequestAccessMode$outboundSchema.optional(),
+  categorization: UploadRequestCategorization$outboundSchema.optional(),
+  ocr: UploadRequestOcr2$outboundSchema.optional(),
+  rawConvert: z.string().optional(),
+  backgroundRemoval: UploadRequestBackgroundRemoval$outboundSchema.optional(),
+  publicId: z.string().optional(),
+  transformation: z.string().optional(),
+  format: z.string().optional(),
+  proxy: z.string().optional(),
+  folder: z.string().optional(),
+  allowedFormats: z.string().optional(),
+  autoTagging: z.number().optional(),
+  accessControl: z.string().optional(),
+  eval: z.string().optional(),
+  detection: z.string().optional(),
+  filenameOverride: z.string().optional(),
+  publicIdPrefix: z.string().optional(),
+  useAssetFolderAsPublicIdPrefix: z.boolean().optional(),
+  uniqueDisplayName: z.boolean().optional(),
+  visualSearch: z.boolean().optional(),
+  useFilenameAsDisplayName: z.boolean().optional(),
+  useFilename: z.boolean().optional(),
+  uniqueFilename: z.boolean().optional(),
+  uploadPreset: z.string(),
+  onSuccess: z.string().optional(),
+  file: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    accessibilityAnalysis: "accessibility_analysis",
+    assetFolder: "asset_folder",
+    autoChaptering: "auto_chaptering",
+    autoTranscription: "auto_transcription",
+    cinemagraphAnalysis: "cinemagraph_analysis",
+    customCoordinates: "custom_coordinates",
+    displayName: "display_name",
+    eagerAsync: "eager_async",
+    eagerNotificationUrl: "eager_notification_url",
+    faceCoordinates: "face_coordinates",
+    mediaMetadata: "media_metadata",
+    notificationUrl: "notification_url",
+    qualityAnalysis: "quality_analysis",
+    responsiveBreakpoints: "responsive_breakpoints",
+    discardOriginalFilename: "discard_original_filename",
+    returnDeleteToken: "return_delete_token",
+    accessMode: "access_mode",
+    rawConvert: "raw_convert",
+    backgroundRemoval: "background_removal",
+    publicId: "public_id",
+    allowedFormats: "allowed_formats",
+    autoTagging: "auto_tagging",
+    accessControl: "access_control",
+    filenameOverride: "filename_override",
+    publicIdPrefix: "public_id_prefix",
+    useAssetFolderAsPublicIdPrefix: "use_asset_folder_as_public_id_prefix",
+    uniqueDisplayName: "unique_display_name",
+    visualSearch: "visual_search",
+    useFilenameAsDisplayName: "use_filename_as_display_name",
+    useFilename: "use_filename",
+    uniqueFilename: "unique_filename",
+    uploadPreset: "upload_preset",
+    onSuccess: "on_success",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace UploadRequestAdvOcr$ {
+  /** @deprecated use `UploadRequestAdvOcr$inboundSchema` instead. */
+  export const inboundSchema = UploadRequestAdvOcr$inboundSchema;
+  /** @deprecated use `UploadRequestAdvOcr$outboundSchema` instead. */
+  export const outboundSchema = UploadRequestAdvOcr$outboundSchema;
+  /** @deprecated use `UploadRequestAdvOcr$Outbound` instead. */
+  export type Outbound = UploadRequestAdvOcr$Outbound;
+}
+
+export function uploadRequestAdvOcrToJSON(
+  uploadRequestAdvOcr: UploadRequestAdvOcr,
+): string {
+  return JSON.stringify(
+    UploadRequestAdvOcr$outboundSchema.parse(uploadRequestAdvOcr),
+  );
+}
+
+export function uploadRequestAdvOcrFromJSON(
+  jsonString: string,
+): SafeParseResult<UploadRequestAdvOcr, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UploadRequestAdvOcr$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UploadRequestAdvOcr' from JSON`,
+  );
+}
+
+/** @internal */
+export const AutoTranscriptionAdvOcr$inboundSchema: z.ZodType<
+  AutoTranscriptionAdvOcr,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  translate: z.array(z.string()).optional(),
+});
+
+/** @internal */
+export type AutoTranscriptionAdvOcr$Outbound = {
+  translate?: Array<string> | undefined;
+};
+
+/** @internal */
+export const AutoTranscriptionAdvOcr$outboundSchema: z.ZodType<
+  AutoTranscriptionAdvOcr$Outbound,
+  z.ZodTypeDef,
+  AutoTranscriptionAdvOcr
+> = z.object({
+  translate: z.array(z.string()).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace AutoTranscriptionAdvOcr$ {
+  /** @deprecated use `AutoTranscriptionAdvOcr$inboundSchema` instead. */
+  export const inboundSchema = AutoTranscriptionAdvOcr$inboundSchema;
+  /** @deprecated use `AutoTranscriptionAdvOcr$outboundSchema` instead. */
+  export const outboundSchema = AutoTranscriptionAdvOcr$outboundSchema;
+  /** @deprecated use `AutoTranscriptionAdvOcr$Outbound` instead. */
+  export type Outbound = AutoTranscriptionAdvOcr$Outbound;
+}
+
+export function autoTranscriptionAdvOcrToJSON(
+  autoTranscriptionAdvOcr: AutoTranscriptionAdvOcr,
+): string {
+  return JSON.stringify(
+    AutoTranscriptionAdvOcr$outboundSchema.parse(autoTranscriptionAdvOcr),
+  );
+}
+
+export function autoTranscriptionAdvOcrFromJSON(
+  jsonString: string,
+): SafeParseResult<AutoTranscriptionAdvOcr, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AutoTranscriptionAdvOcr$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AutoTranscriptionAdvOcr' from JSON`,
+  );
+}
+
+/** @internal */
+export const AutoTranscriptionAdvOcrUnion$inboundSchema: z.ZodType<
+  AutoTranscriptionAdvOcrUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([z.lazy(() => AutoTranscriptionAdvOcr$inboundSchema), z.boolean()]);
+
+/** @internal */
+export type AutoTranscriptionAdvOcrUnion$Outbound =
+  | AutoTranscriptionAdvOcr$Outbound
+  | boolean;
+
+/** @internal */
+export const AutoTranscriptionAdvOcrUnion$outboundSchema: z.ZodType<
+  AutoTranscriptionAdvOcrUnion$Outbound,
+  z.ZodTypeDef,
+  AutoTranscriptionAdvOcrUnion
+> = z.union([
+  z.lazy(() => AutoTranscriptionAdvOcr$outboundSchema),
+  z.boolean(),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace AutoTranscriptionAdvOcrUnion$ {
+  /** @deprecated use `AutoTranscriptionAdvOcrUnion$inboundSchema` instead. */
+  export const inboundSchema = AutoTranscriptionAdvOcrUnion$inboundSchema;
+  /** @deprecated use `AutoTranscriptionAdvOcrUnion$outboundSchema` instead. */
+  export const outboundSchema = AutoTranscriptionAdvOcrUnion$outboundSchema;
+  /** @deprecated use `AutoTranscriptionAdvOcrUnion$Outbound` instead. */
+  export type Outbound = AutoTranscriptionAdvOcrUnion$Outbound;
+}
+
+export function autoTranscriptionAdvOcrUnionToJSON(
+  autoTranscriptionAdvOcrUnion: AutoTranscriptionAdvOcrUnion,
+): string {
+  return JSON.stringify(
+    AutoTranscriptionAdvOcrUnion$outboundSchema.parse(
+      autoTranscriptionAdvOcrUnion,
+    ),
+  );
+}
+
+export function autoTranscriptionAdvOcrUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<AutoTranscriptionAdvOcrUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AutoTranscriptionAdvOcrUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AutoTranscriptionAdvOcrUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const ModerationAdvOcr$inboundSchema: z.ZodNativeEnum<
+  typeof ModerationAdvOcr
+> = z.nativeEnum(ModerationAdvOcr);
+
+/** @internal */
+export const ModerationAdvOcr$outboundSchema: z.ZodNativeEnum<
+  typeof ModerationAdvOcr
+> = ModerationAdvOcr$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ModerationAdvOcr$ {
+  /** @deprecated use `ModerationAdvOcr$inboundSchema` instead. */
+  export const inboundSchema = ModerationAdvOcr$inboundSchema;
+  /** @deprecated use `ModerationAdvOcr$outboundSchema` instead. */
+  export const outboundSchema = ModerationAdvOcr$outboundSchema;
+}
+
+/** @internal */
+export const ResponsiveBreakpointAdvOcr$inboundSchema: z.ZodType<
+  ResponsiveBreakpointAdvOcr,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  create_derived: z.boolean().optional(),
+  max_width: z.number().int().optional(),
+  min_width: z.number().int().optional(),
+  bytes_step: z.number().int().optional(),
+  max_images: z.number().int().optional(),
+  transformation: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "create_derived": "createDerived",
+    "max_width": "maxWidth",
+    "min_width": "minWidth",
+    "bytes_step": "bytesStep",
+    "max_images": "maxImages",
+  });
+});
+
+/** @internal */
+export type ResponsiveBreakpointAdvOcr$Outbound = {
+  create_derived?: boolean | undefined;
+  max_width?: number | undefined;
+  min_width?: number | undefined;
+  bytes_step?: number | undefined;
+  max_images?: number | undefined;
+  transformation?: string | undefined;
+};
+
+/** @internal */
+export const ResponsiveBreakpointAdvOcr$outboundSchema: z.ZodType<
+  ResponsiveBreakpointAdvOcr$Outbound,
+  z.ZodTypeDef,
+  ResponsiveBreakpointAdvOcr
+> = z.object({
+  createDerived: z.boolean().optional(),
+  maxWidth: z.number().int().optional(),
+  minWidth: z.number().int().optional(),
+  bytesStep: z.number().int().optional(),
+  maxImages: z.number().int().optional(),
+  transformation: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    createDerived: "create_derived",
+    maxWidth: "max_width",
+    minWidth: "min_width",
+    bytesStep: "bytes_step",
+    maxImages: "max_images",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ResponsiveBreakpointAdvOcr$ {
+  /** @deprecated use `ResponsiveBreakpointAdvOcr$inboundSchema` instead. */
+  export const inboundSchema = ResponsiveBreakpointAdvOcr$inboundSchema;
+  /** @deprecated use `ResponsiveBreakpointAdvOcr$outboundSchema` instead. */
+  export const outboundSchema = ResponsiveBreakpointAdvOcr$outboundSchema;
+  /** @deprecated use `ResponsiveBreakpointAdvOcr$Outbound` instead. */
+  export type Outbound = ResponsiveBreakpointAdvOcr$Outbound;
+}
+
+export function responsiveBreakpointAdvOcrToJSON(
+  responsiveBreakpointAdvOcr: ResponsiveBreakpointAdvOcr,
+): string {
+  return JSON.stringify(
+    ResponsiveBreakpointAdvOcr$outboundSchema.parse(responsiveBreakpointAdvOcr),
+  );
+}
+
+export function responsiveBreakpointAdvOcrFromJSON(
+  jsonString: string,
+): SafeParseResult<ResponsiveBreakpointAdvOcr, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ResponsiveBreakpointAdvOcr$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ResponsiveBreakpointAdvOcr' from JSON`,
+  );
+}
+
+/** @internal */
+export const TypeAdvOcr$inboundSchema: z.ZodNativeEnum<typeof TypeAdvOcr> = z
+  .nativeEnum(TypeAdvOcr);
+
+/** @internal */
+export const TypeAdvOcr$outboundSchema: z.ZodNativeEnum<typeof TypeAdvOcr> =
+  TypeAdvOcr$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace TypeAdvOcr$ {
+  /** @deprecated use `TypeAdvOcr$inboundSchema` instead. */
+  export const inboundSchema = TypeAdvOcr$inboundSchema;
+  /** @deprecated use `TypeAdvOcr$outboundSchema` instead. */
+  export const outboundSchema = TypeAdvOcr$outboundSchema;
+}
+
+/** @internal */
+export const AccessModeAdvOcr$inboundSchema: z.ZodNativeEnum<
+  typeof AccessModeAdvOcr
+> = z.nativeEnum(AccessModeAdvOcr);
+
+/** @internal */
+export const AccessModeAdvOcr$outboundSchema: z.ZodNativeEnum<
+  typeof AccessModeAdvOcr
+> = AccessModeAdvOcr$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace AccessModeAdvOcr$ {
+  /** @deprecated use `AccessModeAdvOcr$inboundSchema` instead. */
+  export const inboundSchema = AccessModeAdvOcr$inboundSchema;
+  /** @deprecated use `AccessModeAdvOcr$outboundSchema` instead. */
+  export const outboundSchema = AccessModeAdvOcr$outboundSchema;
+}
+
+/** @internal */
+export const CategorizationAdvOcr$inboundSchema: z.ZodNativeEnum<
+  typeof CategorizationAdvOcr
+> = z.nativeEnum(CategorizationAdvOcr);
+
+/** @internal */
+export const CategorizationAdvOcr$outboundSchema: z.ZodNativeEnum<
+  typeof CategorizationAdvOcr
+> = CategorizationAdvOcr$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CategorizationAdvOcr$ {
+  /** @deprecated use `CategorizationAdvOcr$inboundSchema` instead. */
+  export const inboundSchema = CategorizationAdvOcr$inboundSchema;
+  /** @deprecated use `CategorizationAdvOcr$outboundSchema` instead. */
+  export const outboundSchema = CategorizationAdvOcr$outboundSchema;
+}
+
+/** @internal */
+export const UploadRequestOcr1$inboundSchema: z.ZodNativeEnum<
+  typeof UploadRequestOcr1
+> = z.nativeEnum(UploadRequestOcr1);
+
+/** @internal */
+export const UploadRequestOcr1$outboundSchema: z.ZodNativeEnum<
+  typeof UploadRequestOcr1
+> = UploadRequestOcr1$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace UploadRequestOcr1$ {
+  /** @deprecated use `UploadRequestOcr1$inboundSchema` instead. */
+  export const inboundSchema = UploadRequestOcr1$inboundSchema;
+  /** @deprecated use `UploadRequestOcr1$outboundSchema` instead. */
+  export const outboundSchema = UploadRequestOcr1$outboundSchema;
+}
+
+/** @internal */
+export const BackgroundRemovalAdvOcr$inboundSchema: z.ZodNativeEnum<
+  typeof BackgroundRemovalAdvOcr
+> = z.nativeEnum(BackgroundRemovalAdvOcr);
+
+/** @internal */
+export const BackgroundRemovalAdvOcr$outboundSchema: z.ZodNativeEnum<
+  typeof BackgroundRemovalAdvOcr
+> = BackgroundRemovalAdvOcr$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace BackgroundRemovalAdvOcr$ {
+  /** @deprecated use `BackgroundRemovalAdvOcr$inboundSchema` instead. */
+  export const inboundSchema = BackgroundRemovalAdvOcr$inboundSchema;
+  /** @deprecated use `BackgroundRemovalAdvOcr$outboundSchema` instead. */
+  export const outboundSchema = BackgroundRemovalAdvOcr$outboundSchema;
+}
+
+/** @internal */
+export const SignatureParameters$inboundSchema: z.ZodType<
+  SignatureParameters,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  api_key: z.string().optional(),
+  timestamp: z.number().int().optional(),
+  signature: z.string().optional(),
+  accessibility_analysis: z.boolean().optional(),
+  asset_folder: z.string().optional(),
+  async: z.boolean().optional(),
+  auto_chaptering: z.boolean().optional(),
+  auto_transcription: z.union([
+    z.lazy(() => AutoTranscriptionAdvOcr$inboundSchema),
+    z.boolean(),
+  ]).optional(),
+  cinemagraph_analysis: z.boolean().optional(),
+  colors: z.boolean().default(false),
+  context: z.string().optional(),
+  custom_coordinates: z.string().optional(),
+  display_name: z.string().optional(),
+  eager: z.string().optional(),
+  eager_async: z.boolean().optional(),
+  eager_notification_url: z.string().optional(),
+  face_coordinates: z.string().optional(),
+  faces: z.boolean().optional(),
+  headers: z.string().optional(),
+  invalidate: z.boolean().optional(),
+  media_metadata: z.boolean().optional(),
+  metadata: z.string().optional(),
+  moderation: ModerationAdvOcr$inboundSchema.optional(),
+  notification_url: z.string().optional(),
+  phash: z.boolean().optional(),
+  quality_analysis: z.boolean().optional(),
+  regions: z.string().optional(),
+  responsive_breakpoints: z.array(
+    z.lazy(() => ResponsiveBreakpointAdvOcr$inboundSchema),
+  ).optional(),
+  tags: z.string().optional(),
+  callback: z.string().optional(),
+  backup: z.boolean().optional(),
+  discard_original_filename: z.boolean().optional(),
+  overwrite: z.boolean().optional(),
+  return_delete_token: z.boolean().optional(),
+  type: TypeAdvOcr$inboundSchema.optional(),
+  access_mode: AccessModeAdvOcr$inboundSchema.optional(),
+  categorization: CategorizationAdvOcr$inboundSchema.optional(),
+  ocr: UploadRequestOcr1$inboundSchema.optional(),
+  raw_convert: z.string().optional(),
+  background_removal: BackgroundRemovalAdvOcr$inboundSchema.optional(),
   public_id: z.string().optional(),
   transformation: z.string().optional(),
   format: z.string().optional(),
@@ -952,7 +2077,7 @@ export const UploadRequest$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type UploadRequest$Outbound = {
+export type SignatureParameters$Outbound = {
   api_key?: string | undefined;
   timestamp?: number | undefined;
   signature?: string | undefined;
@@ -960,7 +2085,7 @@ export type UploadRequest$Outbound = {
   asset_folder?: string | undefined;
   async?: boolean | undefined;
   auto_chaptering?: boolean | undefined;
-  auto_transcription?: AutoTranscription$Outbound | boolean | undefined;
+  auto_transcription?: AutoTranscriptionAdvOcr$Outbound | boolean | undefined;
   cinemagraph_analysis?: boolean | undefined;
   colors: boolean;
   context?: string | undefined;
@@ -980,7 +2105,9 @@ export type UploadRequest$Outbound = {
   phash?: boolean | undefined;
   quality_analysis?: boolean | undefined;
   regions?: string | undefined;
-  responsive_breakpoints?: Array<ResponsiveBreakpoint$Outbound> | undefined;
+  responsive_breakpoints?:
+    | Array<ResponsiveBreakpointAdvOcr$Outbound>
+    | undefined;
   tags?: string | undefined;
   callback?: string | undefined;
   backup?: boolean | undefined;
@@ -1017,10 +2144,10 @@ export type UploadRequest$Outbound = {
 };
 
 /** @internal */
-export const UploadRequest$outboundSchema: z.ZodType<
-  UploadRequest$Outbound,
+export const SignatureParameters$outboundSchema: z.ZodType<
+  SignatureParameters$Outbound,
   z.ZodTypeDef,
-  UploadRequest
+  SignatureParameters
 > = z.object({
   apiKey: z.string().optional(),
   timestamp: z.number().int().optional(),
@@ -1030,7 +2157,7 @@ export const UploadRequest$outboundSchema: z.ZodType<
   async: z.boolean().optional(),
   autoChaptering: z.boolean().optional(),
   autoTranscription: z.union([
-    z.lazy(() => AutoTranscription$outboundSchema),
+    z.lazy(() => AutoTranscriptionAdvOcr$outboundSchema),
     z.boolean(),
   ]).optional(),
   cinemagraphAnalysis: z.boolean().optional(),
@@ -1047,13 +2174,13 @@ export const UploadRequest$outboundSchema: z.ZodType<
   invalidate: z.boolean().optional(),
   mediaMetadata: z.boolean().optional(),
   metadata: z.string().optional(),
-  moderation: ModerationEnum$outboundSchema.optional(),
+  moderation: ModerationAdvOcr$outboundSchema.optional(),
   notificationUrl: z.string().optional(),
   phash: z.boolean().optional(),
   qualityAnalysis: z.boolean().optional(),
   regions: z.string().optional(),
   responsiveBreakpoints: z.array(
-    z.lazy(() => ResponsiveBreakpoint$outboundSchema),
+    z.lazy(() => ResponsiveBreakpointAdvOcr$outboundSchema),
   ).optional(),
   tags: z.string().optional(),
   callback: z.string().optional(),
@@ -1061,12 +2188,12 @@ export const UploadRequest$outboundSchema: z.ZodType<
   discardOriginalFilename: z.boolean().optional(),
   overwrite: z.boolean().optional(),
   returnDeleteToken: z.boolean().optional(),
-  type: UploadRequestType$outboundSchema.optional(),
-  accessMode: UploadRequestAccessMode$outboundSchema.optional(),
-  categorization: UploadRequestCategorization$outboundSchema.optional(),
-  ocr: UploadRequestOcr$outboundSchema.optional(),
+  type: TypeAdvOcr$outboundSchema.optional(),
+  accessMode: AccessModeAdvOcr$outboundSchema.optional(),
+  categorization: CategorizationAdvOcr$outboundSchema.optional(),
+  ocr: UploadRequestOcr1$outboundSchema.optional(),
   rawConvert: z.string().optional(),
-  backgroundRemoval: UploadRequestBackgroundRemoval$outboundSchema.optional(),
+  backgroundRemoval: BackgroundRemovalAdvOcr$outboundSchema.optional(),
   publicId: z.string().optional(),
   transformation: z.string().optional(),
   format: z.string().optional(),
@@ -1126,6 +2253,62 @@ export const UploadRequest$outboundSchema: z.ZodType<
     onSuccess: "on_success",
   });
 });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace SignatureParameters$ {
+  /** @deprecated use `SignatureParameters$inboundSchema` instead. */
+  export const inboundSchema = SignatureParameters$inboundSchema;
+  /** @deprecated use `SignatureParameters$outboundSchema` instead. */
+  export const outboundSchema = SignatureParameters$outboundSchema;
+  /** @deprecated use `SignatureParameters$Outbound` instead. */
+  export type Outbound = SignatureParameters$Outbound;
+}
+
+export function signatureParametersToJSON(
+  signatureParameters: SignatureParameters,
+): string {
+  return JSON.stringify(
+    SignatureParameters$outboundSchema.parse(signatureParameters),
+  );
+}
+
+export function signatureParametersFromJSON(
+  jsonString: string,
+): SafeParseResult<SignatureParameters, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SignatureParameters$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SignatureParameters' from JSON`,
+  );
+}
+
+/** @internal */
+export const UploadRequest$inboundSchema: z.ZodType<
+  UploadRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => UploadRequestAdvOcr$inboundSchema),
+  z.lazy(() => SignatureParameters$inboundSchema),
+]);
+
+/** @internal */
+export type UploadRequest$Outbound =
+  | UploadRequestAdvOcr$Outbound
+  | SignatureParameters$Outbound;
+
+/** @internal */
+export const UploadRequest$outboundSchema: z.ZodType<
+  UploadRequest$Outbound,
+  z.ZodTypeDef,
+  UploadRequest
+> = z.union([
+  z.lazy(() => UploadRequestAdvOcr$outboundSchema),
+  z.lazy(() => SignatureParameters$outboundSchema),
+]);
 
 /**
  * @internal

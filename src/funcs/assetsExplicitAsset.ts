@@ -32,6 +32,8 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Applies actions such as transformations, tags, or metadata updates to an existing asset without re-uploading it.
  * This is useful for applying new transformations, adding tags, or updating metadata on assets that are already in your cloud.
+ *
+ * Note: Always prefer delivery URL transformations over this method, unless eager transformations are specifically required.
  */
 export function assetsExplicitAsset(
   client: CloudinaryAssetMgmtCore,

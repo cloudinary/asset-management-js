@@ -35,7 +35,7 @@ import { Result } from "../types/fp.js";
 export function assetRelationsCreateAssetRelationsByPublicId(
   client: CloudinaryAssetMgmtCore,
   resourceType: components.ResourceType,
-  type: components.StorageType,
+  type: components.StorageTypeParameter | undefined,
   publicId: string,
   requestBody: operations.CreateAssetRelationsByPublicIdRequestBody,
   options?: RequestOptions,
@@ -66,7 +66,7 @@ export function assetRelationsCreateAssetRelationsByPublicId(
 async function $do(
   client: CloudinaryAssetMgmtCore,
   resourceType: components.ResourceType,
-  type: components.StorageType,
+  type: components.StorageTypeParameter | undefined,
   publicId: string,
   requestBody: operations.CreateAssetRelationsByPublicIdRequestBody,
   options?: RequestOptions,

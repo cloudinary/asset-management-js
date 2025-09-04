@@ -58,7 +58,7 @@ export class AssetRelations extends ClientSDK {
    */
   async createAssetRelationsByPublicId(
     resourceType: components.ResourceType,
-    type: components.StorageType,
+    type: components.StorageTypeParameter | undefined,
     publicId: string,
     requestBody: operations.CreateAssetRelationsByPublicIdRequestBody,
     options?: RequestOptions,
@@ -81,7 +81,7 @@ export class AssetRelations extends ClientSDK {
    */
   async deleteAssetRelationsByPublicId(
     resourceType: components.ResourceType,
-    type: components.StorageType,
+    type: components.StorageTypeParameter | undefined,
     publicId: string,
     requestBody: operations.DeleteAssetRelationsByPublicIdRequestBody,
     options?: RequestOptions,

@@ -1,21 +1,21 @@
-speakeasyVersion: 1.606.0
+speakeasyVersion: 1.609.0
 sources:
     Asset Management API:
         sourceNamespace: asset-management-api
-        sourceRevisionDigest: sha256:0527bd3d3bb03146e0271e20e5d78c468490c4425d7bc7d9c237a5e517d8406c
-        sourceBlobDigest: sha256:d4bffb4149dc920cc1441c50e762e9864d1cd71a009418b8098c3cb1688baa5a
+        sourceRevisionDigest: sha256:0fcc40d573b4f91cdccbba76f62db3db0b5a6d2eebe05754ac54e4cfd7bc065f
+        sourceBlobDigest: sha256:31cce7f49a78ad3ce9a2379e2bd308ef2708c4d189d60542897af1a7c82454b5
         tags:
             - latest
-            - speakeasy-sdk-regen-1755621600
-            - 0.3.2
+            - speakeasy-sdk-regen-1756948180
+            - 0.3.3
 targets:
     asset-management-js:
         source: Asset Management API
         sourceNamespace: asset-management-api
-        sourceRevisionDigest: sha256:0527bd3d3bb03146e0271e20e5d78c468490c4425d7bc7d9c237a5e517d8406c
-        sourceBlobDigest: sha256:d4bffb4149dc920cc1441c50e762e9864d1cd71a009418b8098c3cb1688baa5a
+        sourceRevisionDigest: sha256:0fcc40d573b4f91cdccbba76f62db3db0b5a6d2eebe05754ac54e4cfd7bc065f
+        sourceBlobDigest: sha256:31cce7f49a78ad3ce9a2379e2bd308ef2708c4d189d60542897af1a7c82454b5
         codeSamplesNamespace: asset-management-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:3966e38e9c7888a922be98284b7d7176fb781dd871afcbb6b1b111f52005b85b
+        codeSamplesRevisionDigest: sha256:a4096f50295b70e33cf96b1428e18a627135f0ae8bbced978fa83ab45e38b740
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

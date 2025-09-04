@@ -156,6 +156,7 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 
 async function run() {
   const result = await cloudinaryAssetMgmt.upload.upload("auto", {
+    colors: false,
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -209,6 +210,7 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 
 async function run() {
   const result = await cloudinaryAssetMgmt.upload.upload("auto", {
+    colors: false,
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -256,6 +258,7 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 
 async function run() {
   const result = await cloudinaryAssetMgmt.upload.upload("auto", {
+    colors: false,
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -290,10 +293,10 @@ run();
 
 ### [assets](docs/sdks/assets/README.md)
 
-* [renameAsset](docs/sdks/assets/README.md#renameasset) - Updates an existing asset's identifier and optionally other metadata in your Cloudinary account
+* [renameAsset](docs/sdks/assets/README.md#renameasset) - Updates an existing asset's identifier (public ID) and optionally other metadata in your Cloudinary account
 * [downloadAsset](docs/sdks/assets/README.md#downloadasset) - Generates a download link for a specific asset (image)
 * [explicitAsset](docs/sdks/assets/README.md#explicitasset) - Apply operations on an existing asset
-* [generateArchive](docs/sdks/assets/README.md#generatearchive) - Creates an archive (ZIP or TGZ file) that contains a set of assets from
+* [generateArchive](docs/sdks/assets/README.md#generatearchive) - Creates an archive (ZIP or TGZ file) that contains a set of assets from your product environment.
 * [downloadBackupAsset](docs/sdks/assets/README.md#downloadbackupasset) - Download a backup copy of an asset
 * [destroyByAssetId](docs/sdks/assets/README.md#destroybyassetid) - Delete asset by asset-id
 * [listResourceTypes](docs/sdks/assets/README.md#listresourcetypes) - Get resource types
@@ -326,7 +329,7 @@ run();
 ### [folders](docs/sdks/folders/README.md)
 
 * [showFolder](docs/sdks/folders/README.md#showfolder) - List sub-folders
-* [updateFolder](docs/sdks/folders/README.md#updatefolder) - Renames or moves an entire folder (along with all assets it contains) to a
+* [updateFolder](docs/sdks/folders/README.md#updatefolder) - Renames or moves an entire folder (along with all assets it contains) to a new location
 * [createFolder](docs/sdks/folders/README.md#createfolder) - Creates a new empty folder in your Cloudinary media library
 * [destroyFolder](docs/sdks/folders/README.md#destroyfolder) - Deletes an existing folder from your media library
 * [listRootFolders](docs/sdks/folders/README.md#listrootfolders) - Get root folders
@@ -392,7 +395,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`assetsDownloadAsset`](docs/sdks/assets/README.md#downloadasset) - Generates a download link for a specific asset (image)
 - [`assetsDownloadBackupAsset`](docs/sdks/assets/README.md#downloadbackupasset) - Download a backup copy of an asset
 - [`assetsExplicitAsset`](docs/sdks/assets/README.md#explicitasset) - Apply operations on an existing asset
-- [`assetsGenerateArchive`](docs/sdks/assets/README.md#generatearchive) - Creates an archive (ZIP or TGZ file) that contains a set of assets from
+- [`assetsGenerateArchive`](docs/sdks/assets/README.md#generatearchive) - Creates an archive (ZIP or TGZ file) that contains a set of assets from your product environment.
 - [`assetsGetResourceByAssetId`](docs/sdks/assets/README.md#getresourcebyassetid) - Get resource by asset ID
 - [`assetsGetResourceByPublicId`](docs/sdks/assets/README.md#getresourcebypublicid) - Get resource by public ID
 - [`assetsListImages`](docs/sdks/assets/README.md#listimages) - Get image assets
@@ -406,7 +409,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`assetsListResourceTags`](docs/sdks/tags/README.md#listresourcetags) - Retrieves a list of tags currently applied to assets in your Cloudinary account
 - [`assetsListResourceTypes`](docs/sdks/assets/README.md#listresourcetypes) - Get resource types
 - [`assetsListVideos`](docs/sdks/assets/README.md#listvideos) - Get video assets
-- [`assetsRenameAsset`](docs/sdks/assets/README.md#renameasset) - Updates an existing asset's identifier and optionally other metadata in your Cloudinary account
+- [`assetsRenameAsset`](docs/sdks/assets/README.md#renameasset) - Updates an existing asset's identifier (public ID) and optionally other metadata in your Cloudinary account
 - [`assetsRestoreResourcesByAssetIDs`](docs/sdks/assets/README.md#restoreresourcesbyassetids) - Restore assets by asset ID
 - [`assetsUpdateResourceByAssetId`](docs/sdks/assets/README.md#updateresourcebyassetid) - Updates an existing asset's metadata, tags, and other attributes using its asset ID
 - [`assetsUpdateResourceByPublicId`](docs/sdks/assets/README.md#updateresourcebypublicid) - Update asset by public ID
@@ -417,7 +420,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`foldersSearchFolders`](docs/sdks/folders/README.md#searchfolders) - Searches for folders whose attributes match a given expression
 - [`foldersSearchFoldersPost`](docs/sdks/folders/README.md#searchfolderspost) - Searches for folders in your product environment
 - [`foldersShowFolder`](docs/sdks/folders/README.md#showfolder) - List sub-folders
-- [`foldersUpdateFolder`](docs/sdks/folders/README.md#updatefolder) - Renames or moves an entire folder (along with all assets it contains) to a
+- [`foldersUpdateFolder`](docs/sdks/folders/README.md#updatefolder) - Renames or moves an entire folder (along with all assets it contains) to a new location
 - [`searchSearchAssets`](docs/sdks/search/README.md#searchassets) - Provides a powerful query interface to filter and retrieve assets and their details
 - [`searchVisualSearchAssets`](docs/sdks/search/README.md#visualsearchassets) - Finds images in your asset library based on visual similarity or content
 - [`uploadDestroyAsset`](docs/sdks/upload/README.md#destroyasset) - Destroys an asset/resource
@@ -452,6 +455,7 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 
 async function run() {
   const result = await cloudinaryAssetMgmt.upload.upload("auto", {
+    colors: false,
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -507,6 +511,7 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 
 async function run() {
   const result = await cloudinaryAssetMgmt.upload.upload("auto", {
+    colors: false,
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -558,6 +563,7 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 async function run() {
   try {
     const result = await cloudinaryAssetMgmt.upload.upload("auto", {
+      colors: false,
       headers: "X-Robots-Tag: noindex",
       moderation: "google_video_moderation",
       rawConvert: "google_speech:vtt:en-US",
@@ -657,6 +663,7 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 
 async function run() {
   const result = await cloudinaryAssetMgmt.upload.upload("auto", {
+    colors: false,
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
@@ -694,6 +701,7 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 
 async function run() {
   const result = await cloudinaryAssetMgmt.upload.upload("auto", {
+    colors: false,
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",

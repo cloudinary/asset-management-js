@@ -32,7 +32,7 @@ export enum GenerateArchiveAcceptEnum {
 }
 
 /**
- * Creates an archive (ZIP or TGZ file) that contains a set of assets from
+ * Creates an archive (ZIP or TGZ file) that contains a set of assets from your product environment.
  *
  * @remarks
  * Creates a downloadable ZIP or other archive format containing the specified resources.

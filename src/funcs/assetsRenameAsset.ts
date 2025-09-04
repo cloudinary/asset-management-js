@@ -27,7 +27,7 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Updates an existing asset's identifier and optionally other metadata in your Cloudinary account
+ * Updates an existing asset's identifier (public ID) and optionally other metadata in your Cloudinary account
  */
 export function assetsRenameAsset(
   client: CloudinaryAssetMgmtCore,

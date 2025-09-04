@@ -26,10 +26,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Renames or moves an entire folder (along with all assets it contains) to a
+ * Renames or moves an entire folder (along with all assets it contains) to a new location
  *
  * @remarks
- * Updates a folder's properties.
+ * Renames or moves an entire folder (along with all assets it contains) to a new location within your Cloudinary media library.
  */
 export function foldersUpdateFolder(
   client: CloudinaryAssetMgmtCore,

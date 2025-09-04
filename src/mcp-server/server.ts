@@ -6,12 +6,14 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { SDKOptions } from "../lib/config.js";
 import type { ConsoleLogger } from "./console-logger.js";
+import { Register } from "./extensions.js";
 import { createRegisterPrompt } from "./prompts.js";
 import {
   createRegisterResource,
   createRegisterResourceTemplate,
 } from "./resources.js";
 import { MCPScope } from "./scopes.js";
+import { registerMCPExtensions } from "./server.extensions.js";
 import { createRegisterTool } from "./tools.js";
 import { tool$assetRelationsCreateAssetRelationsByAssetId } from "./tools/assetRelationsCreateAssetRelationsByAssetId.js";
 import { tool$assetRelationsDeleteAssetRelationsByAssetId } from "./tools/assetRelationsDeleteAssetRelationsByAssetId.js";
@@ -48,7 +50,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "CloudinaryAssetMgmt",
-    version: "0.5.6",
+    version: "0.5.7",
   });
 
   const client = new CloudinaryAssetMgmtCore({
@@ -102,6 +104,8 @@ export function createMCPServer(deps: {
   tool(tool$foldersSearchFolders);
   tool(tool$searchSearchAssets);
   tool(tool$searchVisualSearchAssets);
+
+  registerMCPExtensions(register satisfies Register);
 
   return server;
 }
