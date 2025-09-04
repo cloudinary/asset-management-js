@@ -10,6 +10,17 @@ let value: ListResponse = {
     {
       moderationKind: "manual",
       moderationStatus: "pending",
+      accessControl: [
+        {
+          accessType: "token",
+          key: "prod2024",
+        },
+        {
+          accessType: "anonymous",
+          start: new Date("2024-03-15T09:00:00Z"),
+          end: new Date("2024-06-30T23:59:59Z"),
+        },
+      ],
       derivatives: [
         {
           id: "5a73fd588cb301206c0a5c5c6ad796b3",

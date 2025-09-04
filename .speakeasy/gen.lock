@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 92b56ec8-e19a-476d-afba-926cd2d071b4
 management:
-  docChecksum: 87fd861e07849c79d145cdf4087bd7db
-  docVersion: 0.3.3
+  docChecksum: f61f33e4d46a8bf6a4f44a3fc9815a81
+  docVersion: 0.3.4
   speakeasyVersion: 1.609.0
   generationVersion: 2.692.0
-  releaseVersion: 0.5.8
-  configChecksum: 01b469d22ae7f4703641839fabad5025
+  releaseVersion: 0.5.9
+  configChecksum: cd6508db0062afc7f64c8ba4ce6959c9
   repoURL: https://github.com/cloudinary/asset-management-js.git
   installationURL: https://github.com/cloudinary/asset-management-js
   published: true
@@ -46,6 +46,11 @@ generatedFiles:
   - RUNTIMES.md
   - USAGE.md
   - docs/lib/utils/retryconfig.md
+  - docs/models/components/accesscontrol.md
+  - docs/models/components/accesscontrolanonymous.md
+  - docs/models/components/accesscontrolanonymousaccesstype.md
+  - docs/models/components/accesscontroltoken.md
+  - docs/models/components/accesscontroltokenaccesstype.md
   - docs/models/components/accessibilityanalysis.md
   - docs/models/components/aggregate.md
   - docs/models/components/aggregateenum.md
@@ -88,7 +93,6 @@ generatedFiles:
   - docs/models/components/imageanalysis.md
   - docs/models/components/impressions.md
   - docs/models/components/info.md
-  - docs/models/components/infoaccesscontrol.md
   - docs/models/components/infocontext.md
   - docs/models/components/infomoderation.md
   - docs/models/components/invalidation.md
@@ -117,7 +121,6 @@ generatedFiles:
   - docs/models/components/searchparametersrange.md
   - docs/models/components/searchparameterstype.md
   - docs/models/components/searchresponse.md
-  - docs/models/components/searchresponseaccesscontrol.md
   - docs/models/components/searchresponseaccessmode.md
   - docs/models/components/searchresponsecontext.md
   - docs/models/components/searchresponseimagemetadata.md
@@ -154,7 +157,6 @@ generatedFiles:
   - docs/models/errors/downloadbackupassetunauthorizederror.md
   - docs/models/errors/listresourcetypesunauthorizederror.md
   - docs/models/errors/notfounderror.md
-  - docs/models/operations/accesscontrol.md
   - docs/models/operations/autotranscription.md
   - docs/models/operations/autotranscriptionunion.md
   - docs/models/operations/badrequesterror.md
@@ -423,6 +425,9 @@ generatedFiles:
   - src/mcp-server/tools/searchVisualSearchAssets.ts
   - src/mcp-server/tools/uploadUpload.ts
   - src/mcp-server/tools/usageGetUsage.ts
+  - src/models/components/accesscontrol.ts
+  - src/models/components/accesscontrolanonymous.ts
+  - src/models/components/accesscontroltoken.ts
   - src/models/components/apierror.ts
   - src/models/components/archiveresourcetype.ts
   - src/models/components/archivestoragetype.ts
@@ -560,7 +565,7 @@ examples:
           cloud_name: "<value>"
           resource_type: "auto"
       requestBody:
-        application/json: {"auto_transcription": true, "colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "google_video_moderation", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "detection": "coco_v2", "file": "<value>"}
+        application/json: {"auto_transcription": true, "colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "google_video_moderation", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "detection": "coco_v2", "file": "<value>"}
       responses:
         "200":
           application/json: {"status": "pending", "resource_type": "image", "type": "upload", "public_id": "sample_image", "batch_id": "9c2f5a46b3a6c4d9e8f7g0h1i2j3k4l5"}
@@ -587,7 +592,7 @@ examples:
         path:
           cloud_name: "<value>"
       requestBody:
-        application/json: {"auto_transcription": true, "colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "aws_rek_video", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "detection": "coco_v2", "file": "<value>"}
+        application/json: {"auto_transcription": true, "colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "aws_rek_video", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "detection": "coco_v2", "file": "<value>"}
       responses:
         "200":
           application/json: {"status": "pending", "resource_type": "image", "type": "upload", "public_id": "sample_image", "batch_id": "9c2f5a46b3a6c4d9e8f7g0h1i2j3k4l5"}
@@ -654,7 +659,7 @@ examples:
         application/json: {"text": "<value>", "font_size": 12, "font_color": "black", "font_weight": "normal", "font_style": "normal", "background": "transparent", "opacity": 100, "text_decoration": "none"}
       responses:
         "200":
-          application/json: {"asset_id": "<id>", "public_id": "<id>", "version": 706047, "version_id": "<id>", "signature": "<value>", "width": 951489, "height": 435701, "format": "<value>", "resource_type": "<value>", "created_at": "2024-02-17T17:19:59.850Z", "bytes": 284062, "type": "<value>", "url": "https://true-hose.com", "secure_url": "https://possible-taro.name"}
+          application/json: {"asset_id": "<id>", "public_id": "<id>", "version": 706047, "version_id": "<id>", "signature": "<value>", "width": 951489, "height": 435701, "format": "<value>", "resource_type": "<value>", "created_at": "2024-02-17T17:19:59.850Z", "bytes": 284062, "type": "<value>", "url": "https://true-hose.com", "secure_url": "https://possible-taro.name", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}]}
         "400":
           application/json: {"error": {"message": "<value>"}}
   renameAsset:
@@ -1095,7 +1100,7 @@ examples:
           type: "dailymotion"
           public_id: "<id>"
       requestBody:
-        application/json: {"display_name": "My Product Image", "unique_display_name": false, "asset_folder": "products/summer", "tags": "product,summer,sale", "context": "alt=My product image|caption=Summer collection", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130|213,345,82,61", "regions": "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}", "quality_override": "80:420", "detection": "captioning", "access_control": "[{\"access_type\":\"token\"}]"}
+        application/json: {"display_name": "My Product Image", "unique_display_name": false, "asset_folder": "products/summer", "tags": "product,summer,sale", "context": "alt=My product image|caption=Summer collection", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130|213,345,82,61", "regions": "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}", "quality_override": "80:420", "detection": "captioning", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}]}
       responses:
         "200":
           application/json: {"asset_id": "bc71d3cedb739ed931be3706e94c413a", "public_id": "qdi8r768kj5tticu8keh", "asset_folder": "", "display_name": "qdi8r768kj5tticu8keh", "format": "jpg", "version": 1747134921, "resource_type": "image", "type": "upload", "created_at": "2025-05-13T11:15:21Z", "bytes": 206960, "width": 400, "height": 300, "moderation_kind": "manual", "moderation_status": "approved", "moderation": [{"kind": "manual", "status": "approved", "updated_at": "2025-05-13T11:15:22Z"}], "url": "http://res.cloudinary.com/cloud-name/image/upload/v1747134921/qdi8r768kj5tticu8keh.jpg", "secure_url": "https://res.cloudinary.com/cloud-name/image/upload/v1747134921/qdi8r768kj5tticu8keh.jpg"}
@@ -1158,7 +1163,7 @@ examples:
           max_results: 10
       responses:
         "200":
-          application/json: {"moderation_kind": "manual", "moderation_status": "pending", "derivatives": [{"id": "5a73fd588cb301206c0a5c5c6ad796b3", "transformation": "w_300,h_100/", "transformation_signature": "658a49d8-2944-37db-9825-1ddface10c7b", "secure_url": "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample"}]}
+          application/json: {"moderation_kind": "manual", "moderation_status": "pending", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "derivatives": [{"id": "5a73fd588cb301206c0a5c5c6ad796b3", "transformation": "w_300,h_100/", "transformation_signature": "658a49d8-2944-37db-9825-1ddface10c7b", "secure_url": "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample"}]}
         "400":
           application/json: {"error": {"message": "<value>"}}
   updateResourceByAssetId:
@@ -1168,7 +1173,7 @@ examples:
           cloud_name: "<value>"
           asset_id: "f4e6579cf84dd9cf5683b21f5b30c7d9"
       requestBody:
-        application/json: {"display_name": "My Product Image", "unique_display_name": false, "asset_folder": "products/summer", "tags": "product,summer,sale", "context": "alt=My product image|caption=Summer collection", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130|213,345,82,61", "regions": "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}", "quality_override": "80:420", "detection": "captioning", "access_control": "[{\"access_type\":\"token\"}]"}
+        application/json: {"display_name": "My Product Image", "unique_display_name": false, "asset_folder": "products/summer", "tags": "product,summer,sale", "context": "alt=My product image|caption=Summer collection", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130|213,345,82,61", "regions": "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}", "quality_override": "80:420", "detection": "captioning", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}]}
       responses:
         "200":
           application/json: {"asset_id": "bc71d3cedb739ed931be3706e94c413a", "public_id": "qdi8r768kj5tticu8keh", "asset_folder": "", "display_name": "qdi8r768kj5tticu8keh", "format": "jpg", "version": 1747134921, "resource_type": "image", "type": "upload", "created_at": "2025-05-13T11:15:21Z", "bytes": 206960, "width": 400, "height": 300, "moderation_kind": "manual", "moderation_status": "approved", "moderation": [{"kind": "manual", "status": "approved", "updated_at": "2025-05-13T11:15:22Z"}], "url": "http://res.cloudinary.com/cloud-name/image/upload/v1747134921/qdi8r768kj5tticu8keh.jpg", "secure_url": "https://res.cloudinary.com/cloud-name/image/upload/v1747134921/qdi8r768kj5tticu8keh.jpg"}
@@ -1178,10 +1183,10 @@ examples:
           cloud_name: "<value>"
           asset_id: "f4e6579cf84dd9cf5683b21f5b30c7d9"
       requestBody:
-        application/json: {"display_name": "My Product Image", "unique_display_name": false, "asset_folder": "products/summer", "tags": "product,summer,sale", "context": "alt=My product image|caption=Summer collection", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130|213,345,82,61", "regions": "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}", "quality_override": "80:420", "detection": "captioning", "access_control": "[{\"access_type\":\"token\"}]"}
+        application/json: {"display_name": "My Product Image", "unique_display_name": false, "asset_folder": "products/summer", "tags": "product,summer,sale", "context": "alt=My product image|caption=Summer collection", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130|213,345,82,61", "regions": "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}", "quality_override": "80:420", "detection": "captioning", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}]}
       responses:
         "200":
-          application/json: {"moderation_kind": "manual", "moderation_status": "pending", "derivatives": [{"id": "5a73fd588cb301206c0a5c5c6ad796b3", "transformation": "w_300,h_100/", "transformation_signature": "658a49d8-2944-37db-9825-1ddface10c7b", "secure_url": "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample"}]}
+          application/json: {"moderation_kind": "manual", "moderation_status": "pending", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "derivatives": [{"id": "5a73fd588cb301206c0a5c5c6ad796b3", "transformation": "w_300,h_100/", "transformation_signature": "658a49d8-2944-37db-9825-1ddface10c7b", "secure_url": "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample"}]}
         "400":
           application/json: {"error": {"message": "<value>"}}
   listResourceTags:
@@ -1489,7 +1494,7 @@ examples:
           Content-Range: "bytes 0-999999/3000000"
           X-Unique-Upload-Id: "2fd4e1c67a2d28fce"
       requestBody:
-        application/json: {"auto_transcription": true, "colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "duplicate", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "detection": "coco_v2", "file": "<value>"}
+        application/json: {"auto_transcription": true, "colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "duplicate", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "detection": "coco_v2", "file": "<value>"}
       responses:
         "200":
           application/json: {"done": false, "bytes": 1000000, "kind": "upload", "resource_type": "image", "public_id": "sample_image"}
@@ -1523,8 +1528,4 @@ examples:
           application/json: {"error": {"message": "<value>"}}
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: |
-  ## Typescript SDK Changes Detected:
-  * `cloudinaryassetmgmt.upload.upload()`:  `request.upload_request` **Changed** **Breaking** :warning:
-  * `cloudinaryassetmgmt.upload.uploadNoResourceType()`:  `request` **Changed** **Breaking** :warning:
-  * `cloudinaryassetmgmt.upload.uploadChunk()`:  `request.upload_request` **Changed** **Breaking** :warning:
+releaseNotes: "## Typescript SDK Changes Detected:\n* `cloudinaryassetmgmt.upload.upload()`: \n  *  `request.upload_request.accessControl` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.upload.uploadNoResourceType()`: \n  *  `request.accessControl` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.upload.uploadChunk()`: \n  *  `request.upload_request.accessControl` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.upload.text()`:  `response.access_control.[]` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.assets.listImages()`:  `response.resources.[].accessControl.[]` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.assets.listVideos()`:  `response.resources.[].accessControl.[]` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.assets.listRawFiles()`:  `response.resources.[].accessControl.[]` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.assets.listResourcesByAssetFolder()`:  `response.resources.[].accessControl.[]` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.assets.listResourcesByAssetIDs()`:  `response.resources.[].accessControl.[]` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.assets.listResourcesByContext()`:  `response.resources.[].accessControl.[]` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.assets.listResourcesByModerationKindAndStatus()`:  `response.resources.[].accessControl.[]` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.assets.restoreResourcesByAssetIDs()`:  `response.{}.[info].accessControl.[]` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.assets.getResourceByPublicId()`:  `response.access_control.[]` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.assets.updateResourceByPublicId()`: \n  *  `request.resourceupdaterequest.accessControl` **Changed** **Breaking** :warning:\n  *  `response.access_control.[]` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.assets.getResourceByAssetId()`:  `response.access_control.[]` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.assets.updateResourceByAssetId()`: \n  *  `request.resourceupdaterequest.accessControl` **Changed** **Breaking** :warning:\n  *  `response.access_control.[]` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.moderations.listResourcesByModerationKindAndStatus()`:  `response.resources.[].accessControl.[]` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.search.searchAssets()`:  `response.resources.[].accessControl` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.search.visualSearchAssets()`:  `response.resources.[].accessControl` **Changed** **Breaking** :warning:\n"

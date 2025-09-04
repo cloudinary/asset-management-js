@@ -7,6 +7,7 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
+import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type TextGlobals = {
@@ -136,8 +137,6 @@ export type TextRequest = {
   requestBody: TextRequestBody;
 };
 
-export type AccessControl = {};
-
 export type Region = {};
 
 /**
@@ -235,9 +234,12 @@ export type TextResponse = {
    */
   accessMode?: string | undefined;
   /**
-   * Access control settings for the asset.
+   * Restricts access to the asset by specifying one or more access types.
+   *
+   * @remarks
+   * The asset is restricted unless at least one listed access type is valid.
    */
-  accessControl?: Array<AccessControl> | undefined;
+  accessControl?: Array<components.AccessControl> | undefined;
   /**
    * Region information for the asset.
    */
@@ -582,50 +584,6 @@ export function textRequestFromJSON(
 }
 
 /** @internal */
-export const AccessControl$inboundSchema: z.ZodType<
-  AccessControl,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type AccessControl$Outbound = {};
-
-/** @internal */
-export const AccessControl$outboundSchema: z.ZodType<
-  AccessControl$Outbound,
-  z.ZodTypeDef,
-  AccessControl
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AccessControl$ {
-  /** @deprecated use `AccessControl$inboundSchema` instead. */
-  export const inboundSchema = AccessControl$inboundSchema;
-  /** @deprecated use `AccessControl$outboundSchema` instead. */
-  export const outboundSchema = AccessControl$outboundSchema;
-  /** @deprecated use `AccessControl$Outbound` instead. */
-  export type Outbound = AccessControl$Outbound;
-}
-
-export function accessControlToJSON(accessControl: AccessControl): string {
-  return JSON.stringify(AccessControl$outboundSchema.parse(accessControl));
-}
-
-export function accessControlFromJSON(
-  jsonString: string,
-): SafeParseResult<AccessControl, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AccessControl$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AccessControl' from JSON`,
-  );
-}
-
-/** @internal */
 export const Region$inboundSchema: z.ZodType<Region, z.ZodTypeDef, unknown> = z
   .object({});
 
@@ -774,7 +732,7 @@ export const TextResponse$inboundSchema: z.ZodType<
   secure_url: z.string(),
   display_name: z.string().optional(),
   access_mode: z.string().optional(),
-  access_control: z.array(z.lazy(() => AccessControl$inboundSchema)).optional(),
+  access_control: z.array(components.AccessControl$inboundSchema).optional(),
   regions: z.array(z.lazy(() => Region$inboundSchema)).optional(),
   moderation: z.lazy(() => TextModeration$inboundSchema).optional(),
   info: z.lazy(() => Info$inboundSchema).optional(),
@@ -814,7 +772,7 @@ export type TextResponse$Outbound = {
   secure_url: string;
   display_name?: string | undefined;
   access_mode?: string | undefined;
-  access_control?: Array<AccessControl$Outbound> | undefined;
+  access_control?: Array<components.AccessControl$Outbound> | undefined;
   regions?: Array<Region$Outbound> | undefined;
   moderation?: TextModeration$Outbound | undefined;
   info?: Info$Outbound | undefined;
@@ -846,7 +804,7 @@ export const TextResponse$outboundSchema: z.ZodType<
   secureUrl: z.string(),
   displayName: z.string().optional(),
   accessMode: z.string().optional(),
-  accessControl: z.array(z.lazy(() => AccessControl$outboundSchema)).optional(),
+  accessControl: z.array(components.AccessControl$outboundSchema).optional(),
   regions: z.array(z.lazy(() => Region$outboundSchema)).optional(),
   moderation: z.lazy(() => TextModeration$outboundSchema).optional(),
   info: z.lazy(() => Info$outboundSchema).optional(),

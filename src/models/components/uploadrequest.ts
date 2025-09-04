@@ -8,6 +8,12 @@ import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import {
+  AccessControl,
+  AccessControl$inboundSchema,
+  AccessControl$Outbound,
+  AccessControl$outboundSchema,
+} from "./accesscontrol.js";
 
 /**
  * Configuration object for automatic video transcription with translation options.
@@ -439,16 +445,12 @@ export type UploadRequest = {
    */
   autoTagging?: number | undefined;
   /**
-   * Restrict access to the asset by passing an array of access types for the asset. The asset is restricted unless one of the access types is valid.
+   * Restricts access to the asset by specifying one or more access types.
    *
    * @remarks
-   * Possible values for each access type:
-   * - token requires either Token-based access or Cookie-based access for accessing the asset.
-   * For example: access_type: "token"
-   * - anonymous allows public access to the asset during a set time period. The anonymous access type can optionally include start and/or end dates (in ISO 8601 format) that define when the asset is publicly available. Note that you can only include a single 'anonymous' access type. For example:
-   * access_type: "anonymous", start: "2017-12-15T12:00Z", end: "2018-01-20T12:00Z"
+   * The asset is restricted unless at least one listed access type is valid.
    */
-  accessControl?: string | undefined;
+  accessControl?: Array<AccessControl> | undefined;
   /**
    * Allows you to modify upload parameters by specifying custom logic with JavaScript. This can be useful for conditionally adding tags, contextual metadata, structured metadata or eager transformations depending on specific criteria of the uploaded file.
    */
@@ -898,7 +900,7 @@ export const UploadRequest$inboundSchema: z.ZodType<
   folder: z.string().optional(),
   allowed_formats: z.string().optional(),
   auto_tagging: z.number().optional(),
-  access_control: z.string().optional(),
+  access_control: z.array(AccessControl$inboundSchema).optional(),
   eval: z.string().optional(),
   detection: z.string().optional(),
   filename_override: z.string().optional(),
@@ -1000,7 +1002,7 @@ export type UploadRequest$Outbound = {
   folder?: string | undefined;
   allowed_formats?: string | undefined;
   auto_tagging?: number | undefined;
-  access_control?: string | undefined;
+  access_control?: Array<AccessControl$Outbound> | undefined;
   eval?: string | undefined;
   detection?: string | undefined;
   filename_override?: string | undefined;
@@ -1074,7 +1076,7 @@ export const UploadRequest$outboundSchema: z.ZodType<
   folder: z.string().optional(),
   allowedFormats: z.string().optional(),
   autoTagging: z.number().optional(),
-  accessControl: z.string().optional(),
+  accessControl: z.array(AccessControl$outboundSchema).optional(),
   eval: z.string().optional(),
   detection: z.string().optional(),
   filenameOverride: z.string().optional(),
