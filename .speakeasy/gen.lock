@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 92b56ec8-e19a-476d-afba-926cd2d071b4
 management:
-  docChecksum: 492c8c77c1c8136a21191c9249dee511
+  docChecksum: 87fd861e07849c79d145cdf4087bd7db
   docVersion: 0.3.3
   speakeasyVersion: 1.609.0
   generationVersion: 2.692.0
-  releaseVersion: 0.5.7
-  configChecksum: 7d26577ea8c6d307429d6262324dd911
+  releaseVersion: 0.5.8
+  configChecksum: 01b469d22ae7f4703641839fabad5025
   repoURL: https://github.com/cloudinary/asset-management-js.git
   installationURL: https://github.com/cloudinary/asset-management-js
   published: true
@@ -47,7 +47,6 @@ generatedFiles:
   - USAGE.md
   - docs/lib/utils/retryconfig.md
   - docs/models/components/accessibilityanalysis.md
-  - docs/models/components/accessmodeadvocr.md
   - docs/models/components/aggregate.md
   - docs/models/components/aggregateenum.md
   - docs/models/components/aggregateunion.md
@@ -61,12 +60,8 @@ generatedFiles:
   - docs/models/components/asyncuploadresponse.md
   - docs/models/components/asyncuploadresponsestatus.md
   - docs/models/components/autotranscription.md
-  - docs/models/components/autotranscriptionadvocr.md
-  - docs/models/components/autotranscriptionadvocrunion.md
   - docs/models/components/autotranscriptionunion.md
-  - docs/models/components/backgroundremovaladvocr.md
   - docs/models/components/bandwidth.md
-  - docs/models/components/categorizationadvocr.md
   - docs/models/components/code.md
   - docs/models/components/createdby.md
   - docs/models/components/deleted.md
@@ -101,7 +96,6 @@ generatedFiles:
   - docs/models/components/liststoragetype.md
   - docs/models/components/medialimits.md
   - docs/models/components/metadata.md
-  - docs/models/components/moderationadvocr.md
   - docs/models/components/moderationenum.md
   - docs/models/components/moderationstatus.md
   - docs/models/components/nonfinalchunkuploadresponse.md
@@ -115,7 +109,6 @@ generatedFiles:
   - docs/models/components/resourceupdaterequestcategorization.md
   - docs/models/components/resourceupdaterequestocr.md
   - docs/models/components/responsivebreakpoint.md
-  - docs/models/components/responsivebreakpointadvocr.md
   - docs/models/components/restoreresponse.md
   - docs/models/components/restoreresponseunion.md
   - docs/models/components/result.md
@@ -135,20 +128,16 @@ generatedFiles:
   - docs/models/components/searchsortpair.md
   - docs/models/components/secondsdelivered.md
   - docs/models/components/security.md
-  - docs/models/components/signatureparameters.md
   - docs/models/components/storage.md
   - docs/models/components/storagetype.md
   - docs/models/components/storagetypeparameter.md
   - docs/models/components/transformations.md
-  - docs/models/components/typeadvocr.md
   - docs/models/components/uploadedby.md
   - docs/models/components/uploadrequest.md
   - docs/models/components/uploadrequestaccessmode.md
-  - docs/models/components/uploadrequestadvocr.md
   - docs/models/components/uploadrequestbackgroundremoval.md
   - docs/models/components/uploadrequestcategorization.md
-  - docs/models/components/uploadrequestocr1.md
-  - docs/models/components/uploadrequestocr2.md
+  - docs/models/components/uploadrequestocr.md
   - docs/models/components/uploadrequesttype.md
   - docs/models/components/uploadresourcetype.md
   - docs/models/components/uploadresponse.md
@@ -1534,4 +1523,8 @@ examples:
           application/json: {"error": {"message": "<value>"}}
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: "## Typescript SDK Changes Detected:\n* `cloudinaryassetmgmt.upload.upload()`:  `request.upload_request` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.upload.uploadNoResourceType()`:  `request` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.upload.uploadChunk()`:  `request.upload_request` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.search.searchAssets()`: \n  *  `request.sortBy.[]` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.assetRelations.createAssetRelationsByPublicId()`:  `request.type` **Changed**\n* `cloudinaryassetmgmt.assetRelations.deleteAssetRelationsByPublicId()`:  `request.type` **Changed**\n"
+releaseNotes: |
+  ## Typescript SDK Changes Detected:
+  * `cloudinaryassetmgmt.upload.upload()`:  `request.upload_request` **Changed** **Breaking** :warning:
+  * `cloudinaryassetmgmt.upload.uploadNoResourceType()`:  `request` **Changed** **Breaking** :warning:
+  * `cloudinaryassetmgmt.upload.uploadChunk()`:  `request.upload_request` **Changed** **Breaking** :warning:

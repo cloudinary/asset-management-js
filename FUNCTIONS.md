@@ -36,7 +36,6 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
 
 async function run() {
   const res = await uploadUpload(cloudinaryAssetMgmt, "auto", {
-    colors: false,
     headers: "X-Robots-Tag: noindex",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
