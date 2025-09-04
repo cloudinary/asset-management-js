@@ -47,6 +47,8 @@ export enum UploadAcceptEnum {
  * - FTP addresses
  *
  * The uploaded asset is immediately available for transformation and delivery upon successful upload.
+ *
+ * Transform media files using transformation syntax in delivery URLs, which creates derived files accessible immediately without re-uploading the original.
  */
 export function uploadUpload(
   client: CloudinaryAssetMgmtCore,

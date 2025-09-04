@@ -13,9 +13,9 @@ const args = {
 };
 
 export const tool$assetsRenameAsset: ToolDefinition<typeof args> = {
-  name: "asset-public_id-rename",
+  name: "asset-rename",
   description:
-    `Updates an existing asset's identifier and optionally other metadata in your Cloudinary account`,
+    `Updates an existing asset's identifier (public ID) and optionally other metadata in your Cloudinary account`,
   scopes: ["librarian"],
   args,
   tool: async (client, args, ctx) => {

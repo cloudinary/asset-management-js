@@ -31,7 +31,7 @@ export type CreateAssetRelationsByPublicIdRequest = {
   /**
    * The delivery type of the asset.
    */
-  type: components.StorageType;
+  type?: components.StorageTypeParameter | undefined;
   /**
    * The public ID of the asset.
    */
@@ -187,7 +187,7 @@ export const CreateAssetRelationsByPublicIdRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   resource_type: components.ResourceType$inboundSchema,
-  type: components.StorageType$inboundSchema,
+  type: components.StorageTypeParameter$inboundSchema.default("upload"),
   public_id: z.string(),
   RequestBody: z.lazy(() =>
     CreateAssetRelationsByPublicIdRequestBody$inboundSchema
@@ -215,7 +215,7 @@ export const CreateAssetRelationsByPublicIdRequest$outboundSchema: z.ZodType<
   CreateAssetRelationsByPublicIdRequest
 > = z.object({
   resourceType: components.ResourceType$outboundSchema,
-  type: components.StorageType$outboundSchema,
+  type: components.StorageTypeParameter$outboundSchema.default("upload"),
   publicId: z.string(),
   requestBody: z.lazy(() =>
     CreateAssetRelationsByPublicIdRequestBody$outboundSchema

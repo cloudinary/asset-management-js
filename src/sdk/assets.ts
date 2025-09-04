@@ -47,7 +47,7 @@ export { DownloadBackupAssetAcceptEnum } from "../funcs/assetsDownloadBackupAsse
 
 export class Assets extends ClientSDK {
   /**
-   * Updates an existing asset's identifier and optionally other metadata in your Cloudinary account
+   * Updates an existing asset's identifier (public ID) and optionally other metadata in your Cloudinary account
    */
   async renameAsset(
     resourceType: components.ResourceType,
@@ -104,6 +104,8 @@ export class Assets extends ClientSDK {
    * @remarks
    * Applies actions such as transformations, tags, or metadata updates to an existing asset without re-uploading it.
    * This is useful for applying new transformations, adding tags, or updating metadata on assets that are already in your cloud.
+   *
+   * Note: Always prefer delivery URL transformations over this method, unless eager transformations are specifically required.
    */
   async explicitAsset(
     resourceType: components.ResourceType,
@@ -119,7 +121,7 @@ export class Assets extends ClientSDK {
   }
 
   /**
-   * Creates an archive (ZIP or TGZ file) that contains a set of assets from
+   * Creates an archive (ZIP or TGZ file) that contains a set of assets from your product environment.
    *
    * @remarks
    * Creates a downloadable ZIP or other archive format containing the specified resources.

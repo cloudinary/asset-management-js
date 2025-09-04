@@ -8,7 +8,7 @@ Enables you to manage the asset folders in your product environment.
 ### Available Operations
 
 * [showFolder](#showfolder) - List sub-folders
-* [updateFolder](#updatefolder) - Renames or moves an entire folder (along with all assets it contains) to a
+* [updateFolder](#updatefolder) - Renames or moves an entire folder (along with all assets it contains) to a new location
 * [createFolder](#createfolder) - Creates a new empty folder in your Cloudinary media library
 * [destroyFolder](#destroyfolder) - Deletes an existing folder from your media library
 * [listRootFolders](#listrootfolders) - Get root folders
@@ -99,7 +99,7 @@ run();
 
 ## updateFolder
 
-Updates a folder's properties.
+Renames or moves an entire folder (along with all assets it contains) to a new location within your Cloudinary media library.
 
 ### Example Usage
 

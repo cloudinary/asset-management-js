@@ -13,7 +13,7 @@ export class Usage extends ClientSDK {
    * Retrieves comprehensive usage metrics and account statistics
    *
    * @remarks
-   * A report on the status of product environment usage, including storage, credits, bandwidth, requests, number of resources, and add-on usage.
+   * A report on the status of product environment usage, including storage, credits, bandwidth, requests, number of resources, and add-on usage. No date parameter needed to get current usage statistics.
    */
   async getUsage(
     date?: RFCDate | undefined,

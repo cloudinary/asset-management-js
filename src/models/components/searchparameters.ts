@@ -8,6 +8,11 @@ import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import {
+  SearchSortPair,
+  SearchSortPair$inboundSchema,
+  SearchSortPair$outboundSchema,
+} from "./searchsortpair.js";
 
 export const SearchParametersType = {
   Bytes: "bytes",
@@ -62,9 +67,12 @@ export type SearchParameters = {
    */
   expression?: string | undefined;
   /**
-   * An array of key-value pairs for sorting. Each value is a key and direction (asc/desc). If no direction is specified, defaults to desc.
+   * An array of single-key objects mapping a field to a sort direction. Each object must contain exactly one field name mapped to 'asc' or 'desc'.
+   *
+   * @remarks
+   * Default: [{"created_at": "desc"}].
    */
-  sortBy?: Array<string> | undefined;
+  sortBy?: Array<{ [k: string]: SearchSortPair }> | undefined;
   /**
    * The maximum number of results to return. Default - 50. Maximum - 500.
    */
@@ -317,7 +325,7 @@ export const SearchParameters$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   expression: z.string().optional(),
-  sort_by: z.array(z.string()).optional(),
+  sort_by: z.array(z.record(SearchSortPair$inboundSchema)).optional(),
   max_results: z.number().int().optional(),
   next_cursor: z.string().optional(),
   aggregate: z.union([
@@ -338,7 +346,7 @@ export const SearchParameters$inboundSchema: z.ZodType<
 /** @internal */
 export type SearchParameters$Outbound = {
   expression?: string | undefined;
-  sort_by?: Array<string> | undefined;
+  sort_by?: Array<{ [k: string]: string }> | undefined;
   max_results?: number | undefined;
   next_cursor?: string | undefined;
   aggregate?: Array<string> | Array<Aggregate$Outbound> | undefined;
@@ -353,7 +361,7 @@ export const SearchParameters$outboundSchema: z.ZodType<
   SearchParameters
 > = z.object({
   expression: z.string().optional(),
-  sortBy: z.array(z.string()).optional(),
+  sortBy: z.array(z.record(SearchSortPair$outboundSchema)).optional(),
   maxResults: z.number().int().optional(),
   nextCursor: z.string().optional(),
   aggregate: z.union([

@@ -7,10 +7,10 @@ Enables you to manage all the resources (assets) stored in your product environm
 
 ### Available Operations
 
-* [renameAsset](#renameasset) - Updates an existing asset's identifier and optionally other metadata in your Cloudinary account
+* [renameAsset](#renameasset) - Updates an existing asset's identifier (public ID) and optionally other metadata in your Cloudinary account
 * [downloadAsset](#downloadasset) - Generates a download link for a specific asset (image)
 * [explicitAsset](#explicitasset) - Apply operations on an existing asset
-* [generateArchive](#generatearchive) - Creates an archive (ZIP or TGZ file) that contains a set of assets from
+* [generateArchive](#generatearchive) - Creates an archive (ZIP or TGZ file) that contains a set of assets from your product environment.
 * [downloadBackupAsset](#downloadbackupasset) - Download a backup copy of an asset
 * [destroyByAssetId](#destroybyassetid) - Delete asset by asset-id
 * [listResourceTypes](#listresourcetypes) - Get resource types
@@ -33,7 +33,7 @@ Enables you to manage all the resources (assets) stored in your product environm
 
 ## renameAsset
 
-Updates an existing asset's identifier and optionally other metadata in your Cloudinary account
+Updates an existing asset's identifier (public ID) and optionally other metadata in your Cloudinary account
 
 ### Example Usage
 
@@ -216,6 +216,8 @@ run();
 
 Applies actions such as transformations, tags, or metadata updates to an existing asset without re-uploading it.
 This is useful for applying new transformations, adding tags, or updating metadata on assets that are already in your cloud.
+
+Note: Always prefer delivery URL transformations over this method, unless eager transformations are specifically required.
 
 
 ### Example Usage

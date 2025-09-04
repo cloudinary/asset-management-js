@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 92b56ec8-e19a-476d-afba-926cd2d071b4
 management:
-  docChecksum: 86489b279c477c94cb6f5d7c7d928c2a
-  docVersion: 0.3.2
-  speakeasyVersion: 1.606.0
-  generationVersion: 2.686.7
-  releaseVersion: 0.5.6
-  configChecksum: cf0cad6961e1ec4cc04225e00ebf9151
+  docChecksum: 492c8c77c1c8136a21191c9249dee511
+  docVersion: 0.3.3
+  speakeasyVersion: 1.609.0
+  generationVersion: 2.692.0
+  releaseVersion: 0.5.7
+  configChecksum: 7d26577ea8c6d307429d6262324dd911
   repoURL: https://github.com/cloudinary/asset-management-js.git
   installationURL: https://github.com/cloudinary/asset-management-js
   published: true
@@ -15,7 +15,7 @@ features:
     acceptHeaders: 2.81.2
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
-    core: 3.21.20
+    core: 3.21.22
     customSecuritySchemes: 0.1.1
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
@@ -47,6 +47,7 @@ generatedFiles:
   - USAGE.md
   - docs/lib/utils/retryconfig.md
   - docs/models/components/accessibilityanalysis.md
+  - docs/models/components/accessmodeadvocr.md
   - docs/models/components/aggregate.md
   - docs/models/components/aggregateenum.md
   - docs/models/components/aggregateunion.md
@@ -60,8 +61,12 @@ generatedFiles:
   - docs/models/components/asyncuploadresponse.md
   - docs/models/components/asyncuploadresponsestatus.md
   - docs/models/components/autotranscription.md
+  - docs/models/components/autotranscriptionadvocr.md
+  - docs/models/components/autotranscriptionadvocrunion.md
   - docs/models/components/autotranscriptionunion.md
+  - docs/models/components/backgroundremovaladvocr.md
   - docs/models/components/bandwidth.md
+  - docs/models/components/categorizationadvocr.md
   - docs/models/components/code.md
   - docs/models/components/createdby.md
   - docs/models/components/deleted.md
@@ -96,6 +101,7 @@ generatedFiles:
   - docs/models/components/liststoragetype.md
   - docs/models/components/medialimits.md
   - docs/models/components/metadata.md
+  - docs/models/components/moderationadvocr.md
   - docs/models/components/moderationenum.md
   - docs/models/components/moderationstatus.md
   - docs/models/components/nonfinalchunkuploadresponse.md
@@ -109,6 +115,7 @@ generatedFiles:
   - docs/models/components/resourceupdaterequestcategorization.md
   - docs/models/components/resourceupdaterequestocr.md
   - docs/models/components/responsivebreakpoint.md
+  - docs/models/components/responsivebreakpointadvocr.md
   - docs/models/components/restoreresponse.md
   - docs/models/components/restoreresponseunion.md
   - docs/models/components/result.md
@@ -125,17 +132,23 @@ generatedFiles:
   - docs/models/components/searchresponseresourcetype.md
   - docs/models/components/searchresponsestatus.md
   - docs/models/components/searchresponsetype.md
+  - docs/models/components/searchsortpair.md
   - docs/models/components/secondsdelivered.md
   - docs/models/components/security.md
+  - docs/models/components/signatureparameters.md
   - docs/models/components/storage.md
   - docs/models/components/storagetype.md
+  - docs/models/components/storagetypeparameter.md
   - docs/models/components/transformations.md
+  - docs/models/components/typeadvocr.md
   - docs/models/components/uploadedby.md
   - docs/models/components/uploadrequest.md
   - docs/models/components/uploadrequestaccessmode.md
+  - docs/models/components/uploadrequestadvocr.md
   - docs/models/components/uploadrequestbackgroundremoval.md
   - docs/models/components/uploadrequestcategorization.md
-  - docs/models/components/uploadrequestocr.md
+  - docs/models/components/uploadrequestocr1.md
+  - docs/models/components/uploadrequestocr2.md
   - docs/models/components/uploadrequesttype.md
   - docs/models/components/uploadresourcetype.md
   - docs/models/components/uploadresponse.md
@@ -450,8 +463,10 @@ generatedFiles:
   - src/models/components/schemecloudinaryauth.ts
   - src/models/components/searchparameters.ts
   - src/models/components/searchresponse.ts
+  - src/models/components/searchsortpair.ts
   - src/models/components/security.ts
   - src/models/components/storagetype.ts
+  - src/models/components/storagetypeparameter.ts
   - src/models/components/uploadrequest.ts
   - src/models/components/uploadresourcetype.ts
   - src/models/components/uploadresponse.ts
@@ -1499,7 +1514,7 @@ examples:
         path:
           cloud_name: "<value>"
       requestBody:
-        application/json: {"expression": "resource_type:image AND tags:kitten", "sort_by": ["created_at", "public_id:asc"], "max_results": 30, "aggregate": ["format", "resource_type"], "fields": "tags,context,metadata"}
+        application/json: {"expression": "resource_type:image AND tags:kitten", "sort_by": [{"created_at": "desc"}, {"public_id": "asc"}], "max_results": 30, "aggregate": ["format", "resource_type"], "fields": "tags,context,metadata"}
       responses:
         "200":
           application/json: {"total_count": 42, "time": 42, "resources": [{"asset_id": "09169cf604b03521789d1b3b8cca53d1", "public_id": "blue_sweater", "asset_folder": "Clothing Sale", "filename": "blue_sweater", "display_name": "blue_sweater", "format": "jpg", "version": 1719316754, "resource_type": "image", "type": "upload", "created_at": "2024-06-25T11:59:14+00:00", "uploaded_at": "2024-06-25T11:59:14+00:00", "bytes": 71063, "backup_bytes": 71063, "width": 4800, "height": 6400, "aspect_ratio": 0.75, "pixels": 307200, "url": "http://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "status": "active", "access_mode": "public", "access_control": null, "etag": "7242da7b353e7da2c3eb8c006165b385", "created_by": {"access_key": "614335564976464"}, "uploaded_by": {"access_key": "614335564976464"}}], "next_cursor": "e4d03a236b27e306e56719f74d05cdef", "aggregations": {"values": [{"value": "jpg", "count": 42}], "ranges": [{"from": 0, "to": 1048576, "count": 17}]}}
@@ -1519,3 +1534,4 @@ examples:
           application/json: {"error": {"message": "<value>"}}
 examplesVersion: 1.0.2
 generatedTests: {}
+releaseNotes: "## Typescript SDK Changes Detected:\n* `cloudinaryassetmgmt.upload.upload()`:  `request.upload_request` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.upload.uploadNoResourceType()`:  `request` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.upload.uploadChunk()`:  `request.upload_request` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.search.searchAssets()`: \n  *  `request.sortBy.[]` **Changed** **Breaking** :warning:\n* `cloudinaryassetmgmt.assetRelations.createAssetRelationsByPublicId()`:  `request.type` **Changed**\n* `cloudinaryassetmgmt.assetRelations.deleteAssetRelationsByPublicId()`:  `request.type` **Changed**\n"

@@ -13,7 +13,11 @@ export class Search extends ClientSDK {
    * Provides a powerful query interface to filter and retrieve assets and their details
    *
    * @remarks
-   * Returns a list of resources matching the specified search criteria. The API supports a variety of search parameters and returns a JSON response with the matching resources and their details.
+   * Returns a list of resources matching the specified search criteria.
+   *
+   * Uses Lucene-like query language to search by descriptive attributes (public_id, filename, folder, tags, context), file details (resource_type, format, bytes, width, height), embedded data (image_metadata), and analyzed data (face_count, colors, quality_score). Supports aggregate counts and complex Boolean expressions.
+   *
+   * Examples: tags:shirt AND uploaded_at>1d, resource_type:image AND bytes>1mb, folder:products OR context.category:electronics
    */
   async searchAssets(
     request: components.SearchParameters,

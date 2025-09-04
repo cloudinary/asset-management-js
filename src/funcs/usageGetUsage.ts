@@ -31,7 +31,7 @@ import { RFCDate } from "../types/rfcdate.js";
  * Retrieves comprehensive usage metrics and account statistics
  *
  * @remarks
- * A report on the status of product environment usage, including storage, credits, bandwidth, requests, number of resources, and add-on usage.
+ * A report on the status of product environment usage, including storage, credits, bandwidth, requests, number of resources, and add-on usage. No date parameter needed to get current usage statistics.
  */
 export function usageGetUsage(
   client: CloudinaryAssetMgmtCore,

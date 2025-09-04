@@ -16,8 +16,8 @@ export const tool$uploadUpload: ToolDefinition<typeof args> = {
   description:
     `Uploads media assets (images, videos, raw files) to your Cloudinary product environment
 
-Uploads media assets (images, videos, raw files) to your Cloudinary product environment. The file is securely stored 
-in the cloud with backup and revision history. Cloudinary automatically analyzes and saves important data about each 
+Uploads media assets (images, videos, raw files) to your Cloudinary product environment. The file is securely stored
+in the cloud with backup and revision history. Cloudinary automatically analyzes and saves important data about each
 asset, such as format, size, resolution, and prominent colors, which is indexed to enable searching on those attributes.
 
 Supports uploading from:
@@ -28,6 +28,8 @@ Supports uploading from:
 - FTP addresses
 
 The uploaded asset is immediately available for transformation and delivery upon successful upload.
+
+Transform media files using transformation syntax in delivery URLs, which creates derived files accessible immediately without re-uploading the original.
 `,
   scopes: ["librarian", "builder"],
   args,
