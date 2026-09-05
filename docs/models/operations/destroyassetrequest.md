@@ -7,14 +7,15 @@ import { DestroyAssetRequest } from "@cloudinary/asset-management/models/operati
 
 let value: DestroyAssetRequest = {
   resourceType: "image",
-  publicId: "<id>",
+  requestBody: {
+    publicId: "<id>",
+  },
 };
 ```
 
 ## Fields
 
-| Field                                                              | Type                                                               | Required                                                           | Description                                                        |
-| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
-| `resourceType`                                                     | [components.ResourceType](../../models/components/resourcetype.md) | :heavy_check_mark:                                                 | The type of resource.                                              |
-| `publicId`                                                         | *string*                                                           | :heavy_check_mark:                                                 | The public ID of the asset.                                        |
-| `invalidate`                                                       | *boolean*                                                          | :heavy_minus_sign:                                                 | Whether to invalidate CDN cached copies of the asset               |
+| Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `resourceType`                                                                           | [components.ResourceType](../../models/components/resourcetype.md)                       | :heavy_check_mark:                                                                       | The type of resource (image, video, or raw).                                             |
+| `requestBody`                                                                            | [operations.DestroyAssetRequestBody](../../models/operations/destroyassetrequestbody.md) | :heavy_check_mark:                                                                       | The asset to destroy and related options.                                                |

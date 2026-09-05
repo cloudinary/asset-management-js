@@ -4,6 +4,7 @@
 
 import { videoAnalyticsGetVideoViews } from "../funcs/videoAnalyticsGetVideoViews.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as components from "../models/components/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -18,10 +19,10 @@ export class VideoAnalytics extends ClientSDK {
   async getVideoViews(
     expression?: string | undefined,
     maxResults?: number | undefined,
-    sortBy?: operations.SortBy | undefined,
+    sortBy?: operations.GetVideoViewsSortBy | undefined,
     nextCursor?: string | undefined,
     options?: RequestOptions,
-  ): Promise<operations.GetVideoViewsResponse> {
+  ): Promise<components.VideoViewsResponse> {
     return unwrapAsync(videoAnalyticsGetVideoViews(
       this,
       expression,

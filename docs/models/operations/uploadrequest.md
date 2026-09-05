@@ -7,14 +7,8 @@ import { UploadRequest } from "@cloudinary/asset-management/models/operations";
 
 let value: UploadRequest = {
   uploadRequest: {
-    autoTranscription: true,
-    headers: "X-Robots-Tag: noindex",
-    moderation: "google_video_moderation",
-    rawConvert: "google_speech:vtt:en-US",
-    backgroundRemoval: "pixelz",
-    format: "jpg",
-    allowedFormats: "mp4,ogv,jpg,png,pdf",
     autoTagging: 0.5,
+    autoTranscription: true,
     accessControl: [
       {
         accessType: "token",
@@ -22,11 +16,26 @@ let value: UploadRequest = {
       },
       {
         accessType: "anonymous",
-        start: new Date("2024-03-15T09:00:00Z"),
-        end: new Date("2024-06-30T23:59:59Z"),
+        start: "2024-03-15T09:00:00Z",
+        end: "2024-06-30T23:59:59Z",
       },
     ],
+    backgroundRemoval: "cloudinary_ai",
+    categorization: "google_tagging",
     detection: "coco_v2",
+    format: "jpg",
+    metadata: "in_stock_id=50|color_id=[\"green\",\"red\"]",
+    moderation: "aws_rek|duplicate:0|perception_point|manual",
+    ocr: "adv_ocr",
+    rawConvert: "google_speech:vtt:en-US",
+    regions:
+      "{\"face\": [[100, 200], [300, 400]], \"body\": [[50, 60], [70, 80], [90, 100]]}",
+    tags: "animal,dog",
+    context: "alt=My image|caption=Nice photo",
+    allowedFormats: "mp4,ogv,jpg,png,pdf",
+    headers: "X-Robots-Tag: noindex",
+    faceCoordinates: "10,20,150,130|213,345,82,61",
+    customCoordinates: "10,20,150,130",
     file: "<value>",
   },
 };
@@ -34,7 +43,7 @@ let value: UploadRequest = {
 
 ## Fields
 
-| Field                                                                                                                                                                                                                                         | Type                                                                                                                                                                                                                                          | Required                                                                                                                                                                                                                                      | Description                                                                                                                                                                                                                                   |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `resourceType`                                                                                                                                                                                                                                | [components.UploadResourceType](../../models/components/uploadresourcetype.md)                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                                                            | The type of resource to upload:<br/>- "image" for uploading strictly images<br/>- "video" for uploading strictly videos<br/>- "raw" for uploading non-media files<br/>- "auto" for allowing Cloudinary to automatically detect the type of the uploaded file<br/> |
-| `uploadRequest`                                                                                                                                                                                                                               | [components.UploadRequest](../../models/components/uploadrequest.md)                                                                                                                                                                          | :heavy_check_mark:                                                                                                                                                                                                                            | N/A                                                                                                                                                                                                                                           |
+| Field                                                                          | Type                                                                           | Required                                                                       | Description                                                                    |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `resourceType`                                                                 | [components.UploadResourceType](../../models/components/uploadresourcetype.md) | :heavy_check_mark:                                                             | The type of resource (image, video, raw, or auto).                             |
+| `uploadRequest`                                                                | [components.UploadRequest](../../models/components/uploadrequest.md)           | :heavy_check_mark:                                                             | The file to upload and associated parameters.                                  |

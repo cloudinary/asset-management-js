@@ -189,3 +189,13 @@ Based on:
 - [typescript v0.5.9] .
 ### Releases
 - [NPM v0.5.9] https://www.npmjs.com/package/@cloudinary/asset-management/v/0.5.9 - .
+
+## 2026-09-05 00:41:52
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.796.4 (2.935.1) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [typescript v0.6.0] .
+### Releases
+- [NPM v0.6.0] https://www.npmjs.com/package/@cloudinary/asset-management/v/0.6.0 - .
