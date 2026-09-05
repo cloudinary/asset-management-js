@@ -15,6 +15,9 @@ import {
 import { MCPScope } from "./scopes.js";
 import { registerMCPExtensions } from "./server.extensions.js";
 import { createRegisterTool } from "./tools.js";
+import { tool$assetMetadataUpdateAssetsContext } from "./tools/assetMetadataUpdateAssetsContext.js";
+import { tool$assetMetadataUpdateAssetsMetadata } from "./tools/assetMetadataUpdateAssetsMetadata.js";
+import { tool$assetMetadataUpdateAssetsTags } from "./tools/assetMetadataUpdateAssetsTags.js";
 import { tool$assetRelationsCreateAssetRelationsByAssetId } from "./tools/assetRelationsCreateAssetRelationsByAssetId.js";
 import { tool$assetRelationsDeleteAssetRelationsByAssetId } from "./tools/assetRelationsDeleteAssetRelationsByAssetId.js";
 import { tool$assetsDerivedDestroy } from "./tools/assetsDerivedDestroy.js";
@@ -32,8 +35,11 @@ import { tool$foldersCreateFolder } from "./tools/foldersCreateFolder.js";
 import { tool$foldersDestroyFolder } from "./tools/foldersDestroyFolder.js";
 import { tool$foldersSearchFolders } from "./tools/foldersSearchFolders.js";
 import { tool$foldersUpdateFolder } from "./tools/foldersUpdateFolder.js";
+import { tool$generationGenerateImage } from "./tools/generationGenerateImage.js";
+import { tool$generationGenerateImageFromImages } from "./tools/generationGenerateImageFromImages.js";
 import { tool$searchSearchAssets } from "./tools/searchSearchAssets.js";
 import { tool$searchVisualSearchAssets } from "./tools/searchVisualSearchAssets.js";
+import { tool$tasksGetGenerationTaskStatus } from "./tools/tasksGetGenerationTaskStatus.js";
 import { tool$uploadUpload } from "./tools/uploadUpload.js";
 import { tool$usageGetUsage } from "./tools/usageGetUsage.js";
 
@@ -50,7 +56,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "CloudinaryAssetMgmt",
-    version: "0.5.9",
+    version: "0.6.0",
   });
 
   const client = new CloudinaryAssetMgmtCore({
@@ -95,6 +101,9 @@ export function createMCPServer(deps: {
   tool(tool$assetsUpdateResourceByAssetId);
   tool(tool$assetsListResourceTags);
   tool(tool$assetsDerivedDestroy);
+  tool(tool$assetMetadataUpdateAssetsTags);
+  tool(tool$assetMetadataUpdateAssetsContext);
+  tool(tool$assetMetadataUpdateAssetsMetadata);
   tool(tool$usageGetUsage);
   tool(tool$assetRelationsCreateAssetRelationsByAssetId);
   tool(tool$assetRelationsDeleteAssetRelationsByAssetId);
@@ -104,6 +113,9 @@ export function createMCPServer(deps: {
   tool(tool$foldersSearchFolders);
   tool(tool$searchSearchAssets);
   tool(tool$searchVisualSearchAssets);
+  tool(tool$generationGenerateImage);
+  tool(tool$generationGenerateImageFromImages);
+  tool(tool$tasksGetGenerationTaskStatus);
 
   registerMCPExtensions(register satisfies Register);
 

@@ -1,0 +1,27 @@
+# ListPeopleRequest
+
+## Example Usage
+
+```typescript
+import { ListPeopleRequest } from "@cloudinary/asset-management/models/operations";
+
+let value: ListPeopleRequest = {
+  maxResults: 20,
+  nameStatus: "named",
+  namePrefix: "Alice",
+  status: "active",
+  sortBy: "created_at",
+};
+```
+
+## Fields
+
+| Field                                                                                                          | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    | Example                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `maxResults`                                                                                                   | *number*                                                                                                       | :heavy_minus_sign:                                                                                             | The maximum number of people to return. Default: 50.                                                           | 20                                                                                                             |
+| `nextCursor`                                                                                                   | *string*                                                                                                       | :heavy_minus_sign:                                                                                             | The cursor for pagination. Use the next_cursor value from a previous response to get the next page of results. |                                                                                                                |
+| `nameStatus`                                                                                                   | [operations.NameStatus](../../models/operations/namestatus.md)                                                 | :heavy_minus_sign:                                                                                             | Filter by whether the person has been named. Default: all.                                                     | named                                                                                                          |
+| `namePrefix`                                                                                                   | *string*                                                                                                       | :heavy_minus_sign:                                                                                             | Filter people whose names start with the given prefix (case insensitive).                                      | Alice                                                                                                          |
+| `status`                                                                                                       | [components.PersonStatus](../../models/components/personstatus.md)                                             | :heavy_minus_sign:                                                                                             | Filter by person status.                                                                                       | active                                                                                                         |
+| `sortBy`                                                                                                       | [operations.ListPeopleSortBy](../../models/operations/listpeoplesortby.md)                                     | :heavy_minus_sign:                                                                                             | The field to sort results by. Default: name (ascending).<br/>                                                  | created_at                                                                                                     |
+| `direction`                                                                                                    | [components.DirectionEnum](../../models/components/directionenum.md)                                           | :heavy_minus_sign:                                                                                             | The sort direction for the results. Default is "desc".                                                         |                                                                                                                |

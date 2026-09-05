@@ -7,7 +7,7 @@ import { DeleteResourcesByPublicIdRequest } from "@cloudinary/asset-management/m
 
 let value: DeleteResourcesByPublicIdRequest = {
   resourceType: "raw",
-  type: "facebook",
+  type: "twitter_name",
   deleteResourceByPublicIdsRequest: {
     publicIds: [],
     resourceType: "image",
@@ -21,6 +21,6 @@ let value: DeleteResourcesByPublicIdRequest = {
 
 | Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
 | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| `resourceType`                                                                   | [components.ResourceType](../../models/components/resourcetype.md)               | :heavy_check_mark:                                                               | The type of resource.                                                            |
-| `type`                                                                           | [components.ExtendedStorageType](../../models/components/extendedstoragetype.md) | :heavy_check_mark:                                                               | The extended storage type of the resource.                                       |
-| `deleteResourceByPublicIdsRequest`                                               | *components.DeleteResourceByPublicIdsRequestUnion*                               | :heavy_check_mark:                                                               | N/A                                                                              |
+| `resourceType`                                                                   | [components.ResourceType](../../models/components/resourcetype.md)               | :heavy_check_mark:                                                               | The type of resource (image, video, or raw).                                     |
+| `type`                                                                           | [components.DeliveryTypeAllEnum](../../models/components/deliverytypeallenum.md) | :heavy_check_mark:                                                               | The delivery type of the asset.                                                  |
+| `deleteResourceByPublicIdsRequest`                                               | *components.DeleteResourceByPublicIdsRequestUnion*                               | :heavy_check_mark:                                                               | The public IDs and options for the resources to delete.                          |

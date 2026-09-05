@@ -3,9 +3,11 @@
  */
 
 export * from "./apierror.js";
-export * from "./downloadbackupasset.js";
+export * from "./cloudinaryassetmgmterror.js";
+export * from "./errorresponse.js";
 export * from "./httpclienterrors.js";
 export * from "./listresourcetypes.js";
+export * from "./ratelimitedresponseerror.js";
 export * from "./responsevalidationerror.js";
 export * from "./sdkerror.js";
 export * from "./sdkvalidationerror.js";

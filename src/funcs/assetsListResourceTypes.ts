@@ -4,11 +4,13 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeSimple } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
+import * as components from "../models/components/index.js";
 import { CloudinaryAssetMgmtError } from "../models/errors/cloudinaryassetmgmterror.js";
 import {
   ConnectionError,
@@ -36,8 +38,8 @@ export function assetsListResourceTypes(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.ListResourceTypesResponse,
-    | errors.ListResourceTypesUnauthorizedError
+    components.ResourceTypesResponse,
+    | errors.UnauthorizedError
     | CloudinaryAssetMgmtError
     | ResponseValidationError
     | ConnectionError
@@ -62,8 +64,8 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.ListResourceTypesResponse,
-      | errors.ListResourceTypesUnauthorizedError
+      components.ResourceTypesResponse,
+      | errors.UnauthorizedError
       | CloudinaryAssetMgmtError
       | ResponseValidationError
       | ConnectionError
@@ -82,7 +84,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v1_1/{cloud_name}/resources")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -96,7 +97,7 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "listResourceTypes",
-    oAuth2Scopes: [],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 
@@ -123,7 +124,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -137,8 +139,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.ListResourceTypesResponse,
-    | errors.ListResourceTypesUnauthorizedError
+    components.ResourceTypesResponse,
+    | errors.UnauthorizedError
     | CloudinaryAssetMgmtError
     | ResponseValidationError
     | ConnectionError
@@ -148,8 +150,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.ListResourceTypesResponse$inboundSchema),
-    M.jsonErr(401, errors.ListResourceTypesUnauthorizedError$inboundSchema),
+    M.json(200, components.ResourceTypesResponse$inboundSchema),
+    M.jsonErr(401, errors.UnauthorizedError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

@@ -6,12 +6,12 @@
 import { CreateFolderRequest } from "@cloudinary/asset-management/models/operations";
 
 let value: CreateFolderRequest = {
-  folder: "samples/food",
+  folder: "product/test",
 };
 ```
 
 ## Fields
 
-| Field              | Type               | Required           | Description        | Example            |
-| ------------------ | ------------------ | ------------------ | ------------------ | ------------------ |
-| `folder`           | *string*           | :heavy_check_mark: | N/A                | samples/food       |
+| Field                                                                                                                                          | Type                                                                                                                                           | Required                                                                                                                                       | Description                                                                                                                                    | Example                                                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `folder`                                                                                                                                       | *string*                                                                                                                                       | :heavy_check_mark:                                                                                                                             | The full path of the folder, including any nested folders. Must not be empty, and must not contain double slashes or leading/trailing slashes. | product/test                                                                                                                                   |

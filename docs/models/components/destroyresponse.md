@@ -5,14 +5,11 @@
 ```typescript
 import { DestroyResponse } from "@cloudinary/asset-management/models/components";
 
-let value: DestroyResponse = {
-  result: "not found",
-};
+let value: DestroyResponse = {};
 ```
 
 ## Fields
 
-| Field                                                                   | Type                                                                    | Required                                                                | Description                                                             |
-| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `result`                                                                | [components.Result](../../models/components/result.md)                  | :heavy_check_mark:                                                      | The result of the deletion operation.                                   |
-| `assetFolder`                                                           | *string*                                                                | :heavy_minus_sign:                                                      | The asset folder path. Only included when folder decoupling is enabled. |
+| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `result`                                                                             | [components.DestroyResponseResult](../../models/components/destroyresponseresult.md) | :heavy_minus_sign:                                                                   | Result of the deletion operation.                                                    |
