@@ -11,6 +11,10 @@ import {
   DownloadAssetAcceptEnum,
 } from "../funcs/assetsDownloadAsset.js";
 import {
+  assetsDownloadAssetByAssetId,
+  DownloadAssetByAssetIdAcceptEnum,
+} from "../funcs/assetsDownloadAssetByAssetId.js";
+import {
   assetsDownloadBackupAsset,
   DownloadBackupAssetAcceptEnum,
 } from "../funcs/assetsDownloadBackupAsset.js";
@@ -20,11 +24,14 @@ import {
   GenerateArchiveAcceptEnum,
 } from "../funcs/assetsGenerateArchive.js";
 import { assetsGetResourceByAssetId } from "../funcs/assetsGetResourceByAssetId.js";
+import { assetsGetResourceByBody } from "../funcs/assetsGetResourceByBody.js";
 import { assetsGetResourceByPublicId } from "../funcs/assetsGetResourceByPublicId.js";
+import { assetsInvalidateDerivedByUrls } from "../funcs/assetsInvalidateDerivedByUrls.js";
 import { assetsListImages } from "../funcs/assetsListImages.js";
 import { assetsListRawFiles } from "../funcs/assetsListRawFiles.js";
 import { assetsListResourcesByAssetFolder } from "../funcs/assetsListResourcesByAssetFolder.js";
 import { assetsListResourcesByAssetIDs } from "../funcs/assetsListResourcesByAssetIDs.js";
+import { assetsListResourcesByContainerId } from "../funcs/assetsListResourcesByContainerId.js";
 import { assetsListResourcesByContext } from "../funcs/assetsListResourcesByContext.js";
 import { assetsListResourcesByModerationKindAndStatus } from "../funcs/assetsListResourcesByModerationKindAndStatus.js";
 import { assetsListResourceTags } from "../funcs/assetsListResourceTags.js";
@@ -33,6 +40,7 @@ import { assetsListVideos } from "../funcs/assetsListVideos.js";
 import { assetsRenameAsset } from "../funcs/assetsRenameAsset.js";
 import { assetsRestoreResourcesByAssetIDs } from "../funcs/assetsRestoreResourcesByAssetIDs.js";
 import { assetsUpdateResourceByAssetId } from "../funcs/assetsUpdateResourceByAssetId.js";
+import { assetsUpdateResourceByBody } from "../funcs/assetsUpdateResourceByBody.js";
 import { assetsUpdateResourceByPublicId } from "../funcs/assetsUpdateResourceByPublicId.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as components from "../models/components/index.js";
@@ -44,6 +52,8 @@ export { DownloadAssetAcceptEnum } from "../funcs/assetsDownloadAsset.js";
 export { GenerateArchiveAcceptEnum } from "../funcs/assetsGenerateArchive.js";
 
 export { DownloadBackupAssetAcceptEnum } from "../funcs/assetsDownloadBackupAsset.js";
+
+export { DownloadAssetByAssetIdAcceptEnum } from "../funcs/assetsDownloadAssetByAssetId.js";
 
 export class Assets extends ClientSDK {
   /**
@@ -69,14 +79,11 @@ export class Assets extends ClientSDK {
     resourceType: components.ResourceType,
     publicId: string,
     format?: string | undefined,
-    type?: components.StorageType | undefined,
+    type?: components.ManagedDeliveryType | undefined,
     expiresAt?: number | undefined,
     attachment?: boolean | undefined,
     targetFilename?: string | undefined,
     transformation?: string | undefined,
-    apiKey?: string | undefined,
-    signature?: string | undefined,
-    timestamp?: number | undefined,
     options?: RequestOptions & {
       acceptHeaderOverride?: DownloadAssetAcceptEnum;
     },
@@ -91,9 +98,6 @@ export class Assets extends ClientSDK {
       attachment,
       targetFilename,
       transformation,
-      apiKey,
-      signature,
-      timestamp,
       options,
     ));
   }
@@ -109,13 +113,13 @@ export class Assets extends ClientSDK {
    */
   async explicitAsset(
     resourceType: components.ResourceType,
-    requestBody: operations.ExplicitAssetRequestBody,
+    explicitRequest: components.ExplicitRequest,
     options?: RequestOptions,
   ): Promise<components.UploadResponse> {
     return unwrapAsync(assetsExplicitAsset(
       this,
       resourceType,
-      requestBody,
+      explicitRequest,
       options,
     ));
   }
@@ -147,9 +151,6 @@ export class Assets extends ClientSDK {
   async downloadBackupAsset(
     assetId: string,
     versionId: string,
-    apiKey?: string | undefined,
-    signature?: string | undefined,
-    timestamp?: number | undefined,
     options?: RequestOptions & {
       acceptHeaderOverride?: DownloadBackupAssetAcceptEnum;
     },
@@ -158,27 +159,55 @@ export class Assets extends ClientSDK {
       this,
       assetId,
       versionId,
-      apiKey,
-      signature,
-      timestamp,
       options,
     ));
   }
 
   /**
-   * Delete asset by asset-id
+   * Delete asset by asset ID
    *
    * @remarks
-   * Deletes an asset using its asset ID. This endpoint replaces the legacy /resources/by_asset_id endpoint.
-   * Returns the deletion status and asset folder information when folder decoupling is enabled.
+   * Deletes an asset using its immutable asset ID.
    */
   async destroyByAssetId(
-    request: components.DestroyRequest,
+    request: components.DestroyByAssetIdRequest,
     options?: RequestOptions,
-  ): Promise<components.DestroyResponse> {
+  ): Promise<components.DestroyByAssetIdResponse> {
     return unwrapAsync(assetsDestroyByAssetId(
       this,
       request,
+      options,
+    ));
+  }
+
+  /**
+   * Download an asset by asset ID
+   *
+   * @remarks
+   * Generates a download link for a specific asset identified by its immutable asset ID,
+   * instead of the resource type, delivery type and public ID.
+   */
+  async downloadAssetByAssetId(
+    assetId: string,
+    format?: string | undefined,
+    transformation?: string | undefined,
+    attachment?: boolean | undefined,
+    targetFilename?: string | undefined,
+    streamingAttachment?: boolean | undefined,
+    expiresAt?: number | undefined,
+    options?: RequestOptions & {
+      acceptHeaderOverride?: DownloadAssetByAssetIdAcceptEnum;
+    },
+  ): Promise<operations.DownloadAssetByAssetIdResponse> {
+    return unwrapAsync(assetsDownloadAssetByAssetId(
+      this,
+      assetId,
+      format,
+      transformation,
+      attachment,
+      targetFilename,
+      streamingAttachment,
+      expiresAt,
       options,
     ));
   }
@@ -192,7 +221,7 @@ export class Assets extends ClientSDK {
   async listResourceTypes(
     request: operations.ListResourceTypesRequest,
     options?: RequestOptions,
-  ): Promise<operations.ListResourceTypesResponse> {
+  ): Promise<components.ResourceTypesResponse> {
     return unwrapAsync(assetsListResourceTypes(
       this,
       request,
@@ -204,18 +233,18 @@ export class Assets extends ClientSDK {
    * Get image assets
    *
    * @remarks
-   * Retrieves a list of image assets. Results can be filtered by various criteria like tags, moderation status, prefix, or specific public IDs.
+   * Retrieves a list of image assets. Results can be filtered by various criteria like tags, prefix, or specific public IDs.
    */
   async listImages(
-    type?: components.ListStorageType | undefined,
+    type?: components.DeliveryTypeAll | undefined,
     prefix?: string | undefined,
     publicIds?: Array<string> | undefined,
     tags?: boolean | undefined,
     nextCursor?: string | undefined,
     maxResults?: number | undefined,
-    direction?: components.Direction | undefined,
+    direction?: components.DirectionEnum | undefined,
     startAt?: Date | undefined,
-    fields?: Array<components.FieldsSpec> | undefined,
+    fields?: components.Fields | undefined,
     options?: RequestOptions,
   ): Promise<components.ListResponse> {
     return unwrapAsync(assetsListImages(
@@ -237,18 +266,18 @@ export class Assets extends ClientSDK {
    * Get video assets
    *
    * @remarks
-   * Retrieves a list of video assets. Results can be filtered by various criteria like tags, moderation status, prefix, or specific public IDs.
+   * Retrieves a list of video assets. Results can be filtered by various criteria like tags, prefix, or specific public IDs.
    */
   async listVideos(
-    type?: components.ListStorageType | undefined,
+    type?: components.DeliveryTypeAll | undefined,
     prefix?: string | undefined,
     publicIds?: Array<string> | undefined,
     tags?: boolean | undefined,
     nextCursor?: string | undefined,
     maxResults?: number | undefined,
-    direction?: components.Direction | undefined,
+    direction?: components.DirectionEnum | undefined,
     startAt?: Date | undefined,
-    fields?: Array<components.FieldsSpec> | undefined,
+    fields?: components.Fields | undefined,
     options?: RequestOptions,
   ): Promise<components.ListResponse> {
     return unwrapAsync(assetsListVideos(
@@ -270,18 +299,18 @@ export class Assets extends ClientSDK {
    * Get raw assets
    *
    * @remarks
-   * Retrieves a list of raw assets. Results can be filtered by various criteria like tags, moderation status, prefix, or specific public IDs.
+   * Retrieves a list of raw assets. Results can be filtered by various criteria like tags, prefix, or specific public IDs.
    */
   async listRawFiles(
-    type?: components.ListStorageType | undefined,
+    type?: components.DeliveryTypeAll | undefined,
     prefix?: string | undefined,
     publicIds?: Array<string> | undefined,
     tags?: boolean | undefined,
     nextCursor?: string | undefined,
     maxResults?: number | undefined,
-    direction?: components.Direction | undefined,
+    direction?: components.DirectionEnum | undefined,
     startAt?: Date | undefined,
-    fields?: Array<components.FieldsSpec> | undefined,
+    fields?: components.Fields | undefined,
     options?: RequestOptions,
   ): Promise<components.ListResponse> {
     return unwrapAsync(assetsListRawFiles(
@@ -310,8 +339,8 @@ export class Assets extends ClientSDK {
     resourceType?: components.ResourceType | undefined,
     nextCursor?: string | undefined,
     maxResults?: number | undefined,
-    direction?: components.Direction | undefined,
-    fields?: Array<components.FieldsSpec> | undefined,
+    direction?: components.DirectionEnum | undefined,
+    fields?: components.Fields | undefined,
     options?: RequestOptions,
   ): Promise<components.ListResponse> {
     return unwrapAsync(assetsListResourcesByAssetFolder(
@@ -335,7 +364,7 @@ export class Assets extends ClientSDK {
   async listResourcesByAssetIDs(
     assetIds: Array<string>,
     resourceType?: components.ResourceType | undefined,
-    fields?: Array<components.FieldsSpec> | undefined,
+    fields?: components.Fields | undefined,
     options?: RequestOptions,
   ): Promise<components.ListResponse> {
     return unwrapAsync(assetsListResourcesByAssetIDs(
@@ -359,8 +388,8 @@ export class Assets extends ClientSDK {
     value?: string | undefined,
     nextCursor?: string | undefined,
     maxResults?: number | undefined,
-    direction?: components.Direction | undefined,
-    fields?: Array<components.FieldsSpec> | undefined,
+    direction?: components.DirectionEnum | undefined,
+    fields?: components.Fields | undefined,
     options?: RequestOptions,
   ): Promise<components.ListResponse> {
     return unwrapAsync(assetsListResourcesByContext(
@@ -384,12 +413,12 @@ export class Assets extends ClientSDK {
    */
   async listResourcesByModerationKindAndStatus(
     resourceType: components.ResourceType,
-    moderationKind: operations.ModerationKind,
-    moderationStatus: operations.ModerationStatus,
-    fields?: Array<components.FieldsSpec> | undefined,
+    moderationKind: components.ModerationKind,
+    moderationStatus: components.ModerationStatusParameter,
+    fields?: components.Fields | undefined,
     nextCursor?: string | undefined,
     maxResults?: number | undefined,
-    direction?: components.Direction | undefined,
+    direction?: components.DirectionEnum | undefined,
     options?: RequestOptions,
   ): Promise<components.ListResponse> {
     return unwrapAsync(assetsListResourcesByModerationKindAndStatus(
@@ -412,7 +441,7 @@ export class Assets extends ClientSDK {
    * Restores one or more resources from backup using their asset IDs. Can optionally specify versions to restore.
    */
   async restoreResourcesByAssetIDs(
-    request: operations.RestoreResourcesByAssetIDsRequest,
+    request: components.RestoreRequest,
     options?: RequestOptions,
   ): Promise<{ [k: string]: components.RestoreResponseUnion }> {
     return unwrapAsync(assetsRestoreResourcesByAssetIDs(
@@ -430,7 +459,7 @@ export class Assets extends ClientSDK {
    */
   async deleteResourcesByPublicId(
     resourceType: components.ResourceType,
-    type: components.ExtendedStorageType,
+    type: components.DeliveryTypeAllEnum,
     deleteResourceByPublicIdsRequest:
       components.DeleteResourceByPublicIdsRequestUnion,
     options?: RequestOptions,
@@ -452,7 +481,7 @@ export class Assets extends ClientSDK {
    */
   async getResourceByPublicId(
     resourceType: components.ResourceType,
-    type: components.ExtendedStorageType,
+    type: components.DeliveryTypeAllEnum,
     publicId: string,
     colors?: boolean | undefined,
     mediaMetadata?: boolean | undefined,
@@ -495,7 +524,7 @@ export class Assets extends ClientSDK {
    */
   async updateResourceByPublicId(
     resourceType: components.ResourceType,
-    type: components.ExtendedStorageType,
+    type: components.DeliveryTypeAllEnum,
     publicId: string,
     resourceUpdateRequest: components.ResourceUpdateRequest,
     options?: RequestOptions,
@@ -553,7 +582,7 @@ export class Assets extends ClientSDK {
    * Updates an existing asset's metadata, tags, and other attributes using its asset ID
    *
    * @remarks
-   * Updates one or more attributes of a specified resource (asset) by its asset ID. This enables you to update details of an asset by its unique and immutable identifier, regardless of public ID, display name, asset folder, resource type or deliver type. Note that you can also update many attributes of an existing asset using the explicit method, which is not rate-limited.
+   * Updates one or more attributes of a specified resource (asset) by its asset ID. This enables you to update details of an asset by its unique and immutable identifier, regardless of public ID, display name, asset folder, resource type or delivery type. Note that you can also update attributes of an existing asset using the explicit API endpoint.
    */
   async updateResourceByAssetId(
     assetId: string,
@@ -582,7 +611,7 @@ export class Assets extends ClientSDK {
     nextCursor?: string | undefined,
     maxResults?: number | undefined,
     options?: RequestOptions,
-  ): Promise<operations.ListResourceTagsResponse> {
+  ): Promise<components.TagsListResponse> {
     return unwrapAsync(assetsListResourceTags(
       this,
       resourceType,
@@ -602,13 +631,13 @@ export class Assets extends ClientSDK {
    */
   async deleteBackupVersions(
     assetId: string,
-    requestBody: operations.DeleteBackupVersionsRequestBody,
+    deleteBackupVersionsRequest: components.DeleteBackupVersionsRequest,
     options?: RequestOptions,
   ): Promise<operations.DeleteBackupVersionsResponse> {
     return unwrapAsync(assetsDeleteBackupVersions(
       this,
       assetId,
-      requestBody,
+      deleteBackupVersionsRequest,
       options,
     ));
   }
@@ -626,6 +655,82 @@ export class Assets extends ClientSDK {
     return unwrapAsync(assetsDerivedDestroy(
       this,
       request,
+      options,
+    ));
+  }
+
+  /**
+   * Invalidate derived assets by delivery URLs
+   *
+   * @remarks
+   * Deletes and invalidates the cached derived assets that back the specified delivery URLs.
+   */
+  async invalidateDerivedByUrls(
+    request: components.InvalidateByUrlsRequest,
+    options?: RequestOptions,
+  ): Promise<components.InvalidateByUrlsResponse> {
+    return unwrapAsync(assetsInvalidateDerivedByUrls(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Get the details of a single asset by body parameters
+   *
+   * @remarks
+   * Returns the details of a single asset identified by its public ID, delivery type, and resource type passed in the request body.
+   */
+  async getResourceByBody(
+    request: components.ResourceGetByBodyRequest,
+    options?: RequestOptions,
+  ): Promise<components.ResourceInternalResponse> {
+    return unwrapAsync(assetsGetResourceByBody(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update the details of a single asset by body parameters
+   *
+   * @remarks
+   * Updates the details of an existing asset (such as tags, contextual metadata, structured metadata, and moderation status) identified by its public ID, delivery type, and resource type passed in the request body.
+   */
+  async updateResourceByBody(
+    request: components.ResourceUpdateByBodyRequest,
+    options?: RequestOptions,
+  ): Promise<components.ResourceInternalResponse> {
+    return unwrapAsync(assetsUpdateResourceByBody(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * List the assets in a folder by container ID
+   *
+   * @remarks
+   * Returns the assets contained in the folder identified by the given container ID.
+   */
+  async listResourcesByContainerId(
+    containerId: string,
+    maxResults?: number | undefined,
+    nextCursor?: string | undefined,
+    sortBy?: string | undefined,
+    fields?: string | undefined,
+    options?: RequestOptions,
+  ): Promise<components.ResourcesByContainerIdResponse> {
+    return unwrapAsync(assetsListResourcesByContainerId(
+      this,
+      containerId,
+      maxResults,
+      nextCursor,
+      sortBy,
+      fields,
       options,
     ));
   }
