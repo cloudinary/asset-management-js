@@ -14,7 +14,7 @@ dotenv.config();
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -24,15 +24,15 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 });
 
 async function main() {
-  const result = await cloudinaryAssetMgmt.upload("auto", {
-    headers: "X-Robots-Tag: noindex",
+  const result = await cloudinaryAssetMgmt.upload.upload("auto", {
+    autoTagging: 0.5,
+    backgroundRemoval: "pixelz",
+    detection: "coco_v2",
+    format: "jpg",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
-    backgroundRemoval: "pixelz",
-    format: "jpg",
     allowedFormats: "mp4,ogv,jpg,png,pdf",
-    autoTagging: 0.5,
-    detection: "coco_v2",
+    headers: "X-Robots-Tag: noindex",
     file: "", // Populate with string from file, for example example.file,
   });
 
