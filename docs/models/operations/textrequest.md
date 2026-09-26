@@ -7,7 +7,7 @@ import { TextRequest } from "@cloudinary/asset-management/models/operations";
 
 let value: TextRequest = {
   resourceType: "image",
-  requestBody: {
+  textRequest: {
     text: "<value>",
   },
 };
@@ -18,4 +18,4 @@ let value: TextRequest = {
 | Field                                                                      | Type                                                                       | Required                                                                   | Description                                                                |
 | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | `resourceType`                                                             | [operations.TextResourceType](../../models/operations/textresourcetype.md) | :heavy_check_mark:                                                         | The type of resource to create. Must be "image" for text generation.       |
-| `requestBody`                                                              | [operations.TextRequestBody](../../models/operations/textrequestbody.md)   | :heavy_check_mark:                                                         | N/A                                                                        |
+| `textRequest`                                                              | [components.TextRequest](../../models/components/textrequest.md)           | :heavy_check_mark:                                                         | The text content and styling parameters for image generation.              |
