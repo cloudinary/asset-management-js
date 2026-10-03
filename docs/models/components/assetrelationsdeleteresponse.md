@@ -10,9 +10,15 @@ let value: AssetRelationsDeleteResponse = {
   success: [
     {
       message: "success",
+      code: "success_ids",
+      asset: "fd19f6964b9d377b7ac39752f03d7596",
+      status: 200,
     },
     {
       message: "success",
+      code: "success_ids",
+      asset: "b7dcc099f53ea9b2e9eb602634fc0fc7",
+      status: 200,
     },
   ],
 };

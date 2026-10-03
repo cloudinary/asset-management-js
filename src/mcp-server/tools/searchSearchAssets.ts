@@ -17,9 +17,9 @@ export const tool$searchSearchAssets: ToolDefinition<typeof args> = {
 
 Returns a list of resources matching the specified search criteria.
 
-Uses Lucene-like query language to search by descriptive attributes (public_id, filename, folder, tags, context), file details (resource_type, format, bytes, width, height), embedded data (image_metadata), and analyzed data (face_count, colors, quality_score). Supports aggregate counts and complex Boolean expressions.
+Uses a Lucene-like query language to filter assets by descriptive attributes (\`public_id\`, \`asset_id\`, \`filename\`, \`display_name\`, \`folder\` / \`asset_folder\`, \`tags\`, \`context.<key>\`), file details (\`resource_type\`, \`type\`, \`format\`, \`bytes\`, \`width\`, \`height\`, \`duration\`, \`pages\`, \`aspect_ratio\`, \`transparent\`, \`grayscale\`), lifecycle dates (\`uploaded_at\`, \`created_at\`, \`taken_at\`, \`updated_at\`, \`last_updated.<kind>\`), moderation and lifecycle state (\`status\`, \`moderation_status\`, \`moderation_kind\`), embedded data (\`image_metadata.*\`), structured metadata (\`metadata.<external_id>\`), and analysis fields (\`face_count\`, \`colors\`, \`quality_score\`, \`illustration_score\`, \`accessibility_analysis.*\`). Supports sorting, aggregate counts, and complex boolean expressions.
 
-Examples: tags:shirt AND uploaded_at>1d, resource_type:image AND bytes>1mb, folder:products OR context.category:electronics
+Examples: \`tags:shirt AND uploaded_at>1d\`, \`resource_type:image AND bytes>1000000\`, \`folder:products OR context.category:electronics\`. See the [search expressions guide](https://cloudinary.com/documentation/search_expressions.md) for the full syntax and field reference.
 `,
   scopes: ["librarian"],
   args,

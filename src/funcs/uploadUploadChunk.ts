@@ -4,6 +4,7 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -39,13 +40,26 @@ export enum UploadChunkAcceptEnum {
  * large files with the ability to resume interrupted uploads. Each request uploads one chunk of the file.
  * It is required for any files that are larger than 100 MB. This is often relevant for video files, as they
  * tend to have larger file sizes. Minimum chunk size is 5 MB.
+ *
+ * The `file` field accepts either the chunk bytes (multipart) or an HTTP/HTTPS URL. When a URL is supplied,
+ * Cloudinary downloads it and validates the response `Content-Length` against the chunk-size contract
+ * (exact match in the uniform-size flow; within 5 MB floor and 5 GiB cap in explicit-order mode) before
+ * storing any bytes. A mismatch aborts with 400 and persists no state. The remote server must return a
+ * `Content-Length` header; chunked transfer-encoded responses are rejected.
+ *
+ * **Explicit-order totals** (`X-Upload-Part-Number`): `X-Upload-Total-Parts` may be omitted on non-terminal
+ * chunks until the session total *N* is established by any earlier chunk that sent the header. After *N* is
+ * known, the chunk for part index *N* must include `X-Upload-Total-Parts: N`. Whenever the header appears,
+ * its value must be the same integer *N* for that `X-Unique-Upload-Id` (no conflicting totals).
  */
 export function uploadUploadChunk(
   client: CloudinaryAssetMgmtCore,
   resourceType: components.UploadResourceType | undefined,
-  contentRange: string,
   xUniqueUploadId: string,
   uploadRequest: components.UploadRequest,
+  contentRange?: string | undefined,
+  xUploadPartNumber?: number | undefined,
+  xUploadTotalParts?: number | undefined,
   options?: RequestOptions & { acceptHeaderOverride?: UploadChunkAcceptEnum },
 ): APIPromise<
   Result<
@@ -64,9 +78,11 @@ export function uploadUploadChunk(
   return new APIPromise($do(
     client,
     resourceType,
-    contentRange,
     xUniqueUploadId,
     uploadRequest,
+    contentRange,
+    xUploadPartNumber,
+    xUploadTotalParts,
     options,
   ));
 }
@@ -74,9 +90,11 @@ export function uploadUploadChunk(
 async function $do(
   client: CloudinaryAssetMgmtCore,
   resourceType: components.UploadResourceType | undefined,
-  contentRange: string,
   xUniqueUploadId: string,
   uploadRequest: components.UploadRequest,
+  contentRange?: string | undefined,
+  xUploadPartNumber?: number | undefined,
+  xUploadTotalParts?: number | undefined,
   options?: RequestOptions & { acceptHeaderOverride?: UploadChunkAcceptEnum },
 ): Promise<
   [
@@ -97,9 +115,11 @@ async function $do(
 > {
   const input: operations.UploadChunkRequest = {
     resourceType: resourceType,
-    contentRange: contentRange,
     xUniqueUploadId: xUniqueUploadId,
     uploadRequest: uploadRequest,
+    contentRange: contentRange,
+    xUploadPartNumber: xUploadPartNumber,
+    xUploadTotalParts: xUploadTotalParts,
   };
 
   const parsed = safeParse(
@@ -123,7 +143,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v1_1/{cloud_name}/{resource_type}/upload_chunked")(
     pathParams,
   );
@@ -141,6 +160,16 @@ async function $do(
       payload["X-Unique-Upload-Id"],
       { explode: false, charEncoding: "none" },
     ),
+    "X-Upload-Part-Number": encodeSimple(
+      "X-Upload-Part-Number",
+      payload["X-Upload-Part-Number"],
+      { explode: false, charEncoding: "none" },
+    ),
+    "X-Upload-Total-Parts": encodeSimple(
+      "X-Upload-Total-Parts",
+      payload["X-Upload-Total-Parts"],
+      { explode: false, charEncoding: "none" },
+    ),
   }));
 
   const securityInput = await extractSecurity(client._options.security);
@@ -150,7 +179,7 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "uploadChunk",
-    oAuth2Scopes: [],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 
@@ -178,7 +207,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "403", "4XX", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });

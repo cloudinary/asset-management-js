@@ -8,7 +8,6 @@ import { assetRelationsDeleteAssetRelationsByAssetId } from "../funcs/assetRelat
 import { assetRelationsDeleteAssetRelationsByPublicId } from "../funcs/assetRelationsDeleteAssetRelationsByPublicId.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as components from "../models/components/index.js";
-import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class AssetRelations extends ClientSDK {
@@ -16,17 +15,17 @@ export class AssetRelations extends ClientSDK {
    * Add related assets by asset ID
    *
    * @remarks
-   * Relates an asset to other assets by their asset IDs, an immutable identifier, regardless of public ID, display name, asset folder, resource type or deliver type. This is a bidirectional process, meaning that the asset will also be added as a related_asset to all the other assets specified. The relation is also a one to many relationship, where the asset is related to all the assets specified, but those assets aren't also related to each other.
+   * Relates an asset to other assets by their asset IDs, an immutable identifier, regardless of public ID, display name, asset folder, resource type or delivery type. This is a bidirectional process, meaning that the asset will also be added as a related_asset to all the other assets specified. The relation is also a one to many relationship, where the asset is related to all the assets specified, but those assets aren't also related to each other.
    */
   async createAssetRelationsByAssetId(
     assetId: string,
-    requestBody: operations.CreateAssetRelationsByAssetIdRequestBody,
+    relateAssetsByAssetIdRequest: components.RelateAssetsByAssetIdRequest,
     options?: RequestOptions,
   ): Promise<components.AssetRelationsResponse> {
     return unwrapAsync(assetRelationsCreateAssetRelationsByAssetId(
       this,
       assetId,
-      requestBody,
+      relateAssetsByAssetIdRequest,
       options,
     ));
   }
@@ -35,17 +34,17 @@ export class AssetRelations extends ClientSDK {
    * Delete asset relations by asset ID
    *
    * @remarks
-   * Unrelates the asset from other assets, specified by their asset IDs, an immutable identifier, regardless of public ID, display name, asset folder, resource type or deliver type. This is a bidirectional process, meaning that the asset will also be removed as a related_asset from all the other assets specified.
+   * Unrelates the asset from other assets, specified by their asset IDs, an immutable identifier, regardless of public ID, display name, asset folder, resource type or delivery type. This is a bidirectional process, meaning that the asset will also be removed as a related_asset from all the other assets specified.
    */
   async deleteAssetRelationsByAssetId(
     assetId: string,
-    requestBody: operations.DeleteAssetRelationsByAssetIdRequestBody,
+    unrelateAssetsByAssetIdRequest: components.UnrelateAssetsByAssetIdRequest,
     options?: RequestOptions,
   ): Promise<components.AssetRelationsDeleteResponse> {
     return unwrapAsync(assetRelationsDeleteAssetRelationsByAssetId(
       this,
       assetId,
-      requestBody,
+      unrelateAssetsByAssetIdRequest,
       options,
     ));
   }
@@ -58,9 +57,9 @@ export class AssetRelations extends ClientSDK {
    */
   async createAssetRelationsByPublicId(
     resourceType: components.ResourceType,
-    type: components.StorageTypeParameter | undefined,
+    type: components.DeliveryType | undefined,
     publicId: string,
-    requestBody: operations.CreateAssetRelationsByPublicIdRequestBody,
+    relateAssetsByPublicIdRequest: components.RelateAssetsByPublicIdRequest,
     options?: RequestOptions,
   ): Promise<components.AssetRelationsResponse> {
     return unwrapAsync(assetRelationsCreateAssetRelationsByPublicId(
@@ -68,7 +67,7 @@ export class AssetRelations extends ClientSDK {
       resourceType,
       type,
       publicId,
-      requestBody,
+      relateAssetsByPublicIdRequest,
       options,
     ));
   }
@@ -81,9 +80,9 @@ export class AssetRelations extends ClientSDK {
    */
   async deleteAssetRelationsByPublicId(
     resourceType: components.ResourceType,
-    type: components.StorageTypeParameter | undefined,
+    type: components.DeliveryType | undefined,
     publicId: string,
-    requestBody: operations.DeleteAssetRelationsByPublicIdRequestBody,
+    unrelateAssetsByPublicIdRequest: components.UnrelateAssetsByPublicIdRequest,
     options?: RequestOptions,
   ): Promise<components.AssetRelationsDeleteResponse> {
     return unwrapAsync(assetRelationsDeleteAssetRelationsByPublicId(
@@ -91,7 +90,7 @@ export class AssetRelations extends ClientSDK {
       resourceType,
       type,
       publicId,
-      requestBody,
+      unrelateAssetsByPublicIdRequest,
       options,
     ));
   }
