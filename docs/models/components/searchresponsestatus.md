@@ -13,5 +13,5 @@ let value: SearchResponseStatus = "active";
 ## Values
 
 ```typescript
-"active" | "inactive"
+"active" | "inactive" | "deleted" | "pending"
 ```

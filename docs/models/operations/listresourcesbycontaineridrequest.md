@@ -1,0 +1,21 @@
+# ListResourcesByContainerIdRequest
+
+## Example Usage
+
+```typescript
+import { ListResourcesByContainerIdRequest } from "@cloudinary/asset-management/models/operations";
+
+let value: ListResourcesByContainerIdRequest = {
+  containerId: "cd7e9d690a014c68ae8b58f08e090cb03a",
+};
+```
+
+## Fields
+
+| Field                                                                                                          | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    | Example                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `containerId`                                                                                                  | *string*                                                                                                       | :heavy_check_mark:                                                                                             | The immutable identifier of the folder container whose assets are listed.                                      | cd7e9d690a014c68ae8b58f08e090cb03a                                                                             |
+| `maxResults`                                                                                                   | *number*                                                                                                       | :heavy_minus_sign:                                                                                             | The maximum number of results to return. Default is 10.                                                        |                                                                                                                |
+| `nextCursor`                                                                                                   | *string*                                                                                                       | :heavy_minus_sign:                                                                                             | The cursor for pagination. Use the next_cursor value from a previous response to get the next page of results. |                                                                                                                |
+| `sortBy`                                                                                                       | *string*                                                                                                       | :heavy_minus_sign:                                                                                             | The field by which the assets are sorted. Default is "uploaded_at".                                            |                                                                                                                |
+| `fields`                                                                                                       | *string*                                                                                                       | :heavy_minus_sign:                                                                                             | A comma-separated list of asset fields to include in each returned asset.                                      |                                                                                                                |

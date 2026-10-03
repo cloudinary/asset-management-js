@@ -11,13 +11,13 @@ let value: AssetRelationsResponse = {
     {
       message: "success",
       code: "success_ids",
-      asset: "f12345a5c789c",
+      asset: "fd19f6964b9d377b7ac39752f03d7596",
       status: 200,
     },
     {
       message: "success",
       code: "success_ids",
-      asset: "bbb0efc00c0f12",
+      asset: "b7dcc099f53ea9b2e9eb602634fc0fc7",
       status: 200,
     },
   ],
