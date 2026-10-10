@@ -3,7 +3,8 @@
  */
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
-import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -32,12 +33,11 @@ import { Result } from "../types/fp.js";
 export function uploadDestroyAsset(
   client: CloudinaryAssetMgmtCore,
   resourceType: components.ResourceType,
-  publicId: string,
-  invalidate?: boolean | undefined,
+  requestBody: operations.DestroyAssetRequestBody,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.DestroyAssetResponse,
+    components.DestroyResponse,
     | errors.ApiError
     | CloudinaryAssetMgmtError
     | ResponseValidationError
@@ -52,8 +52,7 @@ export function uploadDestroyAsset(
   return new APIPromise($do(
     client,
     resourceType,
-    publicId,
-    invalidate,
+    requestBody,
     options,
   ));
 }
@@ -61,13 +60,12 @@ export function uploadDestroyAsset(
 async function $do(
   client: CloudinaryAssetMgmtCore,
   resourceType: components.ResourceType,
-  publicId: string,
-  invalidate?: boolean | undefined,
+  requestBody: operations.DestroyAssetRequestBody,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.DestroyAssetResponse,
+      components.DestroyResponse,
       | errors.ApiError
       | CloudinaryAssetMgmtError
       | ResponseValidationError
@@ -83,8 +81,7 @@ async function $do(
 > {
   const input: operations.DestroyAssetRequest = {
     resourceType: resourceType,
-    publicId: publicId,
-    invalidate: invalidate,
+    requestBody: requestBody,
   };
 
   const parsed = safeParse(
@@ -96,7 +93,7 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = null;
+  const body = encodeJSON("body", payload.RequestBody, { explode: true });
 
   const pathParams = {
     cloud_name: encodeSimple("cloud_name", client._options.cloudName, {
@@ -108,17 +105,12 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v1_1/{cloud_name}/{resource_type}/destroy")(
     pathParams,
   );
 
-  const query = encodeFormQuery({
-    "invalidate": payload.invalidate,
-    "public_id": payload.public_id,
-  });
-
   const headers = new Headers(compactMap({
+    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -129,7 +121,7 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "destroyAsset",
-    oAuth2Scopes: [],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 
@@ -146,7 +138,6 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
-    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
@@ -158,7 +149,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "403", "404", "4XX", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -172,7 +164,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.DestroyAssetResponse,
+    components.DestroyResponse,
     | errors.ApiError
     | CloudinaryAssetMgmtError
     | ResponseValidationError
@@ -183,7 +175,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.DestroyAssetResponse$inboundSchema),
+    M.json(200, components.DestroyResponse$inboundSchema),
     M.jsonErr([400, 401, 403, 404], errors.ApiError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

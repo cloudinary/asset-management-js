@@ -4,6 +4,7 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -35,9 +36,9 @@ import { Result } from "../types/fp.js";
 export function assetRelationsCreateAssetRelationsByPublicId(
   client: CloudinaryAssetMgmtCore,
   resourceType: components.ResourceType,
-  type: components.StorageTypeParameter | undefined,
+  type: components.DeliveryType | undefined,
   publicId: string,
-  requestBody: operations.CreateAssetRelationsByPublicIdRequestBody,
+  relateAssetsByPublicIdRequest: components.RelateAssetsByPublicIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -58,7 +59,7 @@ export function assetRelationsCreateAssetRelationsByPublicId(
     resourceType,
     type,
     publicId,
-    requestBody,
+    relateAssetsByPublicIdRequest,
     options,
   ));
 }
@@ -66,9 +67,9 @@ export function assetRelationsCreateAssetRelationsByPublicId(
 async function $do(
   client: CloudinaryAssetMgmtCore,
   resourceType: components.ResourceType,
-  type: components.StorageTypeParameter | undefined,
+  type: components.DeliveryType | undefined,
   publicId: string,
-  requestBody: operations.CreateAssetRelationsByPublicIdRequestBody,
+  relateAssetsByPublicIdRequest: components.RelateAssetsByPublicIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -91,7 +92,7 @@ async function $do(
     resourceType: resourceType,
     type: type,
     publicId: publicId,
-    requestBody: requestBody,
+    relateAssetsByPublicIdRequest: relateAssetsByPublicIdRequest,
   };
 
   const parsed = safeParse(
@@ -106,7 +107,9 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.RequestBody, { explode: true });
+  const body = encodeJSON("body", payload.relate_assets_by_public_id_request, {
+    explode: true,
+  });
 
   const pathParams = {
     cloud_name: encodeSimple("cloud_name", client._options.cloudName, {
@@ -126,7 +129,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc(
     "/v1_1/{cloud_name}/resources/related_assets/{resource_type}/{type}/{public_id}",
   )(pathParams);
@@ -143,7 +145,7 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "createAssetRelationsByPublicId",
-    oAuth2Scopes: [],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 
@@ -171,7 +173,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "404", "4XX", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
