@@ -7,15 +7,14 @@ import * as components from "../../models/components/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: components.DestroyRequest$inboundSchema,
+  request: components.DestroyByAssetIdRequest$inboundSchema,
 };
 
 export const tool$assetsDestroyByAssetId: ToolDefinition<typeof args> = {
   name: "delete-asset",
-  description: `Delete asset by asset-id
+  description: `Delete asset by asset ID
 
-Deletes an asset using its asset ID. This endpoint replaces the legacy /resources/by_asset_id endpoint.
-Returns the deletion status and asset folder information when folder decoupling is enabled.
+Deletes an asset using its immutable asset ID.
 `,
   scopes: ["admin"],
   args,

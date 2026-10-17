@@ -145,7 +145,7 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -156,14 +156,14 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 
 async function run() {
   const result = await cloudinaryAssetMgmt.upload.upload("auto", {
-    headers: "X-Robots-Tag: noindex",
+    autoTagging: 0.5,
+    backgroundRemoval: "pixelz",
+    detection: "coco_v2",
+    format: "jpg",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
-    backgroundRemoval: "pixelz",
-    format: "jpg",
     allowedFormats: "mp4,ogv,jpg,png,pdf",
-    autoTagging: 0.5,
-    detection: "coco_v2",
+    headers: "X-Robots-Tag: noindex",
     file: "", // Populate with string from file, for example example.file,
   });
 
@@ -180,7 +180,7 @@ run();
 
 A parameter is configured globally. This parameter may be set on the SDK client instance itself during initialization. When configured as an option during SDK initialization, This global value will be used as the default on the operations that use it. When such operations are called, there is a place in each to override the global value, if needed.
 
-For example, you can set `cloud_name` to `"<value>"` at SDK initialization and then you do not have to pass the same value on calls to operations like `upload`. But if you want to do so you may, which will locally override the global setting. See the example code below for a demonstration.
+For example, you can set `cloud_name` to `"my_cloud"` at SDK initialization and then you do not have to pass the same value on calls to operations like `upload`. But if you want to do so you may, which will locally override the global setting. See the example code below for a demonstration.
 
 
 ### Available Globals
@@ -198,7 +198,7 @@ Global parameters can also be set via environment variable.
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -209,14 +209,14 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 
 async function run() {
   const result = await cloudinaryAssetMgmt.upload.upload("auto", {
-    headers: "X-Robots-Tag: noindex",
+    autoTagging: 0.5,
+    backgroundRemoval: "pixelz",
+    detection: "coco_v2",
+    format: "jpg",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
-    backgroundRemoval: "pixelz",
-    format: "jpg",
     allowedFormats: "mp4,ogv,jpg,png,pdf",
-    autoTagging: 0.5,
-    detection: "coco_v2",
+    headers: "X-Robots-Tag: noindex",
     file: "", // Populate with string from file, for example example.file,
   });
 
@@ -251,19 +251,19 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
       apiSecret: "CLOUDINARY_API_SECRET",
     },
   },
-  cloudName: "<value>",
+  cloudName: "my_cloud",
 });
 
 async function run() {
   const result = await cloudinaryAssetMgmt.upload.upload("auto", {
-    headers: "X-Robots-Tag: noindex",
+    autoTagging: 0.5,
+    backgroundRemoval: "pixelz",
+    detection: "coco_v2",
+    format: "jpg",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
-    backgroundRemoval: "pixelz",
-    format: "jpg",
     allowedFormats: "mp4,ogv,jpg,png,pdf",
-    autoTagging: 0.5,
-    detection: "coco_v2",
+    headers: "X-Robots-Tag: noindex",
     file: "", // Populate with string from file, for example example.file,
   });
 
@@ -281,21 +281,28 @@ run();
 <details open>
 <summary>Available methods</summary>
 
-### [assetRelations](docs/sdks/assetrelations/README.md)
+### [AssetMetadata](docs/sdks/assetmetadata/README.md)
+
+* [updateAssetsTags](docs/sdks/assetmetadata/README.md#updateassetstags) - Adds, removes, or replaces tags on multiple assets
+* [updateAssetsContext](docs/sdks/assetmetadata/README.md#updateassetscontext) - Adds or clears contextual metadata on multiple assets
+* [updateAssetsMetadata](docs/sdks/assetmetadata/README.md#updateassetsmetadata) - Sets structured metadata values on multiple assets
+
+### [AssetRelations](docs/sdks/assetrelations/README.md)
 
 * [createAssetRelationsByAssetId](docs/sdks/assetrelations/README.md#createassetrelationsbyassetid) - Add related assets by asset ID
 * [deleteAssetRelationsByAssetId](docs/sdks/assetrelations/README.md#deleteassetrelationsbyassetid) - Delete asset relations by asset ID
 * [createAssetRelationsByPublicId](docs/sdks/assetrelations/README.md#createassetrelationsbypublicid) - Create asset relations by public ID
 * [deleteAssetRelationsByPublicId](docs/sdks/assetrelations/README.md#deleteassetrelationsbypublicid) - Delete asset relations by public ID
 
-### [assets](docs/sdks/assets/README.md)
+### [Assets](docs/sdks/assets/README.md)
 
 * [renameAsset](docs/sdks/assets/README.md#renameasset) - Updates an existing asset's identifier (public ID) and optionally other metadata in your Cloudinary account
 * [downloadAsset](docs/sdks/assets/README.md#downloadasset) - Generates a download link for a specific asset (image)
 * [explicitAsset](docs/sdks/assets/README.md#explicitasset) - Apply operations on an existing asset
 * [generateArchive](docs/sdks/assets/README.md#generatearchive) - Creates an archive (ZIP or TGZ file) that contains a set of assets from your product environment.
 * [downloadBackupAsset](docs/sdks/assets/README.md#downloadbackupasset) - Download a backup copy of an asset
-* [destroyByAssetId](docs/sdks/assets/README.md#destroybyassetid) - Delete asset by asset-id
+* [destroyByAssetId](docs/sdks/assets/README.md#destroybyassetid) - Delete asset by asset ID
+* [downloadAssetByAssetId](docs/sdks/assets/README.md#downloadassetbyassetid) - Download an asset by asset ID
 * [listResourceTypes](docs/sdks/assets/README.md#listresourcetypes) - Get resource types
 * [listImages](docs/sdks/assets/README.md#listimages) - Get image assets
 * [listVideos](docs/sdks/assets/README.md#listvideos) - Get video assets
@@ -313,17 +320,20 @@ run();
 * [listResourceTags](docs/sdks/assets/README.md#listresourcetags) - Retrieves a list of tags currently applied to assets in your Cloudinary account
 * [deleteBackupVersions](docs/sdks/assets/README.md#deletebackupversions) - Delete backed up versions
 * [derivedDestroy](docs/sdks/assets/README.md#deriveddestroy) - Delete derived resources
+* [invalidateDerivedByUrls](docs/sdks/assets/README.md#invalidatederivedbyurls) - Invalidate derived assets by delivery URLs
+* [getResourceByBody](docs/sdks/assets/README.md#getresourcebybody) - Get the details of a single asset by body parameters
+* [updateResourceByBody](docs/sdks/assets/README.md#updateresourcebybody) - Update the details of a single asset by body parameters
+* [listResourcesByContainerId](docs/sdks/assets/README.md#listresourcesbycontainerid) - List the assets in a folder by container ID
 
-### [backups](docs/sdks/backups/README.md)
+### [Backups](docs/sdks/backups/README.md)
 
 * [deleteBackupVersions](docs/sdks/backups/README.md#deletebackupversions) - Delete backed up versions
 
-
-### [explode](docs/sdks/explode/README.md)
+### [Explode](docs/sdks/explode/README.md)
 
 * [explodeResource](docs/sdks/explode/README.md#exploderesource) - Create derived images from multi-page file
 
-### [folders](docs/sdks/folders/README.md)
+### [Folders](docs/sdks/folders/README.md)
 
 * [showFolder](docs/sdks/folders/README.md#showfolder) - List sub-folders
 * [updateFolder](docs/sdks/folders/README.md#updatefolder) - Renames or moves an entire folder (along with all assets it contains) to a new location
@@ -332,33 +342,63 @@ run();
 * [listRootFolders](docs/sdks/folders/README.md#listrootfolders) - Get root folders
 * [searchFolders](docs/sdks/folders/README.md#searchfolders) - Searches for folders whose attributes match a given expression
 * [searchFoldersPost](docs/sdks/folders/README.md#searchfolderspost) - Searches for folders in your product environment
+* [getFolderRoles](docs/sdks/folders/README.md#getfolderroles) - Get folder roles
+* [assignFolderRoles](docs/sdks/folders/README.md#assignfolderroles) - Assign folder roles
+* [renameFolderOperation](docs/sdks/folders/README.md#renamefolderoperation) - Rename or move a folder
+* [getFolderById](docs/sdks/folders/README.md#getfolderbyid) - Get a folder by its identifier
+* [getFolderByPath](docs/sdks/folders/README.md#getfolderbypath) - Get a folder by its path
+* [getFolderDescendants](docs/sdks/folders/README.md#getfolderdescendants) - Get the descendants of a folder
 
-### [moderations](docs/sdks/moderations/README.md)
+### [Generation](docs/sdks/generation/README.md)
+
+* [generateImage](docs/sdks/generation/README.md#generateimage) - Generate an image
+* [generateImageFromImages](docs/sdks/generation/README.md#generateimagefromimages) - Generate an image from reference images
+
+### [InitialBackup](docs/sdks/initialbackup/README.md)
+
+* [createInitialBackup](docs/sdks/initialbackup/README.md#createinitialbackup) - Create initial backup
+* [listInitialBackups](docs/sdks/initialbackup/README.md#listinitialbackups) - List initial backups
+* [getInitialBackup](docs/sdks/initialbackup/README.md#getinitialbackup) - Get initial backup
+
+### [Moderations](docs/sdks/moderations/README.md)
 
 * [listResourcesByModerationKindAndStatus](docs/sdks/moderations/README.md#listresourcesbymoderationkindandstatus) - Get resources by moderation kind and status
 
-### [search](docs/sdks/search/README.md)
+### [People](docs/sdks/people/README.md)
+
+* [listPeople](docs/sdks/people/README.md#listpeople) - List recognized people
+* [getPerson](docs/sdks/people/README.md#getperson) - Get person details
+* [updatePerson](docs/sdks/people/README.md#updateperson) - Update a person
+* [inspectPeoplePermissions](docs/sdks/people/README.md#inspectpeoplepermissions) - Inspect the caller's permitted actions on people
+
+### [Search](docs/sdks/search/README.md)
 
 * [searchAssets](docs/sdks/search/README.md#searchassets) - Provides a powerful query interface to filter and retrieve assets and their details
 * [visualSearchAssets](docs/sdks/search/README.md#visualsearchassets) - Finds images in your asset library based on visual similarity or content
 
-### [tags](docs/sdks/tags/README.md)
+### [Tags](docs/sdks/tags/README.md)
 
 * [listResourceTags](docs/sdks/tags/README.md#listresourcetags) - Retrieves a list of tags currently applied to assets in your Cloudinary account
 
-### [upload](docs/sdks/upload/README.md)
+### [Tasks](docs/sdks/tasks/README.md)
+
+* [getGenerationTaskStatus](docs/sdks/tasks/README.md#getgenerationtaskstatus) - Get a generation task
+
+### [Upload](docs/sdks/upload/README.md)
 
 * [upload](docs/sdks/upload/README.md#upload) - Uploads media assets (images, videos, raw files) to your Cloudinary product environment
 * [uploadNoResourceType](docs/sdks/upload/README.md#uploadnoresourcetype) - Upload with automatic file type detection
 * [uploadChunk](docs/sdks/upload/README.md#uploadchunk) - Upload a single chunk of a large file
 * [destroyAsset](docs/sdks/upload/README.md#destroyasset) - Destroys an asset/resource
 * [text](docs/sdks/upload/README.md#text) - Create image from text
+* [concat](docs/sdks/upload/README.md#concat) - Concatenate ordered video segments into a single MP4 asset
+* [evalUploadParams](docs/sdks/upload/README.md#evaluploadparams) - Evaluate a dynamic upload-parameter expression
 
-### [usage](docs/sdks/usage/README.md)
+### [Usage](docs/sdks/usage/README.md)
 
 * [getUsage](docs/sdks/usage/README.md#getusage) - Retrieves comprehensive usage metrics and account statistics
 
-### [videoAnalytics](docs/sdks/videoanalytics/README.md)
+### [VideoAnalytics](docs/sdks/videoanalytics/README.md)
 
 * [getVideoViews](docs/sdks/videoanalytics/README.md#getvideoviews) - Get video views
 
@@ -380,6 +420,9 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
+- [`assetMetadataUpdateAssetsContext`](docs/sdks/assetmetadata/README.md#updateassetscontext) - Adds or clears contextual metadata on multiple assets
+- [`assetMetadataUpdateAssetsMetadata`](docs/sdks/assetmetadata/README.md#updateassetsmetadata) - Sets structured metadata values on multiple assets
+- [`assetMetadataUpdateAssetsTags`](docs/sdks/assetmetadata/README.md#updateassetstags) - Adds, removes, or replaces tags on multiple assets
 - [`assetRelationsCreateAssetRelationsByAssetId`](docs/sdks/assetrelations/README.md#createassetrelationsbyassetid) - Add related assets by asset ID
 - [`assetRelationsCreateAssetRelationsByPublicId`](docs/sdks/assetrelations/README.md#createassetrelationsbypublicid) - Create asset relations by public ID
 - [`assetRelationsDeleteAssetRelationsByAssetId`](docs/sdks/assetrelations/README.md#deleteassetrelationsbyassetid) - Delete asset relations by asset ID
@@ -388,17 +431,21 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`assetsDeleteBackupVersions`](docs/sdks/backups/README.md#deletebackupversions) - Delete backed up versions
 - [`assetsDeleteResourcesByPublicId`](docs/sdks/assets/README.md#deleteresourcesbypublicid) - Delete resources by public ID
 - [`assetsDerivedDestroy`](docs/sdks/assets/README.md#deriveddestroy) - Delete derived resources
-- [`assetsDestroyByAssetId`](docs/sdks/assets/README.md#destroybyassetid) - Delete asset by asset-id
+- [`assetsDestroyByAssetId`](docs/sdks/assets/README.md#destroybyassetid) - Delete asset by asset ID
 - [`assetsDownloadAsset`](docs/sdks/assets/README.md#downloadasset) - Generates a download link for a specific asset (image)
+- [`assetsDownloadAssetByAssetId`](docs/sdks/assets/README.md#downloadassetbyassetid) - Download an asset by asset ID
 - [`assetsDownloadBackupAsset`](docs/sdks/assets/README.md#downloadbackupasset) - Download a backup copy of an asset
 - [`assetsExplicitAsset`](docs/sdks/assets/README.md#explicitasset) - Apply operations on an existing asset
 - [`assetsGenerateArchive`](docs/sdks/assets/README.md#generatearchive) - Creates an archive (ZIP or TGZ file) that contains a set of assets from your product environment.
 - [`assetsGetResourceByAssetId`](docs/sdks/assets/README.md#getresourcebyassetid) - Get resource by asset ID
+- [`assetsGetResourceByBody`](docs/sdks/assets/README.md#getresourcebybody) - Get the details of a single asset by body parameters
 - [`assetsGetResourceByPublicId`](docs/sdks/assets/README.md#getresourcebypublicid) - Get resource by public ID
+- [`assetsInvalidateDerivedByUrls`](docs/sdks/assets/README.md#invalidatederivedbyurls) - Invalidate derived assets by delivery URLs
 - [`assetsListImages`](docs/sdks/assets/README.md#listimages) - Get image assets
 - [`assetsListRawFiles`](docs/sdks/assets/README.md#listrawfiles) - Get raw assets
 - [`assetsListResourcesByAssetFolder`](docs/sdks/assets/README.md#listresourcesbyassetfolder) - Get resources by asset folder
 - [`assetsListResourcesByAssetIDs`](docs/sdks/assets/README.md#listresourcesbyassetids) - Get resources by asset IDs
+- [`assetsListResourcesByContainerId`](docs/sdks/assets/README.md#listresourcesbycontainerid) - List the assets in a folder by container ID
 - [`assetsListResourcesByContext`](docs/sdks/assets/README.md#listresourcesbycontext) - Get resources by context
 - [`assetsListResourcesByModerationKindAndStatus`](docs/sdks/assets/README.md#listresourcesbymoderationkindandstatus) - Get resources by moderation kind and status
 - [`assetsListResourcesByModerationKindAndStatus`](docs/sdks/moderations/README.md#listresourcesbymoderationkindandstatus) - Get resources by moderation kind and status
@@ -409,18 +456,37 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`assetsRenameAsset`](docs/sdks/assets/README.md#renameasset) - Updates an existing asset's identifier (public ID) and optionally other metadata in your Cloudinary account
 - [`assetsRestoreResourcesByAssetIDs`](docs/sdks/assets/README.md#restoreresourcesbyassetids) - Restore assets by asset ID
 - [`assetsUpdateResourceByAssetId`](docs/sdks/assets/README.md#updateresourcebyassetid) - Updates an existing asset's metadata, tags, and other attributes using its asset ID
+- [`assetsUpdateResourceByBody`](docs/sdks/assets/README.md#updateresourcebybody) - Update the details of a single asset by body parameters
 - [`assetsUpdateResourceByPublicId`](docs/sdks/assets/README.md#updateresourcebypublicid) - Update asset by public ID
 - [`explodeExplodeResource`](docs/sdks/explode/README.md#exploderesource) - Create derived images from multi-page file
+- [`foldersAssignFolderRoles`](docs/sdks/folders/README.md#assignfolderroles) - Assign folder roles
 - [`foldersCreateFolder`](docs/sdks/folders/README.md#createfolder) - Creates a new empty folder in your Cloudinary media library
 - [`foldersDestroyFolder`](docs/sdks/folders/README.md#destroyfolder) - Deletes an existing folder from your media library
+- [`foldersGetFolderById`](docs/sdks/folders/README.md#getfolderbyid) - Get a folder by its identifier
+- [`foldersGetFolderByPath`](docs/sdks/folders/README.md#getfolderbypath) - Get a folder by its path
+- [`foldersGetFolderDescendants`](docs/sdks/folders/README.md#getfolderdescendants) - Get the descendants of a folder
+- [`foldersGetFolderRoles`](docs/sdks/folders/README.md#getfolderroles) - Get folder roles
 - [`foldersListRootFolders`](docs/sdks/folders/README.md#listrootfolders) - Get root folders
+- [`foldersRenameFolderOperation`](docs/sdks/folders/README.md#renamefolderoperation) - Rename or move a folder
 - [`foldersSearchFolders`](docs/sdks/folders/README.md#searchfolders) - Searches for folders whose attributes match a given expression
 - [`foldersSearchFoldersPost`](docs/sdks/folders/README.md#searchfolderspost) - Searches for folders in your product environment
 - [`foldersShowFolder`](docs/sdks/folders/README.md#showfolder) - List sub-folders
 - [`foldersUpdateFolder`](docs/sdks/folders/README.md#updatefolder) - Renames or moves an entire folder (along with all assets it contains) to a new location
+- [`generationGenerateImage`](docs/sdks/generation/README.md#generateimage) - Generate an image
+- [`generationGenerateImageFromImages`](docs/sdks/generation/README.md#generateimagefromimages) - Generate an image from reference images
+- [`initialBackupCreateInitialBackup`](docs/sdks/initialbackup/README.md#createinitialbackup) - Create initial backup
+- [`initialBackupGetInitialBackup`](docs/sdks/initialbackup/README.md#getinitialbackup) - Get initial backup
+- [`initialBackupListInitialBackups`](docs/sdks/initialbackup/README.md#listinitialbackups) - List initial backups
+- [`peopleGetPerson`](docs/sdks/people/README.md#getperson) - Get person details
+- [`peopleInspectPeoplePermissions`](docs/sdks/people/README.md#inspectpeoplepermissions) - Inspect the caller's permitted actions on people
+- [`peopleListPeople`](docs/sdks/people/README.md#listpeople) - List recognized people
+- [`peopleUpdatePerson`](docs/sdks/people/README.md#updateperson) - Update a person
 - [`searchSearchAssets`](docs/sdks/search/README.md#searchassets) - Provides a powerful query interface to filter and retrieve assets and their details
 - [`searchVisualSearchAssets`](docs/sdks/search/README.md#visualsearchassets) - Finds images in your asset library based on visual similarity or content
+- [`tasksGetGenerationTaskStatus`](docs/sdks/tasks/README.md#getgenerationtaskstatus) - Get a generation task
+- [`uploadConcat`](docs/sdks/upload/README.md#concat) - Concatenate ordered video segments into a single MP4 asset
 - [`uploadDestroyAsset`](docs/sdks/upload/README.md#destroyasset) - Destroys an asset/resource
+- [`uploadEvalUploadParams`](docs/sdks/upload/README.md#evaluploadparams) - Evaluate a dynamic upload-parameter expression
 - [`uploadText`](docs/sdks/upload/README.md#text) - Create image from text
 - [`uploadUpload`](docs/sdks/upload/README.md#upload) - Uploads media assets (images, videos, raw files) to your Cloudinary product environment
 - [`uploadUploadChunk`](docs/sdks/upload/README.md#uploadchunk) - Upload a single chunk of a large file
@@ -441,7 +507,7 @@ To change the default retry strategy for a single API call, simply provide a ret
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -452,14 +518,14 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 
 async function run() {
   const result = await cloudinaryAssetMgmt.upload.upload("auto", {
-    headers: "X-Robots-Tag: noindex",
+    autoTagging: 0.5,
+    backgroundRemoval: "pixelz",
+    detection: "coco_v2",
+    format: "jpg",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
-    backgroundRemoval: "pixelz",
-    format: "jpg",
     allowedFormats: "mp4,ogv,jpg,png,pdf",
-    autoTagging: 0.5,
-    detection: "coco_v2",
+    headers: "X-Robots-Tag: noindex",
     file: "", // Populate with string from file, for example example.file,
   }, {
     retries: {
@@ -496,7 +562,7 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
     },
     retryConnectionErrors: false,
   },
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -507,14 +573,14 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 
 async function run() {
   const result = await cloudinaryAssetMgmt.upload.upload("auto", {
-    headers: "X-Robots-Tag: noindex",
+    autoTagging: 0.5,
+    backgroundRemoval: "pixelz",
+    detection: "coco_v2",
+    format: "jpg",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
-    backgroundRemoval: "pixelz",
-    format: "jpg",
     allowedFormats: "mp4,ogv,jpg,png,pdf",
-    autoTagging: 0.5,
-    detection: "coco_v2",
+    headers: "X-Robots-Tag: noindex",
     file: "", // Populate with string from file, for example example.file,
   });
 
@@ -546,7 +612,7 @@ import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 import * as errors from "@cloudinary/asset-management/models/errors";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -558,14 +624,14 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 async function run() {
   try {
     const result = await cloudinaryAssetMgmt.upload.upload("auto", {
-      headers: "X-Robots-Tag: noindex",
+      autoTagging: 0.5,
+      backgroundRemoval: "pixelz",
+      detection: "coco_v2",
+      format: "jpg",
       moderation: "google_video_moderation",
       rawConvert: "google_speech:vtt:en-US",
-      backgroundRemoval: "pixelz",
-      format: "jpg",
       allowedFormats: "mp4,ogv,jpg,png,pdf",
-      autoTagging: 0.5,
-      detection: "coco_v2",
+      headers: "X-Robots-Tag: noindex",
       file: "", // Populate with string from file, for example example.file,
     });
 
@@ -595,7 +661,7 @@ run();
 * [`CloudinaryAssetMgmtError`](./src/models/errors/cloudinaryassetmgmterror.ts): The base class for HTTP error responses.
   * [`ApiError`](./src/models/errors/apierror.ts): *
 
-<details><summary>Less common errors (10)</summary>
+<details><summary>Less common errors (9)</summary>
 
 <br />
 
@@ -608,10 +674,9 @@ run();
 
 
 **Inherit from [`CloudinaryAssetMgmtError`](./src/models/errors/cloudinaryassetmgmterror.ts)**:
-* [`BadRequestError`](./src/models/errors/badrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 47 methods.*
-* [`DownloadBackupAssetUnauthorizedError`](./src/models/errors/downloadbackupassetunauthorizederror.ts): Authentication failed. Status code `401`. Applicable to 1 of 47 methods.*
-* [`ListResourceTypesUnauthorizedError`](./src/models/errors/listresourcetypesunauthorizederror.ts): Authentication failed. Status code `401`. Applicable to 1 of 47 methods.*
-* [`NotFoundError`](./src/models/errors/notfounderror.ts): Version not found. Status code `404`. Applicable to 1 of 47 methods.*
+* [`ErrorResponse`](./src/models/errors/errorresponse.ts): Wrapper for error responses; includes the error object and a request_id for correlation. Applicable to 3 of 73 methods.*
+* [`RateLimitedResponseError`](./src/models/errors/ratelimitedresponseerror.ts): Rate limited. Status code `429`. Applicable to 3 of 73 methods.*
+* [`UnauthorizedError`](./src/models/errors/unauthorizederror.ts): Authentication failed. Status code `401`. Applicable to 1 of 73 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
@@ -644,9 +709,9 @@ If the selected server has variables, you may override its default values throug
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  serverIdx: 1,
-  host: "nutritious-fisherman.net",
-  cloudName: "<value>",
+  serverIdx: 0,
+  region: "api-ap",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -657,14 +722,14 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 
 async function run() {
   const result = await cloudinaryAssetMgmt.upload.upload("auto", {
-    headers: "X-Robots-Tag: noindex",
+    autoTagging: 0.5,
+    backgroundRemoval: "pixelz",
+    detection: "coco_v2",
+    format: "jpg",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
-    backgroundRemoval: "pixelz",
-    format: "jpg",
     allowedFormats: "mp4,ogv,jpg,png,pdf",
-    autoTagging: 0.5,
-    detection: "coco_v2",
+    headers: "X-Robots-Tag: noindex",
     file: "", // Populate with string from file, for example example.file,
   });
 
@@ -683,7 +748,7 @@ import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
   serverURL: "https://api.cloudinary.com",
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -694,14 +759,14 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 
 async function run() {
   const result = await cloudinaryAssetMgmt.upload.upload("auto", {
-    headers: "X-Robots-Tag: noindex",
+    autoTagging: 0.5,
+    backgroundRemoval: "pixelz",
+    detection: "coco_v2",
+    format: "jpg",
     moderation: "google_video_moderation",
     rawConvert: "google_speech:vtt:en-US",
-    backgroundRemoval: "pixelz",
-    format: "jpg",
     allowedFormats: "mp4,ogv,jpg,png,pdf",
-    autoTagging: 0.5,
-    detection: "coco_v2",
+    headers: "X-Robots-Tag: noindex",
     file: "", // Populate with string from file, for example example.file,
   });
 
@@ -726,19 +791,23 @@ The `HTTPClient` constructor takes an optional `fetcher` argument that can be
 used to integrate a third-party HTTP client or when writing tests to mock out
 the HTTP client and feed in fixtures.
 
-The following example shows how to use the `"beforeRequest"` hook to to add a
-custom header and a timeout to requests and how to use the `"requestError"` hook
-to log errors:
+The following example shows how to:
+- route requests through a proxy server using [undici](https://www.npmjs.com/package/undici)'s ProxyAgent
+- use the `"beforeRequest"` hook to add a custom header and a timeout to requests
+- use the `"requestError"` hook to log errors
 
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
+import { ProxyAgent } from "undici";
 import { HTTPClient } from "@cloudinary/asset-management/lib/http";
 
+const dispatcher = new ProxyAgent("http://proxy.example.com:8080");
+
 const httpClient = new HTTPClient({
-  // fetcher takes a function that has the same signature as native `fetch`.
-  fetcher: (request) => {
-    return fetch(request);
-  }
+  // 'fetcher' takes a function that has the same signature as native 'fetch'.
+  fetcher: (input, init) =>
+    // 'dispatcher' is specific to undici and not part of the standard Fetch API.
+    fetch(input, { ...init, dispatcher } as RequestInit),
 });
 
 httpClient.addHook("beforeRequest", (request) => {
@@ -758,7 +827,7 @@ httpClient.addHook("requestError", (error, request) => {
   console.groupEnd();
 });
 
-const sdk = new CloudinaryAssetMgmt({ httpClient });
+const sdk = new CloudinaryAssetMgmt({ httpClient: httpClient });
 ```
 <!-- End Custom HTTP Client [http-client] -->
 
