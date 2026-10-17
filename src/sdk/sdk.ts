@@ -3,14 +3,19 @@
  */
 
 import { ClientSDK } from "../lib/sdks.js";
+import { AssetMetadata } from "./assetmetadata.js";
 import { AssetRelations } from "./assetrelations.js";
 import { Assets } from "./assets.js";
 import { Backups } from "./backups.js";
 import { Explode } from "./explode.js";
 import { Folders } from "./folders.js";
+import { Generation } from "./generation.js";
+import { InitialBackup } from "./initialbackup.js";
 import { Moderations } from "./moderations.js";
+import { People } from "./people.js";
 import { Search } from "./search.js";
 import { Tags } from "./tags.js";
+import { Tasks } from "./tasks.js";
 import { Upload } from "./upload.js";
 import { Usage } from "./usage.js";
 import { VideoAnalytics } from "./videoanalytics.js";
@@ -29,6 +34,11 @@ export class CloudinaryAssetMgmt extends ClientSDK {
   private _explode?: Explode;
   get explode(): Explode {
     return (this._explode ??= new Explode(this._options));
+  }
+
+  private _assetMetadata?: AssetMetadata;
+  get assetMetadata(): AssetMetadata {
+    return (this._assetMetadata ??= new AssetMetadata(this._options));
   }
 
   private _moderations?: Moderations;
@@ -69,5 +79,25 @@ export class CloudinaryAssetMgmt extends ClientSDK {
   private _search?: Search;
   get search(): Search {
     return (this._search ??= new Search(this._options));
+  }
+
+  private _initialBackup?: InitialBackup;
+  get initialBackup(): InitialBackup {
+    return (this._initialBackup ??= new InitialBackup(this._options));
+  }
+
+  private _people?: People;
+  get people(): People {
+    return (this._people ??= new People(this._options));
+  }
+
+  private _generation?: Generation;
+  get generation(): Generation {
+    return (this._generation ??= new Generation(this._options));
+  }
+
+  private _tasks?: Tasks;
+  get tasks(): Tasks {
+    return (this._tasks ??= new Tasks(this._options));
   }
 }
