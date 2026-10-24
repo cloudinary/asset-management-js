@@ -25,7 +25,7 @@ Creates a downloadable ZIP or other archive format containing the specified reso
       client,
       args.resourceType,
       args.requestBody,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

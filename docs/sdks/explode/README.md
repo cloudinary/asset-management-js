@@ -1,5 +1,4 @@
 # Explode
-(*explode*)
 
 ## Overview
 
@@ -20,7 +19,7 @@ Generates derived images for each of the individual pages/frames in a multi-page
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -52,7 +51,7 @@ import { explodeExplodeResource } from "@cloudinary/asset-management/funcs/explo
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -82,14 +81,14 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `resourceType`                                                                                                                                                                 | [operations.ExplodeResourceResourceType](../../models/operations/exploderesourceresourcetype.md)                                                                               | :heavy_check_mark:                                                                                                                                                             | The type of resource to explode. Only "image" is supported.                                                                                                                    |
-| `requestBody`                                                                                                                                                                  | [operations.ExplodeResourceRequestBody](../../models/operations/exploderesourcerequestbody.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `requestBody`                                                                                                                                                                  | [operations.ExplodeResourceRequestBody](../../models/operations/exploderesourcerequestbody.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The explode operation parameters.                                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.ExplodeResourceResponse](../../models/operations/exploderesourceresponse.md)\>**
+**Promise\<[components.ExplodeResponse](../../models/components/exploderesponse.md)\>**
 
 ### Errors
 
