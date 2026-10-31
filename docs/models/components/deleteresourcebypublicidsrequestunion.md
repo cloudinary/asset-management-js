@@ -1,5 +1,7 @@
 # DeleteResourceByPublicIdsRequestUnion
 
+The delete request specifying which resources to delete.
+
 
 ## Supported Types
 

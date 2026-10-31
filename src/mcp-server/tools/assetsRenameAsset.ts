@@ -23,7 +23,7 @@ export const tool$assetsRenameAsset: ToolDefinition<typeof args> = {
       client,
       args.resourceType,
       args.requestBody,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {
