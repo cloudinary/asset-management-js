@@ -21,7 +21,7 @@ Deletes derived resources by derived resource ID`,
     const [result, apiCall] = await assetsDerivedDestroy(
       client,
       args.request,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

@@ -4,6 +4,7 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -26,19 +27,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Delete asset by asset-id
+ * Delete asset by asset ID
  *
  * @remarks
- * Deletes an asset using its asset ID. This endpoint replaces the legacy /resources/by_asset_id endpoint.
- * Returns the deletion status and asset folder information when folder decoupling is enabled.
+ * Deletes an asset using its immutable asset ID.
  */
 export function assetsDestroyByAssetId(
   client: CloudinaryAssetMgmtCore,
-  request: components.DestroyRequest,
+  request: components.DestroyByAssetIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    components.DestroyResponse,
+    components.DestroyByAssetIdResponse,
     | errors.ApiError
     | CloudinaryAssetMgmtError
     | ResponseValidationError
@@ -59,12 +59,12 @@ export function assetsDestroyByAssetId(
 
 async function $do(
   client: CloudinaryAssetMgmtCore,
-  request: components.DestroyRequest,
+  request: components.DestroyByAssetIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      components.DestroyResponse,
+      components.DestroyByAssetIdResponse,
       | errors.ApiError
       | CloudinaryAssetMgmtError
       | ResponseValidationError
@@ -80,7 +80,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => components.DestroyRequest$outboundSchema.parse(value),
+    (value) => components.DestroyByAssetIdRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -95,7 +95,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v1_1/{cloud_name}/asset/destroy")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -110,7 +109,7 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "destroyByAssetId",
-    oAuth2Scopes: [],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 
@@ -138,7 +137,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "403", "4XX", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -152,7 +152,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    components.DestroyResponse,
+    components.DestroyByAssetIdResponse,
     | errors.ApiError
     | CloudinaryAssetMgmtError
     | ResponseValidationError
@@ -163,7 +163,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, components.DestroyResponse$inboundSchema),
+    M.json(200, components.DestroyByAssetIdResponse$inboundSchema),
     M.jsonErr([400, 401, 403], errors.ApiError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
