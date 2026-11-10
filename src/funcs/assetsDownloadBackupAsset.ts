@@ -4,6 +4,7 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -39,18 +40,13 @@ export function assetsDownloadBackupAsset(
   client: CloudinaryAssetMgmtCore,
   assetId: string,
   versionId: string,
-  apiKey?: string | undefined,
-  signature?: string | undefined,
-  timestamp?: number | undefined,
   options?: RequestOptions & {
     acceptHeaderOverride?: DownloadBackupAssetAcceptEnum;
   },
 ): APIPromise<
   Result<
     operations.DownloadBackupAssetResponse,
-    | errors.BadRequestError
-    | errors.DownloadBackupAssetUnauthorizedError
-    | errors.NotFoundError
+    | errors.ApiError
     | CloudinaryAssetMgmtError
     | ResponseValidationError
     | ConnectionError
@@ -65,9 +61,6 @@ export function assetsDownloadBackupAsset(
     client,
     assetId,
     versionId,
-    apiKey,
-    signature,
-    timestamp,
     options,
   ));
 }
@@ -76,9 +69,6 @@ async function $do(
   client: CloudinaryAssetMgmtCore,
   assetId: string,
   versionId: string,
-  apiKey?: string | undefined,
-  signature?: string | undefined,
-  timestamp?: number | undefined,
   options?: RequestOptions & {
     acceptHeaderOverride?: DownloadBackupAssetAcceptEnum;
   },
@@ -86,9 +76,7 @@ async function $do(
   [
     Result<
       operations.DownloadBackupAssetResponse,
-      | errors.BadRequestError
-      | errors.DownloadBackupAssetUnauthorizedError
-      | errors.NotFoundError
+      | errors.ApiError
       | CloudinaryAssetMgmtError
       | ResponseValidationError
       | ConnectionError
@@ -104,9 +92,6 @@ async function $do(
   const input: operations.DownloadBackupAssetRequest = {
     assetId: assetId,
     versionId: versionId,
-    apiKey: apiKey,
-    signature: signature,
-    timestamp: timestamp,
   };
 
   const parsed = safeParse(
@@ -127,14 +112,10 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v1_1/{cloud_name}/download_backup")(pathParams);
 
   const query = encodeFormQuery({
-    "api_key": payload.api_key,
     "asset_id": payload.asset_id,
-    "signature": payload.signature,
-    "timestamp": payload.timestamp,
     "version_id": payload.version_id,
   });
 
@@ -150,7 +131,7 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "downloadBackupAsset",
-    oAuth2Scopes: [],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 
@@ -179,7 +160,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "404", "4XX", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -194,9 +176,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.DownloadBackupAssetResponse,
-    | errors.BadRequestError
-    | errors.DownloadBackupAssetUnauthorizedError
-    | errors.NotFoundError
+    | errors.ApiError
     | CloudinaryAssetMgmtError
     | ResponseValidationError
     | ConnectionError
@@ -216,9 +196,7 @@ async function $do(
     M.stream(200, operations.DownloadBackupAssetResponse$inboundSchema, {
       ctype: "video/*",
     }),
-    M.jsonErr(400, errors.BadRequestError$inboundSchema),
-    M.jsonErr(401, errors.DownloadBackupAssetUnauthorizedError$inboundSchema),
-    M.jsonErr(404, errors.NotFoundError$inboundSchema),
+    M.jsonErr([400, 401, 404], errors.ApiError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

@@ -4,12 +4,14 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
+import * as components from "../models/components/index.js";
 import { CloudinaryAssetMgmtError } from "../models/errors/cloudinaryassetmgmterror.js";
 import {
   ConnectionError,
@@ -34,11 +36,11 @@ import { Result } from "../types/fp.js";
 export function foldersUpdateFolder(
   client: CloudinaryAssetMgmtCore,
   folder: string,
-  requestBody: operations.UpdateFolderRequestBody,
+  moveFolderRequest: components.MoveFolderRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.UpdateFolderResponse,
+    components.MoveFolderResponse,
     | errors.ApiError
     | CloudinaryAssetMgmtError
     | ResponseValidationError
@@ -53,7 +55,7 @@ export function foldersUpdateFolder(
   return new APIPromise($do(
     client,
     folder,
-    requestBody,
+    moveFolderRequest,
     options,
   ));
 }
@@ -61,12 +63,12 @@ export function foldersUpdateFolder(
 async function $do(
   client: CloudinaryAssetMgmtCore,
   folder: string,
-  requestBody: operations.UpdateFolderRequestBody,
+  moveFolderRequest: components.MoveFolderRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.UpdateFolderResponse,
+      components.MoveFolderResponse,
       | errors.ApiError
       | CloudinaryAssetMgmtError
       | ResponseValidationError
@@ -82,7 +84,7 @@ async function $do(
 > {
   const input: operations.UpdateFolderRequest = {
     folder: folder,
-    requestBody: requestBody,
+    moveFolderRequest: moveFolderRequest,
   };
 
   const parsed = safeParse(
@@ -94,7 +96,9 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.RequestBody, { explode: true });
+  const body = encodeJSON("body", payload.move_folder_request, {
+    explode: true,
+  });
 
   const pathParams = {
     cloud_name: encodeSimple("cloud_name", client._options.cloudName, {
@@ -106,7 +110,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v1_1/{cloud_name}/folders/{folder}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -121,7 +124,7 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "updateFolder",
-    oAuth2Scopes: [],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 
@@ -149,7 +152,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "4XX", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -163,7 +167,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.UpdateFolderResponse,
+    components.MoveFolderResponse,
     | errors.ApiError
     | CloudinaryAssetMgmtError
     | ResponseValidationError
@@ -174,7 +178,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.UpdateFolderResponse$inboundSchema),
+    M.json(200, components.MoveFolderResponse$inboundSchema),
     M.jsonErr([400, 401], errors.ApiError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

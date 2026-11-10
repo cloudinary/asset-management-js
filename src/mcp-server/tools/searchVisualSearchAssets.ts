@@ -17,7 +17,7 @@ export const tool$searchVisualSearchAssets: ToolDefinition<typeof args> = {
 
 Returns a list of resources that are visually similar to a specified image. You can provide the source image for comparison in one of three ways:
 - Provide a URL of an image
-- Specify the public ID or asset ID of an existing image
+- Specify the asset ID of an existing image
 - Provide a textual description
 `,
   scopes: ["librarian"],
@@ -26,7 +26,7 @@ Returns a list of resources that are visually similar to a specified image. You 
     const [result, apiCall] = await searchVisualSearchAssets(
       client,
       args.request,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {
