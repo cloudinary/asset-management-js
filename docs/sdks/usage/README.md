@@ -1,5 +1,4 @@
 # Usage
-(*usage*)
 
 ## Overview
 
@@ -20,7 +19,7 @@ A report on the status of product environment usage, including storage, credits,
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -49,7 +48,7 @@ import { usageGetUsage } from "@cloudinary/asset-management/funcs/usageGetUsage.
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -75,7 +74,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `date`                                                                                                                                                                         | [RFCDate](../../types/rfcdate.md)                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `date`                                                                                                                                                                         | [RFCDate](../../types/rfcdate.md)                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                             | The date for which to retrieve usage details (YYYY-MM-DD). If not specified, returns the current usage.                                                                        |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |

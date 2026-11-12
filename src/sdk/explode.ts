@@ -4,6 +4,7 @@
 
 import { explodeExplodeResource } from "../funcs/explodeExplodeResource.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as components from "../models/components/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -18,7 +19,7 @@ export class Explode extends ClientSDK {
     resourceType: operations.ExplodeResourceResourceType,
     requestBody: operations.ExplodeResourceRequestBody,
     options?: RequestOptions,
-  ): Promise<operations.ExplodeResourceResponse> {
+  ): Promise<components.ExplodeResponse> {
     return unwrapAsync(explodeExplodeResource(
       this,
       resourceType,
