@@ -3,24 +3,22 @@
 
 ## Supported Types
 
-### `operations.DeleteBackupVersionsResponseBody1`
+### `components.DeleteBackupVersionsResponse`
 
 ```typescript
-const value: operations.DeleteBackupVersionsResponseBody1 = {
+const value: components.DeleteBackupVersionsResponse = {
   assetId: "<id>",
   deletedVersionIds: [],
 };
 ```
 
-### `operations.DeleteBackupVersionsResponseBody2`
+### `components.DeleteBackupVersionsPartialResponse`
 
 ```typescript
-const value: operations.DeleteBackupVersionsResponseBody2 = {
+const value: components.DeleteBackupVersionsPartialResponse = {
   assetId: "<id>",
   deletedVersionIds: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
 };
 ```

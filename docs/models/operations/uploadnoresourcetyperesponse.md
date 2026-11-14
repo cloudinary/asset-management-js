@@ -20,7 +20,7 @@ const value: operations.UploadNoResourceTypeResponseBody = {
   assetId: "3515c6000a548515f1134043f9785c2f",
   format: "jpg",
   resourceType: "image",
-  createdAt: "2024-06-25T09:25:44Z",
+  createdAt: new Date("2024-06-25T09:25:44Z"),
   tags: [],
   pages: 1,
   bytes: 896838,
@@ -45,6 +45,8 @@ const value: operations.UploadNoResourceTypeResponseBody = {
         "https://res.cloudinary.com/cld-docs/image/upload/c_pad,h_300,w_400/v1719307544/gotjephlnz2jgiu20zni.jpg",
     },
   ],
+  assetFolder: "",
+  displayName: "gotjephlnz2jgiu20zni",
   apiKey: "614335564976464",
 };
 ```

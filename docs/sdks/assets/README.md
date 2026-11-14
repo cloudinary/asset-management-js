@@ -1,5 +1,4 @@
 # Assets
-(*assets*)
 
 ## Overview
 
@@ -12,7 +11,8 @@ Enables you to manage all the resources (assets) stored in your product environm
 * [explicitAsset](#explicitasset) - Apply operations on an existing asset
 * [generateArchive](#generatearchive) - Creates an archive (ZIP or TGZ file) that contains a set of assets from your product environment.
 * [downloadBackupAsset](#downloadbackupasset) - Download a backup copy of an asset
-* [destroyByAssetId](#destroybyassetid) - Delete asset by asset-id
+* [destroyByAssetId](#destroybyassetid) - Delete asset by asset ID
+* [downloadAssetByAssetId](#downloadassetbyassetid) - Download an asset by asset ID
 * [listResourceTypes](#listresourcetypes) - Get resource types
 * [listImages](#listimages) - Get image assets
 * [listVideos](#listvideos) - Get video assets
@@ -30,6 +30,10 @@ Enables you to manage all the resources (assets) stored in your product environm
 * [listResourceTags](#listresourcetags) - Retrieves a list of tags currently applied to assets in your Cloudinary account
 * [deleteBackupVersions](#deletebackupversions) - Delete backed up versions
 * [derivedDestroy](#deriveddestroy) - Delete derived resources
+* [invalidateDerivedByUrls](#invalidatederivedbyurls) - Invalidate derived assets by delivery URLs
+* [getResourceByBody](#getresourcebybody) - Get the details of a single asset by body parameters
+* [updateResourceByBody](#updateresourcebybody) - Update the details of a single asset by body parameters
+* [listResourcesByContainerId](#listresourcesbycontainerid) - List the assets in a folder by container ID
 
 ## renameAsset
 
@@ -42,7 +46,7 @@ Updates an existing asset's identifier (public ID) and optionally other metadata
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -74,7 +78,7 @@ import { assetsRenameAsset } from "@cloudinary/asset-management/funcs/assetsRena
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -103,8 +107,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `resourceType`                                                                                                                                                                 | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                             | :heavy_check_mark:                                                                                                                                                             | The type of resource.                                                                                                                                                          |
-| `requestBody`                                                                                                                                                                  | [operations.RenameAssetRequestBody](../../models/operations/renameassetrequestbody.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `resourceType`                                                                                                                                                                 | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                             | :heavy_check_mark:                                                                                                                                                             | The type of resource (image, video, or raw).                                                                                                                                   |
+| `requestBody`                                                                                                                                                                  | [operations.RenameAssetRequestBody](../../models/operations/renameassetrequestbody.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The rename request parameters.                                                                                                                                                 |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -131,7 +135,7 @@ Generates a download link for a specific asset (image)
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -141,7 +145,7 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 });
 
 async function run() {
-  const result = await cloudinaryAssetMgmt.assets.downloadAsset("image", "<id>", "upload", false, "<value>", "<value>", 444233);
+  const result = await cloudinaryAssetMgmt.assets.downloadAsset("image", "<id>", undefined, "upload");
 
   console.log(result);
 }
@@ -160,7 +164,7 @@ import { assetsDownloadAsset } from "@cloudinary/asset-management/funcs/assetsDo
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -170,7 +174,7 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
 });
 
 async function run() {
-  const res = await assetsDownloadAsset(cloudinaryAssetMgmt, "image", "<id>", "upload", false, "<value>", "<value>", 444233);
+  const res = await assetsDownloadAsset(cloudinaryAssetMgmt, "image", "<id>", undefined, "upload");
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -184,22 +188,19 @@ run();
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                                                                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `resourceType`                                                                                                                                                                                                                                                                                                                                                                                                                               | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                                                                                                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                                           | The type of resource.                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `publicId`                                                                                                                                                                                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                                           | The public ID of the asset.                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `format`                                                                                                                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | The format to convert the asset to before downloading.                                                                                                                                                                                                                                                                                                                                                                                       |
-| `type`                                                                                                                                                                                                                                                                                                                                                                                                                                       | [components.StorageType](../../models/components/storagetype.md)                                                                                                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | The storage type of the asset. Default is "upload".                                                                                                                                                                                                                                                                                                                                                                                          |
-| `expiresAt`                                                                                                                                                                                                                                                                                                                                                                                                                                  | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | Unix timestamp indicating when the download URL should expire.                                                                                                                                                                                                                                                                                                                                                                               |
-| `attachment`                                                                                                                                                                                                                                                                                                                                                                                                                                 | *boolean*                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | Whether to force download as an attachment.                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `targetFilename`                                                                                                                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | The desired filename for the downloaded file.                                                                                                                                                                                                                                                                                                                                                                                                |
-| `transformation`                                                                                                                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | A transformation to apply to the asset before downloading.                                                                                                                                                                                                                                                                                                                                                                                   |
-| `apiKey`                                                                                                                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.                                                                                                                                                                                                                                                                                                                                                 |
-| `signature`                                                                                                                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | (Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.<br/> |
-| `timestamp`                                                                                                                                                                                                                                                                                                                                                                                                                                  | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.                                                                                                                                                                                                                                                                                                                                  |
-| `options`                                                                                                                                                                                                                                                                                                                                                                                                                                    | RequestOptions                                                                                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | Used to set various options for making HTTP requests.                                                                                                                                                                                                                                                                                                                                                                                        |
-| `options.fetchOptions`                                                                                                                                                                                                                                                                                                                                                                                                                       | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.                                                                                                                                                                                                                                                               |
-| `options.retries`                                                                                                                                                                                                                                                                                                                                                                                                                            | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | Enables retrying HTTP requests under certain failure conditions.                                                                                                                                                                                                                                                                                                                                                                             |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `resourceType`                                                                                                                                                                 | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                             | :heavy_check_mark:                                                                                                                                                             | The type of resource (image, video, or raw).                                                                                                                                   |
+| `publicId`                                                                                                                                                                     | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The public ID of the asset.                                                                                                                                                    |
+| `format`                                                                                                                                                                       | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The format to convert the asset to before downloading.                                                                                                                         |
+| `type`                                                                                                                                                                         | [components.ManagedDeliveryType](../../models/components/manageddeliverytype.md)                                                                                               | :heavy_minus_sign:                                                                                                                                                             | The delivery type of the asset. Default is "upload".                                                                                                                           |
+| `expiresAt`                                                                                                                                                                    | *number*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Unix timestamp indicating when the download URL should expire.                                                                                                                 |
+| `attachment`                                                                                                                                                                   | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to force download as an attachment.                                                                                                                                    |
+| `targetFilename`                                                                                                                                                               | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The desired filename for the downloaded file.                                                                                                                                  |
+| `transformation`                                                                                                                                                               | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | A transformation to apply to the asset before downloading.                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
@@ -227,7 +228,7 @@ Note: Always prefer delivery URL transformations over this method, unless eager 
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -238,10 +239,35 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 
 async function run() {
   const result = await cloudinaryAssetMgmt.assets.explicitAsset("image", {
+    autoTagging: 0.5,
     autoTranscription: true,
-    headers: "X-Robots-Tag: noindex",
+    accessControl: [
+      {
+        accessType: "token",
+        key: "prod2024",
+      },
+      {
+        accessType: "anonymous",
+        start: "2024-03-15T09:00:00Z",
+        end: "2024-06-30T23:59:59Z",
+      },
+    ],
+    backgroundRemoval: "cloudinary_ai",
+    categorization: "google_tagging",
+    detection: "coco_v2",
+    format: "jpg",
+    metadata: "in_stock_id=50|color_id=[\"green\",\"red\"]",
     moderation: "aws_rek_video",
+    ocr: "adv_ocr",
     publicId: "<id>",
+    rawConvert: "google_speech:vtt:en-US",
+    regions: "{\"face\": [[100, 200], [300, 400]], \"body\": [[50, 60], [70, 80], [90, 100]]}",
+    tags: "animal,dog",
+    context: "alt=My image|caption=Nice photo",
+    allowedFormats: "mp4,ogv,jpg,png,pdf",
+    headers: "X-Robots-Tag: noindex",
+    faceCoordinates: "10,20,150,130|213,345,82,61",
+    customCoordinates: "10,20,150,130",
   });
 
   console.log(result);
@@ -261,7 +287,7 @@ import { assetsExplicitAsset } from "@cloudinary/asset-management/funcs/assetsEx
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -272,10 +298,35 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
 
 async function run() {
   const res = await assetsExplicitAsset(cloudinaryAssetMgmt, "image", {
+    autoTagging: 0.5,
     autoTranscription: true,
-    headers: "X-Robots-Tag: noindex",
+    accessControl: [
+      {
+        accessType: "token",
+        key: "prod2024",
+      },
+      {
+        accessType: "anonymous",
+        start: "2024-03-15T09:00:00Z",
+        end: "2024-06-30T23:59:59Z",
+      },
+    ],
+    backgroundRemoval: "cloudinary_ai",
+    categorization: "google_tagging",
+    detection: "coco_v2",
+    format: "jpg",
+    metadata: "in_stock_id=50|color_id=[\"green\",\"red\"]",
     moderation: "aws_rek_video",
+    ocr: "adv_ocr",
     publicId: "<id>",
+    rawConvert: "google_speech:vtt:en-US",
+    regions: "{\"face\": [[100, 200], [300, 400]], \"body\": [[50, 60], [70, 80], [90, 100]]}",
+    tags: "animal,dog",
+    context: "alt=My image|caption=Nice photo",
+    allowedFormats: "mp4,ogv,jpg,png,pdf",
+    headers: "X-Robots-Tag: noindex",
+    faceCoordinates: "10,20,150,130|213,345,82,61",
+    customCoordinates: "10,20,150,130",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -292,8 +343,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `resourceType`                                                                                                                                                                 | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                             | :heavy_check_mark:                                                                                                                                                             | The type of resource.                                                                                                                                                          |
-| `requestBody`                                                                                                                                                                  | [operations.ExplicitAssetRequestBody](../../models/operations/explicitassetrequestbody.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `resourceType`                                                                                                                                                                 | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                             | :heavy_check_mark:                                                                                                                                                             | The type of resource (image, video, or raw).                                                                                                                                   |
+| `explicitRequest`                                                                                                                                                              | [components.ExplicitRequest](../../models/components/explicitrequest.md)                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The asset and operations to apply.                                                                                                                                             |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -320,7 +371,7 @@ Creates a downloadable ZIP or other archive format containing the specified reso
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -354,7 +405,7 @@ import { assetsGenerateArchive } from "@cloudinary/asset-management/funcs/assets
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -385,8 +436,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `resourceType`                                                                                                                                                                 | [components.ArchiveResourceType](../../models/components/archiveresourcetype.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The type of resources to include in the archive. "image" for images, "video" for videos, "raw" for non-media files, or "all" for mixed types.                                  |
-| `requestBody`                                                                                                                                                                  | [operations.GenerateArchiveRequestBody](../../models/operations/generatearchiverequestbody.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `resourceType`                                                                                                                                                                 | [components.ArchiveResourceType](../../models/components/archiveresourcetype.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The type of resource for archive generation (image, video, or raw).                                                                                                            |
+| `requestBody`                                                                                                                                                                  | [operations.GenerateArchiveRequestBody](../../models/operations/generatearchiverequestbody.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The archive generation parameters.                                                                                                                                             |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -413,7 +464,7 @@ Download a backup copy of an asset
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -423,7 +474,7 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 });
 
 async function run() {
-  const result = await cloudinaryAssetMgmt.assets.downloadBackupAsset("f4e6579cf84dd9cf5683b21f5b30c7d9", "a3978316b0045e5eaf198f4d6885ca35", "<value>", "<value>", 723931);
+  const result = await cloudinaryAssetMgmt.assets.downloadBackupAsset("f4e6579cf84dd9cf5683b21f5b30c7d9", "a3978316b0045e5eaf198f4d6885ca35");
 
   console.log(result);
 }
@@ -442,7 +493,7 @@ import { assetsDownloadBackupAsset } from "@cloudinary/asset-management/funcs/as
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -452,7 +503,7 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
 });
 
 async function run() {
-  const res = await assetsDownloadBackupAsset(cloudinaryAssetMgmt, "f4e6579cf84dd9cf5683b21f5b30c7d9", "a3978316b0045e5eaf198f4d6885ca35", "<value>", "<value>", 723931);
+  const res = await assetsDownloadBackupAsset(cloudinaryAssetMgmt, "f4e6579cf84dd9cf5683b21f5b30c7d9", "a3978316b0045e5eaf198f4d6885ca35");
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -466,16 +517,13 @@ run();
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                                                                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                  | Example                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `assetId`                                                                                                                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                                           | The asset ID of the resource. Must be a 32-character hexadecimal string.                                                                                                                                                                                                                                                                                                                                                                     | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `versionId`                                                                                                                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                                           | The version ID of the backup to download. Must be a 32-character hexadecimal string.                                                                                                                                                                                                                                                                                                                                                         | [object Object]                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `apiKey`                                                                                                                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.                                                                                                                                                                                                                                                                                                                                                 |                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `signature`                                                                                                                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | (Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.<br/> |                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `timestamp`                                                                                                                                                                                                                                                                                                                                                                                                                                  | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.                                                                                                                                                                                                                                                                                                                                  |                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `options`                                                                                                                                                                                                                                                                                                                                                                                                                                    | RequestOptions                                                                                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | Used to set various options for making HTTP requests.                                                                                                                                                                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `options.fetchOptions`                                                                                                                                                                                                                                                                                                                                                                                                                       | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.                                                                                                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `options.retries`                                                                                                                                                                                                                                                                                                                                                                                                                            | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | Enables retrying HTTP requests under certain failure conditions.                                                                                                                                                                                                                                                                                                                                                                             |                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `assetId`                                                                                                                                                                      | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The asset ID of the resource. Must be a 32-character hexadecimal string.                                                                                                       | f4e6579cf84dd9cf5683b21f5b30c7d9                                                                                                                                               |
+| `versionId`                                                                                                                                                                    | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The version ID of the backup to download. Must be a 32-character hexadecimal string.                                                                                           | a3978316b0045e5eaf198f4d6885ca35                                                                                                                                               |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |                                                                                                                                                                                |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |                                                                                                                                                                                |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |                                                                                                                                                                                |
 
 ### Response
 
@@ -483,17 +531,14 @@ run();
 
 ### Errors
 
-| Error Type                                  | Status Code                                 | Content Type                                |
-| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
-| errors.BadRequestError                      | 400                                         | application/json                            |
-| errors.DownloadBackupAssetUnauthorizedError | 401                                         | application/json                            |
-| errors.NotFoundError                        | 404                                         | application/json                            |
-| errors.SDKError                             | 4XX, 5XX                                    | \*/\*                                       |
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.ApiError  | 400, 401, 404    | application/json |
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
 
 ## destroyByAssetId
 
-Deletes an asset using its asset ID. This endpoint replaces the legacy /resources/by_asset_id endpoint.
-Returns the deletion status and asset folder information when folder decoupling is enabled.
+Deletes an asset using its immutable asset ID.
 
 
 ### Example Usage
@@ -503,7 +548,7 @@ Returns the deletion status and asset folder information when folder decoupling 
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -534,7 +579,7 @@ import { assetsDestroyByAssetId } from "@cloudinary/asset-management/funcs/asset
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -560,22 +605,19 @@ run();
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                                                                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `assetId`                                                                                                                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                                           | The ID of the asset to delete.                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `apiKey`                                                                                                                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.                                                                                                                                                                                                                                                                                                                                                 |
-| `timestamp`                                                                                                                                                                                                                                                                                                                                                                                                                                  | *number*                                                                                                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.                                                                                                                                                                                                                                                                                                                                  |
-| `signature`                                                                                                                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | (Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.<br/> |
-| `invalidate`                                                                                                                                                                                                                                                                                                                                                                                                                                 | *boolean*                                                                                                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | Whether to invalidate CDN cache. Default is false.                                                                                                                                                                                                                                                                                                                                                                                           |
-| `notificationUrl`                                                                                                                                                                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | URL to receive completion notification.                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `callback`                                                                                                                                                                                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | URL for redirect after operation completion.                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `options`                                                                                                                                                                                                                                                                                                                                                                                                                                    | RequestOptions                                                                                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | Used to set various options for making HTTP requests.                                                                                                                                                                                                                                                                                                                                                                                        |
-| `options.fetchOptions`                                                                                                                                                                                                                                                                                                                                                                                                                       | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.                                                                                                                                                                                                                                                               |
-| `options.retries`                                                                                                                                                                                                                                                                                                                                                                                                                            | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                           | Enables retrying HTTP requests under certain failure conditions.                                                                                                                                                                                                                                                                                                                                                                             |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `assetId`                                                                                                                                                                      | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | A 32-character hexadecimal asset ID.                                                                                                                                           |
+| `invalidate`                                                                                                                                                                   | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to invalidate CDN cache. Default is false.                                                                                                                             |
+| `notificationUrl`                                                                                                                                                              | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | URL to receive completion notification.                                                                                                                                        |
+| `callback`                                                                                                                                                                     | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | URL for redirect after operation completion.                                                                                                                                   |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[components.DestroyResponse](../../models/components/destroyresponse.md)\>**
+**Promise\<[components.DestroyByAssetIdResponse](../../models/components/destroybyassetidresponse.md)\>**
 
 ### Errors
 
@@ -583,6 +625,96 @@ run();
 | ---------------- | ---------------- | ---------------- |
 | errors.ApiError  | 400, 401, 403    | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |
+
+## downloadAssetByAssetId
+
+Generates a download link for a specific asset identified by its immutable asset ID,
+instead of the resource type, delivery type and public ID.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="downloadAssetByAssetId" method="get" path="/v1_1/{cloud_name}/asset/download" -->
+```typescript
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
+
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const result = await cloudinaryAssetMgmt.assets.downloadAssetByAssetId("f4e6579cf84dd9cf5683b21f5b30c7d9");
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsDownloadAssetByAssetId } from "@cloudinary/asset-management/funcs/assetsDownloadAssetByAssetId.js";
+
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const res = await assetsDownloadAssetByAssetId(cloudinaryAssetMgmt, "f4e6579cf84dd9cf5683b21f5b30c7d9");
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("assetsDownloadAssetByAssetId failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `assetId`                                                                                                                                                                      | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The asset ID of the resource. Must be a 32-character hexadecimal string.                                                                                                       | f4e6579cf84dd9cf5683b21f5b30c7d9                                                                                                                                               |
+| `format`                                                                                                                                                                       | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The format to convert the asset to before downloading.                                                                                                                         |                                                                                                                                                                                |
+| `transformation`                                                                                                                                                               | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | A transformation to apply to the asset before downloading.                                                                                                                     |                                                                                                                                                                                |
+| `attachment`                                                                                                                                                                   | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to force download as an attachment.                                                                                                                                    |                                                                                                                                                                                |
+| `targetFilename`                                                                                                                                                               | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The desired filename for the downloaded file.                                                                                                                                  |                                                                                                                                                                                |
+| `streamingAttachment`                                                                                                                                                          | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to stream a video asset as an attachment.                                                                                                                              |                                                                                                                                                                                |
+| `expiresAt`                                                                                                                                                                    | *number*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Unix timestamp indicating when the download URL should expire.                                                                                                                 |                                                                                                                                                                                |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |                                                                                                                                                                                |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |                                                                                                                                                                                |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |                                                                                                                                                                                |
+
+### Response
+
+**Promise\<[operations.DownloadAssetByAssetIdResponse](../../models/operations/downloadassetbyassetidresponse.md)\>**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| errors.ApiError    | 400, 401, 403, 404 | application/json   |
+| errors.SDKError    | 4XX, 5XX           | \*/\*              |
 
 ## listResourceTypes
 
@@ -595,7 +727,7 @@ Returns a list of all resource types that correspond to assets currently in your
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -624,7 +756,7 @@ import { assetsListResourceTypes } from "@cloudinary/asset-management/funcs/asse
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -656,18 +788,18 @@ run();
 
 ### Response
 
-**Promise\<[operations.ListResourceTypesResponse](../../models/operations/listresourcetypesresponse.md)\>**
+**Promise\<[components.ResourceTypesResponse](../../models/components/resourcetypesresponse.md)\>**
 
 ### Errors
 
-| Error Type                                | Status Code                               | Content Type                              |
-| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| errors.ListResourceTypesUnauthorizedError | 401                                       | application/json                          |
-| errors.SDKError                           | 4XX, 5XX                                  | \*/\*                                     |
+| Error Type               | Status Code              | Content Type             |
+| ------------------------ | ------------------------ | ------------------------ |
+| errors.UnauthorizedError | 401                      | application/json         |
+| errors.SDKError          | 4XX, 5XX                 | \*/\*                    |
 
 ## listImages
 
-Retrieves a list of image assets. Results can be filtered by various criteria like tags, moderation status, prefix, or specific public IDs.
+Retrieves a list of image assets. Results can be filtered by various criteria like tags, prefix, or specific public IDs.
 
 
 ### Example Usage
@@ -677,7 +809,7 @@ Retrieves a list of image assets. Results can be filtered by various criteria li
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -687,7 +819,7 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 });
 
 async function run() {
-  const result = await cloudinaryAssetMgmt.assets.listImages([
+  const result = await cloudinaryAssetMgmt.assets.listImages(undefined, undefined, [
     "sample",
     "product_image",
     "banner_2023",
@@ -710,7 +842,7 @@ import { assetsListImages } from "@cloudinary/asset-management/funcs/assetsListI
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -720,7 +852,7 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
 });
 
 async function run() {
-  const res = await assetsListImages(cloudinaryAssetMgmt, [
+  const res = await assetsListImages(cloudinaryAssetMgmt, undefined, undefined, [
     "sample",
     "product_image",
     "banner_2023",
@@ -740,15 +872,15 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `type`                                                                                                                                                                         | [components.ListStorageType](../../models/components/liststoragetype.md)                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The storage type of the assets. Necessary for prefix filtering.                                                                                                                |                                                                                                                                                                                |
-| `prefix`                                                                                                                                                                       | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Find resources with a public ID prefix. Requires the `type` parameter.                                                                                                         |                                                                                                                                                                                |
-| `publicIds`                                                                                                                                                                    | *string*[]                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                             | An array of public IDs to return.                                                                                                                                              | [object Object]                                                                                                                                                                |
-| `tags`                                                                                                                                                                         | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include the list of tag names assigned to each asset. Default: false                                                                                                |                                                                                                                                                                                |
+| `type`                                                                                                                                                                         | *components.DeliveryTypeAll*                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                             | The delivery type to filter by. When omitted, returns assets of all delivery types.                                                                                            |                                                                                                                                                                                |
+| `prefix`                                                                                                                                                                       | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | A public_id prefix. When specified, all assets with that prefix are returned.                                                                                                  |                                                                                                                                                                                |
+| `publicIds`                                                                                                                                                                    | *string*[]                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                             | An array of public IDs to return.                                                                                                                                              | [<br/>"sample",<br/>"product_image",<br/>"banner_2023"<br/>]                                                                                                                   |
+| `tags`                                                                                                                                                                         | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include the list of tag names assigned to each asset. Default is false.                                                                                             |                                                                                                                                                                                |
 | `nextCursor`                                                                                                                                                                   | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Cursor for pagination.                                                                                                                                                         |                                                                                                                                                                                |
 | `maxResults`                                                                                                                                                                   | *number*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Maximum number of results to return (1-500).                                                                                                                                   |                                                                                                                                                                                |
-| `direction`                                                                                                                                                                    | [components.Direction](../../models/components/direction.md)                                                                                                                   | :heavy_minus_sign:                                                                                                                                                             | Sort direction.                                                                                                                                                                |                                                                                                                                                                                |
-| `startAt`                                                                                                                                                                      | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Retrieve resources uploaded after this timestamp.                                                                                                                              |                                                                                                                                                                                |
-| `fields`                                                                                                                                                                       | [components.FieldsSpec](../../models/components/fieldsspec.md)[]                                                                                                               | :heavy_minus_sign:                                                                                                                                                             | N/A                                                                                                                                                                            |                                                                                                                                                                                |
+| `direction`                                                                                                                                                                    | [components.DirectionEnum](../../models/components/directionenum.md)                                                                                                           | :heavy_minus_sign:                                                                                                                                                             | The sort direction for the results. Default is "desc".                                                                                                                         |                                                                                                                                                                                |
+| `startAt`                                                                                                                                                                      | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)                                                                                  | :heavy_minus_sign:                                                                                                                                                             | An ISO-8601 formatted timestamp. When specified, returns resources created since that timestamp. Supported only if neither `prefix` nor `public_ids` were passed.              |                                                                                                                                                                                |
+| `fields`                                                                                                                                                                       | *components.Fields*                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                             | Additional fields to include in the response. The fields public_id and asset_id are always included.                                                                           |                                                                                                                                                                                |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |                                                                                                                                                                                |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |                                                                                                                                                                                |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |                                                                                                                                                                                |
@@ -766,7 +898,7 @@ run();
 
 ## listVideos
 
-Retrieves a list of video assets. Results can be filtered by various criteria like tags, moderation status, prefix, or specific public IDs.
+Retrieves a list of video assets. Results can be filtered by various criteria like tags, prefix, or specific public IDs.
 
 
 ### Example Usage
@@ -776,7 +908,7 @@ Retrieves a list of video assets. Results can be filtered by various criteria li
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -786,7 +918,7 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 });
 
 async function run() {
-  const result = await cloudinaryAssetMgmt.assets.listVideos([
+  const result = await cloudinaryAssetMgmt.assets.listVideos(undefined, undefined, [
     "sample",
     "product_image",
     "banner_2023",
@@ -809,7 +941,7 @@ import { assetsListVideos } from "@cloudinary/asset-management/funcs/assetsListV
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -819,7 +951,7 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
 });
 
 async function run() {
-  const res = await assetsListVideos(cloudinaryAssetMgmt, [
+  const res = await assetsListVideos(cloudinaryAssetMgmt, undefined, undefined, [
     "sample",
     "product_image",
     "banner_2023",
@@ -839,15 +971,15 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `type`                                                                                                                                                                         | [components.ListStorageType](../../models/components/liststoragetype.md)                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The storage type of the assets. Necessary for prefix filtering.                                                                                                                |                                                                                                                                                                                |
-| `prefix`                                                                                                                                                                       | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | A public_id prefix. When specified, all assets with that prefix are returned. When using this, the `type` parameter must also be specified.                                    |                                                                                                                                                                                |
-| `publicIds`                                                                                                                                                                    | *string*[]                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                             | An array of public IDs to return.                                                                                                                                              | [object Object]                                                                                                                                                                |
-| `tags`                                                                                                                                                                         | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include the list of tag names assigned to each asset. Default: false                                                                                                |                                                                                                                                                                                |
+| `type`                                                                                                                                                                         | *components.DeliveryTypeAll*                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                             | The delivery type to filter by. When omitted, returns assets of all delivery types.                                                                                            |                                                                                                                                                                                |
+| `prefix`                                                                                                                                                                       | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | A public_id prefix. When specified, all assets with that prefix are returned.                                                                                                  |                                                                                                                                                                                |
+| `publicIds`                                                                                                                                                                    | *string*[]                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                             | An array of public IDs to return.                                                                                                                                              | [<br/>"sample",<br/>"product_image",<br/>"banner_2023"<br/>]                                                                                                                   |
+| `tags`                                                                                                                                                                         | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include the list of tag names assigned to each asset. Default is false.                                                                                             |                                                                                                                                                                                |
 | `nextCursor`                                                                                                                                                                   | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Cursor for pagination.                                                                                                                                                         |                                                                                                                                                                                |
 | `maxResults`                                                                                                                                                                   | *number*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Maximum number of results to return (1-500).                                                                                                                                   |                                                                                                                                                                                |
-| `direction`                                                                                                                                                                    | [components.Direction](../../models/components/direction.md)                                                                                                                   | :heavy_minus_sign:                                                                                                                                                             | Sort direction.                                                                                                                                                                |                                                                                                                                                                                |
-| `startAt`                                                                                                                                                                      | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)                                                                                  | :heavy_minus_sign:                                                                                                                                                             | An ISO-8601 formatted timestamp. When specified, assets created since that timestamp are returned.  Supported only if neither `prefix` nor `public_ids` were passed.           |                                                                                                                                                                                |
-| `fields`                                                                                                                                                                       | [components.FieldsSpec](../../models/components/fieldsspec.md)[]                                                                                                               | :heavy_minus_sign:                                                                                                                                                             | N/A                                                                                                                                                                            |                                                                                                                                                                                |
+| `direction`                                                                                                                                                                    | [components.DirectionEnum](../../models/components/directionenum.md)                                                                                                           | :heavy_minus_sign:                                                                                                                                                             | The sort direction for the results. Default is "desc".                                                                                                                         |                                                                                                                                                                                |
+| `startAt`                                                                                                                                                                      | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)                                                                                  | :heavy_minus_sign:                                                                                                                                                             | An ISO-8601 formatted timestamp. When specified, returns resources created since that timestamp. Supported only if neither `prefix` nor `public_ids` were passed.              |                                                                                                                                                                                |
+| `fields`                                                                                                                                                                       | *components.Fields*                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                             | Additional fields to include in the response. The fields public_id and asset_id are always included.                                                                           |                                                                                                                                                                                |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |                                                                                                                                                                                |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |                                                                                                                                                                                |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |                                                                                                                                                                                |
@@ -865,7 +997,7 @@ run();
 
 ## listRawFiles
 
-Retrieves a list of raw assets. Results can be filtered by various criteria like tags, moderation status, prefix, or specific public IDs.
+Retrieves a list of raw assets. Results can be filtered by various criteria like tags, prefix, or specific public IDs.
 
 
 ### Example Usage
@@ -875,7 +1007,7 @@ Retrieves a list of raw assets. Results can be filtered by various criteria like
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -885,7 +1017,7 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 });
 
 async function run() {
-  const result = await cloudinaryAssetMgmt.assets.listRawFiles([
+  const result = await cloudinaryAssetMgmt.assets.listRawFiles(undefined, undefined, [
     "sample",
     "product_image",
     "banner_2023",
@@ -908,7 +1040,7 @@ import { assetsListRawFiles } from "@cloudinary/asset-management/funcs/assetsLis
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -918,7 +1050,7 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
 });
 
 async function run() {
-  const res = await assetsListRawFiles(cloudinaryAssetMgmt, [
+  const res = await assetsListRawFiles(cloudinaryAssetMgmt, undefined, undefined, [
     "sample",
     "product_image",
     "banner_2023",
@@ -938,15 +1070,15 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `type`                                                                                                                                                                         | [components.ListStorageType](../../models/components/liststoragetype.md)                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The storage type of the assets. Necessary for prefix filtering.                                                                                                                |                                                                                                                                                                                |
-| `prefix`                                                                                                                                                                       | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | A public_id prefix. When specified, all assets with that prefix are returned. When using this, the `type` parameter must also be specified.                                    |                                                                                                                                                                                |
-| `publicIds`                                                                                                                                                                    | *string*[]                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                             | An array of public IDs to return.                                                                                                                                              | [object Object]                                                                                                                                                                |
-| `tags`                                                                                                                                                                         | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include the list of tag names assigned to each asset. Default: false                                                                                                |                                                                                                                                                                                |
+| `type`                                                                                                                                                                         | *components.DeliveryTypeAll*                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                             | The delivery type to filter by. When omitted, returns assets of all delivery types.                                                                                            |                                                                                                                                                                                |
+| `prefix`                                                                                                                                                                       | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | A public_id prefix. When specified, all assets with that prefix are returned.                                                                                                  |                                                                                                                                                                                |
+| `publicIds`                                                                                                                                                                    | *string*[]                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                             | An array of public IDs to return.                                                                                                                                              | [<br/>"sample",<br/>"product_image",<br/>"banner_2023"<br/>]                                                                                                                   |
+| `tags`                                                                                                                                                                         | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include the list of tag names assigned to each asset. Default is false.                                                                                             |                                                                                                                                                                                |
 | `nextCursor`                                                                                                                                                                   | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Cursor for pagination.                                                                                                                                                         |                                                                                                                                                                                |
 | `maxResults`                                                                                                                                                                   | *number*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Maximum number of results to return (1-500).                                                                                                                                   |                                                                                                                                                                                |
-| `direction`                                                                                                                                                                    | [components.Direction](../../models/components/direction.md)                                                                                                                   | :heavy_minus_sign:                                                                                                                                                             | Sort direction.                                                                                                                                                                |                                                                                                                                                                                |
-| `startAt`                                                                                                                                                                      | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)                                                                                  | :heavy_minus_sign:                                                                                                                                                             | An ISO-8601 formatted timestamp. When specified, assets created since that timestamp are returned.  Supported only if neither `prefix` nor `public_ids` were passed.           |                                                                                                                                                                                |
-| `fields`                                                                                                                                                                       | [components.FieldsSpec](../../models/components/fieldsspec.md)[]                                                                                                               | :heavy_minus_sign:                                                                                                                                                             | N/A                                                                                                                                                                            |                                                                                                                                                                                |
+| `direction`                                                                                                                                                                    | [components.DirectionEnum](../../models/components/directionenum.md)                                                                                                           | :heavy_minus_sign:                                                                                                                                                             | The sort direction for the results. Default is "desc".                                                                                                                         |                                                                                                                                                                                |
+| `startAt`                                                                                                                                                                      | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)                                                                                  | :heavy_minus_sign:                                                                                                                                                             | An ISO-8601 formatted timestamp. When specified, returns resources created since that timestamp. Supported only if neither `prefix` nor `public_ids` were passed.              |                                                                                                                                                                                |
+| `fields`                                                                                                                                                                       | *components.Fields*                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                             | Additional fields to include in the response. The fields public_id and asset_id are always included.                                                                           |                                                                                                                                                                                |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |                                                                                                                                                                                |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |                                                                                                                                                                                |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |                                                                                                                                                                                |
@@ -973,7 +1105,7 @@ Retrieves a list of resources within a specific asset folder. Requires folder de
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -1002,7 +1134,7 @@ import { assetsListResourcesByAssetFolder } from "@cloudinary/asset-management/f
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -1029,11 +1161,11 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `assetFolder`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The full path of the asset folder.                                                                                                                                             |
-| `resourceType`                                                                                                                                                                 | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                             | :heavy_minus_sign:                                                                                                                                                             | Filter by resource type within the folder.                                                                                                                                     |
+| `resourceType`                                                                                                                                                                 | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                             | :heavy_minus_sign:                                                                                                                                                             | Resource type filter.                                                                                                                                                          |
 | `nextCursor`                                                                                                                                                                   | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Cursor for pagination.                                                                                                                                                         |
 | `maxResults`                                                                                                                                                                   | *number*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Maximum number of results to return (1-500).                                                                                                                                   |
-| `direction`                                                                                                                                                                    | [components.Direction](../../models/components/direction.md)                                                                                                                   | :heavy_minus_sign:                                                                                                                                                             | Sort direction.                                                                                                                                                                |
-| `fields`                                                                                                                                                                       | [components.FieldsSpec](../../models/components/fieldsspec.md)[]                                                                                                               | :heavy_minus_sign:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `direction`                                                                                                                                                                    | [components.DirectionEnum](../../models/components/directionenum.md)                                                                                                           | :heavy_minus_sign:                                                                                                                                                             | The sort direction for the results. Default is "desc".                                                                                                                         |
+| `fields`                                                                                                                                                                       | *components.Fields*                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                             | Additional fields to include in the response. The fields public_id and asset_id are always included.                                                                           |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -1060,7 +1192,7 @@ Retrieves details for specific resources using their asset IDs (or external IDs)
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -1089,7 +1221,7 @@ import { assetsListResourcesByAssetIDs } from "@cloudinary/asset-management/func
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -1116,8 +1248,8 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `assetIds`                                                                                                                                                                     | *string*[]                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                             | List of asset IDs to retrieve (max 100).                                                                                                                                       |
-| `resourceType`                                                                                                                                                                 | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                             | :heavy_minus_sign:                                                                                                                                                             | Resource type (optional, can sometimes disambiguate).                                                                                                                          |
-| `fields`                                                                                                                                                                       | [components.FieldsSpec](../../models/components/fieldsspec.md)[]                                                                                                               | :heavy_minus_sign:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `resourceType`                                                                                                                                                                 | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                             | :heavy_minus_sign:                                                                                                                                                             | Resource type filter.                                                                                                                                                          |
+| `fields`                                                                                                                                                                       | *components.Fields*                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                             | Additional fields to include in the response. The fields public_id and asset_id are always included.                                                                           |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -1144,7 +1276,7 @@ Retrieves resources matching specific context key/value pairs.
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -1173,7 +1305,7 @@ import { assetsListResourcesByContext } from "@cloudinary/asset-management/funcs
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -1199,13 +1331,13 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `resourceType`                                                                                                                                                                 | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                             | :heavy_check_mark:                                                                                                                                                             | The type of resource.                                                                                                                                                          |
+| `resourceType`                                                                                                                                                                 | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                             | :heavy_check_mark:                                                                                                                                                             | The type of resource (image, video, or raw).                                                                                                                                   |
 | `key`                                                                                                                                                                          | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | Context key to filter by.                                                                                                                                                      |
 | `value`                                                                                                                                                                        | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Context value to filter by.                                                                                                                                                    |
 | `nextCursor`                                                                                                                                                                   | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Cursor for pagination.                                                                                                                                                         |
 | `maxResults`                                                                                                                                                                   | *number*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Maximum number of results to return (1-500).                                                                                                                                   |
-| `direction`                                                                                                                                                                    | [components.Direction](../../models/components/direction.md)                                                                                                                   | :heavy_minus_sign:                                                                                                                                                             | Sort direction.                                                                                                                                                                |
-| `fields`                                                                                                                                                                       | [components.FieldsSpec](../../models/components/fieldsspec.md)[]                                                                                                               | :heavy_minus_sign:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `direction`                                                                                                                                                                    | [components.DirectionEnum](../../models/components/directionenum.md)                                                                                                           | :heavy_minus_sign:                                                                                                                                                             | The sort direction for the results. Default is "desc".                                                                                                                         |
+| `fields`                                                                                                                                                                       | *components.Fields*                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                             | Additional fields to include in the response. The fields public_id and asset_id are always included.                                                                           |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -1232,7 +1364,7 @@ Retrieves resources matching specific moderation kind and status.
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -1261,7 +1393,7 @@ import { assetsListResourcesByModerationKindAndStatus } from "@cloudinary/asset-
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -1287,13 +1419,13 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `resourceType`                                                                                                                                                                 | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                             | :heavy_check_mark:                                                                                                                                                             | The type of resource.                                                                                                                                                          |
-| `moderationKind`                                                                                                                                                               | [operations.ModerationKind](../../models/operations/moderationkind.md)                                                                                                         | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
-| `moderationStatus`                                                                                                                                                             | [operations.ModerationStatus](../../models/operations/moderationstatus.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
-| `fields`                                                                                                                                                                       | [components.FieldsSpec](../../models/components/fieldsspec.md)[]                                                                                                               | :heavy_minus_sign:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `resourceType`                                                                                                                                                                 | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                             | :heavy_check_mark:                                                                                                                                                             | The type of resource (image, video, or raw).                                                                                                                                   |
+| `moderationKind`                                                                                                                                                               | [components.ModerationKind](../../models/components/moderationkind.md)                                                                                                         | :heavy_check_mark:                                                                                                                                                             | The type of moderation to filter by.                                                                                                                                           |
+| `moderationStatus`                                                                                                                                                             | [components.ModerationStatusParameter](../../models/components/moderationstatusparameter.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The moderation status to filter by.                                                                                                                                            |
+| `fields`                                                                                                                                                                       | *components.Fields*                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                             | Additional fields to include in the response. The fields public_id and asset_id are always included.                                                                           |
 | `nextCursor`                                                                                                                                                                   | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Cursor for pagination.                                                                                                                                                         |
 | `maxResults`                                                                                                                                                                   | *number*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Maximum number of results to return (1-500).                                                                                                                                   |
-| `direction`                                                                                                                                                                    | [components.Direction](../../models/components/direction.md)                                                                                                                   | :heavy_minus_sign:                                                                                                                                                             | Sort direction.                                                                                                                                                                |
+| `direction`                                                                                                                                                                    | [components.DirectionEnum](../../models/components/directionenum.md)                                                                                                           | :heavy_minus_sign:                                                                                                                                                             | The sort direction for the results. Default is "desc".                                                                                                                         |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -1313,14 +1445,91 @@ run();
 
 Restores one or more resources from backup using their asset IDs. Can optionally specify versions to restore.
 
-### Example Usage
+### Example Usage: all_failed_restore
 
-<!-- UsageSnippet language="typescript" operationID="restoreResourcesByAssetIDs" method="post" path="/v1_1/{cloud_name}/resources/restore" -->
+<!-- UsageSnippet language="typescript" operationID="restoreResourcesByAssetIDs" method="post" path="/v1_1/{cloud_name}/resources/restore" example="all_failed_restore" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const result = await cloudinaryAssetMgmt.assets.restoreResourcesByAssetIDs({
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+      "d23c0526e6feca2c343e40c2fce5231a",
+    ],
+    versions: [
+      "c3fe4be5921eb89acd9af738c892f654",
+      "d214063097a43d1d1293db61a397f60f",
+    ],
+    notificationUrl: "https://example.com/webhook",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsRestoreResourcesByAssetIDs } from "@cloudinary/asset-management/funcs/assetsRestoreResourcesByAssetIDs.js";
+
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const res = await assetsRestoreResourcesByAssetIDs(cloudinaryAssetMgmt, {
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+      "d23c0526e6feca2c343e40c2fce5231a",
+    ],
+    versions: [
+      "c3fe4be5921eb89acd9af738c892f654",
+      "d214063097a43d1d1293db61a397f60f",
+    ],
+    notificationUrl: "https://example.com/webhook",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("assetsRestoreResourcesByAssetIDs failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: basic_restore
+
+<!-- UsageSnippet language="typescript" operationID="restoreResourcesByAssetIDs" method="post" path="/v1_1/{cloud_name}/resources/restore" example="basic_restore" -->
+```typescript
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
+
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -1354,7 +1563,7 @@ import { assetsRestoreResourcesByAssetIDs } from "@cloudinary/asset-management/f
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -1380,14 +1589,772 @@ async function run() {
 
 run();
 ```
+### Example Usage: invalid_asset_id
+
+<!-- UsageSnippet language="typescript" operationID="restoreResourcesByAssetIDs" method="post" path="/v1_1/{cloud_name}/resources/restore" example="invalid_asset_id" -->
+```typescript
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
+
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const result = await cloudinaryAssetMgmt.assets.restoreResourcesByAssetIDs({
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+      "d23c0526e6feca2c343e40c2fce5231a",
+    ],
+    versions: [
+      "c3fe4be5921eb89acd9af738c892f654",
+      "d214063097a43d1d1293db61a397f60f",
+    ],
+    notificationUrl: "https://example.com/webhook",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsRestoreResourcesByAssetIDs } from "@cloudinary/asset-management/funcs/assetsRestoreResourcesByAssetIDs.js";
+
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const res = await assetsRestoreResourcesByAssetIDs(cloudinaryAssetMgmt, {
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+      "d23c0526e6feca2c343e40c2fce5231a",
+    ],
+    versions: [
+      "c3fe4be5921eb89acd9af738c892f654",
+      "d214063097a43d1d1293db61a397f60f",
+    ],
+    notificationUrl: "https://example.com/webhook",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("assetsRestoreResourcesByAssetIDs failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: missing_parameter
+
+<!-- UsageSnippet language="typescript" operationID="restoreResourcesByAssetIDs" method="post" path="/v1_1/{cloud_name}/resources/restore" example="missing_parameter" -->
+```typescript
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
+
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const result = await cloudinaryAssetMgmt.assets.restoreResourcesByAssetIDs({
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+      "d23c0526e6feca2c343e40c2fce5231a",
+    ],
+    versions: [
+      "c3fe4be5921eb89acd9af738c892f654",
+      "d214063097a43d1d1293db61a397f60f",
+    ],
+    notificationUrl: "https://example.com/webhook",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsRestoreResourcesByAssetIDs } from "@cloudinary/asset-management/funcs/assetsRestoreResourcesByAssetIDs.js";
+
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const res = await assetsRestoreResourcesByAssetIDs(cloudinaryAssetMgmt, {
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+      "d23c0526e6feca2c343e40c2fce5231a",
+    ],
+    versions: [
+      "c3fe4be5921eb89acd9af738c892f654",
+      "d214063097a43d1d1293db61a397f60f",
+    ],
+    notificationUrl: "https://example.com/webhook",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("assetsRestoreResourcesByAssetIDs failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: mixed_restore_results
+
+<!-- UsageSnippet language="typescript" operationID="restoreResourcesByAssetIDs" method="post" path="/v1_1/{cloud_name}/resources/restore" example="mixed_restore_results" -->
+```typescript
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
+
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const result = await cloudinaryAssetMgmt.assets.restoreResourcesByAssetIDs({
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+      "d23c0526e6feca2c343e40c2fce5231a",
+    ],
+    versions: [
+      "c3fe4be5921eb89acd9af738c892f654",
+      "d214063097a43d1d1293db61a397f60f",
+    ],
+    notificationUrl: "https://example.com/webhook",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsRestoreResourcesByAssetIDs } from "@cloudinary/asset-management/funcs/assetsRestoreResourcesByAssetIDs.js";
+
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const res = await assetsRestoreResourcesByAssetIDs(cloudinaryAssetMgmt, {
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+      "d23c0526e6feca2c343e40c2fce5231a",
+    ],
+    versions: [
+      "c3fe4be5921eb89acd9af738c892f654",
+      "d214063097a43d1d1293db61a397f60f",
+    ],
+    notificationUrl: "https://example.com/webhook",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("assetsRestoreResourcesByAssetIDs failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: restoreResponseFailedRestoreExample
+
+<!-- UsageSnippet language="typescript" operationID="restoreResourcesByAssetIDs" method="post" path="/v1_1/{cloud_name}/resources/restore" example="restoreResponseFailedRestoreExample" -->
+```typescript
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
+
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const result = await cloudinaryAssetMgmt.assets.restoreResourcesByAssetIDs({
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+      "d23c0526e6feca2c343e40c2fce5231a",
+    ],
+    versions: [
+      "c3fe4be5921eb89acd9af738c892f654",
+      "d214063097a43d1d1293db61a397f60f",
+    ],
+    notificationUrl: "https://example.com/webhook",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsRestoreResourcesByAssetIDs } from "@cloudinary/asset-management/funcs/assetsRestoreResourcesByAssetIDs.js";
+
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const res = await assetsRestoreResourcesByAssetIDs(cloudinaryAssetMgmt, {
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+      "d23c0526e6feca2c343e40c2fce5231a",
+    ],
+    versions: [
+      "c3fe4be5921eb89acd9af738c892f654",
+      "d214063097a43d1d1293db61a397f60f",
+    ],
+    notificationUrl: "https://example.com/webhook",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("assetsRestoreResourcesByAssetIDs failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: restoreResponseFullRestoreExample
+
+<!-- UsageSnippet language="typescript" operationID="restoreResourcesByAssetIDs" method="post" path="/v1_1/{cloud_name}/resources/restore" example="restoreResponseFullRestoreExample" -->
+```typescript
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
+
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const result = await cloudinaryAssetMgmt.assets.restoreResourcesByAssetIDs({
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+      "d23c0526e6feca2c343e40c2fce5231a",
+    ],
+    versions: [
+      "c3fe4be5921eb89acd9af738c892f654",
+      "d214063097a43d1d1293db61a397f60f",
+    ],
+    notificationUrl: "https://example.com/webhook",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsRestoreResourcesByAssetIDs } from "@cloudinary/asset-management/funcs/assetsRestoreResourcesByAssetIDs.js";
+
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const res = await assetsRestoreResourcesByAssetIDs(cloudinaryAssetMgmt, {
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+      "d23c0526e6feca2c343e40c2fce5231a",
+    ],
+    versions: [
+      "c3fe4be5921eb89acd9af738c892f654",
+      "d214063097a43d1d1293db61a397f60f",
+    ],
+    notificationUrl: "https://example.com/webhook",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("assetsRestoreResourcesByAssetIDs failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: restoreResponsePartialRestoreExample
+
+<!-- UsageSnippet language="typescript" operationID="restoreResourcesByAssetIDs" method="post" path="/v1_1/{cloud_name}/resources/restore" example="restoreResponsePartialRestoreExample" -->
+```typescript
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
+
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const result = await cloudinaryAssetMgmt.assets.restoreResourcesByAssetIDs({
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+      "d23c0526e6feca2c343e40c2fce5231a",
+    ],
+    versions: [
+      "c3fe4be5921eb89acd9af738c892f654",
+      "d214063097a43d1d1293db61a397f60f",
+    ],
+    notificationUrl: "https://example.com/webhook",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsRestoreResourcesByAssetIDs } from "@cloudinary/asset-management/funcs/assetsRestoreResourcesByAssetIDs.js";
+
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const res = await assetsRestoreResourcesByAssetIDs(cloudinaryAssetMgmt, {
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+      "d23c0526e6feca2c343e40c2fce5231a",
+    ],
+    versions: [
+      "c3fe4be5921eb89acd9af738c892f654",
+      "d214063097a43d1d1293db61a397f60f",
+    ],
+    notificationUrl: "https://example.com/webhook",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("assetsRestoreResourcesByAssetIDs failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: restore_specific_versions
+
+<!-- UsageSnippet language="typescript" operationID="restoreResourcesByAssetIDs" method="post" path="/v1_1/{cloud_name}/resources/restore" example="restore_specific_versions" -->
+```typescript
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
+
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const result = await cloudinaryAssetMgmt.assets.restoreResourcesByAssetIDs({
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+      "d23c0526e6feca2c343e40c2fce5231a",
+    ],
+    versions: [
+      "c3fe4be5921eb89acd9af738c892f654",
+      "d214063097a43d1d1293db61a397f60f",
+    ],
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsRestoreResourcesByAssetIDs } from "@cloudinary/asset-management/funcs/assetsRestoreResourcesByAssetIDs.js";
+
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const res = await assetsRestoreResourcesByAssetIDs(cloudinaryAssetMgmt, {
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+      "d23c0526e6feca2c343e40c2fce5231a",
+    ],
+    versions: [
+      "c3fe4be5921eb89acd9af738c892f654",
+      "d214063097a43d1d1293db61a397f60f",
+    ],
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("assetsRestoreResourcesByAssetIDs failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: restore_with_notification
+
+<!-- UsageSnippet language="typescript" operationID="restoreResourcesByAssetIDs" method="post" path="/v1_1/{cloud_name}/resources/restore" example="restore_with_notification" -->
+```typescript
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
+
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const result = await cloudinaryAssetMgmt.assets.restoreResourcesByAssetIDs({
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+    ],
+    notificationUrl: "https://example.com/webhook",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsRestoreResourcesByAssetIDs } from "@cloudinary/asset-management/funcs/assetsRestoreResourcesByAssetIDs.js";
+
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const res = await assetsRestoreResourcesByAssetIDs(cloudinaryAssetMgmt, {
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+    ],
+    notificationUrl: "https://example.com/webhook",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("assetsRestoreResourcesByAssetIDs failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: successful_restore
+
+<!-- UsageSnippet language="typescript" operationID="restoreResourcesByAssetIDs" method="post" path="/v1_1/{cloud_name}/resources/restore" example="successful_restore" -->
+```typescript
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
+
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const result = await cloudinaryAssetMgmt.assets.restoreResourcesByAssetIDs({
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+      "d23c0526e6feca2c343e40c2fce5231a",
+    ],
+    versions: [
+      "c3fe4be5921eb89acd9af738c892f654",
+      "d214063097a43d1d1293db61a397f60f",
+    ],
+    notificationUrl: "https://example.com/webhook",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsRestoreResourcesByAssetIDs } from "@cloudinary/asset-management/funcs/assetsRestoreResourcesByAssetIDs.js";
+
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const res = await assetsRestoreResourcesByAssetIDs(cloudinaryAssetMgmt, {
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+      "d23c0526e6feca2c343e40c2fce5231a",
+    ],
+    versions: [
+      "c3fe4be5921eb89acd9af738c892f654",
+      "d214063097a43d1d1293db61a397f60f",
+    ],
+    notificationUrl: "https://example.com/webhook",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("assetsRestoreResourcesByAssetIDs failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: version_count_mismatch
+
+<!-- UsageSnippet language="typescript" operationID="restoreResourcesByAssetIDs" method="post" path="/v1_1/{cloud_name}/resources/restore" example="version_count_mismatch" -->
+```typescript
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
+
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const result = await cloudinaryAssetMgmt.assets.restoreResourcesByAssetIDs({
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+      "d23c0526e6feca2c343e40c2fce5231a",
+    ],
+    versions: [
+      "c3fe4be5921eb89acd9af738c892f654",
+      "d214063097a43d1d1293db61a397f60f",
+    ],
+    notificationUrl: "https://example.com/webhook",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsRestoreResourcesByAssetIDs } from "@cloudinary/asset-management/funcs/assetsRestoreResourcesByAssetIDs.js";
+
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const res = await assetsRestoreResourcesByAssetIDs(cloudinaryAssetMgmt, {
+    assetIds: [
+      "2262b0b5eb88f1fd7724e29b0e57d730",
+      "d23c0526e6feca2c343e40c2fce5231a",
+    ],
+    versions: [
+      "c3fe4be5921eb89acd9af738c892f654",
+      "d214063097a43d1d1293db61a397f60f",
+    ],
+    notificationUrl: "https://example.com/webhook",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("assetsRestoreResourcesByAssetIDs failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `assetIds`                                                                                                                                                                     | *string*[]                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The unique and immutable asset IDs of backed up assets to restore.                                                                                                             | [object Object]                                                                                                                                                                |
-| `versions`                                                                                                                                                                     | *string*[]                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                             | If you specify versions, the number of versions in the array must exactly match the number of asset_ids.                                                                       | [object Object]                                                                                                                                                                |
-| `notificationUrl`                                                                                                                                                              | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The URL that will receive notification when restore is complete.                                                                                                               | [object Object]                                                                                                                                                                |
+| `assetIds`                                                                                                                                                                     | *string*[]                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The unique and immutable asset IDs of backed up assets to restore.                                                                                                             | [<br/>"2262b0b5eb88f1fd7724e29b0e57d730",<br/>"d23c0526e6feca2c343e40c2fce5231a"<br/>]                                                                                         |
+| `versions`                                                                                                                                                                     | *string*[]                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                             | If you specify versions, the number of versions in the array must exactly match the number of asset_ids.                                                                       | [<br/>"c3fe4be5921eb89acd9af738c892f654",<br/>"d214063097a43d1d1293db61a397f60f"<br/>]                                                                                         |
+| `notificationUrl`                                                                                                                                                              | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The URL that will receive notification when restore is complete.                                                                                                               | https://example.com/webhook                                                                                                                                                    |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |                                                                                                                                                                                |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |                                                                                                                                                                                |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |                                                                                                                                                                                |
@@ -1409,12 +2376,12 @@ Deletes assets uploaded to your product environment, identified by their public 
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="deleteResourcesByPublicId" method="delete" path="/v1_1/{cloud_name}/resources/{resource_type}/{type}" -->
+<!-- UsageSnippet language="typescript" operationID="deleteResourcesByPublicId" method="delete" path="/v1_1/{cloud_name}/resources/{resource_type}/{type}" example="deleteResourceResponseExample" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -1448,7 +2415,7 @@ import { assetsDeleteResourcesByPublicId } from "@cloudinary/asset-management/fu
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -1479,9 +2446,9 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `resourceType`                                                                                                                                                                 | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                             | :heavy_check_mark:                                                                                                                                                             | The type of resource.                                                                                                                                                          |
-| `type`                                                                                                                                                                         | [components.ExtendedStorageType](../../models/components/extendedstoragetype.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The extended storage type of the resource.                                                                                                                                     |
-| `deleteResourceByPublicIdsRequest`                                                                                                                                             | *components.DeleteResourceByPublicIdsRequestUnion*                                                                                                                             | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `resourceType`                                                                                                                                                                 | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                             | :heavy_check_mark:                                                                                                                                                             | The type of resource (image, video, or raw).                                                                                                                                   |
+| `type`                                                                                                                                                                         | [components.DeliveryTypeAllEnum](../../models/components/deliverytypeallenum.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The delivery type of the asset.                                                                                                                                                |
+| `deleteResourceByPublicIdsRequest`                                                                                                                                             | *components.DeleteResourceByPublicIdsRequestUnion*                                                                                                                             | :heavy_check_mark:                                                                                                                                                             | The public IDs and options for the resources to delete.                                                                                                                        |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -1503,12 +2470,12 @@ Returns the details of a single resource specified by its public ID.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getResourceByPublicId" method="get" path="/v1_1/{cloud_name}/resources/{resource_type}/{type}/{public_id}" -->
+<!-- UsageSnippet language="typescript" operationID="getResourceByPublicId" method="get" path="/v1_1/{cloud_name}/resources/{resource_type}/{type}/{public_id}" example="getResourceResponseExample" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -1537,7 +2504,7 @@ import { assetsGetResourceByPublicId } from "@cloudinary/asset-management/funcs/
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -1561,25 +2528,25 @@ run();
 
 ### Parameters
 
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `resourceType`                                                                                                                                                                 | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                             | :heavy_check_mark:                                                                                                                                                             | The type of resource.                                                                                                                                                          |
-| `type`                                                                                                                                                                         | [components.ExtendedStorageType](../../models/components/extendedstoragetype.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The extended storage type of the resource.                                                                                                                                     |
-| `publicId`                                                                                                                                                                     | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The public ID of the asset.                                                                                                                                                    |
-| `colors`                                                                                                                                                                       | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include color information (predominant colors and histogram of 32 leading colors). Default: false.                                                                  |
-| `mediaMetadata`                                                                                                                                                                | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include IPTC, XMP, and detailed Exif metadata in the response. Default: false.                                                                                      |
-| `faces`                                                                                                                                                                        | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include a list of coordinates of detected faces. Default: false.                                                                                                    |
-| `qualityAnalysis`                                                                                                                                                              | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to return quality analysis scores for the image. Default: false.                                                                                                       |
-| `accessibilityAnalysis`                                                                                                                                                        | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to return accessibility analysis scores for the image. Default: false.                                                                                                 |
-| `pages`                                                                                                                                                                        | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to report the number of pages in multi-page documents (e.g., PDF). Default: false.                                                                                     |
-| `phash`                                                                                                                                                                        | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include the perceptual hash (pHash) of the uploaded photo for image similarity detection. Default: false.                                                           |
-| `coordinates`                                                                                                                                                                  | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include previously specified custom cropping coordinates and faces coordinates. Default: false.                                                                     |
-| `versions`                                                                                                                                                                     | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include details of all the backed up versions of the asset. Default: false.                                                                                         |
-| `maxResults`                                                                                                                                                                   | *number*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Maximum number of derived assets to return. Default: 10.                                                                                                                       |
-| `derivedNextCursor`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The cursor for the next page of derived assets when there are more derived images than max_results.                                                                            |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `resourceType`                                                                                                                                                                 | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                             | :heavy_check_mark:                                                                                                                                                             | The type of resource (image, video, or raw).                                                                                                                                   |                                                                                                                                                                                |
+| `type`                                                                                                                                                                         | [components.DeliveryTypeAllEnum](../../models/components/deliverytypeallenum.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The delivery type of the asset.                                                                                                                                                |                                                                                                                                                                                |
+| `publicId`                                                                                                                                                                     | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The public ID of the asset.                                                                                                                                                    | sample                                                                                                                                                                         |
+| `colors`                                                                                                                                                                       | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include color information (predominant colors and histogram of 32 leading colors). Default: false.                                                                  |                                                                                                                                                                                |
+| `mediaMetadata`                                                                                                                                                                | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include IPTC, XMP, and detailed Exif metadata in the response. Default: false.                                                                                      |                                                                                                                                                                                |
+| `faces`                                                                                                                                                                        | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include a list of coordinates of detected faces. Default: false.                                                                                                    |                                                                                                                                                                                |
+| `qualityAnalysis`                                                                                                                                                              | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to return quality analysis scores for the image. Default: false.                                                                                                       |                                                                                                                                                                                |
+| `accessibilityAnalysis`                                                                                                                                                        | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to return accessibility analysis scores for the image. Default: false.                                                                                                 |                                                                                                                                                                                |
+| `pages`                                                                                                                                                                        | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to report the number of pages in multi-page documents (e.g., PDF). Default: false.                                                                                     |                                                                                                                                                                                |
+| `phash`                                                                                                                                                                        | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include the perceptual hash (pHash) of the uploaded photo for image similarity detection. Default: false.                                                           |                                                                                                                                                                                |
+| `coordinates`                                                                                                                                                                  | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include previously specified custom cropping coordinates and faces coordinates. Default: false.                                                                     |                                                                                                                                                                                |
+| `versions`                                                                                                                                                                     | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include details of all the backed up versions of the asset. Default: false.                                                                                         |                                                                                                                                                                                |
+| `maxResults`                                                                                                                                                                   | *number*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Maximum number of derived assets to return. Default: 10.                                                                                                                       |                                                                                                                                                                                |
+| `derivedNextCursor`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The cursor for the next page of derived assets when there are more derived images than max_results.                                                                            |                                                                                                                                                                                |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |                                                                                                                                                                                |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |                                                                                                                                                                                |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |                                                                                                                                                                                |
 
 ### Response
 
@@ -1599,12 +2566,12 @@ Updates one or more attributes of a specified resource (asset) identified by its
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="updateResourceByPublicId" method="post" path="/v1_1/{cloud_name}/resources/{resource_type}/{type}/{public_id}" -->
+<!-- UsageSnippet language="typescript" operationID="updateResourceByPublicId" method="post" path="/v1_1/{cloud_name}/resources/{resource_type}/{type}/{public_id}" example="updateResourceResponseExample" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -1617,14 +2584,18 @@ async function run() {
   const result = await cloudinaryAssetMgmt.assets.updateResourceByPublicId("image", "dailymotion", "<id>", {
     displayName: "My Product Image",
     assetFolder: "products/summer",
-    tags: "product,summer,sale",
-    context: "alt=My product image|caption=Summer collection",
+    tags: "animal,dog",
+    context: "alt=My image|caption=Nice photo",
     metadata: "in_stock_id=50|color_id=[\"green\",\"red\"]",
     faceCoordinates: "10,20,150,130|213,345,82,61",
     customCoordinates: "10,20,150,130|213,345,82,61",
-    regions: "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}",
+    regions: "{\"face\": [[100, 200], [300, 400]], \"body\": [[50, 60], [70, 80], [90, 100]]}",
     qualityOverride: "80:420",
     detection: "captioning",
+    ocr: "adv_ocr",
+    rawConvert: "google_speech",
+    categorization: "google_tagging",
+    backgroundRemoval: "cloudinary_ai",
     accessControl: [
       {
         accessType: "token",
@@ -1632,8 +2603,8 @@ async function run() {
       },
       {
         accessType: "anonymous",
-        start: new Date("2024-03-15T09:00:00Z"),
-        end: new Date("2024-06-30T23:59:59Z"),
+        start: "2024-03-15T09:00:00Z",
+        end: "2024-06-30T23:59:59Z",
       },
     ],
   });
@@ -1655,7 +2626,7 @@ import { assetsUpdateResourceByPublicId } from "@cloudinary/asset-management/fun
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -1668,14 +2639,18 @@ async function run() {
   const res = await assetsUpdateResourceByPublicId(cloudinaryAssetMgmt, "image", "dailymotion", "<id>", {
     displayName: "My Product Image",
     assetFolder: "products/summer",
-    tags: "product,summer,sale",
-    context: "alt=My product image|caption=Summer collection",
+    tags: "animal,dog",
+    context: "alt=My image|caption=Nice photo",
     metadata: "in_stock_id=50|color_id=[\"green\",\"red\"]",
     faceCoordinates: "10,20,150,130|213,345,82,61",
     customCoordinates: "10,20,150,130|213,345,82,61",
-    regions: "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}",
+    regions: "{\"face\": [[100, 200], [300, 400]], \"body\": [[50, 60], [70, 80], [90, 100]]}",
     qualityOverride: "80:420",
     detection: "captioning",
+    ocr: "adv_ocr",
+    rawConvert: "google_speech",
+    categorization: "google_tagging",
+    backgroundRemoval: "cloudinary_ai",
     accessControl: [
       {
         accessType: "token",
@@ -1683,8 +2658,8 @@ async function run() {
       },
       {
         accessType: "anonymous",
-        start: new Date("2024-03-15T09:00:00Z"),
-        end: new Date("2024-06-30T23:59:59Z"),
+        start: "2024-03-15T09:00:00Z",
+        end: "2024-06-30T23:59:59Z",
       },
     ],
   });
@@ -1701,15 +2676,15 @@ run();
 
 ### Parameters
 
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `resourceType`                                                                                                                                                                 | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                             | :heavy_check_mark:                                                                                                                                                             | The type of resource.                                                                                                                                                          |
-| `type`                                                                                                                                                                         | [components.ExtendedStorageType](../../models/components/extendedstoragetype.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The extended storage type of the resource.                                                                                                                                     |
-| `publicId`                                                                                                                                                                     | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The public ID of the asset.                                                                                                                                                    |
-| `resourceUpdateRequest`                                                                                                                                                        | [components.ResourceUpdateRequest](../../models/components/resourceupdaterequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `resourceType`                                                                                                                                                                 | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                             | :heavy_check_mark:                                                                                                                                                             | The type of resource (image, video, or raw).                                                                                                                                   |                                                                                                                                                                                |
+| `type`                                                                                                                                                                         | [components.DeliveryTypeAllEnum](../../models/components/deliverytypeallenum.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The delivery type of the asset.                                                                                                                                                |                                                                                                                                                                                |
+| `publicId`                                                                                                                                                                     | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The public ID of the asset.                                                                                                                                                    | sample                                                                                                                                                                         |
+| `resourceUpdateRequest`                                                                                                                                                        | [components.ResourceUpdateRequest](../../models/components/resourceupdaterequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The asset attributes to update.                                                                                                                                                |                                                                                                                                                                                |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |                                                                                                                                                                                |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |                                                                                                                                                                                |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |                                                                                                                                                                                |
 
 ### Response
 
@@ -1728,7 +2703,7 @@ Returns the details of a single resource specified by its asset ID.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getResourceByAssetId" method="get" path="/v1_1/{cloud_name}/resources/{asset_id}" -->
+<!-- UsageSnippet language="typescript" operationID="getResourceByAssetId" method="get" path="/v1_1/{cloud_name}/resources/{asset_id}" example="getResourceResponseExample" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
@@ -1743,7 +2718,7 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
 });
 
 async function run() {
-  const result = await cloudinaryAssetMgmt.assets.getResourceByAssetId("e9b44a374f66ad53a64a74c7398f7");
+  const result = await cloudinaryAssetMgmt.assets.getResourceByAssetId("f4e6579cf84dd9cf5683b21f5b30c7d9");
 
   console.log(result);
 }
@@ -1772,7 +2747,7 @@ const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
 });
 
 async function run() {
-  const res = await assetsGetResourceByAssetId(cloudinaryAssetMgmt, "e9b44a374f66ad53a64a74c7398f7");
+  const res = await assetsGetResourceByAssetId(cloudinaryAssetMgmt, "f4e6579cf84dd9cf5683b21f5b30c7d9");
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -1788,7 +2763,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `assetId`                                                                                                                                                                      | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The asset ID of the resource. Must be a 32-character hexadecimal string.                                                                                                       | [object Object]                                                                                                                                                                |
+| `assetId`                                                                                                                                                                      | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The asset ID of the resource. Must be a 32-character hexadecimal string.                                                                                                       | f4e6579cf84dd9cf5683b21f5b30c7d9                                                                                                                                               |
 | `colors`                                                                                                                                                                       | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include color information (predominant colors and histogram of 32 leading colors). Default: false.                                                                  |                                                                                                                                                                                |
 | `mediaMetadata`                                                                                                                                                                | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include IPTC, XMP, and detailed Exif metadata in the response. Default: false.                                                                                      |                                                                                                                                                                                |
 | `faces`                                                                                                                                                                        | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include a list of coordinates of detected faces. Default: false.                                                                                                    |                                                                                                                                                                                |
@@ -1817,17 +2792,17 @@ run();
 
 ## updateResourceByAssetId
 
-Updates one or more attributes of a specified resource (asset) by its asset ID. This enables you to update details of an asset by its unique and immutable identifier, regardless of public ID, display name, asset folder, resource type or deliver type. Note that you can also update many attributes of an existing asset using the explicit method, which is not rate-limited.
+Updates one or more attributes of a specified resource (asset) by its asset ID. This enables you to update details of an asset by its unique and immutable identifier, regardless of public ID, display name, asset folder, resource type or delivery type. Note that you can also update attributes of an existing asset using the explicit API endpoint.
 
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="updateResourceByAssetId" method="put" path="/v1_1/{cloud_name}/resources/{asset_id}" -->
+<!-- UsageSnippet language="typescript" operationID="updateResourceByAssetId" method="put" path="/v1_1/{cloud_name}/resources/{asset_id}" example="updateResourceResponseExample" -->
 ```typescript
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -1840,7 +2815,7 @@ async function run() {
   const result = await cloudinaryAssetMgmt.assets.updateResourceByAssetId("f4e6579cf84dd9cf5683b21f5b30c7d9", {
     displayName: "My Product Image",
     assetFolder: "products/summer",
-    tags: "product,summer,sale",
+    tags: "animal,dog",
     context: "alt=My product image|caption=Summer collection",
     metadata: "in_stock_id=50|color_id=[\"green\",\"red\"]",
     faceCoordinates: "10,20,150,130|213,345,82,61",
@@ -1848,6 +2823,10 @@ async function run() {
     regions: "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}",
     qualityOverride: "80:420",
     detection: "captioning",
+    ocr: "adv_ocr",
+    rawConvert: "google_speech",
+    categorization: "google_tagging",
+    backgroundRemoval: "cloudinary_ai",
     accessControl: [
       {
         accessType: "token",
@@ -1855,8 +2834,8 @@ async function run() {
       },
       {
         accessType: "anonymous",
-        start: new Date("2024-03-15T09:00:00Z"),
-        end: new Date("2024-06-30T23:59:59Z"),
+        start: "2024-03-15T09:00:00Z",
+        end: "2024-06-30T23:59:59Z",
       },
     ],
   });
@@ -1878,7 +2857,7 @@ import { assetsUpdateResourceByAssetId } from "@cloudinary/asset-management/func
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -1891,7 +2870,7 @@ async function run() {
   const res = await assetsUpdateResourceByAssetId(cloudinaryAssetMgmt, "f4e6579cf84dd9cf5683b21f5b30c7d9", {
     displayName: "My Product Image",
     assetFolder: "products/summer",
-    tags: "product,summer,sale",
+    tags: "animal,dog",
     context: "alt=My product image|caption=Summer collection",
     metadata: "in_stock_id=50|color_id=[\"green\",\"red\"]",
     faceCoordinates: "10,20,150,130|213,345,82,61",
@@ -1899,6 +2878,10 @@ async function run() {
     regions: "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}",
     qualityOverride: "80:420",
     detection: "captioning",
+    ocr: "adv_ocr",
+    rawConvert: "google_speech",
+    categorization: "google_tagging",
+    backgroundRemoval: "cloudinary_ai",
     accessControl: [
       {
         accessType: "token",
@@ -1906,8 +2889,8 @@ async function run() {
       },
       {
         accessType: "anonymous",
-        start: new Date("2024-03-15T09:00:00Z"),
-        end: new Date("2024-06-30T23:59:59Z"),
+        start: "2024-03-15T09:00:00Z",
+        end: "2024-06-30T23:59:59Z",
       },
     ],
   });
@@ -1926,8 +2909,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `assetId`                                                                                                                                                                      | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The asset ID of the resource. Must be a 32-character hexadecimal string.                                                                                                       | [object Object]                                                                                                                                                                |
-| `resourceUpdateRequest`                                                                                                                                                        | [components.ResourceUpdateRequest](../../models/components/resourceupdaterequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |                                                                                                                                                                                |
+| `assetId`                                                                                                                                                                      | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The asset ID of the resource. Must be a 32-character hexadecimal string.                                                                                                       | f4e6579cf84dd9cf5683b21f5b30c7d9                                                                                                                                               |
+| `resourceUpdateRequest`                                                                                                                                                        | [components.ResourceUpdateRequest](../../models/components/resourceupdaterequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The asset attributes to update.                                                                                                                                                |                                                                                                                                                                                |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |                                                                                                                                                                                |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |                                                                                                                                                                                |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |                                                                                                                                                                                |
@@ -1957,7 +2940,7 @@ Retrieves a comprehensive list of all tags that exist in your product environmen
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -1986,7 +2969,7 @@ import { assetsListResourceTags } from "@cloudinary/asset-management/funcs/asset
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -2012,8 +2995,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `resourceType`                                                                                                                                                                 | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                             | :heavy_check_mark:                                                                                                                                                             | The type of resource.                                                                                                                                                          |
-| `prefix`                                                                                                                                                                       | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The prefix to use if you want to limit the returned tags to those that start with the specified prefix.                                                                        |
+| `resourceType`                                                                                                                                                                 | [components.ResourceType](../../models/components/resourcetype.md)                                                                                                             | :heavy_check_mark:                                                                                                                                                             | The type of resource (image, video, or raw).                                                                                                                                   |
+| `prefix`                                                                                                                                                                       | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Limit the returned tags to those that start with the specified prefix.                                                                                                         |
 | `nextCursor`                                                                                                                                                                   | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Cursor for pagination.                                                                                                                                                         |
 | `maxResults`                                                                                                                                                                   | *number*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Maximum number of results to return (1-500).                                                                                                                                   |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
@@ -2022,7 +3005,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.ListResourceTagsResponse](../../models/operations/listresourcetagsresponse.md)\>**
+**Promise\<[components.TagsListResponse](../../models/components/tagslistresponse.md)\>**
 
 ### Errors
 
@@ -2109,8 +3092,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `assetId`                                                                                                                                                                      | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The asset ID of the resource. Must be a 32-character hexadecimal string.                                                                                                       | [object Object]                                                                                                                                                                |
-| `requestBody`                                                                                                                                                                  | [operations.DeleteBackupVersionsRequestBody](../../models/operations/deletebackupversionsrequestbody.md)                                                                       | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |                                                                                                                                                                                |
+| `assetId`                                                                                                                                                                      | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The asset ID of the resource. Must be a 32-character hexadecimal string.                                                                                                       | f4e6579cf84dd9cf5683b21f5b30c7d9                                                                                                                                               |
+| `deleteBackupVersionsRequest`                                                                                                                                                  | [components.DeleteBackupVersionsRequest](../../models/components/deletebackupversionsrequest.md)                                                                               | :heavy_check_mark:                                                                                                                                                             | The asset IDs and version IDs to delete.                                                                                                                                       |                                                                                                                                                                                |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |                                                                                                                                                                                |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |                                                                                                                                                                                |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |                                                                                                                                                                                |
@@ -2137,7 +3120,7 @@ Deletes derived resources by derived resource ID
 import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
 
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -2172,7 +3155,7 @@ import { assetsDerivedDestroy } from "@cloudinary/asset-management/funcs/assetsD
 // Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
-  cloudName: "<value>",
+  cloudName: "my_cloud",
   security: {
     cloudinaryAuth: {
       apiKey: "CLOUDINARY_API_KEY",
@@ -2204,8 +3187,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `derivedResourceIds`                                                                                                                                                           | *string*[]                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                             | Array of derived resource IDs to delete specific derived resources                                                                                                             | [object Object]                                                                                                                                                                |
-| `invalidate`                                                                                                                                                                   | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to invalidate the CDN cache for the deleted resources                                                                                                                  | [object Object]                                                                                                                                                                |
+| `derivedResourceIds`                                                                                                                                                           | *string*[]                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                             | Array of derived resource IDs to delete specific derived resources                                                                                                             | [<br/>"1234567890abcdef",<br/>"fedcba0987654321"<br/>]                                                                                                                         |
+| `invalidate`                                                                                                                                                                   | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to invalidate the CDN cache for the deleted resources                                                                                                                  | true                                                                                                                                                                           |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |                                                                                                                                                                                |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |                                                                                                                                                                                |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |                                                                                                                                                                                |
@@ -2219,4 +3202,379 @@ run();
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
 | errors.ApiError  | 400, 401         | application/json |
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
+
+## invalidateDerivedByUrls
+
+Deletes and invalidates the cached derived assets that back the specified delivery URLs.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="invalidateDerivedByUrls" method="delete" path="/v1_1/{cloud_name}/derived_resources/invalidate_by_urls" -->
+```typescript
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
+
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const result = await cloudinaryAssetMgmt.assets.invalidateDerivedByUrls({
+    urls: [
+      "https://res.cloudinary.com/demo/image/upload/w_100/sample.jpg",
+    ],
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsInvalidateDerivedByUrls } from "@cloudinary/asset-management/funcs/assetsInvalidateDerivedByUrls.js";
+
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const res = await assetsInvalidateDerivedByUrls(cloudinaryAssetMgmt, {
+    urls: [
+      "https://res.cloudinary.com/demo/image/upload/w_100/sample.jpg",
+    ],
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("assetsInvalidateDerivedByUrls failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `urls`                                                                                                                                                                         | *string*[]                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The delivery URLs whose cached derived assets should be invalidated.                                                                                                           | [<br/>"https://res.cloudinary.com/demo/image/upload/w_100/sample.jpg"<br/>]                                                                                                    |
+| `skipReporting`                                                                                                                                                                | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to skip recording this invalidation against the product environment usage. If false, the invalidation is counted towards usage. Default is false.                      |                                                                                                                                                                                |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |                                                                                                                                                                                |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |                                                                                                                                                                                |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |                                                                                                                                                                                |
+
+### Response
+
+**Promise\<[components.InvalidateByUrlsResponse](../../models/components/invalidatebyurlsresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.ApiError  | 400, 401         | application/json |
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
+
+## getResourceByBody
+
+Returns the details of a single asset identified by its public ID, delivery type, and resource type passed in the request body.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="getResourceByBody" method="post" path="/v1_1/{cloud_name}/resources/get_resource" -->
+```typescript
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
+
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const result = await cloudinaryAssetMgmt.assets.getResourceByBody({
+    publicId: "sample",
+    resourceType: "image",
+    kind: "upload",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsGetResourceByBody } from "@cloudinary/asset-management/funcs/assetsGetResourceByBody.js";
+
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const res = await assetsGetResourceByBody(cloudinaryAssetMgmt, {
+    publicId: "sample",
+    resourceType: "image",
+    kind: "upload",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("assetsGetResourceByBody failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `publicId`                                                                                                                                                                     | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The public ID of the asset to retrieve.                                                                                                                                        | sample                                                                                                                                                                         |
+| `resourceType`                                                                                                                                                                 | [components.ResourceGetByBodyRequestResourceType](../../models/components/resourcegetbybodyrequestresourcetype.md)                                                             | :heavy_check_mark:                                                                                                                                                             | The type of the asset (image, video, or raw).                                                                                                                                  | image                                                                                                                                                                          |
+| `kind`                                                                                                                                                                         | [components.ResourceGetByBodyRequestKind](../../models/components/resourcegetbybodyrequestkind.md)                                                                             | :heavy_check_mark:                                                                                                                                                             | The delivery type of the asset.                                                                                                                                                | upload                                                                                                                                                                         |
+| `withElastic`                                                                                                                                                                  | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to source the asset details from the search index. If false, the details are read directly from the canonical store. Default is true.                                  |                                                                                                                                                                                |
+| `derived`                                                                                                                                                                      | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include the derived assets of this asset in the response. Default is true.                                                                                          |                                                                                                                                                                                |
+| `versions`                                                                                                                                                                     | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to include the backup versions of this asset in the response. Default is false.                                                                                        |                                                                                                                                                                                |
+| `additionalProperties`                                                                                                                                                         | Record<string, *any*>                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                             | N/A                                                                                                                                                                            |                                                                                                                                                                                |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |                                                                                                                                                                                |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |                                                                                                                                                                                |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |                                                                                                                                                                                |
+
+### Response
+
+**Promise\<[components.ResourceInternalResponse](../../models/components/resourceinternalresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.ApiError  | 400, 401, 404    | application/json |
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
+
+## updateResourceByBody
+
+Updates the details of an existing asset (such as tags, contextual metadata, structured metadata, and moderation status) identified by its public ID, delivery type, and resource type passed in the request body.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="updateResourceByBody" method="post" path="/v1_1/{cloud_name}/resources/update" -->
+```typescript
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
+
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const result = await cloudinaryAssetMgmt.assets.updateResourceByBody({
+    publicId: "sample",
+    resourceType: "image",
+    kind: "upload",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsUpdateResourceByBody } from "@cloudinary/asset-management/funcs/assetsUpdateResourceByBody.js";
+
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const res = await assetsUpdateResourceByBody(cloudinaryAssetMgmt, {
+    publicId: "sample",
+    resourceType: "image",
+    kind: "upload",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("assetsUpdateResourceByBody failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `publicId`                                                                                                                                                                     | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The public ID of the asset to update.                                                                                                                                          | sample                                                                                                                                                                         |
+| `resourceType`                                                                                                                                                                 | [components.ResourceUpdateByBodyRequestResourceType](../../models/components/resourceupdatebybodyrequestresourcetype.md)                                                       | :heavy_check_mark:                                                                                                                                                             | The type of the asset (image, video, or raw).                                                                                                                                  | image                                                                                                                                                                          |
+| `kind`                                                                                                                                                                         | [components.ResourceUpdateByBodyRequestKind](../../models/components/resourceupdatebybodyrequestkind.md)                                                                       | :heavy_check_mark:                                                                                                                                                             | The delivery type of the asset.                                                                                                                                                | upload                                                                                                                                                                         |
+| `tags`                                                                                                                                                                         | *string*[]                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                             | The list of tags to assign to the asset, replacing any existing tags.                                                                                                          |                                                                                                                                                                                |
+| `context`                                                                                                                                                                      | Record<string, *any*>                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                             | The key-value pairs of contextual metadata to assign to the asset.                                                                                                             |                                                                                                                                                                                |
+| `metadata`                                                                                                                                                                     | Record<string, *any*>                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                             | The structured metadata field values to assign to the asset.                                                                                                                   |                                                                                                                                                                                |
+| `assetFolder`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The asset folder to move the asset into.                                                                                                                                       |                                                                                                                                                                                |
+| `displayName`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The display name to assign to the asset.                                                                                                                                       |                                                                                                                                                                                |
+| `moderationStatus`                                                                                                                                                             | [components.ResourceUpdateByBodyRequestModerationStatus](../../models/components/resourceupdatebybodyrequestmoderationstatus.md)                                               | :heavy_minus_sign:                                                                                                                                                             | The moderation status to set on the asset.                                                                                                                                     |                                                                                                                                                                                |
+| `adminContext`                                                                                                                                                                 | [components.AdminContextOperation](../../models/components/admincontextoperation.md)[]                                                                                         | :heavy_minus_sign:                                                                                                                                                             | Internal-only contextual metadata operations applied with add/remove semantics. Each<br/>entry names a context key, the value(s) to apply, the value type, and the operation.<br/> |                                                                                                                                                                                |
+| `responseType`                                                                                                                                                                 | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The shape of the asset representation to return (for example, "public").                                                                                                       |                                                                                                                                                                                |
+| `skipPermissionCheck`                                                                                                                                                          | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Whether to skip permission enforcement for the update. Internal use only. Default is false.                                                                                    |                                                                                                                                                                                |
+| `additionalProperties`                                                                                                                                                         | Record<string, *any*>                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                             | N/A                                                                                                                                                                            |                                                                                                                                                                                |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |                                                                                                                                                                                |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |                                                                                                                                                                                |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |                                                                                                                                                                                |
+
+### Response
+
+**Promise\<[components.ResourceInternalResponse](../../models/components/resourceinternalresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.ApiError  | 400, 401, 404    | application/json |
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
+
+## listResourcesByContainerId
+
+Returns the assets contained in the folder identified by the given container ID.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="listResourcesByContainerId" method="get" path="/v1_1/{cloud_name}/resources/by_container_id/{container_id}" -->
+```typescript
+import { CloudinaryAssetMgmt } from "@cloudinary/asset-management";
+
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmt({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const result = await cloudinaryAssetMgmt.assets.listResourcesByContainerId("cd7e9d690a014c68ae8b58f08e090cb03a");
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CloudinaryAssetMgmtCore } from "@cloudinary/asset-management/core.js";
+import { assetsListResourcesByContainerId } from "@cloudinary/asset-management/funcs/assetsListResourcesByContainerId.js";
+
+// Use `CloudinaryAssetMgmtCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const cloudinaryAssetMgmt = new CloudinaryAssetMgmtCore({
+  cloudName: "my_cloud",
+  security: {
+    cloudinaryAuth: {
+      apiKey: "CLOUDINARY_API_KEY",
+      apiSecret: "CLOUDINARY_API_SECRET",
+    },
+  },
+});
+
+async function run() {
+  const res = await assetsListResourcesByContainerId(cloudinaryAssetMgmt, "cd7e9d690a014c68ae8b58f08e090cb03a");
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("assetsListResourcesByContainerId failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `containerId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The immutable identifier of the folder container whose assets are listed.                                                                                                      | cd7e9d690a014c68ae8b58f08e090cb03a                                                                                                                                             |
+| `maxResults`                                                                                                                                                                   | *number*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The maximum number of results to return. Default is 10.                                                                                                                        |                                                                                                                                                                                |
+| `nextCursor`                                                                                                                                                                   | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The cursor for pagination. Use the next_cursor value from a previous response to get the next page of results.                                                                 |                                                                                                                                                                                |
+| `sortBy`                                                                                                                                                                       | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The field by which the assets are sorted. Default is "uploaded_at".                                                                                                            |                                                                                                                                                                                |
+| `fields`                                                                                                                                                                       | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | A comma-separated list of asset fields to include in each returned asset.                                                                                                      |                                                                                                                                                                                |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |                                                                                                                                                                                |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |                                                                                                                                                                                |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |                                                                                                                                                                                |
+
+### Response
+
+**Promise\<[components.ResourcesByContainerIdResponse](../../models/components/resourcesbycontaineridresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.ApiError  | 400, 401, 403    | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |
