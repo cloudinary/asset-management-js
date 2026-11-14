@@ -5,7 +5,6 @@
 import { assetsListResourcesByModerationKindAndStatus } from "../funcs/assetsListResourcesByModerationKindAndStatus.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as components from "../models/components/index.js";
-import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Moderations extends ClientSDK {
@@ -17,12 +16,12 @@ export class Moderations extends ClientSDK {
    */
   async listResourcesByModerationKindAndStatus(
     resourceType: components.ResourceType,
-    moderationKind: operations.ModerationKind,
-    moderationStatus: operations.ModerationStatus,
-    fields?: Array<components.FieldsSpec> | undefined,
+    moderationKind: components.ModerationKind,
+    moderationStatus: components.ModerationStatusParameter,
+    fields?: components.Fields | undefined,
     nextCursor?: string | undefined,
     maxResults?: number | undefined,
-    direction?: components.Direction | undefined,
+    direction?: components.DirectionEnum | undefined,
     options?: RequestOptions,
   ): Promise<components.ListResponse> {
     return unwrapAsync(assetsListResourcesByModerationKindAndStatus(
