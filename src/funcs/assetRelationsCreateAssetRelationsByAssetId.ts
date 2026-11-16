@@ -4,6 +4,7 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -30,12 +31,12 @@ import { Result } from "../types/fp.js";
  * Add related assets by asset ID
  *
  * @remarks
- * Relates an asset to other assets by their asset IDs, an immutable identifier, regardless of public ID, display name, asset folder, resource type or deliver type. This is a bidirectional process, meaning that the asset will also be added as a related_asset to all the other assets specified. The relation is also a one to many relationship, where the asset is related to all the assets specified, but those assets aren't also related to each other.
+ * Relates an asset to other assets by their asset IDs, an immutable identifier, regardless of public ID, display name, asset folder, resource type or delivery type. This is a bidirectional process, meaning that the asset will also be added as a related_asset to all the other assets specified. The relation is also a one to many relationship, where the asset is related to all the assets specified, but those assets aren't also related to each other.
  */
 export function assetRelationsCreateAssetRelationsByAssetId(
   client: CloudinaryAssetMgmtCore,
   assetId: string,
-  requestBody: operations.CreateAssetRelationsByAssetIdRequestBody,
+  relateAssetsByAssetIdRequest: components.RelateAssetsByAssetIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -54,7 +55,7 @@ export function assetRelationsCreateAssetRelationsByAssetId(
   return new APIPromise($do(
     client,
     assetId,
-    requestBody,
+    relateAssetsByAssetIdRequest,
     options,
   ));
 }
@@ -62,7 +63,7 @@ export function assetRelationsCreateAssetRelationsByAssetId(
 async function $do(
   client: CloudinaryAssetMgmtCore,
   assetId: string,
-  requestBody: operations.CreateAssetRelationsByAssetIdRequestBody,
+  relateAssetsByAssetIdRequest: components.RelateAssetsByAssetIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -83,7 +84,7 @@ async function $do(
 > {
   const input: operations.CreateAssetRelationsByAssetIdRequest = {
     assetId: assetId,
-    requestBody: requestBody,
+    relateAssetsByAssetIdRequest: relateAssetsByAssetIdRequest,
   };
 
   const parsed = safeParse(
@@ -98,7 +99,9 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.RequestBody, { explode: true });
+  const body = encodeJSON("body", payload.relate_assets_by_asset_id_request, {
+    explode: true,
+  });
 
   const pathParams = {
     asset_id: encodeSimple("asset_id", payload.asset_id, {
@@ -110,7 +113,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc(
     "/v1_1/{cloud_name}/resources/related_assets/{asset_id}",
   )(pathParams);
@@ -127,7 +129,7 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "createAssetRelationsByAssetId",
-    oAuth2Scopes: [],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 
@@ -155,7 +157,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "404", "4XX", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
