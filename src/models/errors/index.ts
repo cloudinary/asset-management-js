@@ -3,9 +3,17 @@
  */
 
 export * from "./apierror.js";
-export * from "./downloadbackupasset.js";
+export * from "./cloudinaryassetmgmterror.js";
+export * from "./collectionsbadrequestresponseerror.js";
+export * from "./collectionsforbiddenresponseerror.js";
+export * from "./collectionsinternalservererrorresponse.js";
+export * from "./collectionsnotfoundresponseerror.js";
+export * from "./collectionsunauthorizedresponseerror.js";
+export * from "./errorresponse.js";
+export * from "./errorwrappedresponse.js";
 export * from "./httpclienterrors.js";
 export * from "./listresourcetypes.js";
+export * from "./ratelimitedresponseerror.js";
 export * from "./responsevalidationerror.js";
 export * from "./sdkerror.js";
 export * from "./sdkvalidationerror.js";
