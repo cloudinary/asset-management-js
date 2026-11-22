@@ -4,12 +4,12 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { encodePath, RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
-import { pathToFunc } from "../lib/url.js";
 import * as components from "../models/components/index.js";
 import { CloudinaryAssetMgmtError } from "../models/errors/cloudinaryassetmgmterror.js";
 import {
@@ -34,8 +34,8 @@ import { Result } from "../types/fp.js";
  */
 export function foldersSearchFolders(
   client: CloudinaryAssetMgmtCore,
-  expression?: operations.ExpressionUnion | undefined,
-  sortBy?: Array<string> | undefined,
+  expression?: string | undefined,
+  sortBy?: Array<{ [k: string]: components.DirectionEnum }> | undefined,
   maxResults?: number | undefined,
   nextCursor?: string | undefined,
   options?: RequestOptions,
@@ -65,8 +65,8 @@ export function foldersSearchFolders(
 
 async function $do(
   client: CloudinaryAssetMgmtCore,
-  expression?: operations.ExpressionUnion | undefined,
-  sortBy?: Array<string> | undefined,
+  expression?: string | undefined,
+  sortBy?: Array<{ [k: string]: components.DirectionEnum }> | undefined,
   maxResults?: number | undefined,
   nextCursor?: string | undefined,
   options?: RequestOptions,
@@ -111,8 +111,14 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
-  const path = pathToFunc("/v1_1/{cloud_name}/folders/search")(pathParams);
+  const pathResult = encodePath(
+    "/v1_1/{cloud_name}/folders/search",
+    pathParams,
+  );
+  if (!pathResult.ok) {
+    return [pathResult, { status: "invalid" }];
+  }
+  const path = pathResult.value;
 
   const query = encodeFormQuery({
     "expression": payload.expression,
@@ -132,7 +138,7 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "searchFolders",
-    oAuth2Scopes: [],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 
@@ -161,7 +167,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "4XX", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
