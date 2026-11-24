@@ -20,7 +20,6 @@ let value: SearchResponse = {
       format: "jpg",
       version: 1719316754,
       resourceType: "image",
-      type: "upload",
       createdAt: new Date("2024-06-25T11:59:14+00:00"),
       uploadedAt: new Date("2024-06-25T11:59:14+00:00"),
       bytes: 71063,
@@ -35,13 +34,34 @@ let value: SearchResponse = {
         "https://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg",
       status: "active",
       accessMode: "public",
-      accessControl: null,
+      accessControl: [
+        {
+          accessType: "token",
+          key: "prod2024",
+        },
+        {
+          accessType: "anonymous",
+          start: "2024-03-15T09:00:00Z",
+          end: "2024-06-30T23:59:59Z",
+        },
+      ],
       etag: "7242da7b353e7da2c3eb8c006165b385",
       createdBy: {
-        accessKey: "614335564976464",
+        accessKey: "149945967172831",
+        customId: "matthew@example.com",
+        externalId: "0b8cd452de3ce172a6aec7af0a90db",
       },
       uploadedBy: {
-        accessKey: "614335564976464",
+        accessKey: "149945967172831",
+        customId: "matthew@example.com",
+        externalId: "0b8cd452de3ce172a6aec7af0a90db",
+      },
+      provenance: {
+        hasC2pa: false,
+        aiGenerated: true,
+      },
+      imageAnalysis: {
+        hdr: false,
       },
     },
   ],

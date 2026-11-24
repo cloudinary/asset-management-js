@@ -16,10 +16,20 @@ const value: components.Info = {
     },
     {
       accessType: "anonymous",
-      start: new Date("2024-03-15T09:00:00Z"),
-      end: new Date("2024-06-30T23:59:59Z"),
+      start: "2024-03-15T09:00:00Z",
+      end: "2024-06-30T23:59:59Z",
     },
   ],
+  createdBy: {
+    accessKey: "149945967172831",
+    customId: "matthew@example.com",
+    externalId: "0b8cd452de3ce172a6aec7af0a90db",
+  },
+  uploadedBy: {
+    accessKey: "149945967172831",
+    customId: "matthew@example.com",
+    externalId: "0b8cd452de3ce172a6aec7af0a90db",
+  },
   derivatives: [
     {
       id: "5a73fd588cb301206c0a5c5c6ad796b3",

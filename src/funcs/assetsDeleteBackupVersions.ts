@@ -3,13 +3,14 @@
  */
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
-import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { encodeFormQuery, encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { encodePath, RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
-import { pathToFunc } from "../lib/url.js";
+import * as components from "../models/components/index.js";
 import { CloudinaryAssetMgmtError } from "../models/errors/cloudinaryassetmgmterror.js";
 import {
   ConnectionError,
@@ -29,13 +30,18 @@ import { Result } from "../types/fp.js";
  * Delete backed up versions
  *
  * @remarks
- * Deletes specific backed up versions of an asset identified by asset ID.
+ * Deletes specific backed up versions of an asset identified by asset ID (`version_ids` in the body), or every backed up version of the asset (`all=true`).
+ * With `all=true` one call removes up to 100 versions; an asset with more versions is rejected with a 400 asking for `async=true`, which removes them in the background.
  * This operation is irreversible and deleted versions cannot be recovered.
  */
 export function assetsDeleteBackupVersions(
   client: CloudinaryAssetMgmtCore,
   assetId: string,
-  requestBody: operations.DeleteBackupVersionsRequestBody,
+  all?: boolean | undefined,
+  async?: boolean | undefined,
+  deleteBackupVersionsRequest?:
+    | components.DeleteBackupVersionsRequest
+    | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -54,7 +60,9 @@ export function assetsDeleteBackupVersions(
   return new APIPromise($do(
     client,
     assetId,
-    requestBody,
+    all,
+    async,
+    deleteBackupVersionsRequest,
     options,
   ));
 }
@@ -62,7 +70,11 @@ export function assetsDeleteBackupVersions(
 async function $do(
   client: CloudinaryAssetMgmtCore,
   assetId: string,
-  requestBody: operations.DeleteBackupVersionsRequestBody,
+  all?: boolean | undefined,
+  async?: boolean | undefined,
+  deleteBackupVersionsRequest?:
+    | components.DeleteBackupVersionsRequest
+    | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -83,7 +95,9 @@ async function $do(
 > {
   const input: operations.DeleteBackupVersionsRequest = {
     assetId: assetId,
-    requestBody: requestBody,
+    all: all,
+    async: async,
+    deleteBackupVersionsRequest: deleteBackupVersionsRequest,
   };
 
   const parsed = safeParse(
@@ -96,7 +110,9 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.RequestBody, { explode: true });
+  const body = encodeJSON("body", payload.delete_backup_versions_request, {
+    explode: true,
+  });
 
   const pathParams = {
     asset_id: encodeSimple("asset_id", payload.asset_id, {
@@ -108,10 +124,19 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
-  const path = pathToFunc("/v1_1/{cloud_name}/resources/backup/{asset_id}")(
+  const pathResult = encodePath(
+    "/v1_1/{cloud_name}/resources/backup/{asset_id}",
     pathParams,
   );
+  if (!pathResult.ok) {
+    return [pathResult, { status: "invalid" }];
+  }
+  const path = pathResult.value;
+
+  const query = encodeFormQuery({
+    "all": payload.all,
+    "async": payload.async,
+  });
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -125,7 +150,7 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "deleteBackupVersions",
-    oAuth2Scopes: [],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 
@@ -142,6 +167,7 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
+    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
@@ -153,7 +179,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "404", "4XX", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
