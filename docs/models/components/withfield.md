@@ -5,11 +5,11 @@
 ```typescript
 import { WithField } from "@cloudinary/asset-management/models/components";
 
-let value: WithField = "image_analysis";
+let value: WithField = "metadata";
 ```
 
 ## Values
 
 ```typescript
-"context" | "tags" | "image_metadata" | "image_analysis" | "metadata" | "quality_analysis" | "accessibility_analysis"
+"context" | "tags" | "image_metadata" | "image_analysis" | "metadata" | "quality_analysis" | "accessibility_analysis" | "provenance"
 ```
