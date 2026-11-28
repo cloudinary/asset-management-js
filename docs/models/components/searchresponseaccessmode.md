@@ -1,6 +1,6 @@
 # SearchResponseAccessMode
 
-The access mode of the asset.
+The access mode of the asset. Null when not explicitly set.
 
 ## Example Usage
 

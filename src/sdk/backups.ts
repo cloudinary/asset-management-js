@@ -4,6 +4,7 @@
 
 import { assetsDeleteBackupVersions } from "../funcs/assetsDeleteBackupVersions.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as components from "../models/components/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -12,18 +13,25 @@ export class Backups extends ClientSDK {
    * Delete backed up versions
    *
    * @remarks
-   * Deletes specific backed up versions of an asset identified by asset ID.
+   * Deletes specific backed up versions of an asset identified by asset ID (`version_ids` in the body), or every backed up version of the asset (`all=true`).
+   * With `all=true` one call removes up to 100 versions; an asset with more versions is rejected with a 400 asking for `async=true`, which removes them in the background.
    * This operation is irreversible and deleted versions cannot be recovered.
    */
   async deleteBackupVersions(
     assetId: string,
-    requestBody: operations.DeleteBackupVersionsRequestBody,
+    all?: boolean | undefined,
+    async?: boolean | undefined,
+    deleteBackupVersionsRequest?:
+      | components.DeleteBackupVersionsRequest
+      | undefined,
     options?: RequestOptions,
   ): Promise<operations.DeleteBackupVersionsResponse> {
     return unwrapAsync(assetsDeleteBackupVersions(
       this,
       assetId,
-      requestBody,
+      all,
+      async,
+      deleteBackupVersionsRequest,
       options,
     ));
   }
